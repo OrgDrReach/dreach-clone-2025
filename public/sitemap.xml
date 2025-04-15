@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="sitemap-stylesheet.xsl"?>
+      <urlset xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 
+      http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" 
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" 
+      xmlns:xhtml="http://www.w3.org/1999/xhtml">
+      
+	<url>
+		<loc>https://dreach.in/</loc>
+		<lastmod>2024-10-14</lastmod>
+	</url>
+
+	<url>
+		<loc>https://dreach.in/about</loc>
+		<lastmod>2024-10-14</lastmod>
+	</url>
+
+	<url>
+		<loc>https://dreach.in/careers</loc>
+		<lastmod>2024-10-14</lastmod>
+	</url>
+
+	<url>
+		<loc>https://dreach.in/contact</loc>
+		<lastmod>2024-10-14</lastmod>
+	</url>
+
+	<url>
+		<loc>https://dreach.in/doctors</loc>
+		<lastmod>2024-10-14</lastmod>
+	</url>
+
+	<url>
+		<loc>https://dreach.in/services</loc>
+		<lastmod>2024-10-14</lastmod>
+	</url>
+</urlset>
