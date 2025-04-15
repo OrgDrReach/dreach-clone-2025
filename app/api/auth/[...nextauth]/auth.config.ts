@@ -73,6 +73,7 @@ export const authOptions: NextAuthOptions = {
     pages: {
         signIn: "/auth/login",
         error: "/auth/error",
+		newUser: "/",
     },
 	callbacks: {
 		async jwt({ token, user, account }) {
@@ -90,7 +91,6 @@ export const authOptions: NextAuthOptions = {
 				token.address = user.address;
 				token.profileImage = user.profileImage;
 	
-				// If account exists (e.g., during initial login), make a signup request
 				if (account) {
 					try {
 						const res = await fetch(`${process.env.SERVER_URL}/user/signup`, {
@@ -131,10 +131,6 @@ export const authOptions: NextAuthOptions = {
 				session.user.address = token.address as typeof session.user.address;
 				session.user.profileImage = token.profileImage as string | undefined;
 	
-				// Include additional signup data in the session if available
-				if (token.signupData) {
-					session.signupData = token.signupData;
-				}
 			}
 			return session;
 		},
