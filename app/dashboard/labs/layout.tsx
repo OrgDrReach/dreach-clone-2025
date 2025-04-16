@@ -1,9 +1,8 @@
 import { ubuntu } from "@/@types/font/Font";
 import { RNChildProp } from "@/@types/interface/Interface";
-import { DoctorSideNav, Header } from "@/components/dashboard/ui";
-import { ScrollArea } from "@/components/ui";
+import { Header, LabSideNav } from "@/components/dashboard/ui";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import type { Viewport } from "next";
-import { useSession } from "next-auth/react";
 import React from "react";
 
 export const viewport: Viewport = {
@@ -11,12 +10,17 @@ export const viewport: Viewport = {
 	initialScale: 1,
 };
 
+export const metadata = {
+	title: "Laboratory Dashboard | Dr. Reach",
+	description: "Laboratory services and test management dashboard",
+};
+
 const Layout: React.FC<RNChildProp> = ({ children }: RNChildProp) => {
 	return (
 		<main className={ubuntu.className}>
 			<div className="flex h-screen">
 				<section>
-					<DoctorSideNav />
+					<LabSideNav />
 				</section>
 				<div className="w-[100%] h-screen overflow-y-auto mx-auto">
 					<div className="bg-[#125872] text-white border-b border-[#fff]/10">
