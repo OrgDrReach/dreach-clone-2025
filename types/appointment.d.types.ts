@@ -5,7 +5,7 @@ export interface Appointment {
   providerType: ProviderType;
   dateTime: Date;
   status: EAppointmentStatus;
-  mode: EAppointmentMode;
+  service: EAppointmentMode;
   reason?: string;
   notes?: string;
   payment?: PaymentInfo;

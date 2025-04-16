@@ -14,10 +14,12 @@ declare module "next-auth"{
     bloodGroup:string,
     profilePic:string,
     email:string,
-    Phone:string, 
+    phone:string, 
 
     serviceProvider:{
       id:string
+      userId:string,
+      providerType:string,
       description:string,
       fee:string,
       specialization:string[],

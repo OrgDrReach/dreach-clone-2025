@@ -8,16 +8,19 @@ declare module "next-auth" {
 			id: string;
 			email: string;
 			phone: string;
-			firstName: string;
-			lastName: string;
+			name: string;
+			name: string;
 			role: EUserRole;
-			isVerified: boolean;
-			providerRole?:
-				| "doctor"
-				| "hospital"
-				| "lab"
-				| "pharmaceutical"
-				| "ambulance";
+			// isVerified: boolean;
+			// role?:
+			// 	| "Doctor"
+			// 	| "Hospital"
+			// 	| "Lab"
+			// 	| "Nursing"
+			// 	| "DoctorsAssistant"
+			// 	| "Admin"
+			// 	| "SuperAdmin"
+			// 	| "patient";
 			address?: IAddress[];
 			profileImage?: string;
 		} & DefaultSession["user"];
@@ -27,16 +30,15 @@ declare module "next-auth" {
 		id: string;
 		email: string;
 		phone: string;
-		firstName: string;
-		lastName: string;
+		name: string;
 		role: EUserRole;
-		isVerified: boolean;
-		providerRole?:
-			| "doctor"
-			| "hospital"
-			| "lab"
-			| "pharmaceutical"
-			| "ambulance";
+		// isVerified: boolean;
+		// providerRole?:
+		// 	| "doctor"
+		// 	| "hospital"
+		// 	| "lab"
+		// 	| "pharmaceutical"
+		// 	| "ambulance";
 		address?: IAddress[];
 		profileImage?: string;
 	}
@@ -47,16 +49,15 @@ declare module "next-auth/jwt" {
 		id: string;
 		email: string;
 		phone: string;
-		firstName: string;
-		lastName: string;
+		name: string;
 		role: EUserRole;
 		isVerified: boolean;
-		providerRole?:
-			| "doctor"
-			| "hospital"
-			| "lab"
-			| "pharmaceutical"
-			| "ambulance";
+		// providerRole?:
+		// 	| "doctor"
+		// 	| "hospital"
+		// 	| "lab"
+		// 	| "pharmaceutical"
+		// 	| "ambulance";
 		address?: IAddress[];
 		profileImage?: string;
 	}

@@ -1,15 +1,16 @@
 "use client";
+
 import { useAppDispatch, useAppSelector } from "@/Redux/hooks/hooks";
 import { setDob } from "@/Redux/reducers/UserReducers";
-import { UpdateProfileImage, updateUser } from "@/ServerActions";
+import { updateUser } from "@/ServerActions";
 import { DatePickerDemo } from "@/components/DatePicker";
 import { loadToast, updateToast } from "@/utils/utils";
 import { useSession } from "next-auth/react";
 import { redirect, useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import Select from "react-select";
+
 const bloodGroupMap = {
   A_POSITIVE: "A+",
   A_NEGATIVE: "A-",
@@ -23,98 +24,22 @@ const bloodGroupMap = {
 
 const ProfileSettings = () => {
   const router = useRouter();
-  const dispacth = useAppDispatch();
-  const dobDate = useAppSelector((state) => state.userReducer.dob);
-  const [file, setFile] = React.useState<File | null>(null);
-  const onSubmit = async (data: any) => {
-    if (!session.data?.data.id) {
-      return toast.error("Session Expired,Refresh the page");
-    }
-    const {
-      Fname,
-      Lname,
-      bloodGroup,
-      gender,
-      contact,
-      address,
-      city,
-      state,
-      pincode,
-      country,
-    } = data;
-    const Address = {
-      address,
-      city,
-      state,
-      pincode,
-      country,
-    };
-    const payload = {
-      Fname,
-      Lname,
-      dob: dobDate.toString(),
-      bloodGroup,
-      contact,
-      Address,
-      userId: session.data?.data.id,
-      gender,
-    };
+  const dispatch = useAppDispatch();
+  const dobDate: Date | null = useAppSelector((state: { userReducer: { dob: Date | null } }) => state.userReducer.dob);
+  const [file, setFile] = useState<File | null>(null);
+  const session = useSession();
 
-    const tosastId = loadToast("Updating Profile");
-
-
-
-    const formData = new FormData();
-    if (file) {
-      formData.append("profileImage", file);
-    }
-    formData.set("userId", session.data.data.id);
-    formData.set("Fname", Fname);
-    formData.set("Lname", Lname);
-    formData.set("dob", dobDate.toString());
-    formData.set("bloodGroup", bloodGroup);
-    formData.set("contact", contact);
-    formData.set('Address', JSON.stringify(Address));
-    formData.set('gender', gender)
-    // const res = await UpdateProfileImage(formData);
-
-    const update = await updateUser(formData);
-
-    console.log(update.data);
-
-    if (update.status === 201) {
-      updateToast(tosastId, "Profile Updated", "success");
-      await session.update({
-        ...session,
-        data: update.data,
-      });
-      return router.push("/user/dashboard");
-    }
-
-    if (update.status === 400) {
-      updateToast(tosastId, "Error Updating Profile", "error");
-    }
-
-    if (update.status === 500) {
-      updateToast(tosastId, "Server Error", "error");
-    }
-  };
-
-
-  useEffect(() => {
-    if (session.data?.data.dob)
-      dispacth(setDob(new Date(session.data.data.dob) as Date));
-  }, []);
   const {
     register,
     handleSubmit,
-    watch,
-    setValue,
-    getFieldState,
-
     formState: { errors },
   } = useForm();
-  const session = useSession();
+
+  useEffect(() => {
+    if (session.data?.data.dob) {
+      dispatch(setDob(new Date(session.data.data.dob)));
+    }
+  }, [session.data?.data.dob, dispatch]);
 
   if (session.status === "loading") {
     return <div className="h-[900px]">Loading...</div>;
@@ -130,430 +55,295 @@ const ProfileSettings = () => {
     }
   };
 
-  // const handleOnProfileChange = async () => {
-  //   if (!file) {
-  //     return alert("No File Selected");
-  //   }
+  const onSubmit = async (data: any) => {
+    if (!session.data?.data.id) {
+      return toast.error("Session Expired, Refresh the page");
+    }
 
-  //   const formData = new FormData();
-  //   formData.append("profileImage", file);
-  //   formData.set("userId", session.data.data.id);
-  //   const res = await UpdateProfileImage(formData);
+    const { name, bloodGroup, gender, phone, address, city, state, pincode, country } = data;
+    const Address = { address, city, state, pincode, country };
 
-  //   if (!res) {
-  //     return alert("Error Uploading Image");
-  //   }
+    const formData = new FormData();
+    if (file) {
+      formData.append("profileImage", file);
+    }
+    formData.set("userId", session.data.data.id);
+    formData.set("name", name);
+    formData.set("dob", dobDate.toString());
+    formData.set("bloodGroup", bloodGroup);
+    formData.set("phone", phone);
+    formData.set("Address", JSON.stringify(Address));
+    formData.set("gender", gender);
 
-  //   const { profilePic, ...rest } = session.data.data;
+    const toastId = loadToast("Updating Profile");
 
-  //   const newData = {
-  //     ...rest,
-  //     profilePic: res.profilePic,
-  //   };
+    try {
+      const update = await updateUser(formData);
 
-  //   //update session
-  //   await session.update({
-  //     ...session,
-  //     data: newData,
-  //   });
+      if (update.status === 201) {
+        updateToast(toastId, "Profile Updated", "success");
+        await session.update({ ...session, data: update.data });
+        return router.push("/user/dashboard");
+      }
 
-  //   // console.log(res);
-  // };
+      if (update.status === 400) {
+        updateToast(toastId, "Error Updating Profile", "error");
+      }
+
+      if (update.status === 500) {
+        updateToast(toastId, "Server Error", "error");
+      }
+    } catch (error) {
+      updateToast(toastId, "Unexpected Error", "error");
+      console.error("Error updating profile:", error);
+    }
+  };
 
   return (
-    <>
-      {/* {JSON.stringify(session.data)} */}
-      {/* Page Content */}
-      <div className="content">
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-md-7 col-lg-8 col-xl-9">
-              <div className="card">
-                <div className="card-body">
-                  {/* Profile Settings Form */}
-                  <form onSubmit={handleSubmit(onSubmit)}>
-                    <div className="row form-row">
-                      <div className="col-12 col-md-12">
-                        <div className="form-group">
-                          <div className="change-avatar">
-                            <div className="profile-img">
-                              <img
-                                src={`${file?(URL.createObjectURL(file)):session.data.data.profilePic
-                                    ? `https://storage.googleapis.com/kiitconnect_bucket/doctorProfile/${session.data.data.profilePic}`
-                                    : "/assets/doctor-2.jpg"
-                                  } `}
-                                alt="User Image"
+    <div className="content">
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-md-7 col-lg-8 col-xl-9">
+            <div className="card">
+              <div className="card-body">
+                <form onSubmit={handleSubmit(onSubmit)}>
+                  <div className="row form-row">
+                    <div className="col-12 col-md-12">
+                      <div className="form-group">
+                        <div className="change-avatar">
+                          <div className="profile-img">
+                            <img
+                              src={
+                                file
+                                  ? URL.createObjectURL(file)
+                                  : session.data.data.profilePic
+                                  ? `https://drrreach.s3.ap-south-1.amazonaws.com/doctorProfile/${session.data.data.profilePic}`
+                                  : "/assets/doctor-2.jpg"
+                              }
+                              alt="User Image"
+                            />
+                          </div>
+                          <div className="upload-img flex flex-col">
+                            <div className="change-photo-btn">
+                              <span>
+                                <i className="fa fa-upload" /> Edit Image
+                              </span>
+                              <input
+                                onChange={handleOnFileChange}
+                                type="file"
+                                className="upload"
                               />
                             </div>
-                            <div className="upload-img  flex flex-col">
-                              <div className="change-photo-btn">
-                                <span>
-                                  <i className="fa fa-upload" /> Edit Image
-                                </span>
-                                <input
-                                  onChange={handleOnFileChange}
-                                  type="file"
-                                  className="upload"
-                                />
-                              </div>
-                              {/* <button
-                                type="button"
-                                onClick={handleOnProfileChange}
-                                className=" w-[150px] btn btn-primary"
-                              >
-                                Save{" "}
-                              </button> */}
-                              <small className="form-text text-muted">
-                                Allowed JPG, GIF or PNG. Max size of 2MB
-                              </small>
-                            </div>
+                            <small className="form-text text-muted">
+                              Allowed JPG, GIF, or PNG. Max size of 2MB
+                            </small>
                           </div>
                         </div>
                       </div>
-                      <div className="col-12 col-md-6">
-                        <div className="form-group">
-                          <label>
-                            First Name <span className="text-red-600">*</span>
-                          </label>
-                          <input
-                            {...register("Fname", { required: true })}
-                            type="text"
-                            className="form-control"
-                            defaultValue={session.data.data.Fname ?? ""}
-                          />
-                          {errors.Fname && (
-                            <span className="text-danger">
-                              This field is required
-                            </span>
-                          )}
-                        </div>
+                    </div>
+
+                    <div className="col-12 col-md-6">
+                      <div className="form-group">
+                        <label>
+                          Name <span className="text-red-600">*</span>
+                        </label>
+                        <input
+                          {...register("name", { required: true })}
+                          type="text"
+                          className="form-control"
+                          defaultValue={session.data.data.name ?? ""}
+                        />
+                        {errors.name && (
+                          <span className="text-danger">This field is required</span>
+                        )}
                       </div>
-                      <div className="col-12 col-md-6 ">
-                        <div className="form-group">
-                          <label>
-                            Last Name <span className="text-red-600">*</span>
-                          </label>
-                          <input
-                            {...register("Lname", { required: true })}
-                            type="text"
-                            className="form-control"
-                            defaultValue={session.data.data.Lname ?? ""}
-                          />
-                          {errors.Lname && (
-                            <span className="text-danger">
-                              This field is required
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                      <div className="col-12 col-md-6">
-                        <div className="form-group">
-                          <label>
-                            Date of Birth{" "}
-                            <span className="text-red-600">*</span>
-                          </label>
-                          <div className="cal-icon">
-                            {/* <input
-                              {...register("dob", { required: true })}
-                              type="date"
-                              className=" w-full border border-gray-500 py-2 px-2 rounded-md "
+                    </div>
 
-                              defaultValue={session.data.data.dob ?? ""}
-                            /> */}
-
-                            <DatePickerDemo />
-                            {errors.dob && (
-                              <span className="text-danger">
-                                This field is required
-                              </span>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col-md-6">
-                        <div className="form-group">
-                          <label>Gender <span className="text-red-600">*</span></label>
-                          <select
-
-                            defaultValue={session.data.data.gender}
-                            {...register("gender", { required: true })}
-                            className="form-control form-select"
-                          >
-                            <option>Male</option>
-                            <option>Female</option>
-                            <option>Other</option>
-                          </select>
-
-                          {errors.gender && (
-                            <span className="text-danger">
-                              This field is required
-                            </span>
-                          )}
-                        </div>
-                      </div>
-
-
-                      <div className="col-md-6">
-                        <div className="form-group">
-                          <label>Blood Group <span className="text-red-600">*</span></label>
-                          <select
-
-                            defaultValue={session.data.data.gender}
-                            {...register("bloodGroup", { required: true })}
-                            className="form-control form-select"
-                          >
-                            <option value="A_POSITIVE">A+</option>
-                            <option value="A_NEGATIVE">A-</option>
-                            <option value="B_POSITIVE">B+</option>
-                            <option value="B_NEGATIVE">B-</option>
-                            <option value="AB_POSITIVE">AB+</option>
-                            <option value="AB_NEGATIVE">AB-</option>
-                            <option value="O_POSITIVE">O+</option>
-                            <option value="O_NEGATIVE">O-</option>
-
-                          </select>
-
-                          {errors.bloodGroup && (
-                            <span className="text-danger">
-                              This field is required
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                      {/* <div className="col-md-6">
-                        <div className="form-group">
-                          <label>
-                            Gender <span className="text-red-600">*</span>
-                          </label>
-                          <Select
-                            defaultValue={{
-                              value: session.data.data.gender,
-                              label: session.data.data.gender,
-                            }}
-                            onChange={(e) => {
-                              setValue("gender", e?.value);
-                            }}
-                            classNamePrefix="react-select"
-                            options={[
-                              { value: "Male", label: "Male" },
-                              { value: "Female", label: "Female" },
-                              { value: "Other", label: "Other" },
-                            ]}
-                          />
-
-                          {errors.gender && (
-                            <span className="text-danger">
-                              This field is required
-                            </span>
-                          )}
-                        </div>
-                      </div> */}
-                      {/* <div className="col-12 col-md-6">
-                        <div className="form-group">
-                          <label>
-                            Blood Group <span className="text-red-600">*</span>
-                          </label>
-
-                          <Select
-                            defaultValue={{
-                              value: session.data.data.bloodGroup,
-                              label:
-                                bloodGroupMap[
-                                session.data.data
-                                  .bloodGroup as keyof typeof bloodGroupMap
-                                ],
-                            }}
-                            onChange={(e) => {
-                              setValue("bloodGroup", e?.value);
-                            }}
-                            classNamePrefix="react-select"
-                            options={[
-                              {
-                                label: "A-",
-                                value: "A_NEGATIVE",
-                              },
-                              {
-                                label: "A+",
-                                value: "A_POSITIVE",
-                              },
-                              {
-                                label: "B-",
-                                value: "B_NEGATIVE",
-                              },
-                              {
-                                label: "B+",
-                                value: "B_POSITIVE",
-                              },
-                              {
-                                label: "AB-",
-                                value: "AB_NEGATIVE",
-                              },
-                              {
-                                label: "AB+",
-                                value: "AB_POSITIVE",
-                              },
-                              {
-                                label: "O-",
-                                value: "O_NEGATIVE",
-                              },
-                              {
-                                label: "O+",
-                                value: "O_POSITIVE",
-                              },
-                            ]}
-                          />
-                        </div>
-                      </div> */}
-                      <div className="col-12 col-md-6">
-                        <div className="form-group">
-                          <label>
-                            Email ID <span className="text-red-600">*</span>
-                          </label>
-                          <input
-                            // {...register("email", { required: true })}
-                            disabled
-                            type="email"
-                            className="form-control"
-                            defaultValue={session.data.data.email ?? ""}
-                          />
-                        </div>
-                      </div>
-                      <div className="col-12 col-md-6">
-                        <div className="form-group">
-                          <label>
-                            Mobile <span className="text-red-600">*</span>
-                          </label>
-                          <input
-                            {...register("contact", { required: true })}
-                            type="text"
-                            defaultValue={session.data.data.contact ?? ""}
-                            className="form-control"
-                          />
-                          {errors.contact && (
-                            <span className="text-danger">
-                              This field is required
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                      <div className="col-12">
-                        <div className="form-group">
-                          <label>
-                            Address <span className="text-red-600">*</span>
-                          </label>
-                          <input
-                            {...register("address", { required: true })}
-                            type="text"
-                            className="form-control"
-                            defaultValue={
-                              session.data.data.address?.address ?? ""
-                            }
-                          />
-                          {errors.address && (
-                            <span className="text-danger">
-                              This field is required
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                      <div className="col-12 col-md-6">
-                        <div className="form-group">
-                          <label>
-                            City <span className="text-red-600">*</span>
-                          </label>
-                          <input
-                            {...register("city", { required: true })}
-                            type="text"
-                            className="form-control"
-                            defaultValue={session.data.data.address?.city ?? ""}
-                          />
-                          {errors.city && (
-                            <span className="text-danger">
-                              This field is required
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                      <div className="col-12 col-md-6">
-                        <div className="form-group">
-                          <label>
-                            State <span className="text-red-600">*</span>
-                          </label>
-                          <input
-                            {...register("state", { required: true })}
-                            type="text"
-                            className="form-control"
-                            defaultValue={
-                              session.data.data.address?.state ?? ""
-                            }
-                          />
-                          {errors.state && (
-                            <span className="text-danger">
-                              This field is required
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                      <div className="col-12 col-md-6">
-                        <div className="form-group">
-                          <label>
-                            Zip Code <span className="text-red-600">*</span>
-                          </label>
-                          <input
-                            {...register("pincode", { required: true })}
-                            type="text"
-                            className="form-control"
-                            defaultValue={
-                              session.data.data.address?.pincode ?? ""
-                            }
-                          />
-                          {errors.pincode && (
-                            <span className="text-danger">
-                              This field is required
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                      <div className="col-12 col-md-6">
-                        <div className="form-group">
-
-                          <label>
-                            Country <span className="text-red-600">*</span>
-                          </label>
-                          <input
-                            {...register("country", { required: true })}
-                            type="text"
-                            className="form-control"
-                            defaultValue={
-                              session.data.data.address?.country ?? ""
-                            }
-                          />
-                          {errors.country && (
-                            <span className="text-danger">
-                              This field is required
-                            </span>
+                    <div className="col-12 col-md-6">
+                      <div className="form-group">
+                        <label>
+                          Date of Birth <span className="text-red-600">*</span>
+                        </label>
+                        <div className="cal-icon">
+                          <DatePickerDemo />
+                          {errors.dob && (
+                            <span className="text-danger">This field is required</span>
                           )}
                         </div>
                       </div>
                     </div>
-                    <div className="submit-section">
-                      <button
-                        type="submit"
-                        className="btn btn-primary submit-btn"
-                      >
-                        Save Changes
-                      </button>
+
+                    <div className="col-md-6">
+                      <div className="form-group">
+                        <label>
+                          Gender <span className="text-red-600">*</span>
+                        </label>
+                        <select
+                          defaultValue={session.data.data.gender}
+                          {...register("gender", { required: true })}
+                          className="form-control form-select"
+                        >
+                          <option>Male</option>
+                          <option>Female</option>
+                          <option>Other</option>
+                        </select>
+                        {errors.gender && (
+                          <span className="text-danger">This field is required</span>
+                        )}
+                      </div>
                     </div>
-                  </form>
-                  {/* /Profile Settings Form */}
-                </div>
+
+                    <div className="col-md-6">
+                      <div className="form-group">
+                        <label>
+                          Blood Group <span className="text-red-600">*</span>
+                        </label>
+                        <select
+                          defaultValue={session.data.data.bloodGroup}
+                          {...register("bloodGroup", { required: true })}
+                          className="form-control form-select"
+                        >
+                          {Object.entries(bloodGroupMap).map(([key, value]) => (
+                            <option key={key} value={key}>
+                              {value}
+                            </option>
+                          ))}
+                        </select>
+                        {errors.bloodGroup && (
+                          <span className="text-danger">This field is required</span>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="col-12 col-md-6">
+                      <div className="form-group">
+                        <label>
+                          Email ID <span className="text-red-600">*</span>
+                        </label>
+                        <input
+                          disabled
+                          type="email"
+                          className="form-control"
+                          defaultValue={session.data.data.email ?? ""}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="col-12 col-md-6">
+                      <div className="form-group">
+                        <label>
+                          Mobile <span className="text-red-600">*</span>
+                        </label>
+                        <input
+                          {...register("phone", { required: true })}
+                          type="text"
+                          defaultValue={session.data.data.phone ?? ""}
+                          className="form-control"
+                        />
+                        {errors.phone && (
+                          <span className="text-danger">This field is required</span>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="col-12">
+                      <div className="form-group">
+                        <label>
+                          Address <span className="text-red-600">*</span>
+                        </label>
+                        <input
+                          {...register("address", { required: true })}
+                          type="text"
+                          className="form-control"
+                          defaultValue={session.data.data.address?.address ?? ""}
+                        />
+                        {errors.address && (
+                          <span className="text-danger">This field is required</span>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="col-12 col-md-6">
+                      <div className="form-group">
+                        <label>
+                          City <span className="text-red-600">*</span>
+                        </label>
+                        <input
+                          {...register("city", { required: true })}
+                          type="text"
+                          className="form-control"
+                          defaultValue={session.data.data.address?.city ?? ""}
+                        />
+                        {errors.city && (
+                          <span className="text-danger">This field is required</span>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="col-12 col-md-6">
+                      <div className="form-group">
+                        <label>
+                          State <span className="text-red-600">*</span>
+                        </label>
+                        <input
+                          {...register("state", { required: true })}
+                          type="text"
+                          className="form-control"
+                          defaultValue={session.data.data.address?.state ?? ""}
+                        />
+                        {errors.state && (
+                          <span className="text-danger">This field is required</span>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="col-12 col-md-6">
+                      <div className="form-group">
+                        <label>
+                          Zip Code <span className="text-red-600">*</span>
+                        </label>
+                        <input
+                          {...register("pincode", { required: true })}
+                          type="text"
+                          className="form-control"
+                          defaultValue={session.data.data.address?.pincode ?? ""}
+                        />
+                        {errors.pincode && (
+                          <span className="text-danger">This field is required</span>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="col-12 col-md-6">
+                      <div className="form-group">
+                        <label>
+                          Country <span className="text-red-600">*</span>
+                        </label>
+                        <input
+                          {...register("country", { required: true })}
+                          type="text"
+                          className="form-control"
+                          defaultValue={session.data.data.address?.country ?? ""}
+                        />
+                        {errors.country && (
+                          <span className="text-danger">This field is required</span>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="submit-section">
+                    <button type="submit" className="btn btn-primary submit-btn">
+                      Save Changes
+                    </button>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
         </div>
       </div>
-      {/* /Page Content */}
-    </>
+    </div>
   );
 };
 
