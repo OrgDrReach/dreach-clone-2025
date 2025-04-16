@@ -1,11 +1,14 @@
-import React from 'react';
+"use client"
 
-const page: React.FC = () => {
+import React from "react";
+import { Overview } from "@/components/dashboard/patients/Overview";
+
+const PatientDashboard: React.FC = () => {
   return (
-    <main>
-      <div>page</div>
+    <main className="container mx-auto px-4 py-5">
+      <Overview />
     </main>
   );
 };
 
-export default page;
+export default PatientDashboard;
