@@ -75,6 +75,8 @@ export const authOption: NextAuthOptions = {
           email: token.data.email,
           name: token.data.name,
           image: token.data.image,
+          phone: token.data.phone,
+          role: token.data.role,
         };
         session.authToken = token.authToken;
         session.data = token.data;

@@ -69,7 +69,11 @@ const ProfileSettings = () => {
     }
     formData.set("userId", session.data.data.id);
     formData.set("name", name);
-    formData.set("dob", dobDate.toString());
+    if (dobDate) {
+      formData.set("dob", dobDate.toString());
+    } else {
+      return toast.error("Date of Birth is required");
+    }
     formData.set("bloodGroup", bloodGroup);
     formData.set("phone", phone);
     formData.set("Address", JSON.stringify(Address));
