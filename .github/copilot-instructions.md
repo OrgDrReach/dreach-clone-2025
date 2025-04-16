@@ -172,6 +172,14 @@ Each provider type requires specific verification:
 9. Use yarn for package management (e.g., `yarn add` instead of `npm install`)
 10. Always scan for and fix any errors in a file after making changes before moving on to other tasks
 11. When working on multiple files, completely resolve all errors and issues in the current file before proceeding to other files
+12. Only create new files when explicitly requested by the user or when absolutely necessary for implementing requested features
+13. Do not create additional files or write code that hasn't been specifically requested
+14. Before creating any new file:
+    - Verify that the file creation is part of the user's explicit request
+    - Check if the functionality can be implemented using existing files
+    - Get user confirmation if there's any ambiguity about file creation
+15. Follow the existing directory structure when creating new files
+16. Remove any temporarily created files that are no longer needed
 
 ## Key Files and Directories
 
