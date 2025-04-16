@@ -1,0 +1,10 @@
+export { default as PersonalInformation } from './PersonalInformation';
+export { default as MedicalHistory } from './MedicalHistory';
+export { default as HealthGoals } from './HealthGoals';
+export { default as InsuranceInformation } from './InsuranceInformation';
+export { default as ContactPreferences } from './ContactPreferences';
+export { default as ProfilePicture } from './ProfilePicture';
+export { default as Bio } from './Bio';
+export { default as LanguagePreferences } from './LanguagePreferences';
+export { default as SecuritySettings } from './SecuritySettings';
+export { default as AppointmentHistory } from './AppointmentHistory';
