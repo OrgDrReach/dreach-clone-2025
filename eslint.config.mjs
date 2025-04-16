@@ -21,6 +21,7 @@ const eslintConfig = [
       "react-hooks/exhaustive-deps": "off",
       "react-hooks/rules-of-hooks": "off",
       "no-var": "off",
+      "react/jsx-no-undef": "off",
     },
   },
 ];
