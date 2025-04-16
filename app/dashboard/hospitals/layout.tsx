@@ -1,7 +1,6 @@
-// Conditional Layout for dashboards using session
 import { ubuntu } from "@/@types/font/Font";
 import { RNChildProp } from "@/@types/interface/Interface";
-import { AdminSideNav, Header } from "@/components/dashboard/ui";
+import { Header, HospitalSideNav } from "@/components/dashboard/ui";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import type { Viewport } from "next";
@@ -13,8 +12,8 @@ export const viewport: Viewport = {
 };
 
 export const metadata = {
-	title: "Admin Dashboard | Dr. Reach",
-	description: "Admin system management dashboard",
+	title: "Hospital Dashboard | Dr. Reach",
+	description: "Hospital management and administrative dashboard",
 };
 
 const Layout: React.FC<RNChildProp> = ({ children }: RNChildProp) => {
@@ -22,7 +21,7 @@ const Layout: React.FC<RNChildProp> = ({ children }: RNChildProp) => {
 		<main className={ubuntu.className}>
 			<div className="flex h-screen">
 				<div className="hidden md:flex">
-					<AdminSideNav />
+					<HospitalSideNav />
 				</div>
 				<div className="flex-1 flex flex-col">
 					<header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
