@@ -1,32 +1,69 @@
+"use client";
+
 // Conditional Layout for Dashboards using session
 import { ubuntu } from "@/@types/font/Font";
 import { RNChildProp } from "@/@types/interface/Interface";
-import { Header, PatientSideNav } from "@/components/dashboard/ui";
+import { PatientSideNav, Header } from "@/components/dashboard/ui";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { cn } from "@/lib/utils";
 import type { Viewport } from "next";
-import { useSession } from "next-auth/react";
-import React from "react";
-
-export const viewport: Viewport = {
-	width: "device-width",
-	initialScale: 1,
-};
+import React, { useState, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Layout: React.FC<RNChildProp> = ({ children }: RNChildProp) => {
+	const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+
+	const toggleSidebar = useCallback(() => {
+		setIsSidebarCollapsed((prev) => !prev);
+	}, []);
+
 	return (
-		<main className={ubuntu.className}>
-			<div className="flex h-screen">
-				<section>
-					<PatientSideNav />
-				</section>
-				<div className="w-[100%] h-screen overflow-y-auto mx-auto">
-					<div className="bg-[#125872] text-white border-b border-[#fff]/10">
+		<main className={cn("min-h-screen bg-background", ubuntu.className)}>
+			<div className="flex h-screen overflow-hidden">
+				{/* Sidebar */}
+				<motion.aside
+					initial={false}
+					animate={{
+						width: isSidebarCollapsed ? 64 : 256,
+						transition: { duration: 0.3 },
+					}}
+					className="shrink-0 border-r border-[#ffffff1a]">
+					<PatientSideNav
+						onToggle={toggleSidebar}
+						isCollapsed={isSidebarCollapsed}
+					/>
+				</motion.aside>
+
+				{/* Main Content */}
+				<motion.div
+					initial={false}
+					animate={{
+						marginLeft: 0,
+						width: "100%",
+						transition: { duration: 0.3 },
+					}}
+					className="flex-1 flex flex-col min-w-0">
+					{/* Header */}
+					<div className="sticky top-0 z-10 bg-[#125872] border-b border-[#ffffff1a]">
 						<Header />
 					</div>
-					<ScrollArea className="h-[93.9dvh] bg-[#497585] p-4">
-						{children}
+
+					{/* Main Content Area */}
+					<ScrollArea className="flex-1 h-[calc(100vh-4rem)] bg-[#497585]">
+						<div className="container mx-auto p-6">
+							<AnimatePresence mode="wait">
+								<motion.div
+									key={location.pathname}
+									initial={{ opacity: 0, y: 20 }}
+									animate={{ opacity: 1, y: 0 }}
+									exit={{ opacity: 0, y: -20 }}
+									transition={{ duration: 0.2 }}>
+									{children}
+								</motion.div>
+							</AnimatePresence>
+						</div>
 					</ScrollArea>
-				</div>
+				</motion.div>
 			</div>
 		</main>
 	);
