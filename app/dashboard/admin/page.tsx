@@ -1,10 +1,10 @@
 "use client";
 
-import { BarCharts } from "@/components/Dashboard/admin/BarCharts";
-import { PieCharts } from "@/components/Dashboard/admin/PieCharts";
-import { RedarCharts } from "@/components/Dashboard/admin/RedarCharts";
-import Statistics from "@/components/Dashboard/admin/Statistics";
-import { userStatistics } from "@/components/Dashboard/admin/utils";
+import { BarCharts } from "@/components/dashboard/admin/BarCharts";
+import { PieCharts } from "@/components/dashboard/admin/PieCharts";
+import { RedarCharts } from "@/components/dashboard/admin/RedarCharts";
+import Statistics from "@/components/dashboard/admin/Statistics";
+import { userStatistics } from "@/components/dashboard/admin/utils";
 import React, { useEffect, useState } from "react";
 
 const Admin: React.FC = () => {

@@ -1,7 +1,7 @@
-import PatientVisitsChart from "@/components/Dashboard/doctors/dashboard/PatientAnalytics";
-import PatientStatistics from "@/components/Dashboard/doctors/dashboard/PatientsStatistics";
-import UpcomingAppointments from "@/components/Dashboard/doctors/dashboard/Upcoming";
-import Updates from "@/components/Dashboard/doctors/dashboard/Updates";
+import PatientVisitsChart from "@/components/dashboard/doctors/dashboard/PatientAnalytics";
+import PatientStatistics from "@/components/dashboard/doctors/dashboard/PatientsStatistics";
+import UpcomingAppointments from "@/components/dashboard/doctors/dashboard/Upcoming";
+import Updates from "@/components/dashboard/doctors/dashboard/Updates";
 import React from "react";
 
 const Doctors: React.FC = () => {

@@ -1,7 +1,7 @@
-// Conditional Layout for Dashboards using session
+// Conditional Layout for dashboards using session
 import { ubuntu } from "@/@types/font/Font";
 import { RNChildProp } from "@/@types/interface/Interface";
-import { AdminSideNav, Header } from "@/components/Dashboard/ui";
+import { AdminSideNav, Header } from "@/components/dashboard/ui";
 import { ScrollArea } from "@/components/ui";
 import type { Viewport } from "next";
 import { useSession } from "next-auth/react";
