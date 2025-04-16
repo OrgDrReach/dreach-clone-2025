@@ -1,7 +1,8 @@
 export interface IUser {
   id: string;
 
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   phone: string;
   dob: Date;
@@ -78,21 +79,21 @@ export interface ILifestyle {
 }
 
 export enum EUserRole {
-  Patient = "Patient",
-  Doctor = "Doctor",
-  Admin = "Admin",
-  SuperAdmin = "SuperAdmin",
-  Hospital = "Hospital",
-  Lab = "Lab",
-  Nursing = "Nursing",
-  DoctorsAssistant = "DoctorsAssistant",
+  PATIENT = "Patient",
+  DOCTOR = "Doctor",
+  ADMIN = "Admin",
+  SUPERADMIN = "SuperAdmin",
+  HOSPITAL = "Hospital",
+  LAB = "Lab",
+  NURSING = "Nursing",
+  DOCTORSASSISTANT = "DoctorsAssistant",
 }
 
 export enum EUserStatus {
-  Active = "ACTIVE",
-  Inactive = "Inactive",
-  Suspended = "Suspended",
-  Pending = "Pending",
+  ACTIVE = "Active",
+  INACTIVE = "Inactive",
+  SUSPENDED = "Suspended",
+  PENDING = "Pending",
 }
 
 export enum EGender {
