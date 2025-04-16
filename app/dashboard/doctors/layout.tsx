@@ -15,14 +15,14 @@ const Layout: React.FC<RNChildProp> = ({ children }: RNChildProp) => {
 	return (
 		<main className={ubuntu.className}>
 			<div className="flex h-screen">
-				<section>
+				<section className="w-[64px] hover:w-[256px] transition-[width] duration-300">
 					<DoctorSideNav />
 				</section>
-				<div className="w-[100%] h-screen overflow-y-auto mx-auto">
+				<div className="w-[calc(100%-64px)] hover:w-[calc(100%-256px)] transition-[width] duration-300 h-screen overflow-y-auto mx-auto">
 					<div className="bg-[#125872] text-white border-b border-[#fff]/10">
 						<Header />
 					</div>
-					<ScrollArea className="h-[93.9dvh] bg-[#497585] p-4">
+					<ScrollArea className="h-[93.9dvh] bg-[#497585]">
 						{children}
 					</ScrollArea>
 				</div>

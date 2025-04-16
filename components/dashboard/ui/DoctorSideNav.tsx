@@ -1,159 +1,176 @@
 "use client";
-
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import {
-	Sidebar,
-	SidebarContent,
-	SidebarGroup,
-	SidebarGroupContent,
-	SidebarHeader,
-	SidebarMenu,
-	SidebarMenuItem,
-	SidebarMenuButton,
-	SidebarProvider,
-} from "@/components/ui/sidebar";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import Image from "next/image";
-import Link from "next/link";
+import { useState, useContext, createContext } from "react";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
+import Image from "next/image";
 import {
-	BarChart3,
-	Users,
-	Settings,
+	ChevronFirst,
+	ChevronLast,
 	Gauge,
-	Bell,
-	Mail,
-	Pill,
-	User,
+	Users,
 	CalendarCheck2,
-	Stethoscope,
-	MoreVertical,
+	Mail,
+	ClipboardList,
+	FileText,
+	Settings,
+	LifeBuoy,
+	User,
+	BarChart3,
 } from "lucide-react";
 
-interface NavItem {
-	title: string;
-	href: string;
-	icon: React.ReactNode;
-	items?: NavItem[];
-}
-
-const navItems: NavItem[] = [
-	{
-		title: "Dashboard",
-		href: "/dashboard/doctors",
-		icon: <Gauge className="h-4 w-4" />,
-	},
-	{
-		title: "Analytics",
-		href: "/dashboard/doctors/analytics",
-		icon: <BarChart3 className="h-4 w-4" />,
-	},
-	{
-		title: "Patients",
-		href: "/dashboard/doctors/patients",
-		icon: <Users className="h-4 w-4" />,
-	},
-	{
-		title: "Appointments",
-		href: "/dashboard/doctors/appointments",
-		icon: <CalendarCheck2 className="h-4 w-4" />,
-	},
-	{
-		title: "Prescriptions",
-		href: "/dashboard/doctors/prescriptions",
-		icon: <Pill className="h-4 w-4" />,
-	},
-	{
-		title: "Medical Records",
-		href: "/dashboard/doctors/records",
-		icon: <Stethoscope className="h-4 w-4" />,
-	},
-	{
-		title: "Messages",
-		href: "/dashboard/doctors/messaging",
-		icon: <Mail className="h-4 w-4" />,
-	},
-	{
-		title: "Alerts",
-		href: "/dashboard/doctors/alerts",
-		icon: <Bell className="h-4 w-4" />,
-	},
-	{
-		title: "Profile",
-		href: "/dashboard/doctors/profile",
-		icon: <User className="h-4 w-4" />,
-	},
-	{
-		title: "Settings",
-		href: "/dashboard/doctors/settings",
-		icon: <Settings className="h-4 w-4" />,
-	},
+const doctorDashboards = [
+	{ name: "Dashboard", path: "/dashboard/doctors", menu: [] },
+	{ name: "Analytics", path: "/dashboard/doctors/analytics", menu: [] },
+	{ name: "Patients", path: "/dashboard/doctors/patients", menu: [] },
+	{ name: "Appointments", path: "/dashboard/doctors/appointments", menu: [] },
+	{ name: "Messages", path: "/dashboard/doctors/messages", menu: [] },
+	{ name: "Prescriptions", path: "/dashboard/doctors/prescriptions", menu: [] },
+	{ name: "Profile", path: "/dashboard/doctors/profile", menu: [] },
+	{ name: "Support", path: "/dashboard/doctors/support", menu: [] },
+	{ name: "Settings", path: "/dashboard/doctors/settings", menu: [] },
 ];
 
-const DoctorSideNav = () => {
+const SideBarContext = createContext({ expanded: true });
+
+const SideBar: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+	const [expanded, setExpanded] = useState(true);
 	const pathname = usePathname();
 
 	return (
-		<SidebarProvider defaultOpen>
-			<Sidebar className="border-r">
-				<SidebarHeader className="border-b px-4 py-2">
-					<Link href="/dashboard/doctors" className="flex items-center gap-2">
-						<Image
-							src="/assets/icons/drreach-logo-icon.svg"
-							alt="Dr. Reach Logo"
-							width={32}
-							height={32}
-							className="rounded-sm"
-						/>
-						<span className="font-semibold">Dr. Reach</span>
-					</Link>
-				</SidebarHeader>
-				<SidebarContent>
-					<SidebarGroup>
-						<SidebarGroupContent>
-							<SidebarMenu>
-								{navItems.map((item, index) => (
-									<SidebarMenuItem key={index}>
-										<SidebarMenuButton
-											asChild
-											isActive={pathname === item.href}>
-											<Link
-												href={item.href}
-												className="flex items-center gap-2">
-												{item.icon}
-												{item.title}
-											</Link>
-										</SidebarMenuButton>
-									</SidebarMenuItem>
-								))}
-							</SidebarMenu>
-						</SidebarGroupContent>
-					</SidebarGroup>
-				</SidebarContent>
-
-				<div className="mt-auto border-t p-4">
-					<div className="flex items-center gap-4">
-						<Avatar>
-							<AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-							<AvatarFallback>DR</AvatarFallback>
-						</Avatar>
-						<div className="flex flex-1 items-center justify-between">
-							<div>
-								<p className="text-sm font-medium">Dr. John Doe</p>
-								<p className="text-xs text-muted-foreground">
-									doctor@drreach.com
-								</p>
-							</div>
-							<Button variant="ghost" size="icon">
-								<MoreVertical className="h-4 w-4" />
-							</Button>
-						</div>
-					</div>
+		<aside className="h-screen">
+			<nav className="h-full flex flex-col bg-[#125872] border-r shadow-sm">
+				<div className="p-4 pb-2 flex justify-between items-center">
+					<Image
+						src="/assets/icons/drreach-logo-full.svg"
+						height={1000}
+						width={1000}
+						alt="logo"
+						className={`overflow-hidden transition-all ${expanded ? "w-32" : "w-0"}`}
+					/>
+					<button
+						onClick={() => setExpanded((curr) => !curr)}
+						className="p-1.5 rounded-lg bg-gray-50 hover:bg-gray-100">
+						{expanded ?
+							<ChevronFirst />
+						:	<ChevronLast />}
+					</button>
 				</div>
-			</Sidebar>
-		</SidebarProvider>
+
+				<SideBarContext.Provider value={{ expanded }}>
+					<ul className="flex-1 px-3">{children}</ul>
+				</SideBarContext.Provider>
+			</nav>
+		</aside>
+	);
+};
+
+interface SideBarItemProps {
+	icon: React.ReactNode;
+	text: string;
+	active?: boolean;
+	alert?: boolean;
+	href: string;
+}
+
+const SideBarItem: React.FC<SideBarItemProps> = ({
+	icon,
+	text,
+	active,
+	alert,
+	href,
+}) => {
+	const { expanded } = useContext(SideBarContext);
+	const pathname = usePathname();
+	const isActive = pathname === href;
+
+	return (
+		<Link href={href}>
+			<li
+				className={`
+          relative flex items-center py-2 px-3 my-1
+          font-medium rounded-md cursor-pointer
+          transition-colors group
+          ${isActive ? "bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800" : "hover:bg-indigo-50 text-gray-200"}
+        `}>
+				<span
+					className={`transition-all ${expanded ? "w-6" : "w-full flex justify-center"}`}>
+					{icon}
+				</span>
+				<span
+					className={`overflow-hidden transition-all ${expanded ? "w-52 ml-3" : "w-0"}`}>
+					{text}
+				</span>
+				{alert && (
+					<div
+						className={`absolute right-2 w-2 h-2 rounded bg-indigo-400 ${expanded ? "" : "top-2"}`}
+					/>
+				)}
+
+				{!expanded && (
+					<div
+						className={`
+            absolute left-full rounded-md px-2 py-1 ml-6
+            bg-indigo-100 text-indigo-800 text-sm
+            invisible opacity-20 -translate-x-3 transition-all
+            group-hover:visible group-hover:opacity-100 group-hover:translate-x-0
+          `}>
+						{text}
+					</div>
+				)}
+			</li>
+		</Link>
+	);
+};
+
+const DoctorSideNav = () => {
+	return (
+		<SideBar>
+			<SideBarItem
+				icon={<Gauge size={20} />}
+				text="Dashboard"
+				href="/dashboard/doctors"
+			/>
+			<SideBarItem
+				icon={<BarChart3 size={20} />}
+				text="Analytics"
+				href="/dashboard/doctors/analytics"
+			/>
+			<SideBarItem
+				icon={<Users size={20} />}
+				text="Patients"
+				href="/dashboard/doctors/patients"
+			/>
+			<SideBarItem
+				icon={<CalendarCheck2 size={20} />}
+				text="Appointments"
+				href="/dashboard/doctors/appointments"
+			/>
+			<SideBarItem
+				icon={<Mail size={20} />}
+				text="Messages"
+				href="/dashboard/doctors/messages"
+			/>
+			<SideBarItem
+				icon={<ClipboardList size={20} />}
+				text="Prescriptions"
+				href="/dashboard/doctors/prescriptions"
+			/>
+			<SideBarItem
+				icon={<User size={20} />}
+				text="Profile"
+				href="/dashboard/doctors/profile"
+			/>
+			<SideBarItem
+				icon={<LifeBuoy size={20} />}
+				text="Support"
+				href="/dashboard/doctors/support"
+			/>
+			<SideBarItem
+				icon={<Settings size={20} />}
+				text="Settings"
+				href="/dashboard/doctors/settings"
+			/>
+		</SideBar>
 	);
 };
 
