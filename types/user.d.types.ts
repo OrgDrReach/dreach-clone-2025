@@ -87,6 +87,7 @@ export enum EUserRole {
   LAB = "Lab",
   NURSING = "Nursing",
   DOCTORSASSISTANT = "DoctorsAssistant",
+  PHARMACEUTICAL = "Pharmaceutical"
 }
 
 export enum EUserStatus {

@@ -1,112 +1,257 @@
 "use client";
 
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
+import { Session } from "next-auth";
+import { IUser } from "@/types/user.d.types";
+import { EUserRole } from "@/types/user.d.types";
+
+import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import { useState, useEffect } from "react";
-import { updateOAuthUser } from "@/server-actions/user";
-import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
-import ProviderModal from "../register/ProviderModal";
+import {
+	Form,
+	FormControl,
+	FormField,
+	FormItem,
+	FormLabel,
+	FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from "@/components/ui/select";
+import { toast } from "sonner";
+import { updateUser } from "@/lib/api/userService";
 
-const completeProfileSchema = z.object({
-	phone: z
+// Define a more complete Session type that includes our custom fields
+interface ExtendedUser {
+	id: string;
+	email?: string | null;
+	name?: string | null;
+	image?: string | null;
+	phone?: string | null;
+	role?: EUserRole;
+}
+
+interface ExtendedSession extends Omit<Session, "user"> {
+	user?: ExtendedUser;
+}
+
+const profileSchema = z.object({
+	name: z.string().min(2, "Name must be at least 2 characters"),
+	phoneNumber: z
 		.string()
-		.min(10, { message: "Phone number must be at least 10 digits." })
-		.regex(/^[0-9]+$/, { message: "Phone number must contain only digits." }),
-	userType: z.enum(["patient", "provider"], {
-		required_error: "Please select a user type.",
+		.min(10, "Phone number must be at least 10 digits")
+		.max(15)
+		.regex(/^\+?[1-9]\d{9,14}$/, "Please enter a valid phone number"),
+	dob: z.string().min(1, "Date of birth is required"),
+	gender: z.enum(["MALE", "FEMALE", "OTHER"], {
+		required_error: "Please select a gender",
 	}),
+	bloodGroup: z
+		.enum(["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"])
+		.optional(),
+	role: z.nativeEnum(EUserRole, {
+		required_error: "Please select a role",
+		invalid_type_error: "Invalid role selected",
+	}),
+	address: z
+		.object({
+			address: z.string().optional(),
+			city: z.string().optional(),
+			state: z.string().optional(),
+			country: z.string().optional(),
+			pincode: z.string().optional(),
+		})
+		.optional(),
+	otp: z.string().length(6, "OTP must be 6 digits"),
 });
 
-type CompleteProfileFormData = z.infer<typeof completeProfileSchema>;
+type ProfileFormData = z.infer<typeof profileSchema>;
+
+type OtpResponse = {
+	message: string;
+};
 
 export default function CompleteProfile() {
-	const { data: session, update } = useSession();
 	const router = useRouter();
-	const [isClient, setIsClient] = useState(false);
-	const [showProviderModal, setShowProviderModal] = useState(false);
-	const [loading, setLoading] = useState(false);
-
-	useEffect(() => {
-		setIsClient(true);
-	}, []);
-
-	const {
-		register,
-		handleSubmit,
-		watch,
-		formState: { errors },
-	} = useForm<CompleteProfileFormData>({
-		resolver: zodResolver(completeProfileSchema),
-		defaultValues: {
-			userType: "patient",
+	const { data: session, update } = useSession({
+		required: true,
+		onUnauthenticated() {
+			router.push("/auth/signin");
 		},
+	}) as {
+		data: ExtendedSession | null;
+		update: () => Promise<ExtendedSession | null>;
+	};
+
+	const [isSubmitting, setIsSubmitting] = useState(false);
+	const [showOtpField, setShowOtpField] = useState(false);
+	const [isOtpVerified, setIsOtpVerified] = useState(false);
+	const [isOtpSent, setIsOtpSent] = useState(false);
+
+	const form = useForm<ProfileFormData>({
+		resolver: zodResolver(profileSchema),
+		defaultValues: {
+			name: session?.user?.name || "",
+			phoneNumber: session?.user?.phone || "",
+			dob: "",
+			gender: "MALE",
+			bloodGroup: undefined,
+			role: session?.user?.role || EUserRole.PATIENT,
+			address: {
+				address: "",
+				city: "",
+				state: "",
+				country: "",
+				pincode: "",
+			},
+			otp: "",
+		},
+		mode: "onChange",
 	});
 
-	const onSubmit = async (data: CompleteProfileFormData) => {
-		if (data.userType === "provider") {
-			setShowProviderModal(true);
+	const sendOtp = async () => {
+		const phoneNumber = form.getValues("phoneNumber");
+
+		const phoneValidation = await form.trigger("phoneNumber");
+		if (!phoneValidation) {
 			return;
 		}
 
 		try {
-			setLoading(true);
-			const res = await updateOAuthUser(session?.user?.id || "", {
-				phone: data.phone,
-				userType: data.userType,
+			setIsSubmitting(true);
+			const response = await fetch("/api/auth/send-otp", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ phoneNumber }),
 			});
 
-			if (res.status !== 200) {
-				toast.error(res.message || "Profile update failed");
-				setLoading(false);
-				return;
+			const data: OtpResponse = await response.json();
+
+			if (!response.ok) {
+				throw new Error(data.message || "Failed to send OTP");
 			}
 
-			await update(); // Update the session with new data
-			toast.success("Profile updated successfully!");
-			if (isClient) {
-				router.push("/dashboard");
-			}
+			setShowOtpField(true);
+			setIsOtpSent(true);
+			toast.success("OTP sent successfully");
 		} catch (error) {
-			toast.error("An error occurred while updating your profile");
-			setLoading(false);
+			const message =
+				error instanceof Error ? error.message : "Failed to send OTP";
+			toast.error(message);
+			console.error("Error sending OTP:", error);
+		} finally {
+			setIsSubmitting(false);
 		}
 	};
 
-	const handleProviderRoleSelect = async (
-		role: "doctor" | "hospital" | "lab" | "pharmaceutical" | "ambulance"
-	) => {
+	const verifyOtp = async (otp: string) => {
+		const otpValidation = await form.trigger("otp");
+		if (!otpValidation) {
+			return;
+		}
+
 		try {
-			setLoading(true);
-			const formData = watch();
-			const res = await updateOAuthUser(session?.user?.id || "", {
-				phone: formData.phone,
-				userType: "provider",
-				providerRole: role,
+			setIsSubmitting(true);
+			const response = await fetch("/api/auth/verify-otp", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({
+					phoneNumber: form.getValues("phoneNumber"),
+					otp,
+				}),
 			});
 
-			if (res.status !== 200) {
-				toast.error(res.message || "Profile update failed");
-				setLoading(false);
-				return;
+			const data: OtpResponse = await response.json();
+
+			if (!response.ok) {
+				throw new Error(data.message || "Invalid OTP");
 			}
 
-			await update(); // Update the session with new data
-			toast.success("Profile updated successfully!");
-			if (isClient) {
-				router.push("/dashboard");
-			}
+			setIsOtpVerified(true);
+			toast.success("Phone number verified successfully");
 		} catch (error) {
-			toast.error("An error occurred while updating your profile");
-			setLoading(false);
+			const message = error instanceof Error ? error.message : "Invalid OTP";
+			toast.error(message);
+			console.error("Error verifying OTP:", error);
+			form.setValue("otp", "");
+		} finally {
+			setIsSubmitting(false);
 		}
 	};
 
-	if (!session && isClient) {
-		router.push("/auth/login");
-		return null;
+	async function onSubmit(data: ProfileFormData) {
+		if (!isOtpVerified) {
+			toast.error("Please verify your phone number first");
+			return;
+		}
+
+		if (!session?.user?.id) {
+			toast.error("Please sign in to continue");
+			router.push("/auth/signin");
+			return;
+		}
+
+		try {
+			setIsSubmitting(true);
+
+			// Only include address fields if at least one field is filled
+			const hasAddressData =
+				data.address && Object.values(data.address).some((value) => value);
+			const address =
+				hasAddressData ?
+					[
+						{
+							address: data.address?.address || "",
+							city: data.address?.city || "",
+							state: data.address?.state || "",
+							country: data.address?.country || "",
+							pincode: data.address?.pincode || "",
+						},
+					]
+				:	[];
+
+			const updateResponse = await updateUser(session.user.id, {
+				name: data.name,
+				phone: data.phoneNumber,
+				dob: new Date(data.dob),
+				gender: data.gender,
+				bloodGroup: data.bloodGroup,
+				role: data.role,
+				address: address,
+			});
+
+			if (updateResponse.status === 200 || updateResponse.status === 201) {
+				if (updateResponse.data) {
+					await update();
+					toast.success("Profile updated successfully");
+					router.push("/dashboard");
+				} else {
+					throw new Error("No data received from server");
+				}
+			} else {
+				throw new Error(
+					updateResponse.error ||
+						updateResponse.message ||
+						"Failed to update profile"
+				);
+			}
+		} catch (error) {
+			const errorMessage =
+				error instanceof Error ? error.message : "Failed to update profile";
+			console.error("Complete profile error:", error);
+			toast.error(errorMessage);
+		} finally {
+			setIsSubmitting(false);
+		}
 	}
 
 	return (
@@ -117,104 +262,357 @@ export default function CompleteProfile() {
 						Complete Your Profile
 					</h2>
 					<p className="text-white text-center mb-6">
-						Please provide additional information to complete your profile
+						Please verify your phone number and select your role
 					</p>
-					<form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-						<div>
-							<label className="text-sm font-medium text-white">
-								Mobile Number
-							</label>
-							<div className="flex gap-2">
-								<div className="px-3 py-3 mt-1 border border-gray-300 rounded-lg bg-white text-gray-700 min-w-[100px] flex items-center justify-center">
-									<p className={`font-bold`}>+91 (IND)</p>
+
+					<Form {...form}>
+						<form
+							onSubmit={form.handleSubmit(onSubmit)}
+							className="space-y-6 w-full max-w-[500px] mx-auto">
+							<FormField
+								control={form.control}
+								name="name"
+								render={({ field }) => (
+									<FormItem className="w-full">
+										<FormLabel className="text-white">Full Name</FormLabel>
+										<FormControl>
+											<Input
+												{...field}
+												placeholder="Enter your full name"
+												className="h-12 bg-white text-white placeholder:text-white focus:ring-[#31addb] focus:border-[#31addb]"
+											/>
+										</FormControl>
+										<FormMessage className="text-red-400" />
+									</FormItem>
+								)}
+							/>
+
+							<FormField
+								control={form.control}
+								name="dob"
+								render={({ field }) => (
+									<FormItem className="w-full">
+										<FormLabel className="text-white">Date of Birth</FormLabel>
+										<FormControl>
+											<Input
+												{...field}
+												type="date"
+												className="h-12 bg-white text-white placeholder:text-white focus:ring-[#31addb] focus:border-[#31addb]"
+											/>
+										</FormControl>
+										<FormMessage className="text-red-400" />
+									</FormItem>
+								)}
+							/>
+
+							<div className="w-full space-y-6">
+								<div className="grid grid-cols-2 gap-4">
+									<FormField
+										control={form.control}
+										name="gender"
+										render={({ field }) => (
+											<FormItem className="w-full">
+												<FormLabel className="text-white">Gender</FormLabel>
+												<Select
+													onValueChange={field.onChange}
+													defaultValue={field.value}>
+													<FormControl>
+														<SelectTrigger className="h-14 bg-white text-white focus:ring-[#31addb] focus:border-[#31addb]">
+															<SelectValue
+																placeholder="Select gender"
+																className="text-white placeholder:text-white"
+															/>
+														</SelectTrigger>
+													</FormControl>
+													<SelectContent>
+														<SelectItem value="MALE">Male</SelectItem>
+														<SelectItem value="FEMALE">Female</SelectItem>
+														<SelectItem value="OTHER">Other</SelectItem>
+													</SelectContent>
+												</Select>
+												<FormMessage className="text-red-400" />
+											</FormItem>
+										)}
+									/>
+
+									<FormField
+										control={form.control}
+										name="bloodGroup"
+										render={({ field }) => (
+											<FormItem className="w-full">
+												<FormLabel className="text-white">
+													Blood Group (Optional)
+												</FormLabel>
+												<Select
+													onValueChange={field.onChange}
+													defaultValue={field.value}>
+													<FormControl>
+														<SelectTrigger className="h-14 bg-white text-white focus:ring-[#31addb] focus:border-[#31addb]">
+															<SelectValue
+																placeholder="Select blood group"
+																className="text-white placeholder:text-white"
+															/>
+														</SelectTrigger>
+													</FormControl>
+													<SelectContent>
+														{[
+															"A+",
+															"A-",
+															"B+",
+															"B-",
+															"O+",
+															"O-",
+															"AB+",
+															"AB-",
+														].map((group) => (
+															<SelectItem key={group} value={group}>
+																{group}
+															</SelectItem>
+														))}
+													</SelectContent>
+												</Select>
+												<FormMessage className="text-red-400" />
+											</FormItem>
+										)}
+									/>
 								</div>
-								<input
-									type="tel"
-									{...register("phone")}
-									placeholder="Enter your mobile number"
-									className="w-full px-4 py-3 mt-1 border border-gray-300 rounded-lg focus:ring-[#31addb] focus:border-[#31addb] bg-white transition-all duration-200"
+							</div>
+
+							<FormField
+								control={form.control}
+								name="phoneNumber"
+								render={({ field }) => (
+									<FormItem className="w-full">
+										<FormLabel className="text-white">Phone Number</FormLabel>
+										<div className="flex gap-2 w-full">
+											<div className="flex flex-1">
+												<FormControl>
+													<div className="flex w-full">
+														<div className="flex items-center justify-center h-12 px-3 border border-r-0 rounded-l-md bg-white text-gray-900">
+															+91
+														</div>
+														<Input
+															{...field}
+															value={
+																field.value.startsWith("+91") ?
+																	field.value.slice(3)
+																:	field.value
+															}
+															onChange={(e) => {
+																const value = e.target.value;
+																const sanitizedValue = value
+																	.replace(/\D/g, "")
+																	.slice(0, 10);
+																field.onChange(`+91${sanitizedValue}`);
+															}}
+															type="tel"
+															placeholder="Enter your number"
+															className="flex-1 rounded-l-none h-12 bg-white text-white placeholder:text-white focus:ring-[#31addb] focus:border-[#31addb]"
+															disabled={isOtpVerified}
+														/>
+													</div>
+												</FormControl>
+											</div>
+											<Button
+												type="button"
+												onClick={sendOtp}
+												disabled={
+													isSubmitting || isOtpVerified || !field.value.length
+												}
+												className="h-12 min-w-[120px] whitespace-nowrap bg-[#31addb] hover:bg-[#00bbff] text-white">
+												{isOtpSent ? "Resend OTP" : "Send OTP"}
+											</Button>
+										</div>
+										<FormMessage className="text-red-400" />
+									</FormItem>
+								)}
+							/>
+
+							{showOtpField && (
+								<FormField
+									control={form.control}
+									name="otp"
+									render={({ field }) => (
+										<FormItem className="w-full">
+											<FormLabel className="text-white">Enter OTP</FormLabel>
+											<div className="flex gap-2 w-full">
+												<FormControl className="flex-1">
+													<Input
+														{...field}
+														placeholder="Enter 6-digit OTP"
+														maxLength={6}
+														disabled={isOtpVerified}
+														className="h-12 bg-white text-white placeholder:text-white focus:ring-[#31addb] focus:border-[#31addb]"
+													/>
+												</FormControl>
+												<Button
+													type="button"
+													onClick={() => verifyOtp(field.value)}
+													disabled={
+														isSubmitting || isOtpVerified || !field.value
+													}
+													className="h-12 min-w-[120px] whitespace-nowrap bg-[#31addb] hover:bg-[#00bbff] text-white">
+													Verify OTP
+												</Button>
+											</div>
+											<FormMessage className="text-red-400" />
+										</FormItem>
+									)}
 								/>
-							</div>
-							{errors.phone && (
-								<p className="mt-1 text-sm text-red-400">
-									{errors.phone.message}
-								</p>
 							)}
-						</div>
-						<div>
-							<label className="text-sm font-medium text-white">
-								Register as
-							</label>
-							<div className="grid grid-cols-2 gap-4 mt-1">
-								<label
-									className={`flex items-center justify-center px-4 py-3 rounded-lg cursor-pointer transition-all duration-200 ${
-										watch("userType") === "patient" ?
-											"bg-[#31addb] text-white"
-										:	"bg-white text-gray-700 hover:bg-gray-50"
-									}`}>
-									<input
-										type="radio"
-										{...register("userType")}
-										value="patient"
-										className="hidden"
+
+							<FormField
+								control={form.control}
+								name="role"
+								render={({ field }) => (
+									<FormItem className="w-full">
+										<FormLabel className="text-white">Select Role</FormLabel>
+										<Select
+											onValueChange={field.onChange}
+											defaultValue={field.value}
+											disabled={!isOtpVerified}>
+											<FormControl>
+												<SelectTrigger className="h-14 bg-white text-white focus:ring-[#31addb] focus:border-[#31addb]">
+													<SelectValue
+														placeholder="Select your role"
+														className="text-white placeholder:text-white"
+													/>
+												</SelectTrigger>
+											</FormControl>
+											<SelectContent>
+												<SelectItem value={EUserRole.PATIENT}>
+													Patient
+												</SelectItem>
+												<SelectItem value={EUserRole.DOCTOR}>Doctor</SelectItem>
+												<SelectItem value={EUserRole.HOSPITAL}>
+													Hospital
+												</SelectItem>
+												<SelectItem value={EUserRole.LAB}>
+													Laboratory
+												</SelectItem>
+												<SelectItem value={EUserRole.PHARMACEUTICAL}>
+													Pharmaceutical
+												</SelectItem>
+											</SelectContent>
+										</Select>
+										<FormMessage className="text-red-400" />
+									</FormItem>
+								)}
+							/>
+
+							<div className="space-y-4 w-full border-t border-gray-700 pt-6 mt-6">
+								<FormLabel className="text-white block mb-4">
+									Address Details (Optional)
+								</FormLabel>
+
+								<FormField
+									control={form.control}
+									name="address.address"
+									render={({ field }) => (
+										<FormItem>
+											<FormControl>
+												<Input
+													{...field}
+													placeholder="Street Address"
+													className="h-12 bg-white text-white placeholder:text-white focus:ring-[#31addb] focus:border-[#31addb]"
+												/>
+											</FormControl>
+											<FormMessage className="text-red-400" />
+										</FormItem>
+									)}
+								/>
+
+								<div className="grid grid-cols-2 gap-4">
+									<FormField
+										control={form.control}
+										name="address.city"
+										render={({ field }) => (
+											<FormItem>
+												<FormControl>
+													<Input
+														{...field}
+														placeholder="City"
+														className="h-12 bg-white text-white placeholder:text-white focus:ring-[#31addb] focus:border-[#31addb]"
+													/>
+												</FormControl>
+												<FormMessage className="text-red-400" />
+											</FormItem>
+										)}
 									/>
-									<span className="flex items-center gap-2">
-										<svg
-											xmlns="http://www.w3.org/2000/svg"
-											className="w-5 h-5"
-											viewBox="0 0 24 24"
-											fill="none"
-											stroke="currentColor"
-											strokeWidth="2">
-											<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-											<circle cx="12" cy="7" r="4" />
-										</svg>
-										<span>Patient</span>
-									</span>
-								</label>
-								<label
-									className={`flex items-center justify-center px-4 py-3 rounded-lg cursor-pointer transition-all duration-200 ${
-										watch("userType") === "provider" ?
-											"bg-[#31addb] text-white"
-										:	"bg-white text-gray-700 hover:bg-gray-50"
-									}`}>
-									<input
-										type="radio"
-										{...register("userType")}
-										value="provider"
-										className="hidden"
+
+									<FormField
+										control={form.control}
+										name="address.state"
+										render={({ field }) => (
+											<FormItem>
+												<FormControl>
+													<Input
+														{...field}
+														placeholder="State"
+														className="h-12 bg-white text-white placeholder:text-white focus:ring-[#31addb] focus:border-[#31addb]"
+													/>
+												</FormControl>
+												<FormMessage className="text-red-400" />
+											</FormItem>
+										)}
 									/>
-									<span className="flex items-center gap-2">
-										<svg
-											xmlns="http://www.w3.org/2000/svg"
-											className="w-5 h-5"
-											viewBox="0 0 24 24"
-											fill="none"
-											stroke="currentColor"
-											strokeWidth="2">
-											<path d="M3 9h18v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9Z" />
-											<path d="M3 9V7a2 2 0 0 1 2-2h2.93a2 2 0 0 0 1.664-.89l.812-1.22A2 2 0 0 1 12.07 2h1.86a2 2 0 0 1 1.664.89l.812 1.22A2 2 0 0 0 18.07 5H19a2 2 0 0 1 2 2v2" />
-											<circle cx="12" cy="13" r="3" />
-										</svg>
-										<span>Provider</span>
-									</span>
-								</label>
+								</div>
+
+								<div className="grid grid-cols-2 gap-4">
+									<FormField
+										control={form.control}
+										name="address.country"
+										render={({ field }) => (
+											<FormItem>
+												<FormControl>
+													<Input
+														{...field}
+														placeholder="Country"
+														className="h-12 bg-white text-white placeholder:text-white focus:ring-[#31addb] focus:border-[#31addb]"
+													/>
+												</FormControl>
+												<FormMessage className="text-red-400" />
+											</FormItem>
+										)}
+									/>
+
+									<FormField
+										control={form.control}
+										name="address.pincode"
+										render={({ field }) => (
+											<FormItem>
+												<FormControl>
+													<Input
+														{...field}
+														placeholder="Pincode"
+														className="h-12 bg-white text-white placeholder:text-white focus:ring-[#31addb] focus:border-[#31addb]"
+													/>
+												</FormControl>
+												<FormMessage className="text-red-400" />
+											</FormItem>
+										)}
+									/>
+								</div>
 							</div>
-						</div>
-						<button
-							type="submit"
-							disabled={loading}
-							className="w-full px-4 py-3 text-white bg-[#31addb] rounded-lg hover:bg-[#00bbff] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#31addb] transition-colors duration-200">
-							{loading ? "Updating..." : "Complete Profile"}
-						</button>
-					</form>
+
+							<Button
+								type="submit"
+								className="w-full h-12 text-lg font-semibold bg-[#31addb] hover:bg-[#00bbff] text-white disabled:opacity-50 disabled:cursor-not-allowed"
+								disabled={
+									isSubmitting ||
+									!isOtpVerified ||
+									!form.getValues("name") ||
+									!form.getValues("phoneNumber") ||
+									!form.getValues("dob") ||
+									!form.getValues("gender") ||
+									!form.getValues("role")
+								}>
+								{isSubmitting ? "Saving..." : "Submit"}
+							</Button>
+						</form>
+					</Form>
 				</div>
 			</div>
-			<ProviderModal
-				isOpen={showProviderModal}
-				onClose={() => setShowProviderModal(false)}
-				onSubmit={handleProviderRoleSelect}
-			/>
 		</div>
 	);
 }
