@@ -1,44 +1,70 @@
+"use client";
+
 import { ubuntu } from "@/@types/font/Font";
 import { RNChildProp } from "@/@types/interface/Interface";
 import { Header, HospitalSideNav } from "@/components/dashboard/ui";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Separator } from "@/components/ui/separator";
-import type { Viewport } from "next";
-import React from "react";
-
-export const viewport: Viewport = {
-  width: "device-width",
-  initialScale: 1,
-};
-
-export const metadata = {
-  title: "Hospital Dashboard | Dr. Reach",
-  description: "Hospital management and administrative dashboard",
-};
+import { cn } from "@/lib/utils";
+import React, { useState, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Layout: React.FC<RNChildProp> = ({ children }: RNChildProp) => {
-  return (
-    <main className={ubuntu.className}>
-      <div className="flex h-screen">
-        <div className="hidden md:flex">
-          <HospitalSideNav />
-        </div>
-        <div className="flex-1 flex flex-col">
-          <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-            <div className="container flex h-14 items-center">
-              <Header />
-            </div>
-          </header>
-          <Separator />
-          <div className="flex-1 overflow-hidden">
-            <ScrollArea className="h-full bg-slate-50/50 dark:bg-slate-950/50">
-              <div className="container py-6">{children}</div>
-            </ScrollArea>
-          </div>
-        </div>
-      </div>
-    </main>
-  );
+	const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+
+	const toggleSidebar = useCallback(() => {
+		setIsSidebarCollapsed((prev) => !prev);
+	}, []);
+
+	return (
+		<main className={cn("min-h-screen bg-background", ubuntu.className)}>
+			<div className="flex h-screen overflow-hidden">
+				{/* Sidebar */}
+				<motion.aside
+					initial={false}
+					animate={{
+						width: isSidebarCollapsed ? 80 : 256,
+						transition: { duration: 0.3 },
+					}}
+					className="shrink-0 border-r border-[#ffffff1a]">
+					<HospitalSideNav
+						onToggle={toggleSidebar}
+						isCollapsed={isSidebarCollapsed}
+					/>
+				</motion.aside>
+
+				{/* Main Content */}
+				<motion.div
+					initial={false}
+					animate={{
+						marginLeft: 0,
+						width: "100%",
+						transition: { duration: 0.3 },
+					}}
+					className="flex-1 flex flex-col min-w-0">
+					{/* Header */}
+					<div className="sticky top-0 z-10 bg-[#125872] border-b border-[#ffffff1a]">
+						<Header />
+					</div>
+
+					{/* Main Content Area */}
+					<ScrollArea className="flex-1 h-[calc(100vh-4rem)]">
+						<div className="container mx-auto p-6">
+							<AnimatePresence mode="wait">
+								<motion.div
+									key={location.pathname}
+									initial={{ opacity: 0, y: 20 }}
+									animate={{ opacity: 1, y: 0 }}
+									exit={{ opacity: 0, y: -20 }}
+									transition={{ duration: 0.2 }}>
+									{children}
+								</motion.div>
+							</AnimatePresence>
+						</div>
+					</ScrollArea>
+				</motion.div>
+			</div>
+		</main>
+	);
 };
 
 export default Layout;

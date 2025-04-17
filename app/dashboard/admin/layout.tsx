@@ -6,7 +6,6 @@ import { RNChildProp } from "@/@types/interface/Interface";
 import { AdminSideNav, Header } from "@/components/dashboard/ui";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
-import type { Viewport } from "next";
 import React, { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
