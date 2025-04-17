@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useContext, createContext } from "react";
-import { usePathname } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -158,76 +158,77 @@ const PatientSideNav = ({
   onToggle: () => void;
   isCollapsed: boolean;
 }) => {
+  const { userId } = useParams();
   return (
     <SideBar onToggle={onToggle} isCollapsed={isCollapsed}>
       <div className="space-y-2">
         <SideBarItem
           icon={<Layout size={20} />}
           text="Overview"
-          href="/dashboard/patients"
+          href={`/dashboard/patient/${userId}`}
         />
         <SideBarItem
           icon={<BarChart3 size={20} />}
           text="Analytics"
-          href="/dashboard/patients/analytics"
+          href={`/dashboard/patient/${userId}/analytics`}
         />
         <SideBarItem
           icon={<CalendarCheck2 size={20} />}
           text="Appointments"
-          href="/dashboard/patients/appointments"
+          href={`/dashboard/patient/${userId}/appointments`}
           badge={2}
         />
         <SideBarItem
           icon={<Mail size={20} />}
           text="Messages"
-          href="/dashboard/patients/messages"
+          href={`/dashboard/patient/${userId}/messages`}
           badge={3}
         />
         <SideBarItem
           icon={<LibraryBig size={20} />}
           text="Medical Records"
-          href="/dashboard/patients/medical-records"
+          href={`/dashboard/patient/${userId}/medical-records`}
         />
         <SideBarItem
           icon={<Cross size={20} />}
           text="Treatment Plans"
-          href="/dashboard/patients/treatment-plans"
+          href={`/dashboard/patient/${userId}/treatment-plans`}
         />
         <SideBarItem
           icon={<Clock size={20} />}
           text="Health History"
-          href="/dashboard/patients/history"
+          href={`/dashboard/patient/${userId}/history`}
         />
         <SideBarItem
           icon={<ReceiptIndianRupee size={20} />}
           text="Billing"
-          href="/dashboard/patients/billing"
+          href={`/dashboard/patient/${userId}/billing`}
         />
         <SideBarItem
           icon={<BellRing size={20} />}
           text="Notifications"
-          href="/dashboard/patients/notifications"
+          href={`/dashboard/patient/${userId}/notifications`}
           badge={5}
         />
         <SideBarItem
           icon={<User size={20} />}
           text="Profile"
-          href="/dashboard/patients/profile"
+          href={`/dashboard/patient/${userId}/profile`}
         />
         <SideBarItem
           icon={<LifeBuoy size={20} />}
           text="Support"
-          href="/dashboard/patients/support"
+          href={`/dashboard/patient/${userId}/support`}
         />
         <SideBarItem
           icon={<Settings size={20} />}
           text="Settings"
-          href="/dashboard/patients/settings"
+          href={`/dashboard/patient/${userId}/settings`}
         />
         <SideBarItem
           icon={<ApplicationIcon size={20} />}
           text="Apply as Doctor"
-          href="/dashboard/patients/apply-doctor"
+          href={`/dashboard/patient/${userId}/apply-doctor`}
         />
       </div>
     </SideBar>
