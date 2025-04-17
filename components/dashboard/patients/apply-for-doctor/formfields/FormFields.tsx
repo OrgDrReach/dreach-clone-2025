@@ -1,5 +1,5 @@
 import React from "react";
-import { useForm, Controller, FieldError } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Textarea } from "@/components/ui/textarea";
@@ -130,6 +130,7 @@ export type FormValues = z.infer<typeof formSchema>;
 const FormFields: React.FC = () => {
 	const form = useForm<FormValues>({
 		resolver: zodResolver(formSchema),
+		mode: "onChange",
 		defaultValues: {
 			username: "",
 			email: "",

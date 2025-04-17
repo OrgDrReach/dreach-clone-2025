@@ -17,7 +17,7 @@ import { Lab, ELabStatus } from "./lab.d.types";
 import { Pharmaceutical, EPharmacyStatus } from "./pharmaceutical.d.types";
 
 export enum EProviderType {
-  Doctor = "Doctor",
+  DOCTOR = "Doctor",
   Hospital = "Hospital",
   Lab = "Lab",
   Nursing = "Nursing",
