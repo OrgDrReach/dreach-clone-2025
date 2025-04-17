@@ -1,7 +1,7 @@
 "use client";
 
 import { useContext, createContext } from "react";
-import { usePathname } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -158,92 +158,93 @@ const LabSideNav = ({
   onToggle: () => void;
   isCollapsed: boolean;
 }) => {
+  const { labId } = useParams();
   return (
     <SideBar onToggle={onToggle} isCollapsed={isCollapsed}>
       <div className="space-y-2">
         <SideBarItem
           icon={<Layout size={20} />}
           text="Overview"
-          href="/dashboard/labs"
+          href={`/dashboard/lab/${labId}`}
         />
         <SideBarItem
           icon={<BarChart3 size={20} />}
           text="Analytics"
-          href="/dashboard/labs/analytics"
+          href={`/dashboard/lab/${labId}/analytics`}
         />
         <SideBarItem
           icon={<LineChart size={20} />}
           text="Performance"
-          href="/dashboard/labs/performance"
+          href={`/dashboard/lab/${labId}/performance`}
         />
         <SideBarItem
           icon={<Users size={20} />}
           text="Patients"
-          href="/dashboard/labs/patients"
+          href={`/dashboard/lab/${labId}/patients`}
           badge={28}
         />
         <SideBarItem
           icon={<CalendarCheck2 size={20} />}
           text="Appointments"
-          href="/dashboard/labs/appointments"
+          href={`/dashboard/lab/${labId}/appointments`}
           badge={15}
         />
         <SideBarItem
           icon={<TestTube size={20} />}
           text="Tests"
-          href="/dashboard/labs/tests"
+          href={`/dashboard/lab/${labId}/tests`}
         />
         <SideBarItem
           icon={<Flask size={20} />}
           text="Samples"
-          href="/dashboard/labs/samples"
+          href={`/dashboard/lab/${labId}/samples`}
           badge={10}
         />
         <SideBarItem
           icon={<Clock size={20} />}
           text="Test Timings"
-          href="/dashboard/labs/test-timings"
+          href={`/dashboard/lab/${labId}/test-timings`}
         />
         <SideBarItem
           icon={<Microscope size={20} />}
           text="Equipment"
-          href="/dashboard/labs/equipment"
+          href={`/dashboard/lab/${labId}/equipment`}
         />
         <SideBarItem
           icon={<FileSpreadsheet size={20} />}
           text="Reports"
-          href="/dashboard/labs/reports"
+          href={`/dashboard/lab/${labId}/reports`}
         />
         <SideBarItem
           icon={<Receipt size={20} />}
           text="Billing"
-          href="/dashboard/labs/billing"
+          href={`/dashboard/lab/${labId}/billing`}
         />
         <SideBarItem
           icon={<ClipboardList size={20} />}
           text="Test Catalog"
-          href="/dashboard/labs/test-catalog"
+          href={`/dashboard/lab/${labId}/test-catalog`}
         />
         <SideBarItem
           icon={<BadgeAlert size={20} />}
           text="Quality Control"
-          href="/dashboard/labs/quality-control"
+          href={`/dashboard/lab/${labId}/quality-control`}
         />
         <SideBarItem
           icon={<BellRing size={20} />}
           text="Notifications"
-          href="/dashboard/labs/notifications"
+          href={`/dashboard/lab/${labId}/notifications`}
           badge={6}
         />
         <SideBarItem
           icon={<LifeBuoy size={20} />}
           text="Support"
-          href="/dashboard/labs/support"
+          href={`/dashboard/lab/${labId}/support`}
         />
         <SideBarItem
           icon={<Cog size={20} />}
           text="Settings"
-          href="/dashboard/labs/settings"
+          href={`/dashboard/lab/${labId}/settings`}
         />
       </div>
     </SideBar>

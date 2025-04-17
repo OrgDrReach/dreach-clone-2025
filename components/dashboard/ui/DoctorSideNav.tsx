@@ -156,7 +156,7 @@ const DoctorSideNav = ({
 	onToggle: () => void;
 	isCollapsed: boolean;
 }) => {
-	const { userId } = useParams();
+	const { doctorId } = useParams();
 
 	return (
 		<SideBar onToggle={onToggle} isCollapsed={isCollapsed}>
@@ -164,71 +164,71 @@ const DoctorSideNav = ({
 				<SideBarItem
 					icon={<Layout size={20} />}
 					text="Overview"
-					href={`/dashboard/doctor/${userId}`}
+					href={`/dashboard/doctor/${doctorId}`}
 				/>
 				<SideBarItem
 					icon={<BarChart3 size={20} />}
 					text="Analytics"
-					href={`/dashboard/doctor/${userId}/analytics`}
+					href={`/dashboard/doctor/${doctorId}/analytics`}
 				/>
 				<SideBarItem
 					icon={<Users size={20} />}
 					text="Patients"
-					href={`/dashboard/doctor/${userId}/patients`}
+					href={`/dashboard/doctor/${doctorId}/patients`}
 					badge={12}
 				/>
 				<SideBarItem
 					icon={<CalendarCheck2 size={20} />}
 					text="Appointments"
-					href={`/dashboard/doctor/${userId}/appointments`}
+					href={`/dashboard/doctor/${doctorId}/appointments`}
 					badge={5}
 				/>
 				<SideBarItem
 					icon={<Mail size={20} />}
 					text="Messages"
-					href={`/dashboard/doctor/${userId}/messages`}
+					href={`/dashboard/doctor/${doctorId}/messages`}
 					badge={3}
 				/>
 				<SideBarItem
 					icon={<ClipboardList size={20} />}
 					text="Prescriptions"
-					href={`/dashboard/doctor/${userId}/prescriptions`}
+					href={`/dashboard/doctor/${doctorId}/prescriptions`}
 				/>
 				<SideBarItem
 					icon={<FileText size={20} />}
 					text="Reports"
-					href={`/dashboard/doctor/${userId}/reports`}
+					href={`/dashboard/doctor/${doctorId}/reports`}
 				/>
 				<SideBarItem
 					icon={<Clock size={20} />}
 					text="Time Slots"
-					href={`/dashboard/doctor/${userId}/time-slots`}
+					href={`/dashboard/doctor/${doctorId}/time-slots`}
 				/>
 				<SideBarItem
 					icon={<Stethoscope size={20} />}
 					text="Specialties"
-					href={`/dashboard/doctor/${userId}/specialties`}
+					href={`/dashboard/doctor/${doctorId}/specialties`}
 				/>
 				<SideBarItem
 					icon={<BellRing size={20} />}
 					text="Notifications"
-					href={`/dashboard/doctor/${userId}/notifications`}
+					href={`/dashboard/doctor/${doctorId}/notifications`}
 					badge={8}
 				/>
 				<SideBarItem
 					icon={<User size={20} />}
 					text="Profile"
-					href={`/dashboard/doctor/${userId}/profile`}
+					href={`/dashboard/doctor/${doctorId}/profile`}
 				/>
 				<SideBarItem
 					icon={<LifeBuoy size={20} />}
 					text="Support"
-					href={`/dashboard/doctor/${userId}/support`}
+					href={`/dashboard/doctor/${doctorId}/support`}
 				/>
 				<SideBarItem
 					icon={<Settings size={20} />}
 					text="Settings"
-					href={`/dashboard/doctor/${userId}/settings`}
+					href={`/dashboard/doctor/${doctorId}/settings`}
 				/>
 			</div>
 		</SideBar>
