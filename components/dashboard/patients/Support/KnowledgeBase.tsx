@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
@@ -23,7 +23,9 @@ const KnowledgeBase: React.FC = () => {
               variant="outline"
               className="w-full justify-start text-black hover:text-black border-white bg-white/20 transition-all duration-300"
             >
-              <a href={article.url} className="text-lg">{article.title}</a>
+              <a href={article.url} className="text-lg">
+                {article.title}
+              </a>
             </Button>
           ))}
         </div>

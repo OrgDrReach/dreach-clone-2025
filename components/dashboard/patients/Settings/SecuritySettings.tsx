@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { Shield, Key, Lock } from 'lucide-react';
+import { Shield, Key, Lock } from "lucide-react";
 
 const SecuritySettings: React.FC = () => {
   return (

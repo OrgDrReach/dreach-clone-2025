@@ -1,8 +1,15 @@
-"use client"
+"use client";
 
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Pill, Clock, Calendar } from "lucide-react";
@@ -21,7 +28,7 @@ interface MedicationListProps {
 }
 
 const MedicationList: React.FC<MedicationListProps> = ({ medications }) => {
-  const getStatusColor = (status: Medication['status']) => {
+  const getStatusColor = (status: Medication["status"]) => {
     switch (status) {
       case "Active":
         return "bg-green-100 text-green-800";
@@ -37,7 +44,9 @@ const MedicationList: React.FC<MedicationListProps> = ({ medications }) => {
   return (
     <Card className="w-full bg-gradient-to-br from-pink-50 to-purple-50 shadow-lg">
       <CardHeader className="bg-white bg-opacity-70 backdrop-blur-sm">
-        <CardTitle className="text-2xl font-bold text-purple-700">Current Medications</CardTitle>
+        <CardTitle className="text-2xl font-bold text-purple-700">
+          Current Medications
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <ScrollArea className="h-[400px] w-full rounded-md border">

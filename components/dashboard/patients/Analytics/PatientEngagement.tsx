@@ -20,7 +20,9 @@ const PatientEngagement: React.FC = () => {
         {metrics.map((metric, index) => (
           <div key={index} className="flex flex-col gap-2">
             <div className="flex justify-between items-center">
-              <span className="text-sm font-medium text-gray-600">{metric.title}</span>
+              <span className="text-sm font-medium text-gray-600">
+                {metric.title}
+              </span>
               <span className="text-sm font-semibold text-gray-800">
                 {metric.value}/{metric.total}
               </span>

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -21,16 +21,39 @@ const AlertsPage: React.FC = () => {
   // Mock data for demonstration
   const mockData = {
     newNotifications: [
-      { id: "1", name: "Appointment Reminder", date: "2023-06-15", description: "You have an appointment with Dr. Smith tomorrow at 10:00 AM." },
-      { id: "2", name: "Lab Results", date: "2023-06-14", description: "Your recent lab results are now available. Please review them in your patient portal." },
+      {
+        id: "1",
+        name: "Appointment Reminder",
+        date: "2023-06-15",
+        description:
+          "You have an appointment with Dr. Smith tomorrow at 10:00 AM.",
+      },
+      {
+        id: "2",
+        name: "Lab Results",
+        date: "2023-06-14",
+        description:
+          "Your recent lab results are now available. Please review them in your patient portal.",
+      },
     ],
     scheduledReminders: [
       { id: "1", type: "Medication Refill", date: "2023-06-20" },
       { id: "2", type: "Follow-up Appointment", date: "2023-07-01" },
     ],
     pastNotifications: [
-      { id: "1", name: "Bill Payment Confirmation", date: "2023-06-01", description: "Your payment of $150 has been received. Thank you!" },
-      { id: "2", name: "Prescription Refill", date: "2023-05-15", description: "Your prescription for Lisinopril has been refilled and is ready for pickup." },
+      {
+        id: "1",
+        name: "Bill Payment Confirmation",
+        date: "2023-06-01",
+        description: "Your payment of $150 has been received. Thank you!",
+      },
+      {
+        id: "2",
+        name: "Prescription Refill",
+        date: "2023-05-15",
+        description:
+          "Your prescription for Lisinopril has been refilled and is ready for pickup.",
+      },
     ],
     alerts: [
       { id: "1", type: "Low Medication Supply", status: "Active" as const },
@@ -61,7 +84,7 @@ const AlertsPage: React.FC = () => {
 
   return (
     <main className="p-6 bg-gradient-to-br from-blue-100 to-purple-100 min-h-screen">
-      <motion.h1 
+      <motion.h1
         className="text-4xl font-bold mb-6 text-purple-800"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -73,7 +96,9 @@ const AlertsPage: React.FC = () => {
       <QuickAlertOverview
         newAlerts={mockData.newNotifications.length}
         upcomingReminders={mockData.scheduledReminders.length}
-        resolvedAlerts={mockData.alerts.filter(alert => alert.status === "Resolved").length}
+        resolvedAlerts={
+          mockData.alerts.filter((alert) => alert.status === "Resolved").length
+        }
       />
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">

@@ -4,7 +4,7 @@ import { filterDoctor } from "@/ServerActions";
 import React from "react";
 import { useForm } from "react-hook-form";
 
-const FilterDoctors = ({mode}:{mode:null|string}) => {
+const FilterDoctors = ({ mode }: { mode: null | string }) => {
   // checkDoctorTime()
 
   const dispatch = useAppDispatch();
@@ -17,10 +17,9 @@ const FilterDoctors = ({mode}:{mode:null|string}) => {
   const submit = async (data: any) => {
     dispatch(setFindingDoctor(true));
     const res = await filterDoctor(
-     
       data.speciality === "SPECIALITY" ? "NONE" : data.speciality,
       data.address === "ADDRESS" ? "NONE" : data.address,
-      mode?mode:"NONE",
+      mode ? mode : "NONE",
     );
     if (res) {
       dispatch(setDoctorList(res));

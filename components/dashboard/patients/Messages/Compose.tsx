@@ -1,8 +1,20 @@
-"use client"
+"use client";
 
 import React, { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardFooter,
+} from "@/components/ui/card";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import Attachments from "./Attachments";
@@ -34,10 +46,10 @@ const Compose: React.FC = () => {
   ];
 
   const handleAttach = (files: File[]) => {
-    const newAttachments = files.map(file => ({
+    const newAttachments = files.map((file) => ({
       name: file.name,
       size: file.size,
-      type: file.type
+      type: file.type,
     }));
     setAttachments([...attachments, ...newAttachments]);
   };
@@ -64,7 +76,10 @@ const Compose: React.FC = () => {
       </CardHeader>
       <CardContent className="space-y-4 p-6">
         <div className="space-y-2">
-          <label htmlFor="recipient" className="text-sm font-medium text-indigo-700">
+          <label
+            htmlFor="recipient"
+            className="text-sm font-medium text-indigo-700"
+          >
             Recipient
           </label>
           <Select value={recipient} onValueChange={setRecipient}>
@@ -81,7 +96,10 @@ const Compose: React.FC = () => {
           </Select>
         </div>
         <div className="space-y-2">
-          <label htmlFor="message" className="text-sm font-medium text-indigo-700">
+          <label
+            htmlFor="message"
+            className="text-sm font-medium text-indigo-700"
+          >
             Message
           </label>
           <Textarea
@@ -104,9 +122,9 @@ const Compose: React.FC = () => {
           whileTap={{ scale: 0.95 }}
           className="w-full"
         >
-          <Button 
-            onClick={handleSend} 
-            disabled={!recipient || !message} 
+          <Button
+            onClick={handleSend}
+            disabled={!recipient || !message}
             className="w-full bg-indigo-600 hover:bg-indigo-700 text-white"
           >
             <Send className="mr-2 h-4 w-4" /> Send Message

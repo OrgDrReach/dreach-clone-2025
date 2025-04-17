@@ -3,8 +3,8 @@ export interface IAuthUser {
   email: string;
   phone: string;
   name: string;
-  userType: 'Patient' | 'Provider';
-  providerType?: 'Doctor' | 'Hospital' | 'Lab' | 'Nursing' | 'DoctorsAssistant';
+  userType: "Patient" | "Provider";
+  providerType?: "Doctor" | "Hospital" | "Lab" | "Nursing" | "DoctorsAssistant";
   isVerified: boolean;
   createdAt: Date;
   updatedAt: Date;

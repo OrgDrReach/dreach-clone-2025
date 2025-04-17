@@ -12,13 +12,25 @@ const PlanStatus: React.FC<PlanStatusProps> = ({ status }) => {
   const getStatusDetails = (status: StatusType) => {
     switch (status) {
       case "In Progress":
-        return { icon: <Clock className="w-4 h-4 mr-1" />, color: "bg-blue-100 text-blue-800" };
+        return {
+          icon: <Clock className="w-4 h-4 mr-1" />,
+          color: "bg-blue-100 text-blue-800",
+        };
       case "Completed":
-        return { icon: <CheckCircle className="w-4 h-4 mr-1" />, color: "bg-green-100 text-green-800" };
+        return {
+          icon: <CheckCircle className="w-4 h-4 mr-1" />,
+          color: "bg-green-100 text-green-800",
+        };
       case "On Hold":
-        return { icon: <AlertTriangle className="w-4 h-4 mr-1" />, color: "bg-yellow-100 text-yellow-800" };
+        return {
+          icon: <AlertTriangle className="w-4 h-4 mr-1" />,
+          color: "bg-yellow-100 text-yellow-800",
+        };
       case "Not Started":
-        return { icon: <Clock className="w-4 h-4 mr-1" />, color: "bg-gray-100 text-gray-800" };
+        return {
+          icon: <Clock className="w-4 h-4 mr-1" />,
+          color: "bg-gray-100 text-gray-800",
+        };
     }
   };
 

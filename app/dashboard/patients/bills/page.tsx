@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -36,7 +36,11 @@ const BillsPage: React.FC = () => {
     ],
     pendingBills: [
       { serviceName: "MRI Scan", serviceDate: "2023-06-10", amountDue: 500 },
-      { serviceName: "Follow-up Visit", serviceDate: "2023-06-15", amountDue: 100 },
+      {
+        serviceName: "Follow-up Visit",
+        serviceDate: "2023-06-15",
+        amountDue: 100,
+      },
     ],
     insuranceInfo: {
       insuranceName: "HealthGuard Insurance",
@@ -60,7 +64,7 @@ const BillsPage: React.FC = () => {
 
   return (
     <main className="p-6 bg-gray-50 min-h-screen">
-      <motion.div 
+      <motion.div
         className="flex justify-between items-center mb-6"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -102,7 +106,10 @@ const BillsPage: React.FC = () => {
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
           >
-            <TabsContent value={activeTab} className="bg-white p-6 rounded-lg shadow-sm">
+            <TabsContent
+              value={activeTab}
+              className="bg-white p-6 rounded-lg shadow-sm"
+            >
               {tabContent[activeTab as keyof typeof tabContent]}
             </TabsContent>
           </motion.div>

@@ -4,7 +4,7 @@ export enum EHospitalStatus {
   ACTIVE = "ACTIVE",
   INACTIVE = "INACTIVE",
   UNDER_MAINTENANCE = "UNDER_MAINTENANCE",
-  EMERGENCY_ONLY = "EMERGENCY_ONLY"
+  EMERGENCY_ONLY = "EMERGENCY_ONLY",
 }
 
 export enum EHospitalStaffRole {
@@ -14,7 +14,7 @@ export enum EHospitalStaffRole {
   NURSE = "NURSE",
   TECHNICIAN = "TECHNICIAN",
   ADMINISTRATIVE = "ADMINISTRATIVE",
-  SUPPORT = "SUPPORT"
+  SUPPORT = "SUPPORT",
 }
 
 export enum EHospitalPermissions {
@@ -25,7 +25,7 @@ export enum EHospitalPermissions {
   MANAGE_DEPARTMENTS = "MANAGE_DEPARTMENTS",
   MANAGE_FACILITIES = "MANAGE_FACILITIES",
   MANAGE_STAFF = "MANAGE_STAFF",
-  MANAGE_EMERGENCY = "MANAGE_EMERGENCY"
+  MANAGE_EMERGENCY = "MANAGE_EMERGENCY",
 }
 
 // Add staff specialization enum
@@ -46,7 +46,7 @@ export enum EDepartmentType {
   INPATIENT = "INPATIENT",
   EMERGENCY = "EMERGENCY",
   DIAGNOSTIC = "DIAGNOSTIC",
-  SPECIALIZED = "SPECIALIZED"
+  SPECIALIZED = "SPECIALIZED",
 }
 
 export interface Hospital {

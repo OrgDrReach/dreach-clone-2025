@@ -12,7 +12,10 @@ interface ClinicInfoFieldsProps {
   errors: any;
 }
 
-const ClinicInfoFields: React.FC<ClinicInfoFieldsProps> = ({ control, errors }) => {
+const ClinicInfoFields: React.FC<ClinicInfoFieldsProps> = ({
+  control,
+  errors,
+}) => {
   const { fields, append, remove } = useFieldArray({
     control,
     name: "clinics",
@@ -22,7 +25,10 @@ const ClinicInfoFields: React.FC<ClinicInfoFieldsProps> = ({ control, errors }) 
     <div className="col-span-2 flex flex-col gap-2">
       <Label className="text-lg font-semibold">Clinic Information</Label>
       {fields.map((field, index) => (
-        <div key={field.id} className="grid grid-cols-1 gap-4 p-4 border rounded-md">
+        <div
+          key={field.id}
+          className="grid grid-cols-1 gap-4 p-4 border rounded-md"
+        >
           <Controller
             name={`clinics.${index}.name`}
             control={control}
@@ -30,9 +36,15 @@ const ClinicInfoFields: React.FC<ClinicInfoFieldsProps> = ({ control, errors }) 
             render={({ field }) => (
               <div>
                 <Label htmlFor={`clinicName-${index}`}>Clinic Name</Label>
-                <Input id={`clinicName-${index}`} placeholder="Enter clinic name" {...field} />
+                <Input
+                  id={`clinicName-${index}`}
+                  placeholder="Enter clinic name"
+                  {...field}
+                />
                 {errors.clinics?.[index]?.name && (
-                  <p className="text-red-500 text-sm mt-1">{errors.clinics[index].name.message}</p>
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.clinics[index].name.message}
+                  </p>
                 )}
               </div>
             )}
@@ -44,9 +56,15 @@ const ClinicInfoFields: React.FC<ClinicInfoFieldsProps> = ({ control, errors }) 
             render={({ field }) => (
               <div>
                 <Label htmlFor={`clinicAddress-${index}`}>Clinic Address</Label>
-                <Textarea id={`clinicAddress-${index}`} placeholder="Enter clinic address" {...field} />
+                <Textarea
+                  id={`clinicAddress-${index}`}
+                  placeholder="Enter clinic address"
+                  {...field}
+                />
                 {errors.clinics?.[index]?.address && (
-                  <p className="text-red-500 text-sm mt-1">{errors.clinics[index].address.message}</p>
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.clinics[index].address.message}
+                  </p>
                 )}
               </div>
             )}
@@ -58,9 +76,15 @@ const ClinicInfoFields: React.FC<ClinicInfoFieldsProps> = ({ control, errors }) 
             render={({ field }) => (
               <div>
                 <Label htmlFor={`clinicHours-${index}`}>Clinic Hours</Label>
-                <Input id={`clinicHours-${index}`} placeholder="e.g., Mon-Fri: 9AM-5PM, Sat: 10AM-2PM" {...field} />
+                <Input
+                  id={`clinicHours-${index}`}
+                  placeholder="e.g., Mon-Fri: 9AM-5PM, Sat: 10AM-2PM"
+                  {...field}
+                />
                 {errors.clinics?.[index]?.hours && (
-                  <p className="text-red-500 text-sm mt-1">{errors.clinics[index].hours.message}</p>
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.clinics[index].hours.message}
+                  </p>
                 )}
               </div>
             )}

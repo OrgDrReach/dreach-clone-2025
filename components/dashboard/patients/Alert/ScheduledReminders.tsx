@@ -1,8 +1,15 @@
-"use client"
+"use client";
 
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Clock, Plus } from "lucide-react";
 
@@ -16,7 +23,9 @@ interface ScheduledRemindersProps {
   reminders: Reminder[];
 }
 
-const ScheduledReminders: React.FC<ScheduledRemindersProps> = ({ reminders }) => {
+const ScheduledReminders: React.FC<ScheduledRemindersProps> = ({
+  reminders,
+}) => {
   return (
     <Card className="w-full">
       <CardHeader>

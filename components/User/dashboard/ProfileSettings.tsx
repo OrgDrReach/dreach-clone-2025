@@ -25,7 +25,9 @@ const bloodGroupMap = {
 const ProfileSettings = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const dobDate: Date | null = useAppSelector((state: { userReducer: { dob: Date | null } }) => state.userReducer.dob);
+  const dobDate: Date | null = useAppSelector(
+    (state: { userReducer: { dob: Date | null } }) => state.userReducer.dob,
+  );
   const [file, setFile] = useState<File | null>(null);
   const session = useSession();
 
@@ -60,7 +62,17 @@ const ProfileSettings = () => {
       return toast.error("Session Expired, Refresh the page");
     }
 
-    const { name, bloodGroup, gender, phone, address, city, state, pincode, country } = data;
+    const {
+      name,
+      bloodGroup,
+      gender,
+      phone,
+      address,
+      city,
+      state,
+      pincode,
+      country,
+    } = data;
     const Address = { address, city, state, pincode, country };
 
     const formData = new FormData();
@@ -121,8 +133,8 @@ const ProfileSettings = () => {
                                 file
                                   ? URL.createObjectURL(file)
                                   : session.data.data.profilePic
-                                  ? `https://drrreach.s3.ap-south-1.amazonaws.com/doctorProfile/${session.data.data.profilePic}`
-                                  : "/assets/doctor-2.jpg"
+                                    ? `https://drrreach.s3.ap-south-1.amazonaws.com/doctorProfile/${session.data.data.profilePic}`
+                                    : "/assets/doctor-2.jpg"
                               }
                               alt="User Image"
                             />
@@ -158,7 +170,9 @@ const ProfileSettings = () => {
                           defaultValue={session.data.data.name ?? ""}
                         />
                         {errors.name && (
-                          <span className="text-danger">This field is required</span>
+                          <span className="text-danger">
+                            This field is required
+                          </span>
                         )}
                       </div>
                     </div>
@@ -171,7 +185,9 @@ const ProfileSettings = () => {
                         <div className="cal-icon">
                           <DatePickerDemo />
                           {errors.dob && (
-                            <span className="text-danger">This field is required</span>
+                            <span className="text-danger">
+                              This field is required
+                            </span>
                           )}
                         </div>
                       </div>
@@ -192,7 +208,9 @@ const ProfileSettings = () => {
                           <option>Other</option>
                         </select>
                         {errors.gender && (
-                          <span className="text-danger">This field is required</span>
+                          <span className="text-danger">
+                            This field is required
+                          </span>
                         )}
                       </div>
                     </div>
@@ -214,7 +232,9 @@ const ProfileSettings = () => {
                           ))}
                         </select>
                         {errors.bloodGroup && (
-                          <span className="text-danger">This field is required</span>
+                          <span className="text-danger">
+                            This field is required
+                          </span>
                         )}
                       </div>
                     </div>
@@ -245,7 +265,9 @@ const ProfileSettings = () => {
                           className="form-control"
                         />
                         {errors.phone && (
-                          <span className="text-danger">This field is required</span>
+                          <span className="text-danger">
+                            This field is required
+                          </span>
                         )}
                       </div>
                     </div>
@@ -259,10 +281,14 @@ const ProfileSettings = () => {
                           {...register("address", { required: true })}
                           type="text"
                           className="form-control"
-                          defaultValue={session.data.data.address?.address ?? ""}
+                          defaultValue={
+                            session.data.data.address?.address ?? ""
+                          }
                         />
                         {errors.address && (
-                          <span className="text-danger">This field is required</span>
+                          <span className="text-danger">
+                            This field is required
+                          </span>
                         )}
                       </div>
                     </div>
@@ -279,7 +305,9 @@ const ProfileSettings = () => {
                           defaultValue={session.data.data.address?.city ?? ""}
                         />
                         {errors.city && (
-                          <span className="text-danger">This field is required</span>
+                          <span className="text-danger">
+                            This field is required
+                          </span>
                         )}
                       </div>
                     </div>
@@ -296,7 +324,9 @@ const ProfileSettings = () => {
                           defaultValue={session.data.data.address?.state ?? ""}
                         />
                         {errors.state && (
-                          <span className="text-danger">This field is required</span>
+                          <span className="text-danger">
+                            This field is required
+                          </span>
                         )}
                       </div>
                     </div>
@@ -310,10 +340,14 @@ const ProfileSettings = () => {
                           {...register("pincode", { required: true })}
                           type="text"
                           className="form-control"
-                          defaultValue={session.data.data.address?.pincode ?? ""}
+                          defaultValue={
+                            session.data.data.address?.pincode ?? ""
+                          }
                         />
                         {errors.pincode && (
-                          <span className="text-danger">This field is required</span>
+                          <span className="text-danger">
+                            This field is required
+                          </span>
                         )}
                       </div>
                     </div>
@@ -327,17 +361,24 @@ const ProfileSettings = () => {
                           {...register("country", { required: true })}
                           type="text"
                           className="form-control"
-                          defaultValue={session.data.data.address?.country ?? ""}
+                          defaultValue={
+                            session.data.data.address?.country ?? ""
+                          }
                         />
                         {errors.country && (
-                          <span className="text-danger">This field is required</span>
+                          <span className="text-danger">
+                            This field is required
+                          </span>
                         )}
                       </div>
                     </div>
                   </div>
 
                   <div className="submit-section">
-                    <button type="submit" className="btn btn-primary submit-btn">
+                    <button
+                      type="submit"
+                      className="btn btn-primary submit-btn"
+                    >
                       Save Changes
                     </button>
                   </div>

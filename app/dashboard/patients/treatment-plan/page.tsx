@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { useState } from "react";
 import PlanOverview from "@/components/dashboard/patients/TreatmentPlan/PlanOverview";
@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { motion, AnimatePresence } from "framer-motion";
 import { Pill, Activity, Utensils, Dumbbell, Brain } from "lucide-react";
-import Confetti from 'react-confetti';
+import Confetti from "react-confetti";
 
 const TreatmentPlanPage: React.FC = () => {
   const [showConfetti, setShowConfetti] = useState(false);
@@ -23,22 +23,82 @@ const TreatmentPlanPage: React.FC = () => {
   // Mock data for demonstration
   const mockData = {
     goals: [
-      { id: "1", description: "Reduce blood pressure to below 130/80 mmHg", status: "In Progress" as const, progress: 60 },
-      { id: "2", description: "Achieve HbA1c level of 7% or lower", status: "Not Started" as const, progress: 0 },
-      { id: "3", description: "Increase daily physical activity to 30 minutes", status: "Achieved" as const, progress: 100 },
-      { id: "4", description: "Maintain a balanced diet with reduced sodium intake", status: "In Progress" as const, progress: 75 },
+      {
+        id: "1",
+        description: "Reduce blood pressure to below 130/80 mmHg",
+        status: "In Progress" as const,
+        progress: 60,
+      },
+      {
+        id: "2",
+        description: "Achieve HbA1c level of 7% or lower",
+        status: "Not Started" as const,
+        progress: 0,
+      },
+      {
+        id: "3",
+        description: "Increase daily physical activity to 30 minutes",
+        status: "Achieved" as const,
+        progress: 100,
+      },
+      {
+        id: "4",
+        description: "Maintain a balanced diet with reduced sodium intake",
+        status: "In Progress" as const,
+        progress: 75,
+      },
     ],
     outcomes: [
-      { id: "1", description: "Improved cardiovascular health", timeline: "6 months" },
+      {
+        id: "1",
+        description: "Improved cardiovascular health",
+        timeline: "6 months",
+      },
       { id: "2", description: "Better glucose control", timeline: "3 months" },
-      { id: "3", description: "Weight reduction of 5-10%", timeline: "6-12 months" },
-      { id: "4", description: "Enhanced overall well-being and quality of life", timeline: "Ongoing" },
+      {
+        id: "3",
+        description: "Weight reduction of 5-10%",
+        timeline: "6-12 months",
+      },
+      {
+        id: "4",
+        description: "Enhanced overall well-being and quality of life",
+        timeline: "Ongoing",
+      },
     ],
     medicationPlans: [
-      { id: "1", name: "Lisinopril", dosage: "10mg", frequency: "Once daily", duration: "Ongoing", status: "Active" as const },
-      { id: "2", name: "Metformin", dosage: "500mg", frequency: "Twice daily", duration: "3 months", status: "Active" as const },
-      { id: "3", name: "Atorvastatin", dosage: "20mg", frequency: "Once daily at bedtime", duration: "6 months", status: "Upcoming" as const },
-      { id: "4", name: "Aspirin", dosage: "81mg", frequency: "Once daily", duration: "Completed", status: "Completed" as const },
+      {
+        id: "1",
+        name: "Lisinopril",
+        dosage: "10mg",
+        frequency: "Once daily",
+        duration: "Ongoing",
+        status: "Active" as const,
+      },
+      {
+        id: "2",
+        name: "Metformin",
+        dosage: "500mg",
+        frequency: "Twice daily",
+        duration: "3 months",
+        status: "Active" as const,
+      },
+      {
+        id: "3",
+        name: "Atorvastatin",
+        dosage: "20mg",
+        frequency: "Once daily at bedtime",
+        duration: "6 months",
+        status: "Upcoming" as const,
+      },
+      {
+        id: "4",
+        name: "Aspirin",
+        dosage: "81mg",
+        frequency: "Once daily",
+        duration: "Completed",
+        status: "Completed" as const,
+      },
     ],
     therapyPlans: [
       {
@@ -262,7 +322,11 @@ const TreatmentPlanPage: React.FC = () => {
             { id: "1-1", description: "Start medication", completed: true },
             { id: "1-2", description: "Reduce sodium intake", completed: true },
             { id: "1-3", description: "Reach 130/85 mmHg", completed: false },
-            { id: "1-4", description: "Maintain for 1 month", completed: false },
+            {
+              id: "1-4",
+              description: "Maintain for 1 month",
+              completed: false,
+            },
           ],
         },
         {
@@ -270,10 +334,18 @@ const TreatmentPlanPage: React.FC = () => {
           description: "Improve HbA1c levels",
           progress: 40,
           milestones: [
-            { id: "2-1", description: "Start diabetes management plan", completed: true },
+            {
+              id: "2-1",
+              description: "Start diabetes management plan",
+              completed: true,
+            },
             { id: "2-2", description: "Reach 7.5% HbA1c", completed: false },
             { id: "2-3", description: "Reach 7.0% HbA1c", completed: false },
-            { id: "2-4", description: "Maintain for 3 months", completed: false },
+            {
+              id: "2-4",
+              description: "Maintain for 3 months",
+              completed: false,
+            },
           ],
         },
         // Add more goals as needed
@@ -290,7 +362,9 @@ const TreatmentPlanPage: React.FC = () => {
     planStatus: "In Progress" as const,
   };
 
-  const overallProgress = mockData.goals.reduce((acc, goal) => acc + goal.progress, 0) / mockData.goals.length;
+  const overallProgress =
+    mockData.goals.reduce((acc, goal) => acc + goal.progress, 0) /
+    mockData.goals.length;
 
   const handleCelebrateProgress = () => {
     setShowConfetti(true);
@@ -298,8 +372,19 @@ const TreatmentPlanPage: React.FC = () => {
   };
 
   const tabContent = {
-    overview: <PlanOverview goals={mockData.goals} outcomes={mockData.outcomes} planStatus={mockData.planStatus} />,
-    progress: <ProgressTracking goals={mockData.progressTracking.goals} progressData={mockData.progressTracking.progressData} />,
+    overview: (
+      <PlanOverview
+        goals={mockData.goals}
+        outcomes={mockData.outcomes}
+        planStatus={mockData.planStatus}
+      />
+    ),
+    progress: (
+      <ProgressTracking
+        goals={mockData.progressTracking.goals}
+        progressData={mockData.progressTracking.progressData}
+      />
+    ),
     medications: <MedicationPlans plans={mockData.medicationPlans} />,
     therapy: <TherapyPlans plans={mockData.therapyPlans} />,
     diet: <DietaryPlans plans={mockData.dietaryPlans} />,
@@ -309,7 +394,7 @@ const TreatmentPlanPage: React.FC = () => {
 
   return (
     <main className="p-6 bg-gradient-to-br from-sky-100 to-blue-100 ">
-      <motion.h1 
+      <motion.h1
         className="text-4xl font-bold mb-6 text-sky-800"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -318,7 +403,7 @@ const TreatmentPlanPage: React.FC = () => {
         Your Treatment Plan
       </motion.h1>
 
-      <motion.div 
+      <motion.div
         className="mb-8"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -326,13 +411,20 @@ const TreatmentPlanPage: React.FC = () => {
       >
         <Card className="bg-white bg-opacity-70 backdrop-blur-sm">
           <CardHeader>
-            <CardTitle className="text-2xl font-bold text-sky-700">Overall Progress</CardTitle>
+            <CardTitle className="text-2xl font-bold text-sky-700">
+              Overall Progress
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <Progress value={overallProgress} className="h-4 mb-2" />
             <div className="flex justify-between items-center">
-              <span className="text-lg font-semibold">{overallProgress.toFixed(1)}% Complete</span>
-              <Button onClick={handleCelebrateProgress} className="bg-sky-700 hover:bg-sky-600 text-white">
+              <span className="text-lg font-semibold">
+                {overallProgress.toFixed(1)}% Complete
+              </span>
+              <Button
+                onClick={handleCelebrateProgress}
+                className="bg-sky-700 hover:bg-sky-600 text-white"
+              >
                 Celebrate Progress!
               </Button>
             </div>
@@ -342,13 +434,32 @@ const TreatmentPlanPage: React.FC = () => {
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full ">
         <TabsList className="grid grid-cols-3 lg:grid-cols-7 gap-2 mb-6 text-white bg-sky-800">
-          <TabsTrigger value="overview" className="">Overview</TabsTrigger>
-          <TabsTrigger value="progress" className="">Progress</TabsTrigger>
-          <TabsTrigger value="medications"><Pill className="mr-2" />Medications</TabsTrigger>
-          <TabsTrigger value="therapy"><Activity className="mr-2" />Therapy</TabsTrigger>
-          <TabsTrigger value="diet"><Utensils className="mr-2" />Diet</TabsTrigger>
-          <TabsTrigger value="exercise"><Dumbbell className="mr-2" />Exercise</TabsTrigger>
-          <TabsTrigger value="mentalHealth"><Brain className="mr-2" />Mental Health</TabsTrigger>
+          <TabsTrigger value="overview" className="">
+            Overview
+          </TabsTrigger>
+          <TabsTrigger value="progress" className="">
+            Progress
+          </TabsTrigger>
+          <TabsTrigger value="medications">
+            <Pill className="mr-2" />
+            Medications
+          </TabsTrigger>
+          <TabsTrigger value="therapy">
+            <Activity className="mr-2" />
+            Therapy
+          </TabsTrigger>
+          <TabsTrigger value="diet">
+            <Utensils className="mr-2" />
+            Diet
+          </TabsTrigger>
+          <TabsTrigger value="exercise">
+            <Dumbbell className="mr-2" />
+            Exercise
+          </TabsTrigger>
+          <TabsTrigger value="mentalHealth">
+            <Brain className="mr-2" />
+            Mental Health
+          </TabsTrigger>
         </TabsList>
         <AnimatePresence mode="wait">
           <motion.div

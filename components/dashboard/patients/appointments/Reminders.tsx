@@ -1,11 +1,17 @@
 "use client";
-import React from 'react';
+import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -16,15 +22,23 @@ const reminderSchema = z.object({
   email: z.boolean(),
   phone: z.boolean(),
   mobileApp: z.boolean(),
-  phoneNumber: z.string().optional().refine((val) => !val || /^\+?[1-9]\d{1,14}$/.test(val), {
-    message: "Invalid phone number",
-  }),
+  phoneNumber: z
+    .string()
+    .optional()
+    .refine((val) => !val || /^\+?[1-9]\d{1,14}$/.test(val), {
+      message: "Invalid phone number",
+    }),
 });
 
 type ReminderFormData = z.infer<typeof reminderSchema>;
 
 const Reminders: React.FC = () => {
-  const { control, handleSubmit, watch, formState: { errors } } = useForm<ReminderFormData>({
+  const {
+    control,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<ReminderFormData>({
     resolver: zodResolver(reminderSchema),
     defaultValues: {
       email: false,
@@ -37,8 +51,8 @@ const Reminders: React.FC = () => {
 
   // Mock data for upcoming appointments (replace with actual data fetching logic)
   const upcomingAppointments = [
-    { id: '1', description: 'Cardiology - Dr. John Doe (Apr 15, 2023)' },
-    { id: '2', description: 'Dermatology - Dr. Jane Smith (Apr 18, 2023)' },
+    { id: "1", description: "Cardiology - Dr. John Doe (Apr 15, 2023)" },
+    { id: "2", description: "Dermatology - Dr. Jane Smith (Apr 18, 2023)" },
   ];
 
   const onSubmit = (data: ReminderFormData) => {
@@ -49,7 +63,9 @@ const Reminders: React.FC = () => {
   return (
     <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
       <CardHeader className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white">
-        <CardTitle className="text-2xl font-bold">Set Appointment Reminder</CardTitle>
+        <CardTitle className="text-2xl font-bold">
+          Set Appointment Reminder
+        </CardTitle>
       </CardHeader>
       <CardContent className="mt-4">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -73,7 +89,11 @@ const Reminders: React.FC = () => {
                 </Select>
               )}
             />
-            {errors.appointmentId && <p className="text-red-500 text-sm mt-1">{errors.appointmentId.message}</p>}
+            {errors.appointmentId && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.appointmentId.message}
+              </p>
+            )}
           </div>
 
           <div>
@@ -95,7 +115,11 @@ const Reminders: React.FC = () => {
                 </Select>
               )}
             />
-            {errors.reminderTime && <p className="text-red-500 text-sm mt-1">{errors.reminderTime.message}</p>}
+            {errors.reminderTime && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.reminderTime.message}
+              </p>
+            )}
           </div>
 
           <div className="space-y-2">
@@ -106,7 +130,11 @@ const Reminders: React.FC = () => {
                   name="email"
                   control={control}
                   render={({ field }) => (
-                    <Checkbox id="email" checked={field.value} onCheckedChange={field.onChange} />
+                    <Checkbox
+                      id="email"
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
                   )}
                 />
                 <Label htmlFor="email">Email</Label>
@@ -116,7 +144,11 @@ const Reminders: React.FC = () => {
                   name="phone"
                   control={control}
                   render={({ field }) => (
-                    <Checkbox id="phone" checked={field.value} onCheckedChange={field.onChange} />
+                    <Checkbox
+                      id="phone"
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
                   )}
                 />
                 <Label htmlFor="phone">Phone</Label>
@@ -126,7 +158,11 @@ const Reminders: React.FC = () => {
                   name="mobileApp"
                   control={control}
                   render={({ field }) => (
-                    <Checkbox id="mobileApp" checked={field.value} onCheckedChange={field.onChange} />
+                    <Checkbox
+                      id="mobileApp"
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
                   )}
                 />
                 <Label htmlFor="mobileApp">Mobile App</Label>
@@ -141,14 +177,22 @@ const Reminders: React.FC = () => {
                 name="phoneNumber"
                 control={control}
                 render={({ field }) => (
-                  <Input id="phoneNumber" placeholder="Enter phone number" {...field} />
+                  <Input
+                    id="phoneNumber"
+                    placeholder="Enter phone number"
+                    {...field}
+                  />
                 )}
               />
-              {errors.phoneNumber && <p className="text-red-500 text-sm mt-1">{errors.phoneNumber.message}</p>}
+              {errors.phoneNumber && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.phoneNumber.message}
+                </p>
+              )}
             </div>
           )}
 
-          <Button 
+          <Button
             type="submit"
             className="w-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:from-cyan-600 hover:to-blue-600 transition-colors duration-300"
           >

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
@@ -10,8 +10,8 @@ import {
   DataSharingPreferences,
   ConsentManagement,
   DeviceSettings,
-  HelpAndSupport
-} from '@/components/dashboard/patients/Settings';
+  HelpAndSupport,
+} from "@/components/dashboard/patients/Settings";
 
 const SettingsPage: React.FC = () => {
   return (
@@ -24,34 +24,36 @@ const SettingsPage: React.FC = () => {
           <TabsTrigger value="security">Security</TabsTrigger>
           <TabsTrigger value="help">Help</TabsTrigger>
         </TabsList>
-        
+
         <TabsContent value="account" className="space-y-4">
           <AccountSettings />
           <LanguageSettings />
           <TimeZoneSettings />
         </TabsContent>
-        
+
         <TabsContent value="notifications">
           <NotificationPreferences />
         </TabsContent>
-        
+
         <TabsContent value="preferences" className="space-y-4">
           <DataSharingPreferences />
           <ConsentManagement />
           <DeviceSettings />
         </TabsContent>
-        
+
         <TabsContent value="security">
           <SecuritySettings />
         </TabsContent>
-        
+
         <TabsContent value="help">
           <HelpAndSupport />
         </TabsContent>
       </Tabs>
-      
+
       <div className="mt-8 text-center">
-        <Button variant="destructive" size="lg">Log Out</Button>
+        <Button variant="destructive" size="lg">
+          Log Out
+        </Button>
       </div>
     </div>
   );

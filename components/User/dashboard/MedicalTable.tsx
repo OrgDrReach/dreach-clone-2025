@@ -63,7 +63,6 @@ const MedicalTable = ({ data }: { data: MedicalRecord }) => {
           >
             <i className="far fa-eye" /> View
           </a>
-        
         </div>
       </td>
     </tr>

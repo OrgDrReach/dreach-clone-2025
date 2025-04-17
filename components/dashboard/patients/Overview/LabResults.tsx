@@ -1,12 +1,29 @@
-"use client"
-import React from 'react';
+"use client";
+import React from "react";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Line } from 'react-chartjs-2';
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
-import { FaChartLine } from 'react-icons/fa';
+import { Line } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+import { FaChartLine } from "react-icons/fa";
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+);
 
 interface LabResult {
   date: string;
@@ -20,19 +37,19 @@ interface LabResultsProps {
 
 const LabResults: React.FC<LabResultsProps> = ({ results }) => {
   const data = {
-    labels: results.map(result => result.date),
+    labels: results.map((result) => result.date),
     datasets: [
       {
-        label: 'Blood Pressure',
-        data: results.map(result => result.bloodPressure),
-        borderColor: 'rgb(18, 88, 114)', // primary-500
-        backgroundColor: 'rgba(18, 88, 114, 0.5)',
+        label: "Blood Pressure",
+        data: results.map((result) => result.bloodPressure),
+        borderColor: "rgb(18, 88, 114)", // primary-500
+        backgroundColor: "rgba(18, 88, 114, 0.5)",
       },
       {
-        label: 'Glucose Level',
-        data: results.map(result => result.glucoseLevel),
-        borderColor: 'rgb(51, 135, 191)', // primary-400
-        backgroundColor: 'rgba(51, 135, 191, 0.5)',
+        label: "Glucose Level",
+        data: results.map((result) => result.glucoseLevel),
+        borderColor: "rgb(51, 135, 191)", // primary-400
+        backgroundColor: "rgba(51, 135, 191, 0.5)",
       },
     ],
   };
@@ -41,7 +58,7 @@ const LabResults: React.FC<LabResultsProps> = ({ results }) => {
     responsive: true,
     plugins: {
       legend: {
-        position: 'top' as const,
+        position: "top" as const,
       },
       title: {
         display: false,

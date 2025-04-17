@@ -1,11 +1,11 @@
 import { Metadata, Viewport } from "next";
 
 export const viewport: Viewport = {
-	width: "device-width",
-	initialScale: 1,
+  width: "device-width",
+  initialScale: 1,
 };
 
 export const metadata: Metadata = {
-	title: "Admin Dashboard | Dr. Reach",
-	description: "Admin system management dashboard",
+  title: "Admin Dashboard | Dr. Reach",
+  description: "Admin system management dashboard",
 };

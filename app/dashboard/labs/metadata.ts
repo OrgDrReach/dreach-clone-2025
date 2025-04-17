@@ -6,6 +6,6 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Patient Dashboard | Dr. Reach",
-  description: "Patient healthcare management dashboard",
+  title: "Laboratory Dashboard | Dr. Reach",
+  description: "Laboratory management system dashboard",
 };

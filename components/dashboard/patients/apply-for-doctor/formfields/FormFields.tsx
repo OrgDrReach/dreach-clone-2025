@@ -10,9 +10,15 @@ import {
   DateOfBirthField,
   PhoneNumberField,
   GenderField,
-  BloodGroupSelect
+  BloodGroupSelect,
 } from "./index";
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select";
 import AddressFields from "./AddressFields";
 import MedicalDegreesField from "./MedicalDegreesField";
 import SkillsAndHobbiesField from "./SkillsAndHobbiesField";
@@ -23,16 +29,27 @@ import AadhaarVerificationField from "./AadhaarVerificationField";
 import DoctorLicenseVerificationField from "./DoctorLicenseVerificationField";
 
 export const formSchema = z.object({
-  username: z.string().min(3, "Username must be at least 3 characters").max(20, "Username must be at most 20 characters"),
+  username: z
+    .string()
+    .min(3, "Username must be at least 3 characters")
+    .max(20, "Username must be at most 20 characters"),
   email: z.string().email("Invalid email address"),
   firstName: z.string().min(2, "First name must be at least 2 characters"),
   lastName: z.string().min(2, "Last name must be at least 2 characters"),
-  dateOfBirth: z.date().max(new Date(), "Date of birth cannot be in the future"),
+  dateOfBirth: z
+    .date()
+    .max(new Date(), "Date of birth cannot be in the future"),
   phoneNumber: z.string().min(10, "Phone number must be at least 10 digits"),
-  gender: z.enum(["male", "female", "other"], { required_error: "Please select a gender" }),
-  bloodGroup: z.enum(["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"], { required_error: "Please select a blood group" }),
+  gender: z.enum(["male", "female", "other"], {
+    required_error: "Please select a gender",
+  }),
+  bloodGroup: z.enum(["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"], {
+    required_error: "Please select a blood group",
+  }),
   biography: z.string().optional(),
-  appointmentMode: z.enum(["in-person", "video", "both"], { required_error: "Please select an appointment mode" }),
+  appointmentMode: z.enum(["in-person", "video", "both"], {
+    required_error: "Please select an appointment mode",
+  }),
   permanentAddressLine1: z.string().min(1, "Address line 1 is required"),
   permanentAddressLine2: z.string().optional(),
   permanentCity: z.string().min(1, "City is required"),
@@ -46,54 +63,75 @@ export const formSchema = z.object({
   residentialState: z.string().min(1, "State is required"),
   residentialCountry: z.string().min(1, "Country is required"),
   residentialPostalCode: z.string().min(1, "Postal code is required"),
-  medicalDegrees: z.array(
-    z.object({
-      degree: z.string().min(1, "Degree is required"),
-      institution: z.string().min(1, "Institution is required"),
-      year: z.string().min(1, "Year is required"),
-    })
-  ).min(1, "At least one medical degree is required"),
-  skills: z.array(
-    z.object({
-      skill: z.string().min(1, "Skill is required"),
-    })
-  ).optional(),
-  hobbies: z.array(
-    z.object({
-      hobby: z.string().min(1, "Hobby is required"),
-    })
-  ).optional(),
-  education: z.array(
-    z.object({
-      degree: z.string().min(1, "Degree is required"),
-      institution: z.string().min(1, "Institution is required"),
-      year: z.string().min(1, "Year is required"),
-    })
-  ).optional(),
-  awards: z.array(
-    z.object({
-      title: z.string().min(1, "Award title is required"),
-      organization: z.string().min(1, "Awarding organization is required"),
-      year: z.string().min(1, "Year is required"),
-    })
-  ).optional(),
-  clinics: z.array(
-    z.object({
-      name: z.string().min(1, "Clinic name is required"),
-      address: z.string().min(1, "Clinic address is required"),
-      hours: z.string().min(1, "Clinic hours are required"),
-    })
-  ).optional(),
+  medicalDegrees: z
+    .array(
+      z.object({
+        degree: z.string().min(1, "Degree is required"),
+        institution: z.string().min(1, "Institution is required"),
+        year: z.string().min(1, "Year is required"),
+      }),
+    )
+    .min(1, "At least one medical degree is required"),
+  skills: z
+    .array(
+      z.object({
+        skill: z.string().min(1, "Skill is required"),
+      }),
+    )
+    .optional(),
+  hobbies: z
+    .array(
+      z.object({
+        hobby: z.string().min(1, "Hobby is required"),
+      }),
+    )
+    .optional(),
+  education: z
+    .array(
+      z.object({
+        degree: z.string().min(1, "Degree is required"),
+        institution: z.string().min(1, "Institution is required"),
+        year: z.string().min(1, "Year is required"),
+      }),
+    )
+    .optional(),
+  awards: z
+    .array(
+      z.object({
+        title: z.string().min(1, "Award title is required"),
+        organization: z.string().min(1, "Awarding organization is required"),
+        year: z.string().min(1, "Year is required"),
+      }),
+    )
+    .optional(),
+  clinics: z
+    .array(
+      z.object({
+        name: z.string().min(1, "Clinic name is required"),
+        address: z.string().min(1, "Clinic address is required"),
+        hours: z.string().min(1, "Clinic hours are required"),
+      }),
+    )
+    .optional(),
   aadhaarNumber: z.string().length(12, "Aadhaar number must be 12 digits"),
-  aadhaarFile: z.instanceof(File, { message: "Please upload your Aadhaar card" }).optional(),
+  aadhaarFile: z
+    .instanceof(File, { message: "Please upload your Aadhaar card" })
+    .optional(),
   licenseNumber: z.string().min(1, "License number is required"),
-  licenseFile: z.instanceof(File, { message: "Please upload your medical license" }).optional(),
+  licenseFile: z
+    .instanceof(File, { message: "Please upload your medical license" })
+    .optional(),
 });
 
 export type FormValues = z.infer<typeof formSchema>;
 
 const FormFields: React.FC = () => {
-  const { control, handleSubmit, formState: { errors }, watch } = useForm<FormValues>({
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+    watch,
+  } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       username: "",
@@ -103,7 +141,7 @@ const FormFields: React.FC = () => {
       phoneNumber: "",
       biography: "",
       permanentAddressLine1: "",
-      permanentAddressLine2: "", 
+      permanentAddressLine2: "",
       permanentCity: "",
       permanentState: "",
       permanentCountry: "",
@@ -125,7 +163,7 @@ const FormFields: React.FC = () => {
       education: [],
       awards: [],
       clinics: [],
-    } as unknown as FormValues
+    } as unknown as FormValues,
   });
 
   const onSubmit = (data: FormValues) => {
@@ -141,7 +179,10 @@ const FormFields: React.FC = () => {
       <PhoneNumberField control={control} errors={errors} />
       <GenderField control={control} errors={errors} />
       <div className="space-y-2">
-        <Label htmlFor="bloodGroup" className={errors.bloodGroup ? "text-destructive" : ""}>
+        <Label
+          htmlFor="bloodGroup"
+          className={errors.bloodGroup ? "text-destructive" : ""}
+        >
           Blood Group
         </Label>
         <Controller
@@ -157,7 +198,9 @@ const FormFields: React.FC = () => {
           )}
         />
         {errors.bloodGroup && (
-          <p className="text-sm text-destructive">{errors.bloodGroup.message}</p>
+          <p className="text-sm text-destructive">
+            {errors.bloodGroup.message}
+          </p>
         )}
       </div>
       <div className="col-span-2">
@@ -166,7 +209,11 @@ const FormFields: React.FC = () => {
           name="biography"
           control={control}
           render={({ field }) => (
-            <Textarea id="biography" placeholder="Tell us about yourself" {...field} />
+            <Textarea
+              id="biography"
+              placeholder="Tell us about yourself"
+              {...field}
+            />
           )}
         />
       </div>
@@ -177,7 +224,10 @@ const FormFields: React.FC = () => {
           control={control}
           render={({ field }) => (
             <Select onValueChange={field.onChange} value={field.value}>
-              <SelectTrigger id="appointmentMode" className={errors.appointmentMode ? "border-red-500" : ""}>
+              <SelectTrigger
+                id="appointmentMode"
+                className={errors.appointmentMode ? "border-red-500" : ""}
+              >
                 <SelectValue placeholder="Select appointment mode" />
               </SelectTrigger>
               <SelectContent>
@@ -188,7 +238,11 @@ const FormFields: React.FC = () => {
             </Select>
           )}
         />
-        {errors.appointmentMode && <p className="text-red-500 text-sm mt-1">{errors.appointmentMode.message}</p>}
+        {errors.appointmentMode && (
+          <p className="text-red-500 text-sm mt-1">
+            {errors.appointmentMode.message}
+          </p>
+        )}
       </div>
       <AddressFields control={control} errors={errors} />
       <MedicalDegreesField control={control} errors={errors} />

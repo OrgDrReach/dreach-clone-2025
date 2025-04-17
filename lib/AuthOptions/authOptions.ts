@@ -52,7 +52,7 @@ export const authOption: NextAuthOptions = {
               //never expire token
               exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 10,
             },
-            process.env.NEXTAUTH_SECRET!
+            process.env.NEXTAUTH_SECRET!,
           );
 
           token.authToken = tokens;

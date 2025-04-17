@@ -1,10 +1,10 @@
-import React from 'react';
+import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Camera, Mail, Lock } from 'lucide-react';
+import { Camera, Mail, Lock } from "lucide-react";
 
 const AccountSettings: React.FC = () => {
   return (
@@ -24,7 +24,10 @@ const AccountSettings: React.FC = () => {
             <AvatarImage src="/avatar-placeholder.png" alt="Profile picture" />
             <AvatarFallback>JP</AvatarFallback>
           </Avatar>
-          <Button variant="outline" className="absolute inset-0 m-auto w-10 h-10 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+          <Button
+            variant="outline"
+            className="absolute inset-0 m-auto w-10 h-10 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+          >
             <Camera className="h-5 w-5" />
           </Button>
         </div>
@@ -32,7 +35,12 @@ const AccountSettings: React.FC = () => {
           <Label htmlFor="email" className="text-lg flex items-center">
             <Mail className="mr-2 h-5 w-5" /> Email Address
           </Label>
-          <Input id="email" type="email" placeholder="your.email@example.com" className="max-w-md" />
+          <Input
+            id="email"
+            type="email"
+            placeholder="your.email@example.com"
+            className="max-w-md"
+          />
         </div>
         <div className="space-y-2">
           <Label htmlFor="password" className="text-lg flex items-center">
@@ -41,8 +49,12 @@ const AccountSettings: React.FC = () => {
           <Input id="password" type="password" className="max-w-md" />
         </div>
         <div className="flex space-x-4 pt-4">
-          <Button variant="default" className="flex-1">Update Email</Button>
-          <Button variant="outline" className="flex-1">Reset Password</Button>
+          <Button variant="default" className="flex-1">
+            Update Email
+          </Button>
+          <Button variant="outline" className="flex-1">
+            Reset Password
+          </Button>
         </div>
       </CardContent>
     </Card>

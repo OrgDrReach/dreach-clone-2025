@@ -34,10 +34,16 @@ interface FindDoctorList {
   };
 }
 
-const FindDoctors = ({ data,service }: { data: FindDoctorList[], service:null|string}) => {
+const FindDoctors = ({
+  data,
+  service,
+}: {
+  data: FindDoctorList[];
+  service: null | string;
+}) => {
   const dispatch = useAppDispatch();
   const isFindingDoctor = useAppSelector(
-    (state) => state.userReducer.findingDoctor
+    (state) => state.userReducer.findingDoctor,
   );
   const doctorList = useAppSelector((state) => state.userReducer.doctorList);
 
@@ -54,38 +60,65 @@ const FindDoctors = ({ data,service }: { data: FindDoctorList[], service:null|st
       {isFindingDoctor ? (
         <Loader />
       ) : (
-
         <div className="grid grid-flow-cols grid-cols-1 md:p-4  divide-y ">
-
-       { doctorList &&
-        doctorList.map((d, v) => {
-          return <div key={d.id} className="w-full flex justify-between px-3 md:flex-row py-3 flex-col">
-
-            <div className="flex items-center md:flex-row gap-2">
-              <img className="w-[100px] h-[100px] rounded-full object-cover border border-green-700" src={`https://storage.googleapis.com/kiitconnect_bucket/doctorProfile/${d.user.profilePic}`} alt="" />
-              <div className="flex flex-col">
-               <Link className="no-underline" href={`/doctorprofile/${d.user.username}`}><span className="text-[15px]  text-cyan-500 font-bold">{d.user.Fname} {d.user.Lname}</span></Link> 
-                <span className="text-[12px] text-muted">{d.specializations.join(",")}</span>
-                <span className="text-[12px] text-muted">{d.user.address.city} {d.user.address.state}</span>
-                <span className="text-[12px] text-muted">Rs. 200</span>
-                <Link href={`/doctorprofile/${d.user.username}`} className="bg-green-700 text-center no-underline hover:bg-green-800 my-2 px-2 py-1 rounded-[4px] text-[10px] max-w-[100px] text-white" >View Profile</Link>
-
-              </div>
-              
-            </div>
-            <div className="flex flex-col my-2 gap-2 text-[12px] md:pr-[ 30px] justify-center">
-              <Link  href={`/doctorprofile/${d.user.username}?single_service=${d.service}`} className="bg-cyan-700 no-underline text-center hover:bg-cyan-800 px-2 py-1 rounded-[4px] text-white">Book {serviceMap[d.service as keyof typeof serviceMap]}</Link>
-              {d.isAvailableForDesk && (
-                <Link    href={`/doctorprofile/${d.user.username}?single_service=`} className="bg-yellow-700 no-underline text-center hover:bg-yellow-800 px-2 py-1 rounded-[4px] text-white">Book Clinic Visit</Link>
-              )}
-              </div>
-        
-          </div>
-        })}
+          {doctorList &&
+            doctorList.map((d, v) => {
+              return (
+                <div
+                  key={d.id}
+                  className="w-full flex justify-between px-3 md:flex-row py-3 flex-col"
+                >
+                  <div className="flex items-center md:flex-row gap-2">
+                    <img
+                      className="w-[100px] h-[100px] rounded-full object-cover border border-green-700"
+                      src={`https://storage.googleapis.com/kiitconnect_bucket/doctorProfile/${d.user.profilePic}`}
+                      alt=""
+                    />
+                    <div className="flex flex-col">
+                      <Link
+                        className="no-underline"
+                        href={`/doctorprofile/${d.user.username}`}
+                      >
+                        <span className="text-[15px]  text-cyan-500 font-bold">
+                          {d.user.Fname} {d.user.Lname}
+                        </span>
+                      </Link>
+                      <span className="text-[12px] text-muted">
+                        {d.specializations.join(",")}
+                      </span>
+                      <span className="text-[12px] text-muted">
+                        {d.user.address.city} {d.user.address.state}
+                      </span>
+                      <span className="text-[12px] text-muted">Rs. 200</span>
+                      <Link
+                        href={`/doctorprofile/${d.user.username}`}
+                        className="bg-green-700 text-center no-underline hover:bg-green-800 my-2 px-2 py-1 rounded-[4px] text-[10px] max-w-[100px] text-white"
+                      >
+                        View Profile
+                      </Link>
+                    </div>
+                  </div>
+                  <div className="flex flex-col my-2 gap-2 text-[12px] md:pr-[ 30px] justify-center">
+                    <Link
+                      href={`/doctorprofile/${d.user.username}?single_service=${d.service}`}
+                      className="bg-cyan-700 no-underline text-center hover:bg-cyan-800 px-2 py-1 rounded-[4px] text-white"
+                    >
+                      Book {serviceMap[d.service as keyof typeof serviceMap]}
+                    </Link>
+                    {d.isAvailableForDesk && (
+                      <Link
+                        href={`/doctorprofile/${d.user.username}?single_service=`}
+                        className="bg-yellow-700 no-underline text-center hover:bg-yellow-800 px-2 py-1 rounded-[4px] text-white"
+                      >
+                        Book Clinic Visit
+                      </Link>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
         </div>
-      )
-      
-      }
+      )}
     </div>
   );
 };

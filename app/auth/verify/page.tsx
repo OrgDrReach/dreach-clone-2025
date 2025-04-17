@@ -3,22 +3,22 @@ import { VerifyErrorBoundary } from "@/components/auth/verify/VerifyErrorBoundar
 import { redirect } from "next/navigation";
 
 interface PageProps {
-	searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
 export default async function VerifyPage({ searchParams }: PageProps) {
-	const params = await searchParams;
-	const phone = typeof params.phone === "string" ? params.phone : undefined;
+  const params = await searchParams;
+  const phone = typeof params.phone === "string" ? params.phone : undefined;
 
-	if (!phone) {
-		redirect("/auth/login");
-	}
+  if (!phone) {
+    redirect("/auth/login");
+  }
 
-	return (
-		<main className="min-h-screen">
-			<VerifyErrorBoundary>
-				<Verify phone={phone} />
-			</VerifyErrorBoundary>
-		</main>
-	);
+  return (
+    <main className="min-h-screen">
+      <VerifyErrorBoundary>
+        <Verify phone={phone} />
+      </VerifyErrorBoundary>
+    </main>
+  );
 }

@@ -16,18 +16,31 @@ const UserInfoFields: React.FC<UserInfoFieldsProps> = ({ control, errors }) => (
       <Controller
         name="username"
         control={control}
-        render={({ field }) => <Input id="username" placeholder="Enter your username" {...field} />}
+        render={({ field }) => (
+          <Input id="username" placeholder="Enter your username" {...field} />
+        )}
       />
-      {errors.username && <p className="text-red-500 text-sm mt-1">{errors.username.message}</p>}
+      {errors.username && (
+        <p className="text-red-500 text-sm mt-1">{errors.username.message}</p>
+      )}
     </div>
     <div>
       <Label htmlFor="email">Email</Label>
       <Controller
         name="email"
         control={control}
-        render={({ field }) => <Input id="email" type="email" placeholder="Enter your email" {...field} />}
+        render={({ field }) => (
+          <Input
+            id="email"
+            type="email"
+            placeholder="Enter your email"
+            {...field}
+          />
+        )}
       />
-      {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
+      {errors.email && (
+        <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
+      )}
     </div>
   </>
 );

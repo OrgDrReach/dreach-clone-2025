@@ -4,12 +4,12 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { 
-  Stethoscope, 
-  Building2, 
-  FlaskConical, 
-  Pill, 
-  Ambulance
+import {
+  Stethoscope,
+  Building2,
+  FlaskConical,
+  Pill,
+  Ambulance,
 } from "lucide-react";
 
 const providerSchema = z.object({
@@ -23,7 +23,9 @@ type ProviderSchemaType = z.infer<typeof providerSchema>;
 interface ProviderModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (role: "doctor" | "hospital" | "lab" | "pharmaceutical" | "ambulance") => void;
+  onSubmit: (
+    role: "doctor" | "hospital" | "lab" | "pharmaceutical" | "ambulance",
+  ) => void;
 }
 
 const ProviderModal: React.FC<ProviderModalProps> = ({
@@ -31,7 +33,9 @@ const ProviderModal: React.FC<ProviderModalProps> = ({
   onClose,
   onSubmit,
 }) => {
-  const [selectedRole, setSelectedRole] = useState<"doctor" | "hospital" | "lab" | "pharmaceutical" | "ambulance">("doctor");
+  const [selectedRole, setSelectedRole] = useState<
+    "doctor" | "hospital" | "lab" | "pharmaceutical" | "ambulance"
+  >("doctor");
 
   const roles = [
     { id: "doctor" as const, label: "Doctor", icon: Stethoscope },
@@ -41,7 +45,9 @@ const ProviderModal: React.FC<ProviderModalProps> = ({
     { id: "ambulance" as const, label: "Ambulance", icon: Ambulance },
   ];
 
-  const handleRoleSelect = (role: "doctor" | "hospital" | "lab" | "pharmaceutical" | "ambulance") => {
+  const handleRoleSelect = (
+    role: "doctor" | "hospital" | "lab" | "pharmaceutical" | "ambulance",
+  ) => {
     setSelectedRole(role);
   };
 

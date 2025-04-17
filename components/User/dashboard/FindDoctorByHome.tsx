@@ -48,7 +48,7 @@ const FindDoctorsByHome = ({
 }) => {
   const dispatch = useAppDispatch();
   const doctorList = useAppSelector(
-    (state) => state.userReducer.HomeVisitDoctorList
+    (state) => state.userReducer.HomeVisitDoctorList,
   );
 
   useEffect(() => {
@@ -129,7 +129,7 @@ const FindDoctorsByHome = ({
     //                   className="w-full btn btn-info btn-sm"
     //                 >
     //                   Book {modeMap[d?.mode as keyof typeof modeMap]}
-                      
+
     //                 </Link>
     //               </div>
     //             </div>
@@ -139,31 +139,55 @@ const FindDoctorsByHome = ({
     //     })}
     // </div>
     <div className="grid grid-flow-cols grid-cols-1 md:p-4  divide-y ">
-
-    { doctorList &&
-     doctorList.map((d, v) => {
-       return <div key={d.id} className="w-full flex justify-between px-3 md:flex-row py-3 flex-col">
-
-         <div className="flex items-center md:flex-row gap-2">
-           <img className="w-[100px] h-[100px] rounded-full object-cover border border-green-700" src={`https://storage.googleapis.com/kiitconnect_bucket/doctorProfile/${d.user.profilePic}`} alt="" />
-           <div className="flex flex-col">
-            <Link className="no-underline" href={`/doctorprofile/${d.user.username}`}><span className="text-[15px]  text-cyan-500 font-bold">{d.user.Fname} {d.user.Lname}</span></Link> 
-             <span className="text-[12px] text-muted">{d.specializations.join(",")}</span>
-             <span className="text-[12px] text-muted">{d.user.address.city} {d.user.address.state}</span>
-             <span className="text-[12px] text-muted">Rs. 200</span>
-             <Link href={`/doctorprofile/${d.user.username}`} className="bg-green-700 text-center no-underline hover:bg-green-800 my-2 px-2 py-1 rounded-[4px] text-[10px] max-w-[100px] text-white" >View Profile</Link>
-
-           </div>
-           
-         </div>
-         <div className="flex flex-col  gap-2 text-[12px] md:pr-[ 30px] justify-center">
-           <Link  href={`/doctorprofile/${d.user.username}?mode=${mode}&${url}`} className="bg-cyan-700 no-underline text-center hover:bg-cyan-800 px-2 py-1 rounded-[4px] text-white">Book {modeMap[d.mode as keyof typeof modeMap]}</Link>
-          
-           </div>
-       
-       </div>
-     })}
-     </div>
+      {doctorList &&
+        doctorList.map((d, v) => {
+          return (
+            <div
+              key={d.id}
+              className="w-full flex justify-between px-3 md:flex-row py-3 flex-col"
+            >
+              <div className="flex items-center md:flex-row gap-2">
+                <img
+                  className="w-[100px] h-[100px] rounded-full object-cover border border-green-700"
+                  src={`https://storage.googleapis.com/kiitconnect_bucket/doctorProfile/${d.user.profilePic}`}
+                  alt=""
+                />
+                <div className="flex flex-col">
+                  <Link
+                    className="no-underline"
+                    href={`/doctorprofile/${d.user.username}`}
+                  >
+                    <span className="text-[15px]  text-cyan-500 font-bold">
+                      {d.user.Fname} {d.user.Lname}
+                    </span>
+                  </Link>
+                  <span className="text-[12px] text-muted">
+                    {d.specializations.join(",")}
+                  </span>
+                  <span className="text-[12px] text-muted">
+                    {d.user.address.city} {d.user.address.state}
+                  </span>
+                  <span className="text-[12px] text-muted">Rs. 200</span>
+                  <Link
+                    href={`/doctorprofile/${d.user.username}`}
+                    className="bg-green-700 text-center no-underline hover:bg-green-800 my-2 px-2 py-1 rounded-[4px] text-[10px] max-w-[100px] text-white"
+                  >
+                    View Profile
+                  </Link>
+                </div>
+              </div>
+              <div className="flex flex-col  gap-2 text-[12px] md:pr-[ 30px] justify-center">
+                <Link
+                  href={`/doctorprofile/${d.user.username}?mode=${mode}&${url}`}
+                  className="bg-cyan-700 no-underline text-center hover:bg-cyan-800 px-2 py-1 rounded-[4px] text-white"
+                >
+                  Book {modeMap[d.mode as keyof typeof modeMap]}
+                </Link>
+              </div>
+            </div>
+          );
+        })}
+    </div>
   );
 };
 

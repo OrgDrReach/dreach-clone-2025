@@ -1,148 +1,252 @@
 "use client";
 
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import {
-	Sidebar,
-	SidebarContent,
-	SidebarGroup,
-	SidebarGroupContent,
-	SidebarHeader,
-	SidebarMenu,
-	SidebarMenuItem,
-	SidebarMenuButton,
-	SidebarProvider,
-} from "@/components/ui/sidebar";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import Image from "next/image";
-import Link from "next/link";
+import { useState, useContext, createContext } from "react";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
+import Image from "next/image";
 import {
-	BarChart3,
-	Building2,
-	Boxes,
-	Package,
-	Users,
-	Settings,
-	Gauge,
-	ActivitySquare,
-	MoreVertical,
+  ChevronFirst,
+  ChevronLast,
+  Layout,
+  BarChart3,
+  Users,
+  CalendarCheck2,
+  Bed,
+  Stethoscope,
+  LineChart,
+  Pill,
+  Ambulance,
+  Receipt,
+  FileText,
+  Building2,
+  Cog,
+  LifeBuoy,
+  BellRing,
+  Clipboard,
 } from "lucide-react";
 
-interface NavItem {
-	title: string;
-	href: string;
-	icon: React.ReactNode;
-	items?: NavItem[];
+import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+  TooltipProvider,
+} from "@/components/ui/tooltip";
+import { cn } from "@/lib/utils";
+
+const SideBarContext = createContext({ expanded: true });
+
+interface SideBarProps {
+  children: React.ReactNode;
+  onToggle: () => void;
+  isCollapsed: boolean;
 }
 
-const navItems: NavItem[] = [
-	{
-		title: "Dashboard",
-		href: "/dashboard/hospital",
-		icon: <Gauge className="h-4 w-4" />,
-	},
-	{
-		title: "Analytics",
-		href: "/dashboard/hospital/analytics",
-		icon: <BarChart3 className="h-4 w-4" />,
-	},
-	{
-		title: "Departments",
-		href: "/dashboard/hospital/departments",
-		icon: <Building2 className="h-4 w-4" />,
-	},
-	{
-		title: "Staff",
-		href: "/dashboard/hospital/staff",
-		icon: <Package className="h-4 w-4" />,
-	},
-	{
-		title: "Patients",
-		href: "/dashboard/hospital/patients",
-		icon: <Users className="h-4 w-4" />,
-	},
-	{
-		title: "Inventory",
-		href: "/dashboard/hospital/inventory",
-		icon: <Boxes className="h-4 w-4" />,
-	},
-	{
-		title: "Activity",
-		href: "/dashboard/hospital/activity",
-		icon: <ActivitySquare className="h-4 w-4" />,
-	},
-	{
-		title: "Settings",
-		href: "/dashboard/hospital/settings",
-		icon: <Settings className="h-4 w-4" />,
-	},
-];
+const SideBar = ({ children, onToggle, isCollapsed }: SideBarProps) => {
+  return (
+    <div className="h-screen">
+      <nav className="h-full relative flex flex-col bg-[#125872] border-r shadow-sm">
+        <div className="p-4 pb-2 flex justify-between items-center border-b border-[#ffffff1a]">
+          <Image
+            src="/assets/icons/drreach-logo-full.svg"
+            height={1000}
+            width={1000}
+            alt="logo"
+            className={cn(
+              "overflow-hidden transition-all",
+              isCollapsed ? "w-0" : "w-32",
+            )}
+          />
+          <Button
+            onClick={onToggle}
+            variant="ghost"
+            className="h-8 w-8 p-0 text-white hover:bg-white/10"
+          >
+            {isCollapsed ? <ChevronLast /> : <ChevronFirst />}
+          </Button>
+        </div>
 
-const HospitalSideNav = () => {
-	const pathname = usePathname();
+        <ScrollArea className="flex-1 w-full">
+          <SideBarContext.Provider value={{ expanded: !isCollapsed }}>
+            <div className="p-3">{children}</div>
+          </SideBarContext.Provider>
+        </ScrollArea>
 
-	return (
-		<SidebarProvider defaultOpen>
-			<Sidebar className="border-r">
-				<SidebarHeader className="border-b px-4 py-2">
-					<Link href="/dashboard/hospital" className="flex items-center gap-2">
-						<Image
-							src="/assets/icons/drreach-logo-icon.svg"
-							alt="Dr. Reach Logo"
-							width={32}
-							height={32}
-							className="rounded-sm"
-						/>
-						<span className="font-semibold">Dr. Reach</span>
-					</Link>
-				</SidebarHeader>
-				<SidebarContent>
-					<SidebarGroup>
-						<SidebarGroupContent>
-							<SidebarMenu>
-								{navItems.map((item, index) => (
-									<SidebarMenuItem key={index}>
-										<SidebarMenuButton
-											asChild
-											isActive={pathname === item.href}>
-											<Link
-												href={item.href}
-												className="flex items-center gap-2">
-												{item.icon}
-												{item.title}
-											</Link>
-										</SidebarMenuButton>
-									</SidebarMenuItem>
-								))}
-							</SidebarMenu>
-						</SidebarGroupContent>
-					</SidebarGroup>
-				</SidebarContent>
+        <div className="border-t border-[#ffffff1a] p-3">
+          <div className="flex items-center gap-3">
+            <Avatar>
+              <AvatarImage src="/assets/icons/drreach-logo-icon.svg" />
+              <AvatarFallback>HP</AvatarFallback>
+            </Avatar>
+            <div
+              className={cn(
+                "flex flex-col overflow-hidden transition-all",
+                !isCollapsed ? "w-52 opacity-100" : "w-0 opacity-0",
+              )}
+            >
+              <span className="text-sm font-medium text-white">
+                City Hospital
+              </span>
+              <span className="text-xs text-[#ffffffb3]">
+                Multi-Specialty Hospital
+              </span>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+  );
+};
 
-				<div className="mt-auto border-t p-4">
-					<div className="flex items-center gap-4">
-						<Avatar>
-							<AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-							<AvatarFallback>CN</AvatarFallback>
-						</Avatar>
-						<div className="flex flex-1 items-center justify-between">
-							<div>
-								<p className="text-sm font-medium">Hospital Admin</p>
-								<p className="text-xs text-muted-foreground">
-									admin@hospital.com
-								</p>
-							</div>
-							<Button variant="ghost" size="icon">
-								<MoreVertical className="h-4 w-4" />
-							</Button>
-						</div>
-					</div>
-				</div>
-			</Sidebar>
-		</SidebarProvider>
-	);
+interface SideBarItemProps {
+  icon: React.ReactNode;
+  text: string;
+  href: string;
+  badge?: number;
+}
+
+const SideBarItem = ({ icon, text, href, badge }: SideBarItemProps) => {
+  const { expanded } = useContext(SideBarContext);
+  const pathname = usePathname();
+  const isActive = pathname === href;
+
+  return (
+    <TooltipProvider delayDuration={0}>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Link href={href}>
+            <Button
+              variant="ghost"
+              className={cn(
+                "w-full justify-start gap-3 p-3 h-auto text-[#ffffffb3] hover:text-white hover:bg-white/10",
+                !expanded && "justify-center",
+                isActive && "bg-[#ffffff1a] text-white",
+              )}
+            >
+              {icon}
+              {expanded && <span>{text}</span>}
+              {badge && expanded && (
+                <span className="ml-auto bg-blue-600 text-white text-xs px-2 py-1 rounded-full">
+                  {badge}
+                </span>
+              )}
+            </Button>
+          </Link>
+        </TooltipTrigger>
+        {!expanded && (
+          <TooltipContent side="right" className="flex items-center gap-4">
+            {text}
+            {badge && (
+              <span className="bg-blue-600 text-white text-xs px-2 py-1 rounded-full">
+                {badge}
+              </span>
+            )}
+          </TooltipContent>
+        )}
+      </Tooltip>
+    </TooltipProvider>
+  );
+};
+
+const HospitalSideNav = ({
+  onToggle,
+  isCollapsed,
+}: {
+  onToggle: () => void;
+  isCollapsed: boolean;
+}) => {
+  return (
+    <SideBar onToggle={onToggle} isCollapsed={isCollapsed}>
+      <div className="space-y-2">
+        <SideBarItem
+          icon={<Layout size={20} />}
+          text="Overview"
+          href="/dashboard/hospital"
+        />
+        <SideBarItem
+          icon={<BarChart3 size={20} />}
+          text="Analytics"
+          href="/dashboard/hospital/analytics"
+        />
+        <SideBarItem
+          icon={<LineChart size={20} />}
+          text="Performance"
+          href="/dashboard/hospital/performance"
+        />
+        <SideBarItem
+          icon={<Users size={20} />}
+          text="Patients"
+          href="/dashboard/hospital/patients"
+          badge={45}
+        />
+        <SideBarItem
+          icon={<Stethoscope size={20} />}
+          text="Doctors"
+          href="/dashboard/hospital/doctors"
+          badge={12}
+        />
+        <SideBarItem
+          icon={<CalendarCheck2 size={20} />}
+          text="Appointments"
+          href="/dashboard/hospital/appointments"
+          badge={8}
+        />
+        <SideBarItem
+          icon={<Bed size={20} />}
+          text="Departments"
+          href="/dashboard/hospital/departments"
+        />
+        <SideBarItem
+          icon={<Pill size={20} />}
+          text="Pharmacy"
+          href="/dashboard/hospital/pharmacy"
+        />
+        <SideBarItem
+          icon={<Ambulance size={20} />}
+          text="Emergency"
+          href="/dashboard/hospital/emergency"
+        />
+        <SideBarItem
+          icon={<Receipt size={20} />}
+          text="Billing"
+          href="/dashboard/hospital/billing"
+        />
+        <SideBarItem
+          icon={<FileText size={20} />}
+          text="Reports"
+          href="/dashboard/hospital/reports"
+        />
+        <SideBarItem
+          icon={<Clipboard size={20} />}
+          text="Insurance"
+          href="/dashboard/hospital/insurance"
+        />
+        <SideBarItem
+          icon={<Building2 size={20} />}
+          text="Facilities"
+          href="/dashboard/hospital/facilities"
+        />
+        <SideBarItem
+          icon={<BellRing size={20} />}
+          text="Notifications"
+          href="/dashboard/hospital/notifications"
+          badge={15}
+        />
+        <SideBarItem
+          icon={<LifeBuoy size={20} />}
+          text="Support"
+          href="/dashboard/hospital/support"
+        />
+        <SideBarItem
+          icon={<Cog size={20} />}
+          text="Settings"
+          href="/dashboard/hospital/settings"
+        />
+      </div>
+    </SideBar>
+  );
 };
 
 export default HospitalSideNav;

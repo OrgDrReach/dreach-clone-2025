@@ -1,8 +1,15 @@
-"use client"
+"use client";
 
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { FileText, Download } from "lucide-react";
@@ -49,7 +56,10 @@ const MedicalReports: React.FC<MedicalReportsProps> = ({ reports }) => {
                   <TableCell className="font-medium">{report.name}</TableCell>
                   <TableCell>{formatDate(report.date)}</TableCell>
                   <TableCell>
-                    <div className="max-w-xs overflow-hidden text-ellipsis whitespace-nowrap" title={report.summary}>
+                    <div
+                      className="max-w-xs overflow-hidden text-ellipsis whitespace-nowrap"
+                      title={report.summary}
+                    >
                       {report.summary}
                     </div>
                   </TableCell>
@@ -57,7 +67,11 @@ const MedicalReports: React.FC<MedicalReportsProps> = ({ reports }) => {
                     <ReportStatus status={report.status} />
                   </TableCell>
                   <TableCell className="text-right">
-                    <Button variant="outline" size="sm" onClick={() => window.open(report.downloadUrl, '_blank')}>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => window.open(report.downloadUrl, "_blank")}
+                    >
                       <Download className="mr-2 h-4 w-4" />
                       Download
                     </Button>

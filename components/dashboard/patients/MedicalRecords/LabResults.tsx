@@ -1,8 +1,15 @@
-"use client"
+"use client";
 
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
@@ -21,7 +28,7 @@ interface LabResultsProps {
 }
 
 const LabResults: React.FC<LabResultsProps> = ({ results }) => {
-  const getStatusColor = (status: LabResult['status']) => {
+  const getStatusColor = (status: LabResult["status"]) => {
     switch (status) {
       case "Normal":
         return "bg-green-500 hover:bg-green-600";
@@ -37,7 +44,9 @@ const LabResults: React.FC<LabResultsProps> = ({ results }) => {
   return (
     <Card className="w-full bg-gradient-to-br from-purple-50 to-pink-50 shadow-lg">
       <CardHeader className="bg-white bg-opacity-70 backdrop-blur-sm">
-        <CardTitle className="text-2xl font-bold text-purple-700">Lab Results</CardTitle>
+        <CardTitle className="text-2xl font-bold text-purple-700">
+          Lab Results
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <ScrollArea className="h-[400px] w-full rounded-md border">
@@ -54,7 +63,9 @@ const LabResults: React.FC<LabResultsProps> = ({ results }) => {
             <TableBody>
               {results.map((result) => (
                 <TableRow key={result.id}>
-                  <TableCell className="font-medium">{result.testName}</TableCell>
+                  <TableCell className="font-medium">
+                    {result.testName}
+                  </TableCell>
                   <TableCell>{result.date}</TableCell>
                   <TableCell>{`${result.result} ${result.unit}`}</TableCell>
                   <TableCell>{result.referenceRange}</TableCell>

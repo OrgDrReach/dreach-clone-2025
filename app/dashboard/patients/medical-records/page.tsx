@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -175,21 +175,24 @@ const MedicalRecordsPage: React.FC = () => {
         id: "1",
         studyName: "Chest X-ray",
         date: "2023-06-01",
-        findings: "No acute cardiopulmonary process. Lungs are clear. Heart size is normal.",
+        findings:
+          "No acute cardiopulmonary process. Lungs are clear. Heart size is normal.",
         imageUrl: "/images/chest-xray.jpg",
       },
       {
         id: "2",
         studyName: "MRI Brain",
         date: "2023-05-15",
-        findings: "No evidence of acute infarct, hemorrhage, or mass effect. Normal brain MRI.",
+        findings:
+          "No evidence of acute infarct, hemorrhage, or mass effect. Normal brain MRI.",
         imageUrl: "/images/brain-mri.jpg",
       },
       {
         id: "3",
         studyName: "Abdominal Ultrasound",
         date: "2023-04-22",
-        findings: "Liver, gallbladder, pancreas, and kidneys appear normal. No abnormalities detected.",
+        findings:
+          "Liver, gallbladder, pancreas, and kidneys appear normal. No abnormalities detected.",
         imageUrl: "/images/abdominal-ultrasound.jpg",
       },
     ],
@@ -199,7 +202,8 @@ const MedicalRecordsPage: React.FC = () => {
         date: "2022-09-15",
         type: "Illness" as const,
         description: "Acute Bronchitis",
-        details: "Treated with antibiotics and rest. Fully recovered after 2 weeks.",
+        details:
+          "Treated with antibiotics and rest. Fully recovered after 2 weeks.",
       },
       {
         id: "2",
@@ -213,14 +217,16 @@ const MedicalRecordsPage: React.FC = () => {
         date: "2020-11-20",
         type: "Treatment" as const,
         description: "Physical Therapy for Lower Back Pain",
-        details: "6-week course of therapy. Significant improvement in mobility and pain reduction.",
+        details:
+          "6-week course of therapy. Significant improvement in mobility and pain reduction.",
       },
       {
         id: "4",
         date: "2019-02-10",
         type: "Illness" as const,
         description: "Influenza A",
-        details: "Bed rest and symptomatic treatment. Full recovery after 10 days.",
+        details:
+          "Bed rest and symptomatic treatment. Full recovery after 10 days.",
       },
     ] as MedicalEvent[],
     medicalReports: [
@@ -228,7 +234,8 @@ const MedicalRecordsPage: React.FC = () => {
         id: "1",
         name: "Annual Physical Examination Report",
         date: "2023-05-20T09:30:00Z",
-        summary: "Overall health is good. Recommended lifestyle changes to address slightly elevated blood pressure.",
+        summary:
+          "Overall health is good. Recommended lifestyle changes to address slightly elevated blood pressure.",
         downloadUrl: "/reports/annual-physical-2023.pdf",
         status: "Finalized" as const,
       },
@@ -236,7 +243,8 @@ const MedicalRecordsPage: React.FC = () => {
         id: "2",
         name: "Cardiology Consultation Report",
         date: "2023-04-15T14:00:00Z",
-        summary: "No significant cardiac issues detected. Stress test results within normal limits.",
+        summary:
+          "No significant cardiac issues detected. Stress test results within normal limits.",
         downloadUrl: "/reports/cardiology-consult-2023.pdf",
         status: "Draft" as const,
       },
@@ -244,7 +252,8 @@ const MedicalRecordsPage: React.FC = () => {
         id: "3",
         name: "Dermatology Biopsy Results",
         date: "2023-03-10T11:15:00Z",
-        summary: "Biopsy of skin lesion shows benign characteristics. No further action required at this time.",
+        summary:
+          "Biopsy of skin lesion shows benign characteristics. No further action required at this time.",
         downloadUrl: "/reports/dermatology-biopsy-2023.pdf",
         status: "Rejected" as const,
       },
@@ -255,21 +264,24 @@ const MedicalRecordsPage: React.FC = () => {
         name: "Chest X-ray",
         date: "2023-06-01",
         imageUrl: "/images/chest-xray.jpg",
-        description: "Frontal chest X-ray showing clear lung fields and normal heart size.",
+        description:
+          "Frontal chest X-ray showing clear lung fields and normal heart size.",
       },
       {
         id: "2",
         name: "Brain MRI",
         date: "2023-05-15",
         imageUrl: "/images/brain-mri.jpg",
-        description: "T1-weighted MRI of the brain, axial view, showing normal brain structures.",
+        description:
+          "T1-weighted MRI of the brain, axial view, showing normal brain structures.",
       },
       {
         id: "3",
         name: "Abdominal Ultrasound",
         date: "2023-04-22",
         imageUrl: "/images/abdominal-ultrasound.jpg",
-        description: "Ultrasound image of the liver and surrounding structures, showing normal echogenicity.",
+        description:
+          "Ultrasound image of the liver and surrounding structures, showing normal echogenicity.",
       },
     ],
   };
@@ -286,13 +298,17 @@ const MedicalRecordsPage: React.FC = () => {
 
   return (
     <main className="p-6">
-      <QuickOverview 
-        conditions={mockData.conditions} 
-        medications={mockData.medications} 
-        allergies={mockData.allergies} 
+      <QuickOverview
+        conditions={mockData.conditions}
+        medications={mockData.medications}
+        allergies={mockData.allergies}
       />
-      
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full mt-8">
+
+      <Tabs
+        value={activeTab}
+        onValueChange={setActiveTab}
+        className="w-full mt-8"
+      >
         <TabsList className="grid grid-cols-3 lg:grid-cols-7 gap-2 mb-6 text-black bg-sky-200 ">
           <TabsTrigger value="medications">Medications</TabsTrigger>
           <TabsTrigger value="allergies">Allergies</TabsTrigger>

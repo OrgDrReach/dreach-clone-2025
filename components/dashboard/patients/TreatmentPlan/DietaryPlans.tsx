@@ -1,8 +1,15 @@
-"use client"
+"use client";
 
 import React, { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Utensils, ChevronDown, ChevronUp } from "lucide-react";
@@ -13,7 +20,11 @@ interface DietaryPlan {
   id: string;
   name: string;
   date: string;
-  type: "Weight Loss" | "Diabetes Management" | "Heart Health" | "General Wellness";
+  type:
+    | "Weight Loss"
+    | "Diabetes Management"
+    | "Heart Health"
+    | "General Wellness";
   status: "Active" | "Completed" | "Upcoming";
   goals: string[];
   objectives: string[];
@@ -26,7 +37,7 @@ interface DietaryPlansProps {
 const DietaryPlans: React.FC<DietaryPlansProps> = ({ plans }) => {
   const [expandedPlan, setExpandedPlan] = useState<string | null>(null);
 
-  const getStatusColor = (status: DietaryPlan['status']) => {
+  const getStatusColor = (status: DietaryPlan["status"]) => {
     switch (status) {
       case "Active":
         return "bg-green-100 text-green-800";
@@ -39,7 +50,7 @@ const DietaryPlans: React.FC<DietaryPlansProps> = ({ plans }) => {
     }
   };
 
-  const getTypeColor = (type: DietaryPlan['type']) => {
+  const getTypeColor = (type: DietaryPlan["type"]) => {
     switch (type) {
       case "Weight Loss":
         return "bg-purple-100 text-purple-800";
@@ -79,18 +90,30 @@ const DietaryPlans: React.FC<DietaryPlansProps> = ({ plans }) => {
                     <TableCell className="font-medium">{plan.name}</TableCell>
                     <TableCell>{plan.date}</TableCell>
                     <TableCell>
-                      <Badge className={getTypeColor(plan.type)}>{plan.type}</Badge>
+                      <Badge className={getTypeColor(plan.type)}>
+                        {plan.type}
+                      </Badge>
                     </TableCell>
                     <TableCell>
-                      <Badge className={getStatusColor(plan.status)}>{plan.status}</Badge>
+                      <Badge className={getStatusColor(plan.status)}>
+                        {plan.status}
+                      </Badge>
                     </TableCell>
                     <TableCell>
                       <Button
                         variant="ghost"
                         size="sm"
-                        onClick={() => setExpandedPlan(expandedPlan === plan.id ? null : plan.id)}
+                        onClick={() =>
+                          setExpandedPlan(
+                            expandedPlan === plan.id ? null : plan.id,
+                          )
+                        }
                       >
-                        {expandedPlan === plan.id ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+                        {expandedPlan === plan.id ? (
+                          <ChevronUp size={20} />
+                        ) : (
+                          <ChevronDown size={20} />
+                        )}
                       </Button>
                     </TableCell>
                   </TableRow>
@@ -111,7 +134,9 @@ const DietaryPlans: React.FC<DietaryPlansProps> = ({ plans }) => {
                                   <li key={index}>{goal}</li>
                                 ))}
                               </ul>
-                              <h4 className="font-semibold mb-2">Objectives:</h4>
+                              <h4 className="font-semibold mb-2">
+                                Objectives:
+                              </h4>
                               <ul className="list-disc list-inside">
                                 {plan.objectives.map((objective, index) => (
                                   <li key={index}>{objective}</li>

@@ -1,241 +1,253 @@
 "use client";
-import { useState, useEffect, useContext, createContext } from "react";
+
+import { useContext, createContext } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import {
-	ChevronFirst,
-	ChevronLast,
-	MoreVertical,
-	LifeBuoy,
-	TestTube as Flask,
-	Microscope,
-	FileText,
-	ClipboardList,
-	Users,
-	BarChart3,
-	Settings,
-	Gauge,
-	Clock,
+  ChevronFirst,
+  ChevronLast,
+  Layout,
+  BarChart3,
+  Users,
+  CalendarCheck2,
+  TestTube,
+  TestTube2 as Flask,
+  LineChart,
+  FileSpreadsheet,
+  Receipt,
+  FileText,
+  Microscope,
+  Cog,
+  LifeBuoy,
+  BellRing,
+  ClipboardList,
+  BadgeAlert,
+  Clock,
 } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+  TooltipProvider,
+} from "@/components/ui/tooltip";
+import { cn } from "@/lib/utils";
 
-const labDashboards = [
-	{
-		name: "Dashboard",
-		path: "/dashboard/labs",
-		menu: [],
-	},
-	{
-		name: "Analytics",
-		path: "/dashboard/labs/analytics",
-		menu: [],
-	},
-	{
-		name: "Test Orders",
-		path: "/dashboard/labs/orders",
-		menu: [],
-	},
-	{
-		name: "Results",
-		path: "/dashboard/labs/results",
-		menu: [],
-	},
-	{
-		name: "Sample Management",
-		path: "/dashboard/labs/samples",
-		menu: [],
-	},
-	{
-		name: "Equipment",
-		path: "/dashboard/labs/equipment",
-		menu: [],
-	},
-	{
-		name: "Patients",
-		path: "/dashboard/labs/patients",
-		menu: [],
-	},
-	{
-		name: "Support",
-		path: "/dashboard/labs/support",
-		menu: [],
-	},
-	{
-		name: "Settings",
-		path: "/dashboard/labs/settings",
-		menu: [],
-	},
-];
+const SideBarContext = createContext({ expanded: true });
 
-const SideBarContext = createContext({ expanded: true } as any);
+interface SideBarProps {
+  children: React.ReactNode;
+  onToggle: () => void;
+  isCollapsed: boolean;
+}
 
-const SideBar: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-	const [selectedDashboard, setSelectedDashboard] = useState(labDashboards[0]);
-	const pathname = usePathname();
-	const [expanded, setExpanded] = useState(true);
+const SideBar = ({ children, onToggle, isCollapsed }: SideBarProps) => {
+  return (
+    <div className="h-screen">
+      <nav className="h-full relative flex flex-col bg-[#125872] border-r shadow-sm">
+        <div className="p-4 pb-2 flex justify-between items-center border-b border-[#ffffff1a]">
+          <Image
+            src="/assets/icons/drreach-logo-full.svg"
+            height={1000}
+            width={1000}
+            alt="logo"
+            className={cn(
+              "overflow-hidden transition-all",
+              isCollapsed ? "w-0" : "w-32",
+            )}
+          />
+          <Button
+            onClick={onToggle}
+            variant="ghost"
+            className="h-8 w-8 p-0 text-white hover:bg-white/10"
+          >
+            {isCollapsed ? <ChevronLast /> : <ChevronFirst />}
+          </Button>
+        </div>
 
-	useEffect(() => {
-		const currentDashboard = labDashboards.find(
-			(dashboard) => dashboard.path === pathname
-		);
-		if (currentDashboard) {
-			setSelectedDashboard(currentDashboard);
-		}
-	}, [pathname]);
+        <ScrollArea className="flex-1 w-full">
+          <SideBarContext.Provider value={{ expanded: !isCollapsed }}>
+            <div className="p-3">{children}</div>
+          </SideBarContext.Provider>
+        </ScrollArea>
 
-	return (
-		<aside className="h-screen">
-			<nav className="h-full flex flex-col bg-[#125872] border-r shadow-sm">
-				<div className="p-4 pb-2 border-b border-[#fff] mb-2 flex justify-between items-center">
-					<Image
-						src="/assets/icons/drreach-logo-full.svg"
-						height={1000}
-						width={1000}
-						alt="logo"
-						className={`overflow-hidden transition-all ${
-							expanded ? "w-fit h-20 p-2 rounded-md" : "w-0 h-0"
-						}`}
-					/>
-					<button
-						onClick={() => setExpanded((curr) => !curr)}
-						className={`bg-gray-50 hover:bg-gray-200 ${
-							expanded ? "p-1 rounded-lg" : "mx-auto rounded-lg p-1"
-						}`}>
-						{expanded ?
-							<ChevronFirst />
-						:	<ChevronLast />}
-					</button>
-				</div>
-				<SideBarContext.Provider value={{ expanded }}>
-					<ul className="flex-1 px-3">{children}</ul>
-				</SideBarContext.Provider>
-				<div className="border-t flex p-3">
-					<Avatar>
-						<AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-						<AvatarFallback>CN</AvatarFallback>
-					</Avatar>
-					<div
-						className={`flex justify-between items-center overflow-hidden transition-all ${
-							expanded ? "w-52 ml-3" : "w-0"
-						}`}>
-						<div className="leading-4">
-							<h4 className="font-semibold italic text-[#bae7ff]">Lab Admin</h4>
-							<span className="text-xs text-gray-200">lab@dreach.com</span>
-						</div>
-						<MoreVertical size={20} className="text-gray-200" />
-					</div>
-				</div>
-			</nav>
-		</aside>
-	);
+        <div className="border-t border-[#ffffff1a] p-3">
+          <div className="flex items-center gap-3">
+            <Avatar>
+              <AvatarImage src="/assets/icons/drreach-logo-icon.svg" />
+              <AvatarFallback>LB</AvatarFallback>
+            </Avatar>
+            <div
+              className={cn(
+                "flex flex-col overflow-hidden transition-all",
+                !isCollapsed ? "w-52 opacity-100" : "w-0 opacity-0",
+              )}
+            >
+              <span className="text-sm font-medium text-white">
+                Central Labs
+              </span>
+              <span className="text-xs text-[#ffffffb3]">
+                Diagnostic Center
+              </span>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+  );
 };
 
-const SideBarItem: React.FC<{
-	icon: React.ReactNode;
-	text: string;
-	active?: boolean;
-	alert?: boolean;
-	href: string;
-}> = ({ icon, text, active, alert, href }) => {
-	const { expanded } = useContext(SideBarContext);
-	const pathname = usePathname();
-	const isActive =
-		pathname === href ||
-		(pathname === "/dashboard/labs/" && href === "/dashboard/labs/");
+interface SideBarItemProps {
+  icon: React.ReactNode;
+  text: string;
+  href: string;
+  badge?: number;
+}
 
-	return (
-		<Link href={href}>
-			<li
-				className={`relative flex items-center py-2 px-3 my-1 font-medium rounded-md cursor-pointer transition-colors group ${
-					isActive ?
-						"bg-[#d6f7ff] text-[#3d6b84] font-semibold"
-					:	"hover:bg-[#d6f7ff] text-[#baf0ff] hover:text-[#3d6b84]"
-				}`}>
-				{icon}
-				<span
-					className={`overflow-hidden transition-all ${
-						expanded ? "w-52 ml-3" : "w-0"
-					}`}>
-					{text}
-				</span>
-				{alert && (
-					<div
-						className={`absolute right-2 w-2 h-2 rounded bg-indigo-400 ${
-							expanded ? "" : "top-2"
-						}`}
-					/>
-				)}
-				{!expanded && (
-					<div
-						className={`
-              absolute left-full rounded-md px-2 py-1 ml-6
-              bg-[#3d6b84] text-[#acedff] text-sm
-              invisible opacity-20 -translate-x-3 transition-all
-              group-hover:visible group-hover:opacity-100 group-hover:translate-x-0
-            `}>
-						{text}
-					</div>
-				)}
-			</li>
-		</Link>
-	);
+const SideBarItem = ({ icon, text, href, badge }: SideBarItemProps) => {
+  const { expanded } = useContext(SideBarContext);
+  const pathname = usePathname();
+  const isActive = pathname === href;
+
+  return (
+    <TooltipProvider delayDuration={0}>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Link href={href}>
+            <Button
+              variant="ghost"
+              className={cn(
+                "w-full justify-start gap-3 p-3 h-auto text-[#ffffffb3] hover:text-white hover:bg-white/10",
+                !expanded && "justify-center",
+                isActive && "bg-[#ffffff1a] text-white",
+              )}
+            >
+              {icon}
+              {expanded && <span>{text}</span>}
+              {badge && expanded && (
+                <span className="ml-auto bg-blue-600 text-white text-xs px-2 py-1 rounded-full">
+                  {badge}
+                </span>
+              )}
+            </Button>
+          </Link>
+        </TooltipTrigger>
+        {!expanded && (
+          <TooltipContent side="right" className="flex items-center gap-4">
+            {text}
+            {badge && (
+              <span className="bg-blue-600 text-white text-xs px-2 py-1 rounded-full">
+                {badge}
+              </span>
+            )}
+          </TooltipContent>
+        )}
+      </Tooltip>
+    </TooltipProvider>
+  );
 };
 
-const LabSideNav: React.FC = () => {
-	return (
-		<main>
-			<div className="font-bold">
-				<SideBar>
-					<SideBarItem
-						icon={<Gauge size={20} />}
-						text="Dashboard"
-						href="/dashboard/labs"
-					/>
-					<SideBarItem
-						icon={<BarChart3 size={20} />}
-						text="Analytics"
-						href="/dashboard/labs/analytics"
-					/>
-					<SideBarItem
-						icon={<ClipboardList size={20} />}
-						text="Test Orders"
-						href="/dashboard/labs/orders"
-					/>
-					<SideBarItem
-						icon={<FileText size={20} />}
-						text="Results"
-						href="/dashboard/labs/results"
-					/>
-					<SideBarItem
-						icon={<Flask size={20} />}
-						text="Sample Management"
-						href="/dashboard/labs/samples"
-					/>
-					<SideBarItem
-						icon={<Microscope size={20} />}
-						text="Equipment"
-						href="/dashboard/labs/equipment"
-					/>
-					<SideBarItem
-						icon={<Users size={20} />}
-						text="Patients"
-						href="/dashboard/labs/patients"
-					/>
-					<SideBarItem
-						icon={<LifeBuoy size={20} />}
-						text="Support"
-						href="/dashboard/labs/support"
-					/>
-					<SideBarItem
-						icon={<Settings size={20} />}
-						text="Settings"
-						href="/dashboard/labs/settings"
-					/>
-				</SideBar>
-			</div>
-		</main>
-	);
+const LabSideNav = ({
+  onToggle,
+  isCollapsed,
+}: {
+  onToggle: () => void;
+  isCollapsed: boolean;
+}) => {
+  return (
+    <SideBar onToggle={onToggle} isCollapsed={isCollapsed}>
+      <div className="space-y-2">
+        <SideBarItem
+          icon={<Layout size={20} />}
+          text="Overview"
+          href="/dashboard/labs"
+        />
+        <SideBarItem
+          icon={<BarChart3 size={20} />}
+          text="Analytics"
+          href="/dashboard/labs/analytics"
+        />
+        <SideBarItem
+          icon={<LineChart size={20} />}
+          text="Performance"
+          href="/dashboard/labs/performance"
+        />
+        <SideBarItem
+          icon={<Users size={20} />}
+          text="Patients"
+          href="/dashboard/labs/patients"
+          badge={28}
+        />
+        <SideBarItem
+          icon={<CalendarCheck2 size={20} />}
+          text="Appointments"
+          href="/dashboard/labs/appointments"
+          badge={15}
+        />
+        <SideBarItem
+          icon={<TestTube size={20} />}
+          text="Tests"
+          href="/dashboard/labs/tests"
+        />
+        <SideBarItem
+          icon={<Flask size={20} />}
+          text="Samples"
+          href="/dashboard/labs/samples"
+          badge={10}
+        />
+        <SideBarItem
+          icon={<Clock size={20} />}
+          text="Test Timings"
+          href="/dashboard/labs/test-timings"
+        />
+        <SideBarItem
+          icon={<Microscope size={20} />}
+          text="Equipment"
+          href="/dashboard/labs/equipment"
+        />
+        <SideBarItem
+          icon={<FileSpreadsheet size={20} />}
+          text="Reports"
+          href="/dashboard/labs/reports"
+        />
+        <SideBarItem
+          icon={<Receipt size={20} />}
+          text="Billing"
+          href="/dashboard/labs/billing"
+        />
+        <SideBarItem
+          icon={<ClipboardList size={20} />}
+          text="Test Catalog"
+          href="/dashboard/labs/test-catalog"
+        />
+        <SideBarItem
+          icon={<BadgeAlert size={20} />}
+          text="Quality Control"
+          href="/dashboard/labs/quality-control"
+        />
+        <SideBarItem
+          icon={<BellRing size={20} />}
+          text="Notifications"
+          href="/dashboard/labs/notifications"
+          badge={6}
+        />
+        <SideBarItem
+          icon={<LifeBuoy size={20} />}
+          text="Support"
+          href="/dashboard/labs/support"
+        />
+        <SideBarItem
+          icon={<Cog size={20} />}
+          text="Settings"
+          href="/dashboard/labs/settings"
+        />
+      </div>
+    </SideBar>
+  );
 };
 
 export default LabSideNav;

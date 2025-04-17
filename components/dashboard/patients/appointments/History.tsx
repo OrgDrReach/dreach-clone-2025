@@ -1,6 +1,13 @@
-import React from 'react';
+import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
 import { Calendar, Clock, User, Stethoscope, FileText } from "lucide-react";
@@ -18,18 +25,18 @@ const History: React.FC = () => {
   // Mock data for past appointments (replace with actual data fetching logic)
   const pastAppointments: PastAppointment[] = [
     {
-      id: '1',
-      dateTime: '2023-03-10 09:30 AM',
-      providerName: 'Dr. Emily Johnson',
-      providerSpecialty: 'Internal Medicine',
-      outcome: 'Prescribed medication, follow-up in 3 months',
+      id: "1",
+      dateTime: "2023-03-10 09:30 AM",
+      providerName: "Dr. Emily Johnson",
+      providerSpecialty: "Internal Medicine",
+      outcome: "Prescribed medication, follow-up in 3 months",
     },
     {
-      id: '2',
-      dateTime: '2023-02-22 11:00 AM',
-      providerName: 'Dr. Michael Brown',
-      providerSpecialty: 'Orthopedics',
-      outcome: 'Recommended physical therapy, review in 6 weeks',
+      id: "2",
+      dateTime: "2023-02-22 11:00 AM",
+      providerName: "Dr. Michael Brown",
+      providerSpecialty: "Orthopedics",
+      outcome: "Recommended physical therapy, review in 6 weeks",
     },
     // Add more past appointments as needed
   ];
@@ -50,10 +57,19 @@ const History: React.FC = () => {
           <Table>
             <TableHeader>
               <TableRow className="bg-teal-100">
-                <TableHead className="font-bold text-teal-800"><Clock className="inline-block mr-1" /> Date & Time</TableHead>
-                <TableHead className="font-bold text-teal-800"><User className="inline-block mr-1" /> Provider</TableHead>
-                <TableHead className="font-bold text-teal-800"><Stethoscope className="inline-block mr-1" /> Specialty</TableHead>
-                <TableHead className="font-bold text-teal-800"><FileText className="inline-block mr-1" /> Outcome / Next Steps</TableHead>
+                <TableHead className="font-bold text-teal-800">
+                  <Clock className="inline-block mr-1" /> Date & Time
+                </TableHead>
+                <TableHead className="font-bold text-teal-800">
+                  <User className="inline-block mr-1" /> Provider
+                </TableHead>
+                <TableHead className="font-bold text-teal-800">
+                  <Stethoscope className="inline-block mr-1" /> Specialty
+                </TableHead>
+                <TableHead className="font-bold text-teal-800">
+                  <FileText className="inline-block mr-1" /> Outcome / Next
+                  Steps
+                </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -68,13 +84,20 @@ const History: React.FC = () => {
                   <TableCell className="font-medium text-teal-700">
                     {appointment.dateTime}
                   </TableCell>
-                  <TableCell className="text-teal-600">{appointment.providerName}</TableCell>
+                  <TableCell className="text-teal-600">
+                    {appointment.providerName}
+                  </TableCell>
                   <TableCell>
-                    <Badge variant="outline" className="bg-cyan-100 text-cyan-800 border-cyan-200">
+                    <Badge
+                      variant="outline"
+                      className="bg-cyan-100 text-cyan-800 border-cyan-200"
+                    >
                       {appointment.providerSpecialty}
                     </Badge>
                   </TableCell>
-                  <TableCell className="text-teal-600">{appointment.outcome}</TableCell>
+                  <TableCell className="text-teal-600">
+                    {appointment.outcome}
+                  </TableCell>
                 </motion.tr>
               ))}
             </TableBody>

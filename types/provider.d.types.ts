@@ -1,17 +1,17 @@
-import { 
-  IDoctor, 
-  EDoctorStatus, 
-  EClinicRole, 
-  EClinicPermissions, 
+import {
+  IDoctor,
+  EDoctorStatus,
+  EClinicRole,
+  EClinicPermissions,
   IClinicStaff,
-  EStaffStatus 
+  EStaffStatus,
 } from "./doctor.d.types";
 import { Ambulance, EAmbulanceStatus } from "./ambulance.d.types";
-import { 
+import {
   Hospital,
   EHospitalStatus,
   EHospitalStaffRole,
-  EHospitalSpecialization
+  EHospitalSpecialization,
 } from "./hospital.d.types";
 import { Lab, ELabStatus } from "./lab.d.types";
 import { Pharmaceutical, EPharmacyStatus } from "./pharmaceutical.d.types";
