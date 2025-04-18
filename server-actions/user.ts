@@ -1,7 +1,7 @@
 "use server";
 
 import { SignUpSchema, SignUpSchemaType, otpSchema } from "@/Zod/zod";
-import { EUserRole } from "@/types/user.d.types";
+import { EUserRole } from "@/types/auth.d.types";
 
 // Type for tracking OTP attempts
 type OTPAttempt = {
@@ -36,9 +36,11 @@ export const registerUser = async (formdata: SignUpSchemaType) => {
 			body: JSON.stringify({
 				phone: formdata.phone,
 				password: formdata.password,
-				name: formdata.name,
+				firstName: formdata.firstName,
+				lastName: formdata.lastName,
 				email: formdata.email,
-				providerType: formdata.providerType,
+				userType: formdata.userType,
+				providerRole: formdata.providerRole,
 			}),
 		});
 
@@ -271,6 +273,50 @@ export const updateOAuthUser = async (
 		};
 	} catch (error) {
 		console.error("OAuth user update error:", error);
+		return {
+			status: 500,
+			message: "Internal Server Error",
+		};
+	}
+};
+
+export const handleGoogleAuth = async (userData: {
+	email: string;
+	firstName: string;
+	lastName: string;
+	image?: string;
+}) => {
+	try {
+		const res = await fetch(`${process.env.SERVER_URL}/user/google-auth`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(userData),
+		});
+
+		const data = await res.json();
+
+		return {
+			status: res.status,
+			message: data.message,
+			user:
+				data.user ?
+					{
+						id: data.user.id,
+						email: data.user.email,
+						name: data.user.name,
+						firstName: data.user.firstName,
+						lastName: data.user.lastName,
+						role: data.user.role,
+						isVerified: data.user.isVerified,
+						profileImage: data.user.profileImage,
+						authProvider: "google",
+					}
+				:	undefined,
+		};
+	} catch (error) {
+		console.error("Google auth error:", error);
 		return {
 			status: 500,
 			message: "Internal Server Error",
