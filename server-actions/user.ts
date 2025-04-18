@@ -28,7 +28,7 @@ export const registerUser = async (formdata: SignUpSchemaType) => {
 			};
 		}
 
-		const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/user/register`, {
+		const res = await fetch(`${process.env.SERVER_URL}/user/register`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -39,7 +39,6 @@ export const registerUser = async (formdata: SignUpSchemaType) => {
 				name: formdata.name,
 				email: formdata.email,
 				providerType: formdata.providerType,
-				
 			}),
 		});
 
@@ -163,7 +162,7 @@ export const resendOTP = async (phone: string) => {
 			}
 		}
 
-		const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/user/resend-otp`, {
+		const res = await fetch(`${process.env.SERVER_URL}/user/resend-otp`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -199,7 +198,7 @@ export const resendOTP = async (phone: string) => {
 
 export const loginUser = async (phone: string, password: string) => {
 	try {
-		const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}}/user/login`, {
+		const res = await fetch(`${process.env.SERVER_URL}}/user/login`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",

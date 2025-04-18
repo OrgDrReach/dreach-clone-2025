@@ -1,3 +1,5 @@
+"use server";
+
 import { IUser, IPatient, EUserRole, EUserStatus } from "@/types/user.d.types";
 
 interface UpdateUserPayload {
@@ -99,11 +101,11 @@ export const updateUser = async (
 	updateData: UpdateUserPayload
 ): Promise<ApiResponse<IUser>> => {
 	try {
-		if (!process.env.NEXT_PUBLIC_SERVER_URL) {
+		if (!process.env.SERVER_URL) {
 			throw new Error("SERVER_URL environment variable is not defined");
 		}
 
-		const apiUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/user/updateUser`;
+		const apiUrl = `${process.env.SERVER_URL}/user/updateUser`;
 
 		// Convert date to ISO string for API
 		const payload = {
