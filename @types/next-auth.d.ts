@@ -1,56 +1,49 @@
 import NextAuth from "next-auth/next";
-declare module "next-auth" {
-  export interface Session {
-    user: {
-      id: string;
-      email: string;
-      name: string;
-      image: string;
-    };
-    data: {
-      name: string;
-      dob: string;
-      gender: string;
-      bloodGroup: string;
-      profilePic: string;
-      email: string;
-      phone: string;
+import { DefaultSession } from "next-auth";
+import { EUserRole } from "@/types/auth.d.types";
+import { IAddress } from "@/types/provider.d.types";
 
-      serviceProvider: {
-        id: string;
-        userId: string;
-        providerType: string;
-        description: string;
-        fee: string;
-        specialization: string[];
-        service: string[];
-      };
-      address: {
-        address: string;
-        city: string;
-        state: string;
-        pincode: string;
-        country: string;
-      };
-      id: string;
-      role: string;
-    };
-    authToken: string;
-  }
+declare module "next-auth" {
+	export interface Session {
+		user: {
+			id: string;
+			email?: string | null;
+			name?: string | null;
+			image?: string | null;
+			phone?: string;
+			phoneNumber?: string;
+			firstName?: string;
+			lastName?: string;
+			role?: EUserRole;
+			isVerified?: boolean;
+			providerRole?: string;
+			address?: IAddress[];
+			profileImage?: string;
+			authProvider?: "credentials" | "google";
+		};
+		data?: any;
+		authToken?: string;
+	}
 }
 
-import { JWT } from "next-auth/jwt";
-
 declare module "next-auth/jwt" {
-  interface JWT {
-    user: {
-      id: string;
-      email: string;
-      name: string;
-      image: string;
-    };
-
-    data: any;
-    authToken: string;
-  }
+	interface JWT {
+		id: string;
+		email?: string | null;
+		name?: string | null;
+		image?: string | null;
+		phone?: string;
+		phoneNumber?: string;
+		firstName?: string;
+		lastName?: string;
+		role?: EUserRole;
+		isVerified?: boolean;
+		providerRole?: string;
+		address?: IAddress[];
+		profileImage?: string;
+		signupData?: any;
+		authProvider?: "credentials" | "google";
+		data?: any;
+		authToken?: string;
+	}
 }
