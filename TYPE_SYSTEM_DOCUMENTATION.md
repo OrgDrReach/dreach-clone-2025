@@ -21,25 +21,25 @@ The foundation for all healthcare providers:
 
 ```typescript
 interface IBaseProvider {
-	id: string;
-	type: EProviderType;
-	name: string;
-	address: IAddress[];
-	contact: IContactInfo;
-	operatingHours: IOperatingHours;
-	rating?: number;
-	reviews?: IReview[];
-	isVerified: boolean;
-	status: ProviderStatus;
-	role?: EClinicRole | EHospitalStaffRole;
-	clinicId?: string;
-	permissions?: EClinicPermissions[];
-	specialization?: string[] | EHospitalSpecialization[];
-	departments?: string[];
-	staffRole?: {
-		type: "CLINIC" | "HOSPITAL";
-		role: EClinicRole | EHospitalStaffRole;
-	};
+ id: string;
+ type: EProviderType;
+ name: string;
+ address: IAddress[];
+ contact: IContactInfo;
+ operatingHours: IOperatingHours;
+ rating?: number;
+ reviews?: IReview[];
+ isVerified: boolean;
+ status: ProviderStatus;
+ role?: EClinicRole | EHospitalStaffRole;
+ clinicId?: string;
+ permissions?: EClinicPermissions[];
+ specialization?: string[] | EHospitalSpecialization[];
+ departments?: string[];
+ staffRole?: {
+  type: "CLINIC" | "HOSPITAL";
+  role: EClinicRole | EHospitalStaffRole;
+ };
 }
 ```
 
@@ -49,22 +49,22 @@ interface IBaseProvider {
 
 ```typescript
 interface IDoctor {
-	id: string;
-	platform_id?: string;
-	userId?: string;
-	firstName: string;
-	lastName: string;
-	specialization: string[];
-	degree: string[];
-	experience: number;
-	registrationNumber: string;
-	clinic?: IClinicInfo[];
-	availability?: IAvailability[];
-	profileImage?: string;
-	isVerified: boolean;
-	status: EDoctorStatus;
-	consultMode: EDoctorConsultMode[];
-	consultationFee?: number;
+ id: string;
+ platform_id?: string;
+ userId?: string;
+ firstName: string;
+ lastName: string;
+ specialization: string[];
+ degree: string[];
+ experience: number;
+ registrationNumber: string;
+ clinic?: IClinicInfo[];
+ availability?: IAvailability[];
+ profileImage?: string;
+ isVerified: boolean;
+ status: EDoctorStatus;
+ consultMode: EDoctorConsultMode[];
+ consultationFee?: number;
 }
 ```
 
@@ -72,18 +72,18 @@ interface IDoctor {
 
 ```typescript
 interface Hospital {
-	id: string;
-	name: string;
-	address: IAddress[];
-	contact: IContactInfo;
-	facilities: IHospitalFacility[];
-	departments: IHospitalDepartment[];
-	accreditation?: string[];
-	operatingHours: IOperatingHours;
-	emergencyServices: boolean;
-	capacity?: IHospitalCapacity;
-	staff?: IHospitalStaff;
-	status: EHospitalStatus;
+ id: string;
+ name: string;
+ address: IAddress[];
+ contact: IContactInfo;
+ facilities: IHospitalFacility[];
+ departments: IHospitalDepartment[];
+ accreditation?: string[];
+ operatingHours: IOperatingHours;
+ emergencyServices: boolean;
+ capacity?: IHospitalCapacity;
+ staff?: IHospitalStaff;
+ status: EHospitalStatus;
 }
 ```
 
@@ -91,15 +91,15 @@ interface Hospital {
 
 ```typescript
 interface Lab {
-	id: string;
-	name: string;
-	address: IAddress[];
-	contact: LabContactInfo;
-	services: LabService[];
-	operatingHours: OperatingHours;
-	accreditation?: string[];
-	isHomeCollection: boolean;
-	status: ELabStatus;
+ id: string;
+ name: string;
+ address: IAddress[];
+ contact: LabContactInfo;
+ services: LabService[];
+ operatingHours: OperatingHours;
+ accreditation?: string[];
+ isHomeCollection: boolean;
+ status: ELabStatus;
 }
 ```
 
@@ -107,15 +107,15 @@ interface Lab {
 
 ```typescript
 interface Pharmaceutical {
-	id: string;
-	name: string;
-	address: IAddress[];
-	contact: PharmacyContactInfo;
-	license: string;
-	operatingHours: OperatingHours;
-	inventory: DrugInventory[];
-	deliveryAvailable: boolean;
-	status: EPharmacyStatus;
+ id: string;
+ name: string;
+ address: IAddress[];
+ contact: PharmacyContactInfo;
+ license: string;
+ operatingHours: OperatingHours;
+ inventory: DrugInventory[];
+ deliveryAvailable: boolean;
+ status: EPharmacyStatus;
 }
 ```
 
@@ -123,16 +123,16 @@ interface Pharmaceutical {
 
 ```typescript
 interface Ambulance {
-	id: string;
-	serviceProvider: string;
-	vehicleNumber: string;
-	vehicleType: EAmbulanceType;
-	equipment: Equipment[];
-	staff: AmbulanceStaff[];
-	contact: AmbulanceContactInfo;
-	currentLocation?: Coordinates;
-	status: EAmbulanceStatus;
-	availability: boolean;
+ id: string;
+ serviceProvider: string;
+ vehicleNumber: string;
+ vehicleType: EAmbulanceType;
+ equipment: Equipment[];
+ staff: AmbulanceStaff[];
+ contact: AmbulanceContactInfo;
+ currentLocation?: Coordinates;
+ status: EAmbulanceStatus;
+ availability: boolean;
 }
 ```
 
@@ -142,19 +142,19 @@ interface Ambulance {
 
 ```typescript
 interface IUser {
-	id: string;
-	firstName: string;
-	lastName: string;
-	email: string;
-	phone: string;
-	dob: Date;
-	gender: EGender;
-	address: IAddress[];
-	role: EUserRole;
-	status: EUserStatus;
-	profileImage?: string;
-	createdAt: Date;
-	updatedAt: Date;
+ id: string;
+ firstName: string;
+ lastName: string;
+ email: string;
+ phone: string;
+ dob: Date;
+ gender: EGender;
+ address: IAddress[];
+ role: EUserRole;
+ status: EUserStatus;
+ profileImage?: string;
+ createdAt: Date;
+ updatedAt: Date;
 }
 ```
 
@@ -162,13 +162,13 @@ interface IUser {
 
 ```typescript
 interface IPatient extends IUser {
-	medicalRecords?: IMedicalRecord[];
-	emergencyContacts: IEmergencyContact[];
-	insurance?: IInsurance;
-	appointments?: string[];
-	prescriptions?: string[];
-	bloodGroup?: EBloodGroup;
-	allergies?: string[];
+ medicalRecords?: IMedicalRecord[];
+ emergencyContacts: IEmergencyContact[];
+ insurance?: IInsurance;
+ appointments?: string[];
+ prescriptions?: string[];
+ bloodGroup?: EBloodGroup;
+ allergies?: string[];
 }
 ```
 
@@ -176,11 +176,11 @@ interface IPatient extends IUser {
 
 ```typescript
 interface IMedicalHistory {
-	conditions: IMedicalCondition[];
-	surgeries?: ISurgery[];
-	medications?: IMedication[];
-	familyHistory?: string[];
-	lifestyle?: ILifestyle;
+ conditions: IMedicalCondition[];
+ surgeries?: ISurgery[];
+ medications?: IMedication[];
+ familyHistory?: string[];
+ lifestyle?: ILifestyle;
 }
 ```
 
@@ -190,23 +190,23 @@ interface IMedicalHistory {
 
 ```typescript
 interface Appointment {
-	id: string;
-	patientId: string;
-	providerId: string;
-	providerType: EProviderType;
-	dateTime: Date;
-	status: EAppointmentStatus;
-	service: EAppointmentMode;
-	reason?: string;
-	notes?: string;
-	payment?: PaymentInfo;
+ id: string;
+ patientId: string;
+ providerId: string;
+ providerType: EProviderType;
+ dateTime: Date;
+ status: EAppointmentStatus;
+ service: EAppointmentMode;
+ reason?: string;
+ notes?: string;
+ payment?: PaymentInfo;
 }
 
 interface PaymentInfo {
-	amount: number;
-	status: EPaymentStatus;
-	method?: string;
-	transactionId?: string;
+ amount: number;
+ status: EPaymentStatus;
+ method?: string;
+ transactionId?: string;
 }
 ```
 
@@ -216,25 +216,25 @@ interface PaymentInfo {
 
 ```typescript
 interface IBaseStaffMember {
-	id: string;
-	firstName: string;
-	lastName: string;
-	contact: IContactInfo;
-	joinDate: Date;
-	status: EStaffStatus;
-	qualification: string[];
-	profileImage?: string;
-	languages: string[];
-	experience: {
-		years: number;
-		previousWorkplaces?: string[];
-	};
-	availability: {
-		regularHours: IOperatingHours;
-		emergencyAvailable: boolean;
-		onCall: boolean;
-		nextAvailableSlot?: Date;
-	};
+ id: string;
+ firstName: string;
+ lastName: string;
+ contact: IContactInfo;
+ joinDate: Date;
+ status: EStaffStatus;
+ qualification: string[];
+ profileImage?: string;
+ languages: string[];
+ experience: {
+  years: number;
+  previousWorkplaces?: string[];
+ };
+ availability: {
+  regularHours: IOperatingHours;
+  emergencyAvailable: boolean;
+  onCall: boolean;
+  nextAvailableSlot?: Date;
+ };
 }
 ```
 
@@ -242,29 +242,29 @@ interface IBaseStaffMember {
 
 ```typescript
 interface IHospitalStaffMember extends IBaseStaffMember {
-	hospitalId: string;
-	role: EHospitalStaffRole;
-	department?: string;
-	specialization: EHospitalSpecialization[];
-	registrationNumber?: string;
-	shifts: IHospitalShift[];
-	permissions: EHospitalPermissions[];
-	consultationFee?: number;
-	patientLimit?: {
-		daily: number;
-		current: number;
-	};
-	expertise?: string[];
-	education: {
-		degree: string;
-		institution: string;
-		year: number;
-	}[];
-	ratings?: {
-		average: number;
-		total: number;
-		reviews?: IStaffReview[];
-	};
+ hospitalId: string;
+ role: EHospitalStaffRole;
+ department?: string;
+ specialization: EHospitalSpecialization[];
+ registrationNumber?: string;
+ shifts: IHospitalShift[];
+ permissions: EHospitalPermissions[];
+ consultationFee?: number;
+ patientLimit?: {
+  daily: number;
+  current: number;
+ };
+ expertise?: string[];
+ education: {
+  degree: string;
+  institution: string;
+  year: number;
+ }[];
+ ratings?: {
+  average: number;
+  total: number;
+  reviews?: IStaffReview[];
+ };
 }
 ```
 
@@ -274,50 +274,50 @@ interface IHospitalStaffMember extends IBaseStaffMember {
 
 ```typescript
 interface IMedicalRecord {
-	id: string;
-	patientId: string;
-	providerId: string;
-	providerType: EProviderType;
-	recordType:
-		| "CONSULTATION"
-		| "PRESCRIPTION"
-		| "LAB_RESULT"
-		| "PROCEDURE"
-		| "FOLLOW_UP";
-	date: Date;
-	diagnosis?: string[];
-	symptoms?: string[];
-	prescriptions?: {
-		medicine: string;
-		dosage: string;
-		frequency: string;
-		duration: string;
-		notes?: string;
-	}[];
-	labResults?: {
-		testName: string;
-		result: string;
-		normalRange?: string;
-		interpretation?: string;
-	}[];
-	vitals?: {
-		bloodPressure?: string;
-		temperature?: number;
-		heartRate?: number;
-		respiratoryRate?: number;
-		oxygenSaturation?: number;
-	};
-	notes?: string;
-	attachments?: {
-		type: string;
-		url: string;
-		description?: string;
-	}[];
-	followUpDate?: Date;
-	createdBy: string;
-	updatedBy?: string;
-	createdAt: Date;
-	updatedAt?: Date;
+ id: string;
+ patientId: string;
+ providerId: string;
+ providerType: EProviderType;
+ recordType:
+  | "CONSULTATION"
+  | "PRESCRIPTION"
+  | "LAB_RESULT"
+  | "PROCEDURE"
+  | "FOLLOW_UP";
+ date: Date;
+ diagnosis?: string[];
+ symptoms?: string[];
+ prescriptions?: {
+  medicine: string;
+  dosage: string;
+  frequency: string;
+  duration: string;
+  notes?: string;
+ }[];
+ labResults?: {
+  testName: string;
+  result: string;
+  normalRange?: string;
+  interpretation?: string;
+ }[];
+ vitals?: {
+  bloodPressure?: string;
+  temperature?: number;
+  heartRate?: number;
+  respiratoryRate?: number;
+  oxygenSaturation?: number;
+ };
+ notes?: string;
+ attachments?: {
+  type: string;
+  url: string;
+  description?: string;
+ }[];
+ followUpDate?: Date;
+ createdBy: string;
+ updatedBy?: string;
+ createdAt: Date;
+ updatedAt?: Date;
 }
 ```
 
@@ -327,15 +327,15 @@ interface IMedicalRecord {
 
 ```typescript
 interface IAuthUser {
-	id: string;
-	email: string;
-	phone: string;
-	name: string;
-	userType: "Patient" | "Provider";
-	providerType?: "Doctor" | "Hospital" | "Lab" | "Nursing" | "DoctorsAssistant";
-	isVerified: boolean;
-	createdAt: Date;
-	updatedAt: Date;
+ id: string;
+ email: string;
+ phone: string;
+ name: string;
+ userType: "Patient" | "Provider";
+ providerType?: "Doctor" | "Hospital" | "Lab" | "Nursing" | "DoctorsAssistant";
+ isVerified: boolean;
+ createdAt: Date;
+ updatedAt: Date;
 }
 ```
 
@@ -353,16 +353,16 @@ interface IAuthUser {
 
 ```typescript
 interface IOperatingHours {
-	regular: ITimeSlot;
-	weekends?: ITimeSlot;
-	holidays?: ITimeSlot;
-	emergency?: {
-		available: boolean;
-		hours: ITimeSlot;
-	};
-	departments?: {
-		[departmentId: string]: ITimeSlot;
-	};
+ regular: ITimeSlot;
+ weekends?: ITimeSlot;
+ holidays?: ITimeSlot;
+ emergency?: {
+  available: boolean;
+  hours: ITimeSlot;
+ };
+ departments?: {
+  [departmentId: string]: ITimeSlot;
+ };
 }
 ```
 
@@ -372,11 +372,11 @@ interface IOperatingHours {
 
 ```typescript
 enum EProviderType {
-	Doctor = "Doctor",
-	Hospital = "Hospital",
-	Lab = "Lab",
-	Nursing = "Nursing",
-	DoctorsAssistant = "DoctorsAssistant",
+ Doctor = "Doctor",
+ Hospital = "Hospital",
+ Lab = "Lab",
+ Nursing = "Nursing",
+ DoctorsAssistant = "DoctorsAssistant",
 }
 ```
 
@@ -384,15 +384,15 @@ enum EProviderType {
 
 ```typescript
 enum EUserRole {
-	PATIENT = "Patient",
-	DOCTOR = "Doctor",
-	ADMIN = "Admin",
-	SUPERADMIN = "SuperAdmin",
-	HOSPITAL = "Hospital",
-	LAB = "Lab",
-	NURSING = "Nursing",
-	DOCTORSASSISTANT = "DoctorsAssistant",
-	PHARMACEUTICAL = "Pharmaceutical",
+ PATIENT = "Patient",
+ DOCTOR = "Doctor",
+ ADMIN = "Admin",
+ SUPERADMIN = "SuperAdmin",
+ HOSPITAL = "Hospital",
+ LAB = "Lab",
+ NURSING = "Nursing",
+ DOCTORSASSISTANT = "DoctorsAssistant",
+ PHARMACEUTICAL = "Pharmaceutical",
 }
 ```
 
