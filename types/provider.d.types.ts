@@ -16,11 +16,11 @@ import { Pharmaceutical, EPharmacyStatus } from "./pharmaceutical.d.types";
 import { Ambulance, EAmbulanceStatus } from "./ambulance.d.types";
 
 export enum EProviderType {
-	Doctor = "Doctor",
-	Hospital = "Hospital",
-	Lab = "Lab",
-	Nursing = "Nursing",
-	DoctorsAssistant = "DoctorsAssistant",
+	DOCTOR = "Doctor",
+	HOSPITAL = "Hospital",
+	LAB = "Lab",
+	NURSING = "Nursing",
+	DOCTOR_ASSISTANT = "DoctorsAssistant",
 }
 
 export interface IAddress {
