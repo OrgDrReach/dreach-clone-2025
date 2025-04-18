@@ -31,7 +31,6 @@ export const authOptions: NextAuthOptions = {
 					role: EUserRole.PATIENT,
 					isVerified: true,
 					phone: "",
-					phoneNumber: "",
 					authProvider: "google" as const,
 				};
 			},
@@ -59,7 +58,6 @@ export const authOptions: NextAuthOptions = {
 							email: res.user.email,
 							name: res.user.name,
 							phone: res.user.phone,
-							phoneNumber: res.user.phone, // Map phone to phoneNumber
 							role: res.user.role,
 							isVerified: res.user.isVerified,
 							image: res.user.profileImage,
@@ -81,14 +79,24 @@ export const authOptions: NextAuthOptions = {
 					name: user.name || "",
 					image: user.image || "",
 					phone: user.phone || "",
-					phoneNumber: user.phoneNumber || user.phone || "", // Map both fields
+					firstName: user.firstName,
+					lastName: user.lastName,
+					role: user.role,
+					isVerified: user.isVerified,
+					providerRole: user.providerRole,
+					address: user.address,
+					profileImage: user.profileImage,
+					authProvider: user.authProvider,
 				};
 			}
 			return token;
 		},
 		session: async ({ session, token }) => {
 			if (token.user) {
-				session.user = token.user;
+				session.user = {
+					...session.user,
+					...token.user,
+				};
 			}
 			return session;
 		},
