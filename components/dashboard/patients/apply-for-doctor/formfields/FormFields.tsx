@@ -1,7 +1,7 @@
 import React from "react";
-import { useForm, Controller, Control } from "react-hook-form";
+import { useForm, type Control, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
+import { z } from "zod";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import {
@@ -41,16 +41,10 @@ const formSchema = z
 			.date()
 			.max(new Date(), "Date of birth cannot be in the future"),
 		phoneNumber: z.string().min(10, "Phone number must be at least 10 digits"),
-		gender: z.enum(["male", "female", "other"], {
-			required_error: "Please select a gender",
-		}),
-		bloodGroup: z.enum(["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"], {
-			required_error: "Please select a blood group",
-		}),
+		gender: z.enum(["male", "female", "other"]),
+		bloodGroup: z.enum(["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"]),
 		biography: z.string().optional(),
-		appointmentMode: z.enum(["in-person", "video", "both"], {
-			required_error: "Please select an appointment mode",
-		}),
+		appointmentMode: z.enum(["in-person", "video", "both"]),
 		permanentAddressLine1: z.string().min(1, "Address line 1 is required"),
 		permanentAddressLine2: z.string().optional(),
 		permanentCity: z.string().min(1, "City is required"),
@@ -128,8 +122,16 @@ const formSchema = z
 export type FormValues = z.infer<typeof formSchema>;
 
 const FormFields: React.FC = () => {
-	const form = useForm<FormValues>({
-		resolver: zodResolver<FormValues, any, typeof formSchema>(formSchema),
+	const {
+		control,
+		handleSubmit,
+		formState: { errors },
+		watch,
+	} = useForm<FormValues>({
+		resolver: async (data, context) => {
+			const result = await zodResolver(formSchema)(data, context);
+			return result;
+		},
 		mode: "onChange",
 		defaultValues: {
 			username: "",
@@ -166,42 +168,18 @@ const FormFields: React.FC = () => {
 		},
 	});
 
-	const {
-		control,
-		handleSubmit,
-		formState: { errors },
-		watch,
-	} = form;
-
 	const onSubmit = async (data: FormValues) => {
 		console.log(data);
 		// Handle form submission
 	};
 
-	type FormControl = Control<FormValues>;
-
 	return (
 		<div className="grid grid-cols-2 gap-6">
-			<UserInfoFields
-				control={control as unknown as FormControl}
-				errors={errors}
-			/>
-			<PersonalInfoFields
-				control={control as unknown as FormControl}
-				errors={errors}
-			/>
-			<DateOfBirthField
-				control={control as unknown as FormControl}
-				errors={errors}
-			/>
-			<PhoneNumberField
-				control={control as unknown as FormControl}
-				errors={errors}
-			/>
-			<GenderField
-				control={control as unknown as FormControl}
-				errors={errors}
-			/>
+			<UserInfoFields control={control} errors={errors} />
+			<PersonalInfoFields control={control} errors={errors} />
+			<DateOfBirthField control={control} errors={errors} />
+			<PhoneNumberField control={control} errors={errors} />
+			<GenderField control={control} errors={errors} />
 			<div className="space-y-2">
 				<Label
 					htmlFor="bloodGroup"
@@ -266,39 +244,15 @@ const FormFields: React.FC = () => {
 					</p>
 				)}
 			</div>
-			<AddressFields
-				control={control as unknown as FormControl}
-				errors={errors}
-			/>
-			<MedicalDegreesField
-				control={control as unknown as FormControl}
-				errors={errors}
-			/>
-			<SkillsAndHobbiesField
-				control={control as unknown as FormControl}
-				errors={errors}
-			/>
-			<EducationField
-				control={control as unknown as FormControl}
-				errors={errors}
-			/>
-			<AwardsField
-				control={control as unknown as FormControl}
-				errors={errors}
-			/>
-			<ClinicInfoFields
-				control={control as unknown as FormControl}
-				errors={errors}
-			/>
+			<AddressFields control={control} errors={errors} />
+			<MedicalDegreesField control={control} errors={errors} />
+			<SkillsAndHobbiesField control={control} errors={errors} />
+			<EducationField control={control} errors={errors} />
+			<AwardsField control={control} errors={errors} />
+			<ClinicInfoFields control={control} errors={errors} />
 			<div className="col-span-2 grid grid-cols-2 gap-6">
-				<AadhaarVerificationField
-					control={control as unknown as FormControl}
-					errors={errors}
-				/>
-				<DoctorLicenseVerificationField
-					control={control as unknown as FormControl}
-					errors={errors}
-				/>
+				<AadhaarVerificationField control={control} errors={errors} />
+				<DoctorLicenseVerificationField control={control} errors={errors} />
 			</div>
 		</div>
 	);
