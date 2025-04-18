@@ -1,10 +1,6 @@
 "use client";
 
-import React, {
-	useState,
-	useCallback,
-	useEffect,
-} from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
 	FaSearch,
@@ -151,9 +147,7 @@ const SearchAndFilters: React.FC<SearchAndFiltersProps> = ({
 				const isMatchingFilters = {
 					videoConsult:
 						!filterData.videoConsult ||
-						(doctor as IDoctor).consultMode.includes(
-							EDoctorConsultMode.VIDEO_CONSULT
-						),
+						(doctor as IDoctor).consultMode.includes(EDoctorConsultMode.VIDEO),
 					gender:
 						(!filterData.femaleDoctors && !filterData.maleDoctors) ||
 						(filterData.femaleDoctors && doctor.name.includes("Dr.")) ||
