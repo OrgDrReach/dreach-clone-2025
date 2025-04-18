@@ -4,9 +4,7 @@ import {
 	EClinicRole,
 	EClinicPermissions,
 	IClinicStaff,
-	EStaffStatus,
 } from "./doctor.d.types";
-import { Ambulance, EAmbulanceStatus } from "./ambulance.d.types";
 import {
 	Hospital,
 	EHospitalStatus,
@@ -15,6 +13,7 @@ import {
 } from "./hospital.d.types";
 import { Lab, ELabStatus } from "./lab.d.types";
 import { Pharmaceutical, EPharmacyStatus } from "./pharmaceutical.d.types";
+import { Ambulance, EAmbulanceStatus } from "./ambulance.d.types";
 
 export enum EProviderType {
 	Doctor = "Doctor",
@@ -73,11 +72,10 @@ export interface IReview {
 
 export type ProviderStatus =
 	| EDoctorStatus
+	| EHospitalStatus
 	| ELabStatus
 	| EPharmacyStatus
-	| EAmbulanceStatus
-	| EStaffStatus
-	| EHospitalStatus;
+	| EAmbulanceStatus;
 
 export interface IBaseProvider {
 	id: string;
@@ -101,79 +99,9 @@ export interface IBaseProvider {
 	};
 }
 
-export interface IBaseStaffMember {
-	id: string;
-	firstName: string;
-	lastName: string;
-	contact: IContactInfo;
-	joinDate: Date;
-	status: EStaffStatus;
-	qualification: string[];
-	profileImage?: string;
-	languages: string[];
-	experience: {
-		years: number;
-		previousWorkplaces?: string[];
-	};
-	availability: {
-		regularHours: IOperatingHours;
-		emergencyAvailable: boolean;
-		onCall: boolean;
-		nextAvailableSlot?: Date;
-	};
-}
-
-export interface IMedicalRecord {
-	id: string;
-	patientId: string;
-	providerId: string;
-	providerType: EProviderType;
-	recordType:
-		| "CONSULTATION"
-		| "PRESCRIPTION"
-		| "LAB_RESULT"
-		| "PROCEDURE"
-		| "FOLLOW_UP";
-	date: Date;
-	diagnosis?: string[];
-	symptoms?: string[];
-	prescriptions?: {
-		medicine: string;
-		dosage: string;
-		frequency: string;
-		duration: string;
-		notes?: string;
-	}[];
-	labResults?: {
-		testName: string;
-		result: string;
-		normalRange?: string;
-		interpretation?: string;
-	}[];
-	vitals?: {
-		bloodPressure?: string;
-		temperature?: number;
-		heartRate?: number;
-		respiratoryRate?: number;
-		oxygenSaturation?: number;
-	};
-	notes?: string;
-	attachments?: {
-		type: string;
-		url: string;
-		description?: string;
-	}[];
-	followUpDate?: Date;
-	createdBy: string;
-	updatedBy?: string;
-	createdAt: Date;
-	updatedAt?: Date;
-}
-
 export type Provider =
 	| (IBaseProvider & IDoctor)
 	| (IBaseProvider & Hospital)
-	| (IBaseProvider & Ambulance)
 	| (IBaseProvider & Lab)
 	| (IBaseProvider & Pharmaceutical)
 	| (IBaseProvider & IClinicStaff);
