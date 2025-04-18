@@ -13,21 +13,24 @@ import {
 	FaUsers,
 } from "react-icons/fa";
 
-import { IFeaturedDoctor, IDoctor } from "@/types/doctor.d.types";
+import {
+	IFeaturedDoctor,
+	IDoctor,
+	EDoctorStatus,
+} from "@/types/doctor.d.types";
 import { AppointmentBookingModal } from "../booking/AppointmentBookingModal";
 import ImageViewer from "@/components/images/ImageViewer";
 import { useDoctorStore } from "@/lib/stores/doctorStore";
 import { featuredDoctors } from "@/data/featuredDoctorData";
 import {
 	EProviderType,
+	IBaseProvider,
 	IContactInfo,
 	Provider,
 } from "@/types/provider.d.types";
 
 // Add type conversion helper function
-const convertToProviderDoctor = (
-	featuredDoctor: IFeaturedDoctor
-): Provider & IDoctor => {
+const convertToProviderDoctor = (featuredDoctor: IFeaturedDoctor): Provider => {
 	// Extract first contact info or create default
 	const contactInfo: IContactInfo = featuredDoctor.contact[0] || {
 		phone: [],
@@ -36,7 +39,8 @@ const convertToProviderDoctor = (
 		emergencyContact: undefined,
 	};
 
-	return {
+	// Create base doctor object
+	const doctorData: IBaseProvider & IDoctor = {
 		id: featuredDoctor.id,
 		type: EProviderType.DOCTOR,
 		name: `${featuredDoctor.firstName} ${featuredDoctor.lastName}`,
@@ -55,7 +59,7 @@ const convertToProviderDoctor = (
 		status: featuredDoctor.status,
 		consultMode: featuredDoctor.consultMode,
 		address: featuredDoctor.address,
-		contact: contactInfo, // Use the extracted contact info
+		contact: contactInfo,
 		rating: featuredDoctor.rating,
 		operatingHours: {
 			regular: {
@@ -63,7 +67,18 @@ const convertToProviderDoctor = (
 				endTime: "17:00",
 			},
 		},
+		languages: featuredDoctor.languages || [],
+		consultationFee: featuredDoctor.consultationFee,
+		education: featuredDoctor.education || [
+			{
+				degree: featuredDoctor.degree[0] || "",
+				institution: "Not specified",
+				year: new Date().getFullYear() - featuredDoctor.experience,
+			},
+		],
 	};
+
+	return doctorData;
 };
 
 const DoctorFeatured = () => {
@@ -152,7 +167,7 @@ const DoctorFeatured = () => {
 										</span>
 									</div>
 								</div>
-								{doctor.status === "ONLINE" && (
+								{doctor.status === EDoctorStatus.ONLINE && (
 									<div className="absolute top-4 right-4 bg-emerald-500/90 backdrop-blur-xs text-white text-xs font-medium px-3 py-1.5 rounded-full flex items-center shadow-soft animate-pulse-soft">
 										<div className="w-2 h-2 bg-white rounded-full animate-pulse mr-2"></div>
 										<FaVideo className="mr-1.5" />
