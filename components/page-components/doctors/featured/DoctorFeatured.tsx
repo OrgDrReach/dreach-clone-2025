@@ -154,7 +154,7 @@ const DoctorFeatured = () => {
 									className="cursor-pointer relative w-full h-full"
 									onClick={() => handleImageClick(doctor.profileImage || "")}>
 									<Image
-										src={doctor.profileImage || "/placeholder-doctor.jpg"}
+										src={doctor.profileImage || "/websiteImages/dr-shantanu.png"}
 										alt={`Dr. ${doctor.firstName} ${doctor.lastName}`}
 										fill
 										sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
