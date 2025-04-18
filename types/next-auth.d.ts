@@ -1,9 +1,9 @@
 import { DefaultSession } from "next-auth";
-import { EUserRole } from "./user.d.types";
+import { EUserRole } from "./auth.d.types";
 import { IAddress } from "./provider.d.types";
 
 declare module "next-auth" {
-	interface Session {
+	interface Session extends DefaultSession {
 		user: {
 			id: string;
 			email: string;
@@ -16,7 +16,9 @@ declare module "next-auth" {
 			providerRole?: string;
 			address?: IAddress[];
 			profileImage?: string;
-		} & DefaultSession["user"];
+			authProvider?: "credentials" | "google";
+			image?: string;
+		};
 		authToken?: string;
 	}
 
@@ -32,8 +34,12 @@ declare module "next-auth" {
 		providerRole?: string;
 		address?: IAddress[];
 		profileImage?: string;
+		authProvider?: "credentials" | "google";
+		image?: string;
 	}
+}
 
+declare module "next-auth/jwt" {
 	interface JWT {
 		id: string;
 		email: string;
@@ -47,5 +53,7 @@ declare module "next-auth" {
 		address?: IAddress[];
 		profileImage?: string;
 		signupData?: any;
+		authProvider?: "credentials" | "google";
+		image?: string;
 	}
 }

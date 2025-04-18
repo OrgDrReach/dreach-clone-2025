@@ -4,7 +4,12 @@
  * It is tailored to the specific needs of the project.
  */
 
-import { IAddress, IContactInfo, IBaseStaffMember } from "./provider.d.types";
+import {
+	IAddress,
+	IContactInfo,
+	IBaseStaffMember,
+	IOperatingHours,
+} from "./provider.d.types";
 
 export interface IDoctor {
 	id: string; // Unique ID
@@ -23,31 +28,36 @@ export interface IDoctor {
 	status: EDoctorStatus;
 	consultMode: EDoctorConsultMode[];
 	consultationFee?: number; // Add this optional property
+	languages: string[];
+	expertise?: string[];
+	education: {
+		degree: string;
+		institution: string;
+		year: number;
+	}[];
+	ratings?: {
+		average: number;
+		total: number;
+	};
 }
 
 export interface IClinicInfo {
 	id: string;
 	name: string;
-	address: IAddress[];
-	contact: IContactInfo[];
-	staff?: {
-		assistantDoctors?: IAssistantDoctor[];
-		nurses?: INurse[];
-		receptionists?: IReceptionist[];
-		others?: IClinicStaff[];
-	};
-	departments?: string[];
-	facilities?: string[];
+	address: IAddress;
+	role: EClinicRole;
+	startDate: Date;
+	endDate?: Date;
 }
 
 export interface IAvailability {
-	day: EDayOfWeek[];
-	slots: ITimeSlot[];
-}
-
-export interface ITimeSlot {
-	startTime: string;
-	endTime: string;
+	day: string;
+	slots: {
+		startTime: string;
+		endTime: string;
+		isBooked: boolean;
+	}[];
+	clinicId: string;
 }
 
 export enum EDayOfWeek {
@@ -61,18 +71,17 @@ export enum EDayOfWeek {
 }
 
 export enum EDoctorStatus {
-	ONLINE = "ONLINE",
-	OFFLINE = "OFFLINE",
-	SUSPENDED = "SUSPENDED",
-	VERIFY = "VERIFY",
-	ACTIVATE = "ACTIVATE",
+	ONLINE = "Online",
+	OFFLINE = "Offline",
+	BUSY = "Busy",
+	ON_LEAVE = "OnLeave",
+	SUSPENDED = "Suspended",
 }
 
 export enum EDoctorConsultMode {
-	HOME_VISIT = "HOME_VISIT",
-	CLINIC = "CLINIC",
-	VIDEO_CONSULT = "VIDEO_CONSULT",
-	HYBRID = "HYBRID",
+	VIDEO = "Video",
+	IN_PERSON = "InPerson",
+	HOME_VISIT = "HomeVisit",
 }
 
 // Add this new interface for featured doctors
@@ -94,11 +103,10 @@ export interface IFeaturedDoctor extends IDoctor {
 }
 
 export enum EClinicRole {
-	ASSISTANT_DOCTOR = "ASSISTANT_DOCTOR",
-	NURSE = "NURSE",
-	RECEPTIONIST = "RECEPTIONIST",
-	LAB_TECHNICIAN = "LAB_TECHNICIAN",
-	PHARMACY_ASSISTANT = "PHARMACY_ASSISTANT",
+	OWNER = "Owner",
+	ADMIN = "Admin",
+	DOCTOR = "Doctor",
+	STAFF = "Staff",
 }
 
 export enum EStaffStatus {
@@ -108,20 +116,25 @@ export enum EStaffStatus {
 	TERMINATED = "TERMINATED",
 }
 
-export interface IClinicStaff extends IBaseStaffMember {
+export interface IClinicStaff {
+	id: string;
 	clinicId: string;
 	role: EClinicRole;
 	permissions: EClinicPermissions[];
+	joinDate: Date;
+	contact: IContactInfo;
+	availability: {
+		regularHours: IOperatingHours;
+		onCall: boolean;
+	};
 }
 
 export enum EClinicPermissions {
-	MANAGE_APPOINTMENTS = "MANAGE_APPOINTMENTS",
-	VIEW_PATIENT_RECORDS = "VIEW_PATIENT_RECORDS",
-	EDIT_PATIENT_RECORDS = "EDIT_PATIENT_RECORDS",
-	MANAGE_INVENTORY = "MANAGE_INVENTORY",
-	MANAGE_BILLING = "MANAGE_BILLING",
-	MANAGE_STAFF = "MANAGE_STAFF",
-	GENERATE_REPORTS = "GENERATE_REPORTS",
+	MANAGE_STAFF = "ManageStaff",
+	MANAGE_APPOINTMENTS = "ManageAppointments",
+	MANAGE_PATIENTS = "ManagePatients",
+	MANAGE_BILLING = "ManageBilling",
+	VIEW_REPORTS = "ViewReports",
 }
 
 export interface IReceptionist extends IClinicStaff {

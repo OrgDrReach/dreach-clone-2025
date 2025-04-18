@@ -1,9 +1,73 @@
 import { IAddress } from "./provider.d.types";
-import { IMedicalRecord } from "./provider.d.types";
+import { EUserRole, EUserStatus, EGender } from "./auth.d.types";
+
+export interface IMedicalHistory {
+	conditions: string[];
+	allergies: string[];
+	medications: {
+		name: string;
+		dosage: string;
+		frequency: string;
+		startDate: Date;
+		endDate?: Date;
+	}[];
+	surgeries: {
+		name: string;
+		date: Date;
+		hospital: string;
+		doctor: string;
+	}[];
+	familyHistory: {
+		condition: string;
+		relationship: string;
+	}[];
+}
+
+export interface IInsurance {
+	provider: string;
+	policyNumber: string;
+	validUntil: Date;
+	coverageType: string;
+	primaryHolder: boolean;
+	dependents?: string[];
+}
+
+export interface IEmergencyContact {
+	name: string;
+	relationship: string;
+	phone: string;
+	address?: IAddress;
+	isAuthorized: boolean;
+}
+
+export interface IHealthMetrics {
+	height?: number;
+	weight?: number;
+	bloodGroup?: string;
+	bloodPressure?: {
+		systolic: number;
+		diastolic: number;
+		lastChecked: Date;
+	};
+	bloodSugar?: {
+		value: number;
+		type: "FASTING" | "POST_PRANDIAL";
+		lastChecked: Date;
+	};
+}
+
+export interface IPatientPreferences {
+	preferredLanguage: string;
+	communicationMode: ("EMAIL" | "SMS" | "WHATSAPP" | "CALL")[];
+	appointmentReminders: boolean;
+	medicationReminders: boolean;
+	reportDelivery: "EMAIL" | "PHYSICAL" | "BOTH";
+	preferredDoctors?: string[];
+	preferredHospitals?: string[];
+}
 
 export interface IUser {
 	id: string;
-
 	firstName: string;
 	lastName: string;
 	email: string;
@@ -16,133 +80,33 @@ export interface IUser {
 	profileImage?: string;
 	createdAt: Date;
 	updatedAt: Date;
-}
 
-export interface IPatient extends IUser {
-	medicalRecords?: IMedicalRecord[];
-	emergencyContacts: IEmergencyContact[];
-	insurance?: IInsurance;
-	appointments?: string[]; // Array of appointment IDs
-	prescriptions?: string[]; // Array of prescription IDs
-	bloodGroup?: EBloodGroup;
-	allergies?: string[];
-}
+	// Patient specific fields
+	medicalHistory?: IMedicalHistory;
+	insurance?: IInsurance[];
+	emergencyContacts?: IEmergencyContact[];
+	healthMetrics?: IHealthMetrics;
+	preferences?: IPatientPreferences;
 
-export interface IMedicalHistory {
-	conditions: IMedicalCondition[];
-	surgeries?: ISurgery[];
-	medications?: IMedication[];
-	familyHistory?: string[];
-	lifestyle?: ILifestyle;
-}
+	// Additional fields for verified users
+	isVerified: boolean;
+	verificationDetails?: {
+		documents: {
+			type: string;
+			number: string;
+			verified: boolean;
+		}[];
+		lastVerified?: Date;
+		verifiedBy?: string;
+	};
 
-export interface IMedicalCondition {
-	name: string;
-	diagnosedDate: Date;
-	status: EMedicalConditionStatus;
-	notes?: string;
-}
-
-export interface ISurgery {
-	name: string;
-	date: Date;
-	hospital: string;
-	surgeon: string;
-	notes?: string;
-}
-
-export interface IMedication {
-	name: string;
-	dosage: string;
-	frequency: string;
-	startDate: Date;
-	endDate?: Date;
-	prescribedBy: string;
-}
-
-export interface IEmergencyContact {
-	name: string;
-	relationship: string;
-	phone: string;
-	address?: IAddress;
-}
-
-export interface IInsurance {
-	provider: string;
-	policyNumber: string;
-	validUntil: Date;
-	coverageDetails?: string;
-}
-
-export interface ILifestyle {
-	smoking: ESmokingStatus;
-	alcohol: EAlcoholConsumption;
-	exercise: EExerciseFrequency;
-	diet: string[];
-}
-
-export enum EUserRole {
-	PATIENT = "Patient",
-	DOCTOR = "Doctor",
-	ADMIN = "Admin",
-	SUPERADMIN = "SuperAdmin",
-	HOSPITAL = "Hospital",
-	LAB = "Lab",
-	NURSING = "Nursing",
-	DOCTORSASSISTANT = "DoctorsAssistant",
-	PHARMACEUTICAL = "Pharmaceutical",
-}
-
-export enum EUserStatus {
-	ACTIVE = "Active",
-	INACTIVE = "Inactive",
-	SUSPENDED = "Suspended",
-	PENDING = "Pending",
-}
-
-export enum EGender {
-	MALE = "MALE",
-	FEMALE = "FEMALE",
-	OTHER = "OTHER",
-	PREFER_NOT_TO_SAY = "PREFER_NOT_TO_SAY",
-}
-
-export enum EBloodGroup {
-	A_POSITIVE = "A+",
-	A_NEGATIVE = "A-",
-	B_POSITIVE = "B+",
-	B_NEGATIVE = "B-",
-	O_POSITIVE = "O+",
-	O_NEGATIVE = "O-",
-	AB_POSITIVE = "AB+",
-	AB_NEGATIVE = "AB-",
-}
-
-export enum EMedicalConditionStatus {
-	ACTIVE = "ACTIVE",
-	RESOLVED = "RESOLVED",
-	MANAGED = "MANAGED",
-	IN_TREATMENT = "IN_TREATMENT",
-}
-
-export enum ESmokingStatus {
-	NEVER = "NEVER",
-	FORMER = "FORMER",
-	CURRENT = "CURRENT",
-	OCCASIONAL = "OCCASIONAL",
-}
-
-export enum EAlcoholConsumption {
-	NEVER = "NEVER",
-	OCCASIONAL = "OCCASIONAL",
-	MODERATE = "MODERATE",
-	FREQUENT = "FREQUENT",
-}
-
-export enum EExerciseFrequency {
-	SEDENTARY = "SEDENTARY",
-	LIGHT = "LIGHT",
-	MODERATE = "MODERATE",
-	ACTIVE = "ACTIVE",
-	VERY_ACTIVE = "VERY_ACTIVE",
+	// Access control
+	permissions?: string[];
+	lastLogin?: Date;
+	deviceTokens?: string[];
+	notificationPreferences?: {
+		email: boolean;
+		push: boolean;
+		sms: boolean;
+	};
 }
