@@ -27,7 +27,7 @@ const mapConsultModeToAppointmentMode = (
 	consultMode: EDoctorConsultMode
 ): EAppointmentMode => {
 	switch (consultMode) {
-		case EDoctorConsultMode.VIDEO_CONSULT:
+		case EDoctorConsultMode.VIDEO:
 			return EAppointmentMode.VIDEO;
 		case EDoctorConsultMode.HOME_VISIT:
 			return EAppointmentMode.HOME_VISIT;
@@ -72,8 +72,10 @@ const BookingSchema = z.object({
 	),
 	consultMode: z.enum([
 		EDoctorConsultMode.CLINIC,
-		EDoctorConsultMode.VIDEO_CONSULT,
+		EDoctorConsultMode.VIDEO,
 		EDoctorConsultMode.HOME_VISIT,
+		EDoctorConsultMode.HYBRID,
+		EDoctorConsultMode.IN_PERSON,
 	]),
 	reason: z
 		.string()
