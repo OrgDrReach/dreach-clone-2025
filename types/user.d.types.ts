@@ -110,3 +110,14 @@ export interface IUser {
 		sms: boolean;
 	};
 }
+
+export interface IPatient extends IUser {
+	medicalHistory: IMedicalHistory;
+	emergencyContacts: IEmergencyContact[];
+	insurance?: IInsurance[];
+	healthMetrics: IHealthMetrics;
+	preferences: IPatientPreferences;
+	appointments?: string[]; // Array of appointment IDs
+	prescriptions?: string[]; // Array of prescription IDs
+	providers?: string[]; // Array of healthcare provider IDs
+}

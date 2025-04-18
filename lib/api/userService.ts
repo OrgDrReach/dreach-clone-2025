@@ -1,6 +1,6 @@
 "use server";
 
-import { IUser, IPatient, EUserRole, EUserStatus } from "@/types/user.d.types";
+import { IUser, IPatient } from "@/types/user.d.types";
 
 interface UpdateUserPayload {
 	name: string;
