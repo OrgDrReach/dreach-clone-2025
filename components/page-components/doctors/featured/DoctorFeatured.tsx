@@ -30,7 +30,9 @@ import {
 } from "@/types/provider.d.types";
 
 // Add type conversion helper function
-const convertToProviderDoctor = (featuredDoctor: IFeaturedDoctor): Provider => {
+const convertToProviderDoctor = (
+	featuredDoctor: IFeaturedDoctor
+): IBaseProvider & IDoctor => {
 	// Extract first contact info or create default
 	const contactInfo: IContactInfo = featuredDoctor.contact[0] || {
 		phone: [],
@@ -154,7 +156,9 @@ const DoctorFeatured = () => {
 									className="cursor-pointer relative w-full h-full"
 									onClick={() => handleImageClick(doctor.profileImage || "")}>
 									<Image
-										src={doctor.profileImage || "/websiteImages/dr-shantanu.png"}
+										src={
+											doctor.profileImage || "/websiteImages/dr-shantanu.png"
+										}
 										alt={`Dr. ${doctor.firstName} ${doctor.lastName}`}
 										fill
 										sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
