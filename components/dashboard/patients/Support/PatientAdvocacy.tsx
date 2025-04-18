@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
@@ -9,7 +9,9 @@ const PatientAdvocacy: React.FC = () => {
         <CardTitle className="text-2xl font-bold">Patient Advocacy</CardTitle>
       </CardHeader>
       <CardContent>
-        <p className="mb-6 text-lg">Connect with a patient advocate for support and guidance.</p>
+        <p className="mb-6 text-lg">
+          Connect with a patient advocate for support and guidance.
+        </p>
         <Button className="w-full bg-white text-blue-600 hover:bg-blue-100 transition-colors duration-300">
           Request an Advocate
         </Button>

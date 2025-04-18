@@ -1,10 +1,18 @@
-"use client"
+"use client";
 
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
 import { motion } from "framer-motion";
 import { CheckCircle, Target } from "lucide-react";
 
@@ -29,7 +37,10 @@ interface ProgressTrackingProps {
   progressData: ProgressData[];
 }
 
-const ProgressTracking: React.FC<ProgressTrackingProps> = ({ goals, progressData }) => {
+const ProgressTracking: React.FC<ProgressTrackingProps> = ({
+  goals,
+  progressData,
+}) => {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       <Card className="w-full bg-gradient-to-br from-blue-50 to-indigo-50 shadow-lg overflow-hidden">
@@ -47,7 +58,12 @@ const ProgressTracking: React.FC<ProgressTrackingProps> = ({ goals, progressData
                 <XAxis dataKey="date" />
                 <YAxis />
                 <Tooltip />
-                <Line type="monotone" dataKey="progress" stroke="#4F46E5" strokeWidth={2} />
+                <Line
+                  type="monotone"
+                  dataKey="progress"
+                  stroke="#4F46E5"
+                  strokeWidth={2}
+                />
               </LineChart>
             </ResponsiveContainer>
           </div>
@@ -72,16 +88,25 @@ const ProgressTracking: React.FC<ProgressTrackingProps> = ({ goals, progressData
                 className="mb-6 last:mb-0"
               >
                 <div className="flex justify-between items-center mb-2">
-                  <h3 className="text-lg font-semibold text-gray-800">{goal.description}</h3>
+                  <h3 className="text-lg font-semibold text-gray-800">
+                    {goal.description}
+                  </h3>
                   <Badge className="bg-blue-100 text-blue-800">
                     {goal.progress}% Complete
                   </Badge>
                 </div>
                 <div className="space-y-2">
                   {goal.milestones.map((milestone) => (
-                    <div key={milestone.id} className="flex items-center space-x-2">
-                      <div className={`w-4 h-4 rounded-full ${milestone.completed ? 'bg-green-500' : 'bg-gray-300'}`} />
-                      <span className={`text-sm ${milestone.completed ? 'text-green-600 font-medium' : 'text-gray-600'}`}>
+                    <div
+                      key={milestone.id}
+                      className="flex items-center space-x-2"
+                    >
+                      <div
+                        className={`w-4 h-4 rounded-full ${milestone.completed ? "bg-green-500" : "bg-gray-300"}`}
+                      />
+                      <span
+                        className={`text-sm ${milestone.completed ? "text-green-600 font-medium" : "text-gray-600"}`}
+                      >
                         {milestone.description}
                       </span>
                     </div>

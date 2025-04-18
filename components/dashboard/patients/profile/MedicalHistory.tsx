@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Activity, Pill, AlertTriangle } from 'lucide-react';
+import { Activity, Pill, AlertTriangle } from "lucide-react";
 
 interface MedicalHistoryProps {
   conditions: string[];
@@ -8,7 +8,11 @@ interface MedicalHistoryProps {
   allergies: string[];
 }
 
-const MedicalHistory: React.FC<MedicalHistoryProps> = ({ conditions, medications, allergies }) => {
+const MedicalHistory: React.FC<MedicalHistoryProps> = ({
+  conditions,
+  medications,
+  allergies,
+}) => {
   return (
     <Card className="bg-gradient-to-br from-red-50 to-pink-50 dark:from-gray-800 dark:to-gray-900 shadow-lg">
       <CardHeader>
@@ -24,7 +28,9 @@ const MedicalHistory: React.FC<MedicalHistoryProps> = ({ conditions, medications
           </h3>
           <ul className="list-disc list-inside">
             {conditions.map((condition, index) => (
-              <li key={index} className="text-gray-700 dark:text-gray-300">{condition}</li>
+              <li key={index} className="text-gray-700 dark:text-gray-300">
+                {condition}
+              </li>
             ))}
           </ul>
         </div>
@@ -34,7 +40,9 @@ const MedicalHistory: React.FC<MedicalHistoryProps> = ({ conditions, medications
           </h3>
           <ul className="list-disc list-inside">
             {medications.map((medication, index) => (
-              <li key={index} className="text-gray-700 dark:text-gray-300">{medication}</li>
+              <li key={index} className="text-gray-700 dark:text-gray-300">
+                {medication}
+              </li>
             ))}
           </ul>
         </div>
@@ -44,7 +52,9 @@ const MedicalHistory: React.FC<MedicalHistoryProps> = ({ conditions, medications
           </h3>
           <ul className="list-disc list-inside">
             {allergies.map((allergy, index) => (
-              <li key={index} className="text-gray-700 dark:text-gray-300">{allergy}</li>
+              <li key={index} className="text-gray-700 dark:text-gray-300">
+                {allergy}
+              </li>
             ))}
           </ul>
         </div>

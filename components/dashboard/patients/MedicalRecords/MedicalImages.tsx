@@ -1,10 +1,16 @@
-"use client"
+"use client";
 
 import React, { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { ZoomIn, ZoomOut, Move, X } from "lucide-react";
 
@@ -26,7 +32,9 @@ const MedicalImages: React.FC<MedicalImagesProps> = ({ images }) => {
   return (
     <Card className="w-full bg-gradient-to-br from-purple-50 to-pink-50 shadow-lg">
       <CardHeader className="bg-white bg-opacity-70 backdrop-blur-sm">
-        <CardTitle className="text-2xl font-bold text-purple-700">Medical Images</CardTitle>
+        <CardTitle className="text-2xl font-bold text-purple-700">
+          Medical Images
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <ScrollArea className="h-[400px] w-full rounded-md border p-4">
@@ -80,7 +88,9 @@ const MedicalImages: React.FC<MedicalImagesProps> = ({ images }) => {
                       )}
                     </TransformWrapper>
                   </div>
-                  <p className="text-sm text-gray-500 mt-2">{image.description}</p>
+                  <p className="text-sm text-gray-500 mt-2">
+                    {image.description}
+                  </p>
                   <p className="text-xs text-gray-400">Date: {image.date}</p>
                 </DialogContent>
               </Dialog>

@@ -1,7 +1,13 @@
 import React from "react";
 import { Controller, Control } from "react-hook-form";
 import { Label } from "@/components/ui/label";
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select";
 import { FormValues } from "./FormFields";
 
 interface GenderFieldProps {
@@ -28,7 +34,9 @@ const GenderField: React.FC<GenderFieldProps> = ({ control, errors }) => (
         </Select>
       )}
     />
-    {errors.gender && <p className="text-red-500 text-sm mt-1">{errors.gender.message}</p>}
+    {errors.gender && (
+      <p className="text-red-500 text-sm mt-1">{errors.gender.message}</p>
+    )}
   </div>
 );
 

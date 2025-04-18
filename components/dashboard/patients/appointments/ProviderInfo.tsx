@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
@@ -13,7 +13,13 @@ interface ProviderInfoProps {
   imageUrl?: string;
 }
 
-const ProviderInfo: React.FC<ProviderInfoProps> = ({ name, specialty, bio, credentials, imageUrl }) => {
+const ProviderInfo: React.FC<ProviderInfoProps> = ({
+  name,
+  specialty,
+  bio,
+  credentials,
+  imageUrl,
+}) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -26,12 +32,18 @@ const ProviderInfo: React.FC<ProviderInfoProps> = ({ name, specialty, bio, crede
             <Avatar className="h-24 w-24 border-4 border-white shadow-md">
               <AvatarImage src={imageUrl} alt={name} />
               <AvatarFallback className="text-3xl font-bold bg-blue-200 text-blue-800">
-                {name.split(' ').map(n => n[0]).join('')}
+                {name
+                  .split(" ")
+                  .map((n) => n[0])
+                  .join("")}
               </AvatarFallback>
             </Avatar>
             <div>
               <CardTitle className="text-3xl font-bold">{name}</CardTitle>
-              <Badge variant="secondary" className="mt-2 bg-white text-purple-700 px-3 py-1 text-sm">
+              <Badge
+                variant="secondary"
+                className="mt-2 bg-white text-purple-700 px-3 py-1 text-sm"
+              >
                 {specialty}
               </Badge>
             </div>
@@ -44,17 +56,22 @@ const ProviderInfo: React.FC<ProviderInfoProps> = ({ name, specialty, bio, crede
           </div>
           <Separator className="bg-gray-200" />
           <div>
-            <h3 className="text-xl font-semibold text-gray-800 mb-3">Credentials</h3>
+            <h3 className="text-xl font-semibold text-gray-800 mb-3">
+              Credentials
+            </h3>
             <ul className="space-y-2">
               {credentials.map((credential, index) => (
-                <motion.li 
-                  key={index} 
+                <motion.li
+                  key={index}
                   className="flex items-center"
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.3, delay: index * 0.1 }}
                 >
-                  <Badge variant="outline" className="mr-3 bg-blue-50 text-blue-700 border-blue-200 w-8 h-8 rounded-full flex items-center justify-center">
+                  <Badge
+                    variant="outline"
+                    className="mr-3 bg-blue-50 text-blue-700 border-blue-200 w-8 h-8 rounded-full flex items-center justify-center"
+                  >
                     {index + 1}
                   </Badge>
                   <span className="text-gray-700">{credential}</span>

@@ -10,10 +10,14 @@ interface DoctorLicenseVerificationFieldProps {
   errors: any;
 }
 
-const DoctorLicenseVerificationField: React.FC<DoctorLicenseVerificationFieldProps> = ({ control, errors }) => {
+const DoctorLicenseVerificationField: React.FC<
+  DoctorLicenseVerificationFieldProps
+> = ({ control, errors }) => {
   return (
     <div className="space-y-4">
-      <Label className="text-lg font-semibold">Doctor's License Verification</Label>
+      <Label className="text-lg font-semibold">
+        Doctor's License Verification
+      </Label>
       <div className="space-y-4">
         <Controller
           name="licenseNumber"
@@ -28,7 +32,9 @@ const DoctorLicenseVerificationField: React.FC<DoctorLicenseVerificationFieldPro
                 {...field}
               />
               {errors.licenseNumber && (
-                <p className="text-red-500 text-sm mt-1">{errors.licenseNumber.message}</p>
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.licenseNumber.message}
+                </p>
               )}
             </div>
           )}
@@ -54,17 +60,23 @@ const DoctorLicenseVerificationField: React.FC<DoctorLicenseVerificationFieldPro
                         type="file"
                         className="sr-only"
                         accept=".pdf,.jpg,.jpeg,.png"
-                        onChange={(e) => onChange(e.target.files?.[0] || undefined)}
+                        onChange={(e) =>
+                          onChange(e.target.files?.[0] || undefined)
+                        }
                         {...field}
                       />
                     </label>
                     <p className="pl-1">or drag and drop</p>
                   </div>
-                  <p className="text-xs text-gray-500">PDF, PNG, JPG up to 10MB</p>
+                  <p className="text-xs text-gray-500">
+                    PDF, PNG, JPG up to 10MB
+                  </p>
                 </div>
               </div>
               {errors.licenseFile && (
-                <p className="text-red-500 text-sm mt-1">{errors.licenseFile.message}</p>
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.licenseFile.message}
+                </p>
               )}
             </div>
           )}

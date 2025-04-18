@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -17,7 +17,11 @@ interface AttachmentsProps {
   attachments: AttachmentFile[];
 }
 
-const Attachments: React.FC<AttachmentsProps> = ({ onAttach, onRemove, attachments }) => {
+const Attachments: React.FC<AttachmentsProps> = ({
+  onAttach,
+  onRemove,
+  attachments,
+}) => {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const fileList = Array.from(e.target.files);
@@ -42,7 +46,10 @@ const Attachments: React.FC<AttachmentsProps> = ({ onAttach, onRemove, attachmen
       {attachments.length > 0 && (
         <ul className="space-y-2">
           {attachments.map((file, index) => (
-            <li key={index} className="flex items-center justify-between bg-gray-100 p-2 rounded">
+            <li
+              key={index}
+              className="flex items-center justify-between bg-gray-100 p-2 rounded"
+            >
               <span className="text-sm truncate">{file.name}</span>
               <Button
                 variant="ghost"

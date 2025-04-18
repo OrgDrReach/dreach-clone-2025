@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -19,7 +19,10 @@ const AlertStatus: React.FC<AlertStatusProps> = ({ status }) => {
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <Badge variant={status === "Active" ? "destructive" : "secondary"} className="text-lg">
+        <Badge
+          variant={status === "Active" ? "destructive" : "secondary"}
+          className="text-lg"
+        >
           {status}
         </Badge>
       </CardContent>

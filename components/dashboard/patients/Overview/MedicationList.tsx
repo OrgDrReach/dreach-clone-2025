@@ -1,9 +1,21 @@
-import React from 'react';
+import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { FaPills, FaClock, FaExclamationCircle } from 'react-icons/fa';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { FaPills, FaClock, FaExclamationCircle } from "react-icons/fa";
 
 interface Medication {
   id: string;
@@ -30,21 +42,37 @@ const MedicationList: React.FC<MedicationListProps> = ({ medications }) => {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="font-semibold text-indigo-900">Medication</TableHead>
-              <TableHead className="font-semibold text-indigo-900">Dosage</TableHead>
-              <TableHead className="font-semibold text-indigo-900">Frequency</TableHead>
-              <TableHead className="font-semibold text-indigo-900">Next Reminder</TableHead>
+              <TableHead className="font-semibold text-indigo-900">
+                Medication
+              </TableHead>
+              <TableHead className="font-semibold text-indigo-900">
+                Dosage
+              </TableHead>
+              <TableHead className="font-semibold text-indigo-900">
+                Frequency
+              </TableHead>
+              <TableHead className="font-semibold text-indigo-900">
+                Next Reminder
+              </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {medications.map((medication) => (
-              <TableRow key={medication.id} className="hover:bg-[#d6f4ffc6] transition-colors duration-200">
-                <TableCell className="font-medium text-blue-900">{medication.name}</TableCell>
+              <TableRow
+                key={medication.id}
+                className="hover:bg-[#d6f4ffc6] transition-colors duration-200"
+              >
+                <TableCell className="font-medium text-blue-900">
+                  {medication.name}
+                </TableCell>
                 <TableCell>
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger>
-                        <Badge variant="outline" className="bg-green-100 text-green-800 border-green-200 cursor-help">
+                        <Badge
+                          variant="outline"
+                          className="bg-green-100 text-green-800 border-green-200 cursor-help"
+                        >
                           {medication.dosage}
                         </Badge>
                       </TooltipTrigger>
@@ -54,11 +82,15 @@ const MedicationList: React.FC<MedicationListProps> = ({ medications }) => {
                     </Tooltip>
                   </TooltipProvider>
                 </TableCell>
-                <TableCell className="text-gray-600">{medication.frequency}</TableCell>
+                <TableCell className="text-gray-600">
+                  {medication.frequency}
+                </TableCell>
                 <TableCell>
                   <div className="flex items-center space-x-2">
                     <FaClock className="w-4 h-4 text-indigo-500" />
-                    <span className="text-indigo-600">{medication.nextReminder}</span>
+                    <span className="text-indigo-600">
+                      {medication.nextReminder}
+                    </span>
                   </div>
                 </TableCell>
               </TableRow>
@@ -69,7 +101,9 @@ const MedicationList: React.FC<MedicationListProps> = ({ medications }) => {
       <div className="px-6 py-4 bg-primary-200 rounded-b-lg">
         <p className="text-sm text-primary-800 flex items-center">
           <FaExclamationCircle className="w-4 h-4 mr-2 text-primary-500 flex-shrink-0" />
-          <span>Always follow your doctor's instructions for medication use.</span>
+          <span>
+            Always follow your doctor's instructions for medication use.
+          </span>
         </p>
       </div>
     </Card>

@@ -37,7 +37,11 @@ const AwardsField: React.FC<AwardsFieldProps> = ({ control, errors }) => {
             control={control}
             defaultValue=""
             render={({ field }) => (
-              <Input {...field} placeholder="Award Title" className="col-span-1" />
+              <Input
+                {...field}
+                placeholder="Award Title"
+                className="col-span-1"
+              />
             )}
           />
           <Controller

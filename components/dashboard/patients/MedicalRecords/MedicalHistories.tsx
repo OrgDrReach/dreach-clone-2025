@@ -1,8 +1,13 @@
-"use client"
+"use client";
 
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
@@ -19,9 +24,11 @@ interface MedicalHistoriesProps {
 }
 
 const MedicalHistories: React.FC<MedicalHistoriesProps> = ({ histories }) => {
-  const sortedHistories = [...histories].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  const sortedHistories = [...histories].sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+  );
 
-  const getEventTypeColor = (type: MedicalEvent['type']) => {
+  const getEventTypeColor = (type: MedicalEvent["type"]) => {
     switch (type) {
       case "Illness":
         return "bg-red-100 text-red-800";
@@ -37,7 +44,9 @@ const MedicalHistories: React.FC<MedicalHistoriesProps> = ({ histories }) => {
   return (
     <Card className="w-full bg-gradient-to-br from-amber-50 to-orange-50 shadow-lg">
       <CardHeader className="bg-white bg-opacity-70 backdrop-blur-sm">
-        <CardTitle className="text-2xl font-bold text-amber-700">Medical History</CardTitle>
+        <CardTitle className="text-2xl font-bold text-amber-700">
+          Medical History
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <ScrollArea className="h-[500px] w-full pr-4">

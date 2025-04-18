@@ -11,7 +11,10 @@ interface AadhaarVerificationFieldProps {
   errors: any;
 }
 
-const AadhaarVerificationField: React.FC<AadhaarVerificationFieldProps> = ({ control, errors }) => {
+const AadhaarVerificationField: React.FC<AadhaarVerificationFieldProps> = ({
+  control,
+  errors,
+}) => {
   return (
     <div className="space-y-4">
       <Label className="text-lg font-semibold">Aadhaar Card Verification</Label>
@@ -29,7 +32,9 @@ const AadhaarVerificationField: React.FC<AadhaarVerificationFieldProps> = ({ con
                 {...field}
               />
               {errors.aadhaarNumber && (
-                <p className="text-red-500 text-sm mt-1">{errors.aadhaarNumber.message}</p>
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.aadhaarNumber.message}
+                </p>
               )}
             </div>
           )}
@@ -55,17 +60,23 @@ const AadhaarVerificationField: React.FC<AadhaarVerificationFieldProps> = ({ con
                         type="file"
                         className="sr-only"
                         accept=".pdf,.jpg,.jpeg,.png"
-                        onChange={(e) => onChange(e.target.files?.[0] || undefined)}
+                        onChange={(e) =>
+                          onChange(e.target.files?.[0] || undefined)
+                        }
                         {...field}
                       />
                     </label>
                     <p className="pl-1">or drag and drop</p>
                   </div>
-                  <p className="text-xs text-gray-500">PDF, PNG, JPG up to 10MB</p>
+                  <p className="text-xs text-gray-500">
+                    PDF, PNG, JPG up to 10MB
+                  </p>
                 </div>
               </div>
               {errors.aadhaarFile && (
-                <p className="text-red-500 text-sm mt-1">{errors.aadhaarFile.message}</p>
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.aadhaarFile.message}
+                </p>
               )}
             </div>
           )}

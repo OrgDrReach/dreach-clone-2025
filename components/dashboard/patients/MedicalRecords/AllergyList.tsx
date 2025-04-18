@@ -1,8 +1,15 @@
-"use client"
+"use client";
 
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { AlertTriangle } from "lucide-react";
@@ -20,7 +27,7 @@ interface AllergyListProps {
 }
 
 const AllergyList: React.FC<AllergyListProps> = ({ allergies }) => {
-  const getSeverityColor = (severity: Allergy['severity']) => {
+  const getSeverityColor = (severity: Allergy["severity"]) => {
     switch (severity) {
       case "Mild":
         return "bg-yellow-100 text-yellow-800";
@@ -33,7 +40,7 @@ const AllergyList: React.FC<AllergyListProps> = ({ allergies }) => {
     }
   };
 
-  const getTypeColor = (type: Allergy['type']) => {
+  const getTypeColor = (type: Allergy["type"]) => {
     switch (type) {
       case "Food":
         return "bg-green-100 text-green-800";

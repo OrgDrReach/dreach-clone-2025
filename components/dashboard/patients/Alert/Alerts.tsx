@@ -1,8 +1,15 @@
-"use client"
+"use client";
 
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { AlertTriangle } from "lucide-react";
 
@@ -38,7 +45,11 @@ const Alerts: React.FC<AlertsProps> = ({ alerts }) => {
               <TableRow key={alert.id}>
                 <TableCell>{alert.type}</TableCell>
                 <TableCell>
-                  <Badge variant={alert.status === "Active" ? "destructive" : "secondary"}>
+                  <Badge
+                    variant={
+                      alert.status === "Active" ? "destructive" : "secondary"
+                    }
+                  >
                     {alert.status}
                   </Badge>
                 </TableCell>

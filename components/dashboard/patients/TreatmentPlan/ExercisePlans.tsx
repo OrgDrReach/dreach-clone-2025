@@ -1,8 +1,15 @@
-"use client"
+"use client";
 
 import React, { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Activity, ChevronDown, ChevronUp } from "lucide-react";
@@ -26,7 +33,7 @@ interface ExercisePlansProps {
 const ExercisePlans: React.FC<ExercisePlansProps> = ({ plans }) => {
   const [expandedPlan, setExpandedPlan] = useState<string | null>(null);
 
-  const getStatusColor = (status: ExercisePlan['status']) => {
+  const getStatusColor = (status: ExercisePlan["status"]) => {
     switch (status) {
       case "Active":
         return "bg-green-100 text-green-800";
@@ -39,7 +46,7 @@ const ExercisePlans: React.FC<ExercisePlansProps> = ({ plans }) => {
     }
   };
 
-  const getTypeColor = (type: ExercisePlan['type']) => {
+  const getTypeColor = (type: ExercisePlan["type"]) => {
     switch (type) {
       case "Fitness":
         return "bg-purple-100 text-purple-800";
@@ -79,18 +86,30 @@ const ExercisePlans: React.FC<ExercisePlansProps> = ({ plans }) => {
                     <TableCell className="font-medium">{plan.name}</TableCell>
                     <TableCell>{plan.date}</TableCell>
                     <TableCell>
-                      <Badge className={getTypeColor(plan.type)}>{plan.type}</Badge>
+                      <Badge className={getTypeColor(plan.type)}>
+                        {plan.type}
+                      </Badge>
                     </TableCell>
                     <TableCell>
-                      <Badge className={getStatusColor(plan.status)}>{plan.status}</Badge>
+                      <Badge className={getStatusColor(plan.status)}>
+                        {plan.status}
+                      </Badge>
                     </TableCell>
                     <TableCell>
                       <Button
                         variant="ghost"
                         size="sm"
-                        onClick={() => setExpandedPlan(expandedPlan === plan.id ? null : plan.id)}
+                        onClick={() =>
+                          setExpandedPlan(
+                            expandedPlan === plan.id ? null : plan.id,
+                          )
+                        }
                       >
-                        {expandedPlan === plan.id ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+                        {expandedPlan === plan.id ? (
+                          <ChevronUp size={20} />
+                        ) : (
+                          <ChevronDown size={20} />
+                        )}
                       </Button>
                     </TableCell>
                   </TableRow>
@@ -111,7 +130,9 @@ const ExercisePlans: React.FC<ExercisePlansProps> = ({ plans }) => {
                                   <li key={index}>{goal}</li>
                                 ))}
                               </ul>
-                              <h4 className="font-semibold mb-2">Objectives:</h4>
+                              <h4 className="font-semibold mb-2">
+                                Objectives:
+                              </h4>
                               <ul className="list-disc list-inside">
                                 {plan.objectives.map((objective, index) => (
                                   <li key={index}>{objective}</li>

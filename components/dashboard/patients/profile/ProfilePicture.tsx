@@ -1,12 +1,12 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { Camera, Upload } from 'lucide-react';
+import { Camera, Upload } from "lucide-react";
 
 const ProfilePicture: React.FC = () => {
-  const [imageUrl, setImageUrl] = useState('');
+  const [imageUrl, setImageUrl] = useState("");
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -31,18 +31,20 @@ const ProfilePicture: React.FC = () => {
         <Avatar className="w-32 h-32 border-4 border-violet-200 dark:border-violet-700">
           <AvatarImage src={imageUrl} />
           <AvatarFallback className="bg-violet-100 dark:bg-violet-800 text-violet-600 dark:text-violet-200 text-2xl font-bold">
-            {imageUrl ? 'Profile' : 'Upload'}
+            {imageUrl ? "Profile" : "Upload"}
           </AvatarFallback>
         </Avatar>
         <input
           type="file"
           accept="image/*"
           onChange={handleImageUpload}
-          style={{ display: 'none' }}
+          style={{ display: "none" }}
           id="profile-picture-upload"
         />
-        <Button 
-          onClick={() => document.getElementById('profile-picture-upload')?.click()}
+        <Button
+          onClick={() =>
+            document.getElementById("profile-picture-upload")?.click()
+          }
           className="bg-violet-500 hover:bg-violet-600 text-white"
         >
           <Upload className="mr-2 h-4 w-4" />

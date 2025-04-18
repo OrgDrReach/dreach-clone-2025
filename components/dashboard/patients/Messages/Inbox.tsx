@@ -58,16 +58,26 @@ const Inbox: React.FC = () => {
             >
               <div className="flex items-start space-x-4">
                 <Avatar className="h-12 w-12 border-2 border-indigo-200">
-                  <AvatarImage src={message.sender.avatar} alt={message.sender.name} />
+                  <AvatarImage
+                    src={message.sender.avatar}
+                    alt={message.sender.name}
+                  />
                   <AvatarFallback className="bg-indigo-100 text-indigo-700">
-                    {message.sender.name.split(' ').map(n => n[0]).join('')}
+                    {message.sender.name
+                      .split(" ")
+                      .map((n) => n[0])
+                      .join("")}
                   </AvatarFallback>
                 </Avatar>
                 <div className="flex-1">
                   <div className="flex justify-between items-start mb-1">
                     <div>
-                      <p className="font-semibold text-indigo-800">{message.sender.name}</p>
-                      <p className="text-sm text-indigo-600">{message.sender.title}</p>
+                      <p className="font-semibold text-indigo-800">
+                        {message.sender.name}
+                      </p>
+                      <p className="text-sm text-indigo-600">
+                        {message.sender.title}
+                      </p>
                     </div>
                     <p className="text-xs text-indigo-500">
                       {new Date(message.sentAt).toLocaleString()}

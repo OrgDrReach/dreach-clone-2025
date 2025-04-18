@@ -1,247 +1,254 @@
 "use client";
-import { useState, useEffect, useContext, createContext } from "react";
-import { usePathname } from "next/navigation";
+
+import { useState, useContext, createContext } from "react";
+import { useParams, usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import {
-  ChevronFirst,
-  ChevronLast,
-  MoreVertical,
-  LifeBuoy,
-  Receipt,
-  Boxes,
-  Package,
-  Users,
-  BarChart3,
-  Settings,
-  Gauge,
-  ActivitySquare,
+	ChevronFirst,
+	ChevronLast,
+	Gauge,
+	UserCog,
+	Building2,
+	TestTube as Flask,
+	Truck,
+	Pill,
+	Settings,
+	BarChart3,
+	BadgeDollarSign,
+	FileSpreadsheet,
+	Users,
+	BellRing,
+	Layout,
+	Shield,
+	MailQuestion,
+	LineChart,
 } from "lucide-react";
+
+import {
+	Sheet,
+	SheetContent,
+	SheetHeader,
+	SheetTitle,
+} from "@/components/ui/sheet";
+import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-const adminDashboards = [
-  {
-    name: "Dashboard",
-    path: "/dashboard/admin",
-    menu: [],
-  },
-  {
-    name: "Analytics",
-    path: "/dashboard/admin/analytics",
-    menu: [],
-  },
-  {
-    name: "Site Management",
-    path: "/dashboard/admin/sitemanager",
-    menu: [],
-  },
-  {
-    name: "Employee Management",
-    path: "/dashboard/admin/employees",
-    menu: [],
-  },
-  {
-    name: "Users",
-    path: "/dashboard/admin/users",
-    menu: [],
-  },
-  {
-    name: "Doctors",
-    path: "/dashboard/admin/doctors",
-    menu: [],
-  },
-  {
-    name: "Hospitals",
-    path: "/dashboard/admin/hospitals",
-    menu: [],
-  },
-  {
-    name: "Alerts & Notifications",
-    path: "/dashboard/admin/alerts",
-    menu: [],
-  },
-  {
-    name: "Settings",
-    path: "/dashboard/admin/settings",
-    menu: [],
-  },
-];
-const SideBarContext = createContext({ expanded: true } as any);
-const SideBar: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [selectedDashboard, setSelectedDashboard] = useState(
-    adminDashboards[0],
-  );
-  const pathname = usePathname();
-  const [expanded, setExpanded] = useState(true);
-  useEffect(() => {
-    const currentDashboard = adminDashboards.find(
-      (dashboard) => dashboard.path === pathname,
-    );
-    if (currentDashboard) {
-      setSelectedDashboard(currentDashboard);
-    }
-  }, [pathname]);
-  return (
-    <main>
-      <div>
-        <aside className="h-screen">
-          <nav className="h-full flex flex-col bg-[#000] border-r shadow-sm">
-            <div className="p-4 pb-2 border-[#fff] dark:border-slate-600 border-b mb-2 flex justify-between items-center">
-              <Image
-                src="/assets/icons/drreach-logo-full.svg"
-                height={1000}
-                width={1000}
-                alt="logo"
-                className={`overflow-hidden transition-all ${
-                  expanded ? "w-fit h-20  p-2 rounded-md" : "w-0 h-0"
-                }`}
-              />
-              <button
-                onClick={() => setExpanded((curr) => !curr)}
-                className={`bg-gray-50 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-800 ${
-                  expanded ? "p-1 rounded-lg" : "mx-auto rounded-lg p-1"
-                }`}
-              >
-                {expanded ? <ChevronFirst /> : <ChevronLast />}
-              </button>
-            </div>
-            <SideBarContext.Provider value={{ expanded }}>
-              <ul className="flex-1 px-3">{children}</ul>
-            </SideBarContext.Provider>
-            <div className="border-t flex p-3">
-              <Avatar>
-                <AvatarImage
-                  src="https://github.com/shadcn.png"
-                  alt="@shadcn"
-                />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
-              <div
-                className={`flex justify-between items-center overflow-hidden transition-all ${
-                  expanded ? "w-52 ml-3" : "w-0"
-                }`}
-              >
-                <div className="leading-4">
-                  <h4 className="font-semibold italic text-[#bae7ff]">
-                    Shadcn
-                  </h4>
-                  <span className="text-xs text-gray-200">
-                    shadcn@gmail.com
-                  </span>
-                </div>
-                <MoreVertical size={20} className="text-gray-200" />
-              </div>
-            </div>
-          </nav>
-        </aside>
-      </div>
-    </main>
-  );
+import {
+	Tooltip,
+	TooltipContent,
+	TooltipTrigger,
+	TooltipProvider,
+} from "@/components/ui/tooltip";
+import { cn } from "@/lib/utils";
+
+const SideBarContext = createContext({ expanded: true });
+
+interface SideBarProps {
+	children: React.ReactNode;
+	onToggle: () => void;
+	isCollapsed: boolean;
+}
+
+const SideBar = ({ children, onToggle, isCollapsed }: SideBarProps) => {
+	return (
+		<div className="h-screen">
+			<nav className="h-full relative flex flex-col bg-[#125872] border-r shadow-sm">
+				<div className="p-4 pb-2 flex justify-between items-center border-b border-[#ffffff1a]">
+					<Image
+						src="/assets/icons/drreach-logo-full.svg"
+						height={1000}
+						width={1000}
+						alt="logo"
+						className={cn(
+							"overflow-hidden transition-all",
+							isCollapsed ? "w-0" : "w-32"
+						)}
+					/>
+					<Button
+						onClick={onToggle}
+						variant="ghost"
+						className="h-8 w-8 p-0 text-white hover:bg-white/10">
+						{isCollapsed ?
+							<ChevronLast />
+						:	<ChevronFirst />}
+					</Button>
+				</div>
+
+				<ScrollArea className="flex-1 w-full">
+					<SideBarContext.Provider value={{ expanded: !isCollapsed }}>
+						<div className="p-3">{children}</div>
+					</SideBarContext.Provider>
+				</ScrollArea>
+
+				<div className="border-t border-[#ffffff1a] p-3">
+					<div className="flex items-center gap-3">
+						<Avatar>
+							<AvatarImage src="/assets/icons/drreach-logo-icon.svg" />
+							<AvatarFallback>AD</AvatarFallback>
+						</Avatar>
+						<div
+							className={cn(
+								"flex flex-col overflow-hidden transition-all",
+								isCollapsed ? "w-0 opacity-0" : "w-52 opacity-100"
+							)}>
+							<span className="text-sm font-medium text-white">Admin User</span>
+							<span className="text-xs text-[#ffffffb3]">
+								System Administrator
+							</span>
+						</div>
+					</div>
+				</div>
+			</nav>
+		</div>
+	);
 };
-const SideBarItem: React.FC<{
-  icon: React.ReactNode;
-  text: string;
-  active?: boolean;
-  alert?: boolean;
-  href: string;
-}> = ({ icon, text, active, alert, href }) => {
-  const { expanded } = useContext(SideBarContext);
-  const pathname = usePathname();
-  const isActive =
-    pathname === href ||
-    (pathname === "/dashboard/admin/" && href === "/dashboard/admin/");
-  return (
-    <Link href={href}>
-      <li
-        className={`relative flex items-center py-2 px-3 my-1 font-medium rounded-md cursor-pointer transition-colors group ${
-          isActive
-            ? "bg-[#ffffffe9]  text-[#000] font-semibold"
-            : "hover:bg-white text-[#fff] hover:text-[#3d6b84] "
-        }`}
-      >
-        {icon}
-        <span
-          className={`overflow-hidden transition-all ${
-            expanded ? "w-52 ml-3" : "w-0"
-          }`}
-        >
-          {text}
-        </span>
-        {alert && (
-          <div
-            className={`absolute right-2 w-2 h-2 rounded bg-indigo-400 ${
-              expanded ? "" : "top-2"
-            }`}
-          />
-        )}
-        {!expanded && (
-          <div
-            className={`
-              absolute left-full rounded-md px-2 py-1 ml-6
-            bg-[#3d6b84] text-[#acedff] text-sm
-              invisible opacity-20 -translate-x-3 transition-all
-              group-hover:visible group-hover:opacity-100 group-hover:translate-x-0
-            `}
-          >
-            {text}
-          </div>
-        )}
-      </li>
-    </Link>
-  );
+
+interface SideBarItemProps {
+	icon: React.ReactNode;
+	text: string;
+	href: string;
+	badge?: number;
+}
+
+const SideBarItem = ({ icon, text, href, badge }: SideBarItemProps) => {
+	const { expanded } = useContext(SideBarContext);
+	const pathname = usePathname();
+	const isActive = pathname === href;
+
+	return (
+		<TooltipProvider delayDuration={0}>
+			<Tooltip>
+				<TooltipTrigger asChild>
+					<Link href={href}>
+						<Button
+							variant="ghost"
+							className={cn(
+								"w-full justify-start gap-3 p-3 h-auto text-[#ffffffb3] hover:text-white hover:bg-white/10",
+								!expanded && "justify-center",
+								isActive && "bg-[#ffffff1a] text-white"
+							)}>
+							{icon}
+							{expanded && <span>{text}</span>}
+							{badge && expanded && (
+								<span className="ml-auto bg-blue-600 text-white text-xs px-2 py-1 rounded-full">
+									{badge}
+								</span>
+							)}
+						</Button>
+					</Link>
+				</TooltipTrigger>
+				{!expanded && (
+					<TooltipContent side="right" className="flex items-center gap-4">
+						{text}
+						{badge && (
+							<span className="bg-blue-600 text-white text-xs px-2 py-1 rounded-full">
+								{badge}
+							</span>
+						)}
+					</TooltipContent>
+				)}
+			</Tooltip>
+		</TooltipProvider>
+	);
 };
-const SideNav: React.FC = () => {
-  return (
-    <main>
-      <div className=" font-bold">
-        <SideBar>
-          <SideBarItem
-            icon={<Gauge size={20} />}
-            text="Dashboard"
-            href="/dashboard/admin"
-          />
-          <SideBarItem
-            icon={<BarChart3 size={20} />}
-            text="Analytics"
-            href="/dashboard/admin/analytics"
-          />
-          <SideBarItem
-            icon={<Users size={20} />}
-            text="Site Management"
-            href="/dashboard/admin/sitemanager"
-          />
-          <SideBarItem
-            icon={<Package size={20} />}
-            text="Employee Management"
-            href="/dashboard/admin/employees"
-          />
-          <SideBarItem
-            icon={<Receipt size={20} />}
-            text="Users"
-            href="/dashboard/admin/users"
-          />
-          <SideBarItem
-            icon={<Boxes size={20} />}
-            text="Doctors"
-            href="/dashboard/admin/doctors"
-          />
-          <SideBarItem
-            icon={<ActivitySquare size={20} />}
-            text="Hospitals"
-            href="/dashboard/admin/hospitals"
-          />
-          <SideBarItem
-            icon={<LifeBuoy size={20} />}
-            text="Alerts & Notifications"
-            href="/dashboard/admin/alerts"
-          />
-          <SideBarItem
-            icon={<Settings size={20} />}
-            text="Settings"
-            href="/dashboard/admin/settings"
-          />
-        </SideBar>
-      </div>
-    </main>
-  );
+
+const AdminSideNav = ({
+	onToggle,
+	isCollapsed,
+}: {
+	onToggle: () => void;
+	isCollapsed: boolean;
+}) => {
+	const { userId } = useParams();
+
+	return (
+		<SideBar onToggle={onToggle} isCollapsed={isCollapsed}>
+			<div className="space-y-2">
+				<SideBarItem
+					icon={<Layout size={20} />}
+					text="Overview"
+					href={`/dashboard/admin/${userId}`}
+				/>
+				<SideBarItem
+					icon={<BarChart3 size={20} />}
+					text="Analytics"
+					href={`/dashboard/admin/${userId}/analytics`}
+				/>
+				<SideBarItem
+					icon={<LineChart size={20} />}
+					text="Statistics"
+					href={`/dashboard/admin/${userId}/statistics`} 
+				/>
+				<SideBarItem
+					icon={<Shield size={20} />}
+					text="Verification"
+					href={`/dashboard/admin/${userId}/verification`}
+					badge={8}
+				/>
+				<SideBarItem
+					icon={<UserCog size={20} />}
+					text="Doctors"
+					href={`/dashboard/admin/${userId}/doctors`}
+					badge={15}
+				/>
+				<SideBarItem
+					icon={<Building2 size={20} />}
+					text="Hospitals"
+					href={`/dashboard/admin/${userId}/hospitals`}
+					badge={5}
+				/>
+				<SideBarItem
+					icon={<Flask size={20} />}
+					text="Labs"
+					href={`/dashboard/admin/${userId}/labs`}
+				/>
+				<SideBarItem
+					icon={<Truck size={20} />}
+					text="Ambulance"
+					href={`/dashboard/admin/${userId}/ambulance`}
+				/>
+				<SideBarItem
+					icon={<Pill size={20} />}
+					text="Pharmacy"
+					href={`/dashboard/admin/${userId}/pharmacy`}
+				/>
+				<SideBarItem
+					icon={<BadgeDollarSign size={20} />}
+					text="Revenue"
+					href={`/dashboard/admin/${userId}/revenue`}
+				/>
+				<SideBarItem
+					icon={<FileSpreadsheet size={20} />}
+					text="Reports"
+					href={`/dashboard/admin/${userId}/reports`}
+				/>
+				<SideBarItem
+					icon={<Users size={20} />}
+					text="Users"
+					href={`/dashboard/admin/${userId}/users`}
+					badge={24}
+				/>
+				<SideBarItem
+					icon={<BellRing size={20} />}
+					text="Notifications"
+					href={`/dashboard/admin/${userId}/notifications`}
+					badge={12}
+				/>
+				<SideBarItem
+					icon={<MailQuestion size={20} />}
+					text="Support"
+					href={`/dashboard/admin/${userId}/support`}
+					badge={3}
+				/>
+				<SideBarItem
+					icon={<Settings size={20} />}
+					text="Settings"
+					href={`/dashboard/admin/${userId}/settings`}
+				/>
+			</div>
+		</SideBar>
+	);
 };
-export default SideNav;
+
+export default AdminSideNav;

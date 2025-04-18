@@ -41,7 +41,9 @@ type HospitalType = (typeof hospitalsData)[0];
 
 const Verification: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedHospital, setSelectedHospital] = useState<HospitalType | null>(null);
+  const [selectedHospital, setSelectedHospital] = useState<HospitalType | null>(
+    null,
+  );
   const [isPrintPreviewOpen, setIsPrintPreviewOpen] = useState(false);
   const printPreviewRef = useRef<HTMLDivElement>(null);
 
@@ -95,7 +97,9 @@ const Verification: React.FC = () => {
         <Card>
           <CardHeader>
             <CardTitle>Hospital Verification</CardTitle>
-            <CardDescription>Check hospital's application status</CardDescription>
+            <CardDescription>
+              Check hospital's application status
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <Table>
@@ -130,7 +134,9 @@ const Verification: React.FC = () => {
                           height={80}
                         />
                         <div className="flex flex-col">
-                          <h1 className="text-black text-xl">{hospital.name}</h1>
+                          <h1 className="text-black text-xl">
+                            {hospital.name}
+                          </h1>
                           <p>ID: {hospital.hospitalID}</p>
                           <p>{hospital.email}</p>
                         </div>
@@ -167,7 +173,8 @@ const Verification: React.FC = () => {
           <div className="bg-white p-8 rounded-lg max-w-4xl max-h-[90vh] overflow-y-auto">
             <span
               className="close text-2xl font-bold cursor-pointer float-right"
-              onClick={closeModal}>
+              onClick={closeModal}
+            >
               &times;
             </span>
             <h2 className="text-2xl font-bold mb-4">
@@ -213,7 +220,8 @@ const Verification: React.FC = () => {
             <div className="mt-4">
               <h3 className="font-bold mb-2">Registration Details</h3>
               <p>
-                <strong>Registration Number:</strong> {selectedHospital.registrationNumber}
+                <strong>Registration Number:</strong>{" "}
+                {selectedHospital.registrationNumber}
               </p>
             </div>
             <div className="mt-4">
@@ -227,7 +235,8 @@ const Verification: React.FC = () => {
             </div>
             <Button
               onClick={openPrintPreview}
-              className="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+              className="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+            >
               View Print Preview
             </Button>
           </div>
@@ -238,11 +247,13 @@ const Verification: React.FC = () => {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div
             ref={printPreviewRef}
-            className="bg-white text-black p-8 w-[210mm] h-[80vh] overflow-y-auto rounded-xl border-8 border-blue-400 shadow-2xl">
+            className="bg-white text-black p-8 w-[210mm] h-[80vh] overflow-y-auto rounded-xl border-8 border-blue-400 shadow-2xl"
+          >
             <div className="border-4 border-blue-400 p-4 h-full overflow-y-auto">
               <span
                 className="close text-black cursor-pointer float-right no-print"
-                onClick={closePrintPreview}>
+                onClick={closePrintPreview}
+              >
                 &times;
               </span>
               <header className="mb-6 text-center">
@@ -277,7 +288,8 @@ const Verification: React.FC = () => {
               <div className="mt-4 no-print">
                 <Button
                   onClick={handlePrint}
-                  className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+                  className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+                >
                   Print
                 </Button>
               </div>

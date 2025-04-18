@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -15,7 +15,9 @@ const BillStatus: React.FC<BillStatusProps> = ({ status }) => {
         <CardTitle>Bill Status</CardTitle>
       </CardHeader>
       <CardContent>
-        <Badge variant={status === "Paid in full" ? "secondary" : "destructive"}>
+        <Badge
+          variant={status === "Paid in full" ? "secondary" : "destructive"}
+        >
           {status}
         </Badge>
       </CardContent>

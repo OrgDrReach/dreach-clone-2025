@@ -1,10 +1,10 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { Shield, Key, Smartphone } from 'lucide-react';
+import { Shield, Key, Smartphone } from "lucide-react";
 
 const SecuritySettings: React.FC = () => {
   const [twoFactor, setTwoFactor] = useState(false);
@@ -22,16 +22,34 @@ const SecuritySettings: React.FC = () => {
         <div className="flex items-center justify-between bg-white dark:bg-gray-700 p-3 rounded-lg shadow">
           <div className="flex items-center space-x-3">
             <Smartphone className="text-emerald-500" />
-            <Label htmlFor="two-factor" className="text-gray-700 dark:text-gray-300">Two-Factor Authentication</Label>
+            <Label
+              htmlFor="two-factor"
+              className="text-gray-700 dark:text-gray-300"
+            >
+              Two-Factor Authentication
+            </Label>
           </div>
-          <Switch id="two-factor" checked={twoFactor} onCheckedChange={setTwoFactor} />
+          <Switch
+            id="two-factor"
+            checked={twoFactor}
+            onCheckedChange={setTwoFactor}
+          />
         </div>
         <div className="flex items-center justify-between bg-white dark:bg-gray-700 p-3 rounded-lg shadow">
           <div className="flex items-center space-x-3">
             <Key className="text-emerald-500" />
-            <Label htmlFor="biometric" className="text-gray-700 dark:text-gray-300">Biometric Login</Label>
+            <Label
+              htmlFor="biometric"
+              className="text-gray-700 dark:text-gray-300"
+            >
+              Biometric Login
+            </Label>
           </div>
-          <Switch id="biometric" checked={biometricLogin} onCheckedChange={setBiometricLogin} />
+          <Switch
+            id="biometric"
+            checked={biometricLogin}
+            onCheckedChange={setBiometricLogin}
+          />
         </div>
         <Button className="w-full bg-emerald-500 hover:bg-emerald-600 text-white">
           Change Password

@@ -1,34 +1,31 @@
 "use client";
 
-import { useState, useContext, createContext } from "react";
+import { useContext, createContext } from "react";
 import { useParams, usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import {
   ChevronFirst,
   ChevronLast,
-  MoreVertical,
-  LifeBuoy,
-  BarChart3,
-  Settings,
-  Gauge,
-  Mail,
-  User,
-  CalendarCheck2,
-  LibraryBig,
-  ReceiptIndianRupee,
-  Cross,
-  BellRing,
-  Clock,
   Layout,
+  BarChart3,
+  Users,
+  CalendarCheck2,
+  TestTube,
+  TestTube2 as Flask,
+  LineChart,
+  FileSpreadsheet,
+  Receipt,
+  FileText,
+  Microscope,
+  Cog,
+  LifeBuoy,
+  BellRing,
+  ClipboardList,
+  BadgeAlert,
+  Clock,
 } from "lucide-react";
 
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -39,9 +36,8 @@ import {
   TooltipProvider,
 } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
-import ApplicationIcon from "@/components/icons/application";
 
-const SideBarContext = createContext({ expanded: true } as any);
+const SideBarContext = createContext({ expanded: true });
 
 interface SideBarProps {
   children: React.ReactNode;
@@ -82,8 +78,8 @@ const SideBar = ({ children, onToggle, isCollapsed }: SideBarProps) => {
         <div className="border-t border-[#ffffff1a] p-3">
           <div className="flex items-center gap-3">
             <Avatar>
-              <AvatarImage src="https://github.com/shadcn.png" />
-              <AvatarFallback>CN</AvatarFallback>
+              <AvatarImage src="/assets/icons/drreach-logo-icon.svg" />
+              <AvatarFallback>LB</AvatarFallback>
             </Avatar>
             <div
               className={cn(
@@ -91,8 +87,12 @@ const SideBar = ({ children, onToggle, isCollapsed }: SideBarProps) => {
                 !isCollapsed ? "w-52 opacity-100" : "w-0 opacity-0",
               )}
             >
-              <span className="text-sm font-medium text-white">John Doe</span>
-              <span className="text-xs text-[#ffffffb3]">john@example.com</span>
+              <span className="text-sm font-medium text-white">
+                Central Labs
+              </span>
+              <span className="text-xs text-[#ffffffb3]">
+                Diagnostic Center
+              </span>
             </div>
           </div>
         </div>
@@ -121,7 +121,7 @@ const SideBarItem = ({ icon, text, href, badge }: SideBarItemProps) => {
             <Button
               variant="ghost"
               className={cn(
-                "w-full justify-start gap-3 p-3 h-auto text-[#ffffffb3] hover:text-white hover:bg-[#ffffff1a]",
+                "w-full justify-start gap-3 p-3 h-auto text-[#ffffffb3] hover:text-white hover:bg-white/10",
                 !expanded && "justify-center",
                 isActive && "bg-[#ffffff1a] text-white",
               )}
@@ -151,88 +151,104 @@ const SideBarItem = ({ icon, text, href, badge }: SideBarItemProps) => {
   );
 };
 
-const PatientSideNav = ({
+const LabSideNav = ({
   onToggle,
   isCollapsed,
 }: {
   onToggle: () => void;
   isCollapsed: boolean;
 }) => {
-  const { userId } = useParams();
+  const { labId } = useParams();
   return (
     <SideBar onToggle={onToggle} isCollapsed={isCollapsed}>
       <div className="space-y-2">
         <SideBarItem
           icon={<Layout size={20} />}
           text="Overview"
-          href={`/dashboard/patient/${userId}`}
+          href={`/dashboard/lab/${labId}`}
         />
         <SideBarItem
           icon={<BarChart3 size={20} />}
           text="Analytics"
-          href={`/dashboard/patient/${userId}/analytics`}
+          href={`/dashboard/lab/${labId}/analytics`}
+        />
+        <SideBarItem
+          icon={<LineChart size={20} />}
+          text="Performance"
+          href={`/dashboard/lab/${labId}/performance`}
+        />
+        <SideBarItem
+          icon={<Users size={20} />}
+          text="Patients"
+          href={`/dashboard/lab/${labId}/patients`}
+          badge={28}
         />
         <SideBarItem
           icon={<CalendarCheck2 size={20} />}
           text="Appointments"
-          href={`/dashboard/patient/${userId}/appointments`}
-          badge={2}
+          href={`/dashboard/lab/${labId}/appointments`}
+          badge={15}
         />
         <SideBarItem
-          icon={<Mail size={20} />}
-          text="Messages"
-          href={`/dashboard/patient/${userId}/messages`}
-          badge={3}
+          icon={<TestTube size={20} />}
+          text="Tests"
+          href={`/dashboard/lab/${labId}/tests`}
         />
         <SideBarItem
-          icon={<LibraryBig size={20} />}
-          text="Medical Records"
-          href={`/dashboard/patient/${userId}/medical-records`}
-        />
-        <SideBarItem
-          icon={<Cross size={20} />}
-          text="Treatment Plans"
-          href={`/dashboard/patient/${userId}/treatment-plans`}
+          icon={<Flask size={20} />}
+          text="Samples"
+          href={`/dashboard/lab/${labId}/samples`}
+          badge={10}
         />
         <SideBarItem
           icon={<Clock size={20} />}
-          text="Health History"
-          href={`/dashboard/patient/${userId}/history`}
+          text="Test Timings"
+          href={`/dashboard/lab/${labId}/test-timings`}
         />
         <SideBarItem
-          icon={<ReceiptIndianRupee size={20} />}
+          icon={<Microscope size={20} />}
+          text="Equipment"
+          href={`/dashboard/lab/${labId}/equipment`}
+        />
+        <SideBarItem
+          icon={<FileSpreadsheet size={20} />}
+          text="Reports"
+          href={`/dashboard/lab/${labId}/reports`}
+        />
+        <SideBarItem
+          icon={<Receipt size={20} />}
           text="Billing"
-          href={`/dashboard/patient/${userId}/billing`}
+          href={`/dashboard/lab/${labId}/billing`}
+        />
+        <SideBarItem
+          icon={<ClipboardList size={20} />}
+          text="Test Catalog"
+          href={`/dashboard/lab/${labId}/test-catalog`}
+        />
+        <SideBarItem
+          icon={<BadgeAlert size={20} />}
+          text="Quality Control"
+          href={`/dashboard/lab/${labId}/quality-control`}
         />
         <SideBarItem
           icon={<BellRing size={20} />}
           text="Notifications"
-          href={`/dashboard/patient/${userId}/notifications`}
-          badge={5}
-        />
-        <SideBarItem
-          icon={<User size={20} />}
-          text="Profile"
-          href={`/dashboard/patient/${userId}/profile`}
+          href={`/dashboard/lab/${labId}/notifications`}
+          badge={6}
         />
         <SideBarItem
           icon={<LifeBuoy size={20} />}
           text="Support"
-          href={`/dashboard/patient/${userId}/support`}
+          href={`/dashboard/lab/${labId}/support`}
         />
         <SideBarItem
-          icon={<Settings size={20} />}
+          icon={<Cog size={20} />}
           text="Settings"
-          href={`/dashboard/patient/${userId}/settings`}
-        />
-        <SideBarItem
-          icon={<ApplicationIcon size={20} />}
-          text="Apply as Doctor"
-          href={`/dashboard/patient/${userId}/apply-doctor`}
+          href={`/dashboard/lab/${labId}/settings`}
         />
       </div>
     </SideBar>
   );
 };
 
-export default PatientSideNav;
+export default LabSideNav;

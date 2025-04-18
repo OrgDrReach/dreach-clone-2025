@@ -1,8 +1,15 @@
-"use client"
+"use client";
 
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 interface BillItem {
   description: string;
@@ -43,13 +50,19 @@ const BillStatement: React.FC<BillStatementProps> = ({ items }) => {
             ))}
             <TableRow>
               <TableCell className="font-bold">Total</TableCell>
-              <TableCell className="font-bold">${totalCharges.toFixed(2)}</TableCell>
-              <TableCell className="font-bold">${totalPayments.toFixed(2)}</TableCell>
+              <TableCell className="font-bold">
+                ${totalCharges.toFixed(2)}
+              </TableCell>
+              <TableCell className="font-bold">
+                ${totalPayments.toFixed(2)}
+              </TableCell>
             </TableRow>
           </TableBody>
         </Table>
         <div className="mt-4 text-right">
-          <p className="text-lg font-bold">Balance Due: ${balanceDue.toFixed(2)}</p>
+          <p className="text-lg font-bold">
+            Balance Due: ${balanceDue.toFixed(2)}
+          </p>
         </div>
       </CardContent>
     </Card>
