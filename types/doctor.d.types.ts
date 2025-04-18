@@ -82,6 +82,8 @@ export enum EDoctorConsultMode {
 	VIDEO = "Video",
 	IN_PERSON = "InPerson",
 	HOME_VISIT = "HomeVisit",
+	CLINIC = "Clinic",
+	HYBRID = "Hybrid",
 }
 
 // Add this new interface for featured doctors
