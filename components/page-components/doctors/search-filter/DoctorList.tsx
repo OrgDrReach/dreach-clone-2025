@@ -104,7 +104,7 @@ const DoctorList: React.FC<DoctorListProps> = ({
 		const applyConsultModeFilters = () => {
 			if (filters.videoConsult) {
 				filtered = filtered.filter((doctor) =>
-					doctor.consultMode.includes(EDoctorConsultMode.VIDEO_CONSULT)
+					doctor.consultMode.includes(EDoctorConsultMode.VIDEO)
 				);
 			}
 		};
