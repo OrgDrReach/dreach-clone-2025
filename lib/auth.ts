@@ -31,6 +31,7 @@ export const authOptions: NextAuthOptions = {
 					role: EUserRole.PATIENT,
 					isVerified: true,
 					phone: "",
+					phoneNumber: "",
 					authProvider: "google" as const,
 				};
 			},
@@ -58,6 +59,7 @@ export const authOptions: NextAuthOptions = {
 							email: res.user.email,
 							name: res.user.name,
 							phone: res.user.phone,
+							phoneNumber: res.user.phone, // Map phone to phoneNumber
 							role: res.user.role,
 							isVerified: res.user.isVerified,
 							image: res.user.profileImage,
@@ -78,6 +80,8 @@ export const authOptions: NextAuthOptions = {
 					email: user.email || "",
 					name: user.name || "",
 					image: user.image || "",
+					phone: user.phone || "",
+					phoneNumber: user.phoneNumber || user.phone || "", // Map both fields
 				};
 			}
 			return token;

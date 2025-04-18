@@ -1,26 +1,10 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
-import { User } from "@/app/api/types/auth";
-import { RNChildProp } from "@/@types/interface/Interface";
-import { useSession, signIn, signOut } from "next-auth/react";
+"use client";
+import { createContext, useContext, useEffect, useState } from "react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { Session } from "next-auth";
-import { EUserRole, EUserStatus } from "@/types/auth.d.types";
-
-interface ExtendedSession extends Omit<Session, "user"> {
-	user: {
-		id: string;
-		email?: string | null;
-		name?: string | null;
-		image?: string | null;
-		phone?: string;
-		firstName?: string;
-		lastName?: string;
-		role?: EUserRole;
-		isVerified?: boolean;
-		providerRole?: string;
-		profileImage?: string;
-	};
-}
+import { toast } from "react-toastify";
+import { EUserRole } from "@/types/auth.d.types";
+import { IAuthUser as User } from "@/types/auth.d.types";
 
 interface AuthContextType {
 	user: User | null;
@@ -40,30 +24,35 @@ export const useAuth = () => {
 	return context;
 };
 
-export const AuthProvider: React.FC<RNChildProp> = ({ children }) => {
-	const router = useRouter();
-	const { data: session, status } = useSession();
+export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	const [user, setUser] = useState<User | null>(null);
-	const isLoading = status === "loading";
+	const { data: session, status } = useSession();
+	const router = useRouter();
 
 	useEffect(() => {
 		if (session?.user) {
-			const extendedSession = session as ExtendedSession;
 			// Convert session user to our custom User type
 			const userFromSession: User = {
-				id: extendedSession.user.id,
-				firstName: extendedSession.user.firstName || "",
-				lastName: extendedSession.user.lastName || "",
-				email: extendedSession.user.email || "",
-				phone: extendedSession.user.phone || "",
-				role: extendedSession.user.role || EUserRole.PATIENT,
-				status: EUserStatus.ACTIVE,
-				isVerified: extendedSession.user.isVerified || false,
-				providerRole: extendedSession.user.providerRole,
+				id: session.user.id,
+				email: session.user.email || "",
+				phone: session.user.phone || "",
+				name: session.user.name || "",
+				firstName: session.user.firstName,
+				lastName: session.user.lastName,
+				role: session.user.role || EUserRole.PATIENT,
+				userType:
+					session.user.role === EUserRole.PATIENT ? "Patient" : "Provider",
+				providerType: session.user.providerRole as
+					| "Doctor"
+					| "Hospital"
+					| "Lab"
+					| "Nursing"
+					| "DoctorsAssistant"
+					| undefined,
+				isVerified: session.user.isVerified || false,
+				authProvider: session.user.authProvider,
 				profileImage:
-					extendedSession.user.profileImage ||
-					extendedSession.user.image ||
-					undefined,
+					session.user.profileImage || session.user.image || undefined,
 				createdAt: new Date(),
 				updatedAt: new Date(),
 			};
@@ -86,9 +75,11 @@ export const AuthProvider: React.FC<RNChildProp> = ({ children }) => {
 
 			if (result?.ok) {
 				router.push("/dashboard");
+				toast.success("Login successful");
 			}
 		} catch (error: any) {
-			throw new Error(error.message || "Failed to login");
+			toast.error(error.message || "Failed to login");
+			throw error;
 		}
 	};
 
@@ -96,14 +87,22 @@ export const AuthProvider: React.FC<RNChildProp> = ({ children }) => {
 		try {
 			await signOut({ redirect: false });
 			router.push("/auth/login");
+			toast.success("Logged out successfully");
 		} catch (error: any) {
-			throw new Error(error.message || "Failed to logout");
+			toast.error(error.message || "Failed to logout");
+			throw error;
 		}
 	};
 
 	return (
 		<AuthContext.Provider
-			value={{ user, login, logout, isAuthenticated: !!user, isLoading }}>
+			value={{
+				user,
+				login,
+				logout,
+				isAuthenticated: !!user,
+				isLoading: status === "loading",
+			}}>
 			{children}
 		</AuthContext.Provider>
 	);
