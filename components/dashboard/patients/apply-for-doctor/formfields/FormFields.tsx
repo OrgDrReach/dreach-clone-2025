@@ -128,8 +128,18 @@ const FormFields: React.FC = () => {
 		formState: { errors },
 		watch,
 	} = useForm<FormValues>({
-		resolver: async (data, context) => {
-			const result = await zodResolver(formSchema)(data, context);
+		resolver: async (data, context, options) => {
+			// Create a new options object with required boolean properties
+			const resolverOptions = {
+				...options,
+				shouldUseNativeValidation: options?.shouldUseNativeValidation ?? false,
+			};
+
+			const result = await zodResolver(formSchema)(
+				data,
+				context,
+				resolverOptions
+			);
 			return result;
 		},
 		mode: "onChange",
