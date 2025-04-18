@@ -1,11 +1,11 @@
 "use client";
 
-// Conditional Layout for dashboards using session
 import { ubuntu } from "@/@types/font/Font";
 import { RNChildProp } from "@/@types/interface/Interface";
-import { AdminSideNav, Header } from "@/components/dashboard/ui";
+import { DoctorSideNav, Header } from "@/components/dashboard/ui";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
+import type { Viewport } from "next";
 import React, { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -23,12 +23,12 @@ const Layout: React.FC<RNChildProp> = ({ children }: RNChildProp) => {
         <motion.aside
           initial={false}
           animate={{
-            width: isSidebarCollapsed ? 80 : 256,
+            width: isSidebarCollapsed ? 64 : 256,
             transition: { duration: 0.3 },
           }}
           className="shrink-0 border-r border-[#ffffff1a]"
         >
-          <AdminSideNav
+          <DoctorSideNav
             onToggle={toggleSidebar}
             isCollapsed={isSidebarCollapsed}
           />
@@ -50,7 +50,7 @@ const Layout: React.FC<RNChildProp> = ({ children }: RNChildProp) => {
           </div>
 
           {/* Main Content Area */}
-          <ScrollArea className="flex-1 h-[calc(100vh-4rem)]">
+          <ScrollArea className="flex-1 h-[calc(100vh-4rem)] bg-[#497585]">
             <div className="container mx-auto p-6">
               <AnimatePresence mode="wait">
                 <motion.div
