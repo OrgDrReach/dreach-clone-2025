@@ -1,16 +1,16 @@
-"use client"
+"use client";
 
-import React from 'react';
+import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { FaClipboardList } from 'react-icons/fa';
+import { FaClipboardList } from "react-icons/fa";
 
 interface Note {
   id: string;
   date: string;
   title: string;
   content: string;
-  type: 'visit' | 'test' | 'other';
+  type: "visit" | "test" | "other";
 }
 
 interface RecentNotesProps {
@@ -18,14 +18,14 @@ interface RecentNotesProps {
 }
 
 const RecentNotes: React.FC<RecentNotesProps> = ({ notes }) => {
-  const getTypeIcon = (type: Note['type']) => {
+  const getTypeIcon = (type: Note["type"]) => {
     switch (type) {
-      case 'visit':
-        return '🩺';
-      case 'test':
-        return '🧪';
+      case "visit":
+        return "🩺";
+      case "test":
+        return "🧪";
       default:
-        return '📝';
+        return "📝";
     }
   };
 
@@ -40,10 +40,15 @@ const RecentNotes: React.FC<RecentNotesProps> = ({ notes }) => {
       <CardContent className="pt-6">
         <ScrollArea className="h-[300px] pr-4">
           {notes.map((note) => (
-            <div key={note.id} className="mb-4 p-3 bg-white rounded-lg shadow border border-gray-600 transition-colors duration-200">
+            <div
+              key={note.id}
+              className="mb-4 p-3 bg-white rounded-lg shadow border border-gray-600 transition-colors duration-200"
+            >
               <div className="flex justify-between items-center mb-2">
                 <span className="text-sm text-gray-500">{note.date}</span>
-                <span className="text-lg" title={note.type}>{getTypeIcon(note.type)}</span>
+                <span className="text-lg" title={note.type}>
+                  {getTypeIcon(note.type)}
+                </span>
               </div>
               <h3 className="font-semibold text-lg mb-1">{note.title}</h3>
               <p className="text-sm text-gray-700">{note.content}</p>

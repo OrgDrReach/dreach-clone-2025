@@ -9,7 +9,10 @@ interface PhoneNumberFieldProps {
   errors: any;
 }
 
-const PhoneNumberField: React.FC<PhoneNumberFieldProps> = ({ control, errors }) => (
+const PhoneNumberField: React.FC<PhoneNumberFieldProps> = ({
+  control,
+  errors,
+}) => (
   <div>
     <Label htmlFor="phoneNumber">Phone Number</Label>
     <Controller
@@ -23,7 +26,9 @@ const PhoneNumberField: React.FC<PhoneNumberFieldProps> = ({ control, errors }) 
         />
       )}
     />
-    {errors.phoneNumber && <p className="text-red-500 text-sm mt-1">{errors.phoneNumber.message}</p>}
+    {errors.phoneNumber && (
+      <p className="text-red-500 text-sm mt-1">{errors.phoneNumber.message}</p>
+    )}
   </div>
 );
 

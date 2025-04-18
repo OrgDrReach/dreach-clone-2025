@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Bell, Calendar, CheckCircle } from 'lucide-react';
+import { Bell, Calendar, CheckCircle } from "lucide-react";
 
 interface QuickAlertOverviewProps {
   newAlerts: number;
@@ -9,7 +9,11 @@ interface QuickAlertOverviewProps {
   resolvedAlerts: number;
 }
 
-const QuickAlertOverview: React.FC<QuickAlertOverviewProps> = ({ newAlerts, upcomingReminders, resolvedAlerts }) => {
+const QuickAlertOverview: React.FC<QuickAlertOverviewProps> = ({
+  newAlerts,
+  upcomingReminders,
+  resolvedAlerts,
+}) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
       <OverviewCard
@@ -45,9 +49,17 @@ interface OverviewCardProps {
   gradientTo: string;
 }
 
-const OverviewCard: React.FC<OverviewCardProps> = ({ title, icon, value, gradientFrom, gradientTo }) => (
+const OverviewCard: React.FC<OverviewCardProps> = ({
+  title,
+  icon,
+  value,
+  gradientFrom,
+  gradientTo,
+}) => (
   <Card className="overflow-hidden">
-    <div className={`p-4 text-white bg-gradient-to-r ${gradientFrom} ${gradientTo}`}>
+    <div
+      className={`p-4 text-white bg-gradient-to-r ${gradientFrom} ${gradientTo}`}
+    >
       <div className="flex items-center space-x-2">
         {icon}
         <h3 className="text-lg font-semibold">{title}</h3>

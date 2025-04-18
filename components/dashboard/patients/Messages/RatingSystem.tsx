@@ -1,7 +1,13 @@
-"use client"
+"use client";
 
 import React, { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardFooter,
+} from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Star } from "lucide-react";
@@ -36,7 +42,7 @@ const RatingSystem: React.FC<RatingSystemProps> = ({ onSubmit }) => {
                 variant="ghost"
                 size="sm"
                 onClick={() => setRating(star)}
-                className={`p-1 ${rating >= star ? 'text-yellow-400' : 'text-gray-300'}`}
+                className={`p-1 ${rating >= star ? "text-yellow-400" : "text-gray-300"}`}
               >
                 <Star className="h-6 w-6 fill-current" />
               </Button>

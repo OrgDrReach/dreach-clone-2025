@@ -11,13 +11,24 @@ interface SkillsAndHobbiesFieldProps {
   errors: any;
 }
 
-const SkillsAndHobbiesField: React.FC<SkillsAndHobbiesFieldProps> = ({ control, errors }) => {
-  const { fields: skillFields, append: appendSkill, remove: removeSkill } = useFieldArray({
+const SkillsAndHobbiesField: React.FC<SkillsAndHobbiesFieldProps> = ({
+  control,
+  errors,
+}) => {
+  const {
+    fields: skillFields,
+    append: appendSkill,
+    remove: removeSkill,
+  } = useFieldArray({
     control,
     name: "skills",
   });
 
-  const { fields: hobbyFields, append: appendHobby, remove: removeHobby } = useFieldArray({
+  const {
+    fields: hobbyFields,
+    append: appendHobby,
+    remove: removeHobby,
+  } = useFieldArray({
     control,
     name: "hobbies",
   });

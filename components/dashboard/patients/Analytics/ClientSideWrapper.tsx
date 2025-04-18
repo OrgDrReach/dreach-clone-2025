@@ -1,8 +1,10 @@
-'use client';
+"use client";
 
-import React from 'react';
+import React from "react";
 
-const ClientSideWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const ClientSideWrapper: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   return <>{children}</>;
 };
 

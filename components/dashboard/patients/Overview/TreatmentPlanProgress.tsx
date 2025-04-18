@@ -1,9 +1,18 @@
-"use client"
+"use client";
 
-import React from 'react';
+import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { FaTasks } from 'react-icons/fa';
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
+import { FaTasks } from "react-icons/fa";
 
 interface TreatmentGoal {
   name: string;
@@ -15,8 +24,10 @@ interface TreatmentPlanProgressProps {
   goals: TreatmentGoal[];
 }
 
-const TreatmentPlanProgress: React.FC<TreatmentPlanProgressProps> = ({ goals }) => {
-  const data = goals.map(goal => ({
+const TreatmentPlanProgress: React.FC<TreatmentPlanProgressProps> = ({
+  goals,
+}) => {
+  const data = goals.map((goal) => ({
     name: goal.name,
     Progress: (goal.current / goal.target) * 100,
     Target: 100,

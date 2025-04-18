@@ -1,15 +1,15 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { BookOpen, Save } from 'lucide-react';
+import { BookOpen, Save } from "lucide-react";
 
 const Bio: React.FC = () => {
-  const [bio, setBio] = useState('');
+  const [bio, setBio] = useState("");
 
   const handleSaveBio = () => {
-    console.log('Saving bio:', bio);
+    console.log("Saving bio:", bio);
   };
 
   return (
@@ -28,7 +28,10 @@ const Bio: React.FC = () => {
           className="bg-white dark:bg-gray-700 border-purple-200 dark:border-gray-600 focus:border-purple-400 dark:focus:border-purple-400"
           rows={4}
         />
-        <Button onClick={handleSaveBio} className="w-full bg-purple-500 hover:bg-purple-600 text-white">
+        <Button
+          onClick={handleSaveBio}
+          className="w-full bg-purple-500 hover:bg-purple-600 text-white"
+        >
           <Save className="mr-2" />
           Save Bio
         </Button>

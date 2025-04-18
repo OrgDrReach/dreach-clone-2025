@@ -1,8 +1,14 @@
-import React from 'react';
+import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
-import { Clock } from 'lucide-react';
+import { Clock } from "lucide-react";
 
 const TimeZoneSettings: React.FC = () => {
   return (
@@ -14,13 +20,17 @@ const TimeZoneSettings: React.FC = () => {
       </CardHeader>
       <CardContent className="p-6">
         <div className="space-y-2">
-          <Label htmlFor="timezone" className="text-lg">Time Zone</Label>
+          <Label htmlFor="timezone" className="text-lg">
+            Time Zone
+          </Label>
           <Select>
             <SelectTrigger id="timezone" className="w-full">
               <SelectValue placeholder="Select time zone" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="utc">UTC (Coordinated Universal Time)</SelectItem>
+              <SelectItem value="utc">
+                UTC (Coordinated Universal Time)
+              </SelectItem>
               <SelectItem value="est">Eastern Time (ET)</SelectItem>
               <SelectItem value="cst">Central Time (CT)</SelectItem>
               <SelectItem value="mst">Mountain Time (MT)</SelectItem>

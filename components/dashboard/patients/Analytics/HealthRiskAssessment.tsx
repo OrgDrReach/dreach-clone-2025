@@ -20,13 +20,13 @@ const HealthRiskAssessment: React.FC = () => {
   const getStatusColor = (status: string): string => {
     switch (status) {
       case "Low":
-        return 'bg-emerald-500 text-white';
+        return "bg-emerald-500 text-white";
       case "Moderate":
-        return 'bg-amber-500 text-white';
+        return "bg-amber-500 text-white";
       case "High":
-        return 'bg-red-500 text-white';
+        return "bg-red-500 text-white";
       default:
-        return '';
+        return "";
     }
   };
 
@@ -36,8 +36,12 @@ const HealthRiskAssessment: React.FC = () => {
         {riskFactors.map((factor, index) => (
           <div key={index} className="flex flex-col gap-2">
             <div className="flex justify-between items-center">
-              <span className="text-sm font-medium text-gray-600">{factor.condition}</span>
-              <Badge className={`text-xs font-medium ${getStatusColor(factor.status)}`}>
+              <span className="text-sm font-medium text-gray-600">
+                {factor.condition}
+              </span>
+              <Badge
+                className={`text-xs font-medium ${getStatusColor(factor.status)}`}
+              >
                 {factor.status} Risk
               </Badge>
             </div>

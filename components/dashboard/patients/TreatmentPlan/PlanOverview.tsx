@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -29,10 +29,14 @@ interface PlanOverviewProps {
   planStatus: "In Progress" | "Completed" | "On Hold" | "Not Started";
 }
 
-const PlanOverview: React.FC<PlanOverviewProps> = ({ goals, outcomes, planStatus }) => {
+const PlanOverview: React.FC<PlanOverviewProps> = ({
+  goals,
+  outcomes,
+  planStatus,
+}) => {
   const [expandedGoal, setExpandedGoal] = useState<string | null>(null);
 
-  const getStatusColor = (status: TreatmentGoal['status']) => {
+  const getStatusColor = (status: TreatmentGoal["status"]) => {
     switch (status) {
       case "In Progress":
         return "bg-blue-100 text-blue-800";
@@ -71,12 +75,20 @@ const PlanOverview: React.FC<PlanOverviewProps> = ({ goals, outcomes, planStatus
                 transition={{ duration: 0.3 }}
                 className="mb-4 last:mb-0"
               >
-                <div 
+                <div
                   className="flex justify-between items-center mb-2 cursor-pointer"
-                  onClick={() => setExpandedGoal(expandedGoal === goal.id ? null : goal.id)}
+                  onClick={() =>
+                    setExpandedGoal(expandedGoal === goal.id ? null : goal.id)
+                  }
                 >
-                  <span className="font-medium text-gray-700">{goal.description}</span>
-                  {expandedGoal === goal.id ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+                  <span className="font-medium text-gray-700">
+                    {goal.description}
+                  </span>
+                  {expandedGoal === goal.id ? (
+                    <ChevronUp size={20} />
+                  ) : (
+                    <ChevronDown size={20} />
+                  )}
                 </div>
                 <AnimatePresence>
                   {expandedGoal === goal.id && (
@@ -87,9 +99,16 @@ const PlanOverview: React.FC<PlanOverviewProps> = ({ goals, outcomes, planStatus
                       transition={{ duration: 0.3 }}
                       className="mb-2"
                     >
-                      <Badge className={`mb-2 ${getStatusColor(goal.status)}`}>{goal.status}</Badge>
-                      <Progress value={goal.progress} className={`h-2 ${getProgressColor(goal.progress)}`} />
-                      <p className="text-sm text-gray-600 mt-1">{goal.progress}% Complete</p>
+                      <Badge className={`mb-2 ${getStatusColor(goal.status)}`}>
+                        {goal.status}
+                      </Badge>
+                      <Progress
+                        value={goal.progress}
+                        className={`h-2 ${getProgressColor(goal.progress)}`}
+                      />
+                      <p className="text-sm text-gray-600 mt-1">
+                        {goal.progress}% Complete
+                      </p>
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -117,8 +136,12 @@ const PlanOverview: React.FC<PlanOverviewProps> = ({ goals, outcomes, planStatus
                 transition={{ duration: 0.3, delay: index * 0.1 }}
                 className="mb-4 last:mb-0"
               >
-                <p className="font-medium text-gray-700 mb-1">{outcome.description}</p>
-                <p className="text-sm text-gray-500">Timeline: {outcome.timeline}</p>
+                <p className="font-medium text-gray-700 mb-1">
+                  {outcome.description}
+                </p>
+                <p className="text-sm text-gray-500">
+                  Timeline: {outcome.timeline}
+                </p>
                 <Separator className="my-2" />
               </motion.div>
             ))}

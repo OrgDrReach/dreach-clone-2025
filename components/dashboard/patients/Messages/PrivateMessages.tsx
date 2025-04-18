@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -6,7 +6,13 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import MessageStatus from "./MessageStatus";
 import { motion, AnimatePresence } from "framer-motion";
 import { formatDate } from "@/utils/dateFormatter";
@@ -29,13 +35,30 @@ interface PrivateMessage {
 const PrivateMessages: React.FC = () => {
   const [selectedProvider, setSelectedProvider] = useState<string>("");
   const [newMessage, setNewMessage] = useState<string>("");
-  const [conversations, setConversations] = useState<Record<string, PrivateMessage[]>>({});
+  const [conversations, setConversations] = useState<
+    Record<string, PrivateMessage[]>
+  >({});
 
   // Mock data for providers
   const providers: Provider[] = [
-    { id: "1", name: "Dr. Jane Smith", title: "Cardiologist", avatar: "/avatars/jane-smith.png" },
-    { id: "2", name: "Mike Johnson", title: "Physical Therapist", avatar: "/avatars/mike-johnson.png" },
-    { id: "3", name: "Nurse Sarah", title: "Registered Nurse", avatar: "/avatars/sarah-nurse.png" },
+    {
+      id: "1",
+      name: "Dr. Jane Smith",
+      title: "Cardiologist",
+      avatar: "/avatars/jane-smith.png",
+    },
+    {
+      id: "2",
+      name: "Mike Johnson",
+      title: "Physical Therapist",
+      avatar: "/avatars/mike-johnson.png",
+    },
+    {
+      id: "3",
+      name: "Nurse Sarah",
+      title: "Registered Nurse",
+      avatar: "/avatars/sarah-nurse.png",
+    },
   ];
 
   const handleSendMessage = () => {
@@ -48,9 +71,12 @@ const PrivateMessages: React.FC = () => {
         status: "sent",
       };
 
-      setConversations(prev => ({
+      setConversations((prev) => ({
         ...prev,
-        [selectedProvider]: [...(prev[selectedProvider] || []), newPrivateMessage],
+        [selectedProvider]: [
+          ...(prev[selectedProvider] || []),
+          newPrivateMessage,
+        ],
       }));
 
       setNewMessage("");
@@ -60,7 +86,9 @@ const PrivateMessages: React.FC = () => {
   return (
     <Card className="w-full bg-gradient-to-br from-purple-50 to-pink-50 shadow-lg">
       <CardHeader className="bg-white bg-opacity-70 backdrop-blur-sm">
-        <CardTitle className="text-2xl font-bold text-purple-700">Private Messages</CardTitle>
+        <CardTitle className="text-2xl font-bold text-purple-700">
+          Private Messages
+        </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         <Select value={selectedProvider} onValueChange={setSelectedProvider}>
@@ -97,14 +125,30 @@ const PrivateMessages: React.FC = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3, delay: index * 0.1 }}
-                    className={`mb-4 flex ${message.isPatient ? 'justify-end' : 'justify-start'}`}
+                    className={`mb-4 flex ${message.isPatient ? "justify-end" : "justify-start"}`}
                   >
-                    <div className={`flex items-start space-x-2 ${message.isPatient ? 'flex-row-reverse' : 'flex-row'}`}>
+                    <div
+                      className={`flex items-start space-x-2 ${message.isPatient ? "flex-row-reverse" : "flex-row"}`}
+                    >
                       <Avatar>
-                        <AvatarImage src={message.isPatient ? "/avatars/patient.png" : providers.find(p => p.id === selectedProvider)?.avatar} />
-                        <AvatarFallback>{message.isPatient ? "You" : providers.find(p => p.id === selectedProvider)?.name[0]}</AvatarFallback>
+                        <AvatarImage
+                          src={
+                            message.isPatient
+                              ? "/avatars/patient.png"
+                              : providers.find((p) => p.id === selectedProvider)
+                                  ?.avatar
+                          }
+                        />
+                        <AvatarFallback>
+                          {message.isPatient
+                            ? "You"
+                            : providers.find((p) => p.id === selectedProvider)
+                                ?.name[0]}
+                        </AvatarFallback>
                       </Avatar>
-                      <div className={`max-w-[70%] rounded-lg p-3 ${message.isPatient ? 'bg-blue-100' : 'bg-gray-100'}`}>
+                      <div
+                        className={`max-w-[70%] rounded-lg p-3 ${message.isPatient ? "bg-blue-100" : "bg-gray-100"}`}
+                      >
                         <p className="text-sm">{message.text}</p>
                         <div className="flex justify-between items-center mt-2">
                           <p className="text-xs text-gray-500">
@@ -125,7 +169,12 @@ const PrivateMessages: React.FC = () => {
                   placeholder="Type your message here..."
                   className="flex-grow bg-white bg-opacity-70"
                 />
-                <Button onClick={handleSendMessage} className="bg-purple-600 hover:bg-purple-700">Send</Button>
+                <Button
+                  onClick={handleSendMessage}
+                  className="bg-purple-600 hover:bg-purple-700"
+                >
+                  Send
+                </Button>
               </div>
             </motion.div>
           </AnimatePresence>

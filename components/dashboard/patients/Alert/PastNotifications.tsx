@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -17,7 +17,9 @@ interface PastNotificationsProps {
   notifications: PastNotification[];
 }
 
-const PastNotifications: React.FC<PastNotificationsProps> = ({ notifications }) => {
+const PastNotifications: React.FC<PastNotificationsProps> = ({
+  notifications,
+}) => {
   return (
     <Card className="w-full">
       <CardHeader>
@@ -29,12 +31,17 @@ const PastNotifications: React.FC<PastNotificationsProps> = ({ notifications }) 
       <CardContent>
         <ScrollArea className="h-[300px]">
           {notifications.map((notification) => (
-            <div key={notification.id} className="mb-4 p-3 bg-gray-100 rounded-lg">
+            <div
+              key={notification.id}
+              className="mb-4 p-3 bg-gray-100 rounded-lg"
+            >
               <div className="flex justify-between items-center mb-2">
                 <h3 className="font-semibold">{notification.name}</h3>
                 <Badge variant="secondary">{notification.date}</Badge>
               </div>
-              <p className="text-sm text-gray-600">{notification.description}</p>
+              <p className="text-sm text-gray-600">
+                {notification.description}
+              </p>
             </div>
           ))}
         </ScrollArea>

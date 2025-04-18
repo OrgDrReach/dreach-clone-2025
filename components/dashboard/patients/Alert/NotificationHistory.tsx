@@ -1,8 +1,15 @@
-"use client"
+"use client";
 
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { ClipboardList } from "lucide-react";
 
@@ -16,7 +23,9 @@ interface NotificationHistoryProps {
   history: NotificationHistoryItem[];
 }
 
-const NotificationHistory: React.FC<NotificationHistoryProps> = ({ history }) => {
+const NotificationHistory: React.FC<NotificationHistoryProps> = ({
+  history,
+}) => {
   return (
     <Card className="w-full">
       <CardHeader>

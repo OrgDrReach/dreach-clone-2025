@@ -1,8 +1,15 @@
-"use client"
+"use client";
 
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Pill, Clock, Calendar } from "lucide-react";
@@ -21,7 +28,7 @@ interface MedicationPlansProps {
 }
 
 const MedicationPlans: React.FC<MedicationPlansProps> = ({ plans }) => {
-  const getStatusColor = (status: MedicationPlan['status']) => {
+  const getStatusColor = (status: MedicationPlan["status"]) => {
     switch (status) {
       case "Active":
         return "bg-green-100 text-green-800";
