@@ -71,7 +71,7 @@ const profileSchema = z.object({
 			pincode: z.string().optional(),
 		})
 		.optional(),
-	otp: z.string().length(6, "OTP must be 6 digits"),
+	otp: z.string().length(4, "OTP must be 4 digits"),
 });
 
 type ProfileFormData = z.infer<typeof profileSchema>;
