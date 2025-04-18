@@ -100,6 +100,7 @@ export const useDoctorStore = create<DoctorState>()(
 						id: crypto.randomUUID(),
 						status: EAppointmentStatus.SCHEDULED,
 						providerType: EProviderType.DOCTOR,
+						service: params.mode, // Set service to match the appointment mode
 					};
 
 					const response = await axios.post(
