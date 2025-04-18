@@ -255,7 +255,7 @@ export default function CompleteProfile() {
 	}
 
 	return (
-		<div className="min-h-screen flex flex-col items-center justify-center bg-[#d8eaee] dark:bg-[#1F2C3B] p-4">
+		<div className="flex flex-col items-center justify-center bg-[#d8eaee] dark:bg-[#1F2C3B] p-4">
 			<div className="w-full max-w-md">
 				<div className="bg-offer rounded-xl shadow-lg p-8">
 					<h2 className="text-3xl font-bold text-center text-orange-400 mb-8">
@@ -279,7 +279,7 @@ export default function CompleteProfile() {
 											<Input
 												{...field}
 												placeholder="Enter your full name"
-												className="h-12 bg-white text-white placeholder:text-white focus:ring-[#31addb] focus:border-[#31addb]"
+												className="h-12 bg-white text-white placeholder:text-black dark:placeholder:text-white focus:ring-[#31addb] focus:border-[#31addb]"
 											/>
 										</FormControl>
 										<FormMessage className="text-red-400" />
@@ -297,7 +297,7 @@ export default function CompleteProfile() {
 											<Input
 												{...field}
 												type="date"
-												className="h-12 bg-white text-white placeholder:text-white focus:ring-[#31addb] focus:border-[#31addb]"
+												className="h-12 bg-white text-black dark:text-white placeholder:text-black    focus:ring-[#31addb] focus:border-[#31addb]"
 											/>
 										</FormControl>
 										<FormMessage className="text-red-400" />
@@ -317,10 +317,10 @@ export default function CompleteProfile() {
 													onValueChange={field.onChange}
 													defaultValue={field.value}>
 													<FormControl>
-														<SelectTrigger className="h-14 bg-white text-white focus:ring-[#31addb] focus:border-[#31addb]">
+														<SelectTrigger className="h-14 bg-white text-black dark:text-white focus:ring-[#31addb] focus:border-[#31addb]">
 															<SelectValue
 																placeholder="Select gender"
-																className="text-white placeholder:text-white"
+																className="text-black dark:placeholder:text-white dark:text-white placeholder:text-black"
 															/>
 														</SelectTrigger>
 													</FormControl>
@@ -347,10 +347,10 @@ export default function CompleteProfile() {
 													onValueChange={field.onChange}
 													defaultValue={field.value}>
 													<FormControl>
-														<SelectTrigger className="h-14 bg-white text-white focus:ring-[#31addb] focus:border-[#31addb]">
+														<SelectTrigger className="h-14 bg-white text-black dark:text-white focus:ring-[#31addb] focus:border-[#31addb]">
 															<SelectValue
 																placeholder="Select blood group"
-																className="text-white placeholder:text-white"
+																className="text-black dark:placeholder:text-white dark:text-white placeholder:text-black"
 															/>
 														</SelectTrigger>
 													</FormControl>
@@ -407,7 +407,7 @@ export default function CompleteProfile() {
 															}}
 															type="tel"
 															placeholder="Enter your number"
-															className="flex-1 rounded-l-none h-12 bg-white text-white placeholder:text-white focus:ring-[#31addb] focus:border-[#31addb]"
+															className="flex-1 rounded-l-none h-12 bg-white text-white placeholder:text-black dark:placeholder:text-whitefocus:ring-[#31addb] focus:border-[#31addb]"
 															disabled={isOtpVerified}
 														/>
 													</div>
@@ -439,10 +439,10 @@ export default function CompleteProfile() {
 												<FormControl className="flex-1">
 													<Input
 														{...field}
-														placeholder="Enter 6-digit OTP"
-														maxLength={6}
+														placeholder="Enter 4-digit OTP"
+														maxLength={4}
 														disabled={isOtpVerified}
-														className="h-12 bg-white text-white placeholder:text-white focus:ring-[#31addb] focus:border-[#31addb]"
+														className="h-12 bg-white text-black dark:text-white placeholder:text-white focus:ring-[#31addb] focus:border-[#31addb]"
 													/>
 												</FormControl>
 												<Button
@@ -472,10 +472,10 @@ export default function CompleteProfile() {
 											defaultValue={field.value}
 											disabled={!isOtpVerified}>
 											<FormControl>
-												<SelectTrigger className="h-14 bg-white text-white focus:ring-[#31addb] focus:border-[#31addb]">
+												<SelectTrigger className="h-14 bg-white text-black dark:text-white focus:ring-[#31addb] focus:border-[#31addb]">
 													<SelectValue
 														placeholder="Select your role"
-														className="text-white placeholder:text-white"
+														className="text-white placeholder:text-black dark:placeholder:text-white"
 													/>
 												</SelectTrigger>
 											</FormControl>
@@ -514,7 +514,7 @@ export default function CompleteProfile() {
 												<Input
 													{...field}
 													placeholder="Street Address"
-													className="h-12 bg-white text-white placeholder:text-white focus:ring-[#31addb] focus:border-[#31addb]"
+													className="h-12 bg-white text-white placeholder:text-black dark:placeholder:text-white focus:ring-[#31addb] focus:border-[#31addb]"
 												/>
 											</FormControl>
 											<FormMessage className="text-red-400" />
@@ -532,7 +532,7 @@ export default function CompleteProfile() {
 													<Input
 														{...field}
 														placeholder="City"
-														className="h-12 bg-white text-white placeholder:text-white focus:ring-[#31addb] focus:border-[#31addb]"
+														className="h-12 bg-white text-white placeholder:text-black dark:placeholder:text-white focus:ring-[#31addb] focus:border-[#31addb]"
 													/>
 												</FormControl>
 												<FormMessage className="text-red-400" />
@@ -549,7 +549,7 @@ export default function CompleteProfile() {
 													<Input
 														{...field}
 														placeholder="State"
-														className="h-12 bg-white text-white placeholder:text-white focus:ring-[#31addb] focus:border-[#31addb]"
+														className="h-12 bg-white text-white placeholder:text-black dark:placeholder:text-white focus:ring-[#31addb] focus:border-[#31addb]"
 													/>
 												</FormControl>
 												<FormMessage className="text-red-400" />
@@ -568,7 +568,7 @@ export default function CompleteProfile() {
 													<Input
 														{...field}
 														placeholder="Country"
-														className="h-12 bg-white text-white placeholder:text-white focus:ring-[#31addb] focus:border-[#31addb]"
+														className="h-12 bg-white text-white placeholder:text-black dark:placeholder:text-white focus:ring-[#31addb] focus:border-[#31addb]"
 													/>
 												</FormControl>
 												<FormMessage className="text-red-400" />
@@ -585,7 +585,7 @@ export default function CompleteProfile() {
 													<Input
 														{...field}
 														placeholder="Pincode"
-														className="h-12 bg-white text-white placeholder:text-white focus:ring-[#31addb] focus:border-[#31addb]"
+														className="h-12 bg-white text-white placeholder:text-black dark:placeholder:text-white focus:ring-[#31addb] focus:border-[#31addb]"
 													/>
 												</FormControl>
 												<FormMessage className="text-red-400" />
