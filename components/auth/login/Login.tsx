@@ -12,16 +12,18 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { FcGoogle } from "react-icons/fc";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
+import { useAuth } from "@/app/context/AuthContext";
 
 const Login = () => {
 	const router = useRouter();
+	const { login } = useAuth();
 	const [showPassword, setShowPassword] = useState(false);
 	const [rememberMe, setRememberMe] = useState(false);
 
-	// Check for stored credentials on mount
 	React.useEffect(() => {
 		const storedPhone = localStorage.getItem("rememberedPhone");
 		const storedPassword = localStorage.getItem("rememberedPassword");
+
 		if (storedPhone && storedPassword) {
 			setValue("phone", storedPhone);
 			setValue("password", storedPassword);
@@ -38,28 +40,22 @@ const Login = () => {
 
 	const onSubmit: SubmitHandler<SignInSchemaType> = async (data) => {
 		try {
-			const result = await signIn("credentials", {
+			await login({
 				phone: data.phone,
 				password: data.password,
-				redirect: false,
 			});
 
-			if (!result?.error) {
-				// Store credentials if remember me is checked
-				if (rememberMe) {
-					localStorage.setItem("rememberedPhone", data.phone);
-					localStorage.setItem("rememberedPassword", data.password);
-				} else {
-					localStorage.removeItem("rememberedPhone");
-					localStorage.removeItem("rememberedPassword");
-				}
-				toast.success("Login successful");
-				router.push("/dashboard");
+			if (rememberMe) {
+				localStorage.setItem("rememberedPhone", data.phone);
+				localStorage.setItem("rememberedPassword", data.password);
 			} else {
-				toast.error("Invalid credentials");
+				localStorage.removeItem("rememberedPhone");
+				localStorage.removeItem("rememberedPassword");
 			}
-		} catch (error) {
-			toast.error("An error occurred during login");
+
+			toast.success("Login successful");
+		} catch (error: any) {
+			toast.error(error.message || "Failed to login");
 		}
 	};
 

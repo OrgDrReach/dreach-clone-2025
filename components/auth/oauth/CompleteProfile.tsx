@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { Session } from "next-auth";
 import { IUser } from "@/types/user.d.types";
-import { EUserRole } from "@/types/user.d.types";
+import { EUserRole, EGender } from "@/types/auth.d.types";
 
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -44,6 +44,23 @@ interface ExtendedSession extends Omit<Session, "user"> {
 	user?: ExtendedUser;
 }
 
+interface ProfileFormData {
+	name: string;
+	phoneNumber: string;
+	dob: string;
+	gender: EGender;
+	bloodGroup?: "A+" | "A-" | "B+" | "B-" | "O+" | "O-" | "AB+" | "AB-";
+	role: EUserRole;
+	address?: {
+		address?: string;
+		city?: string;
+		state?: string;
+		country?: string;
+		pincode?: string;
+	};
+	otp: string;
+}
+
 const profileSchema = z.object({
 	name: z.string().min(2, "Name must be at least 2 characters"),
 	phoneNumber: z
@@ -52,7 +69,7 @@ const profileSchema = z.object({
 		.max(15)
 		.regex(/^\+?[1-9]\d{9,14}$/, "Please enter a valid phone number"),
 	dob: z.string().min(1, "Date of birth is required"),
-	gender: z.enum(["MALE", "FEMALE", "OTHER"], {
+	gender: z.nativeEnum(EGender, {
 		required_error: "Please select a gender",
 	}),
 	bloodGroup: z
@@ -73,8 +90,6 @@ const profileSchema = z.object({
 		.optional(),
 	otp: z.string().length(4, "OTP must be 4 digits"),
 });
-
-type ProfileFormData = z.infer<typeof profileSchema>;
 
 type OtpResponse = {
 	message: string;
@@ -103,7 +118,7 @@ export default function CompleteProfile() {
 			name: session?.user?.name || "",
 			phoneNumber: session?.user?.phone || "",
 			dob: "",
-			gender: "MALE",
+			gender: EGender.MALE,
 			bloodGroup: undefined,
 			role: session?.user?.role || EUserRole.PATIENT,
 			address: {
@@ -325,9 +340,11 @@ export default function CompleteProfile() {
 														</SelectTrigger>
 													</FormControl>
 													<SelectContent>
-														<SelectItem value="MALE">Male</SelectItem>
-														<SelectItem value="FEMALE">Female</SelectItem>
-														<SelectItem value="OTHER">Other</SelectItem>
+														<SelectItem value={EGender.MALE}>Male</SelectItem>
+														<SelectItem value={EGender.FEMALE}>
+															Female
+														</SelectItem>
+														<SelectItem value={EGender.OTHER}>Other</SelectItem>
 													</SelectContent>
 												</Select>
 												<FormMessage className="text-red-400" />
