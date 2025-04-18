@@ -2,7 +2,11 @@ import React, { useState, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { FaMapMarkerAlt, FaVideo, FaPhoneAlt, FaUserMd } from "react-icons/fa";
-import { IDoctor, EDoctorConsultMode } from "@/types/doctor.d.types";
+import {
+	IDoctor,
+	EDoctorConsultMode,
+	EDoctorStatus,
+} from "@/types/doctor.d.types";
 import { Provider, EProviderType } from "@/types/provider.d.types";
 import ImageViewer from "@/components/images/ImageViewer";
 import AppointmentBookingModal from "../booking/AppointmentBookingModal";
@@ -53,7 +57,7 @@ const DoctorCard: React.FC<DoctorCardProps> = ({ doctor }) => {
 							/>
 							<div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
 
-							{status === "ONLINE" && (
+							{status === EDoctorStatus.ONLINE && (
 								<div className="absolute top-3 right-3 px-3 py-1 bg-emerald-500/90 backdrop-blur-sm text-white text-sm font-medium rounded-full shadow-lg flex items-center gap-1.5">
 									<span className="w-2 h-2 bg-white rounded-full animate-pulse" />
 									Available
@@ -91,10 +95,10 @@ const DoctorCard: React.FC<DoctorCardProps> = ({ doctor }) => {
 								<div
 									key={index}
 									className="flex items-center gap-1.5 px-2 py-1 text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded-full">
-									{mode === EDoctorConsultMode.VIDEO_CONSULT ?
+									{mode === EDoctorConsultMode.VIDEO ?
 										<FaVideo className="text-emerald-500" />
 									:	<FaUserMd className="text-[#4cc0f4]" />}
-									{mode === EDoctorConsultMode.VIDEO_CONSULT ?
+									{mode === EDoctorConsultMode.VIDEO ?
 										"Video Consult"
 									:	"In-Person"}
 								</div>
