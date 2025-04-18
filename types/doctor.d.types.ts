@@ -51,7 +51,7 @@ export interface IClinicInfo {
 }
 
 export interface IAvailability {
-	day: string;
+	day: EDayOfWeek[];
 	slots: {
 		startTime: string;
 		endTime: string;
