@@ -44,10 +44,11 @@ export interface IDoctor {
 export interface IClinicInfo {
 	id: string;
 	name: string;
-	address: IAddress;
+	address: IAddress[];
 	role: EClinicRole;
 	startDate: Date;
 	endDate?: Date;
+	contact: IContactInfo[];
 }
 
 export interface IAvailability {
