@@ -1,5 +1,5 @@
 import React from "react";
-import { useForm, Controller } from "react-hook-form";
+import { useForm, Controller, Control } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Textarea } from "@/components/ui/textarea";
@@ -129,7 +129,7 @@ export type FormValues = z.infer<typeof formSchema>;
 
 const FormFields: React.FC = () => {
 	const form = useForm<FormValues>({
-		resolver: zodResolver(formSchema),
+		resolver: zodResolver<FormValues, any, typeof formSchema>(formSchema),
 		mode: "onChange",
 		defaultValues: {
 			username: "",
@@ -173,18 +173,35 @@ const FormFields: React.FC = () => {
 		watch,
 	} = form;
 
-	const onSubmit = (data: FormValues) => {
+	const onSubmit = async (data: FormValues) => {
 		console.log(data);
 		// Handle form submission
 	};
 
+	type FormControl = Control<FormValues>;
+
 	return (
 		<div className="grid grid-cols-2 gap-6">
-			<UserInfoFields control={control} errors={errors} />
-			<PersonalInfoFields control={control} errors={errors} />
-			<DateOfBirthField control={control} errors={errors} />
-			<PhoneNumberField control={control} errors={errors} />
-			<GenderField control={control} errors={errors} />
+			<UserInfoFields
+				control={control as unknown as FormControl}
+				errors={errors}
+			/>
+			<PersonalInfoFields
+				control={control as unknown as FormControl}
+				errors={errors}
+			/>
+			<DateOfBirthField
+				control={control as unknown as FormControl}
+				errors={errors}
+			/>
+			<PhoneNumberField
+				control={control as unknown as FormControl}
+				errors={errors}
+			/>
+			<GenderField
+				control={control as unknown as FormControl}
+				errors={errors}
+			/>
 			<div className="space-y-2">
 				<Label
 					htmlFor="bloodGroup"
@@ -249,15 +266,39 @@ const FormFields: React.FC = () => {
 					</p>
 				)}
 			</div>
-			<AddressFields control={control} errors={errors} />
-			<MedicalDegreesField control={control} errors={errors} />
-			<SkillsAndHobbiesField control={control} errors={errors} />
-			<EducationField control={control} errors={errors} />
-			<AwardsField control={control} errors={errors} />
-			<ClinicInfoFields control={control} errors={errors} />
+			<AddressFields
+				control={control as unknown as FormControl}
+				errors={errors}
+			/>
+			<MedicalDegreesField
+				control={control as unknown as FormControl}
+				errors={errors}
+			/>
+			<SkillsAndHobbiesField
+				control={control as unknown as FormControl}
+				errors={errors}
+			/>
+			<EducationField
+				control={control as unknown as FormControl}
+				errors={errors}
+			/>
+			<AwardsField
+				control={control as unknown as FormControl}
+				errors={errors}
+			/>
+			<ClinicInfoFields
+				control={control as unknown as FormControl}
+				errors={errors}
+			/>
 			<div className="col-span-2 grid grid-cols-2 gap-6">
-				<AadhaarVerificationField control={control} errors={errors} />
-				<DoctorLicenseVerificationField control={control} errors={errors} />
+				<AadhaarVerificationField
+					control={control as unknown as FormControl}
+					errors={errors}
+				/>
+				<DoctorLicenseVerificationField
+					control={control as unknown as FormControl}
+					errors={errors}
+				/>
 			</div>
 		</div>
 	);
