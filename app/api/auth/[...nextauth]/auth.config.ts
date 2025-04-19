@@ -126,7 +126,7 @@ export const authOptions: NextAuthOptions = {
 				if (account?.provider === "google") {
 					try {
 						const res = await fetch(
-							`${process.env.SERVER_URL}/user/google-auth`,
+							`${process.env.SERVER_URL}/user/signup`,
 							{
 								method: "POST",
 								headers: {

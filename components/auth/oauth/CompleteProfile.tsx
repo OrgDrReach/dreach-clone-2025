@@ -249,20 +249,20 @@ export default function CompleteProfile() {
 			};
 
 			// First try to create the user
-			const createResponse = await fetch(
-				`${process.env.SERVER_URL}/user/signup`,
-				{
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					credentials: "include",
-					body: JSON.stringify({
-						...userProfile,
-						googleId: session.user.id, // Pass the Google ID for reference
-					}),
-				}
-			);
+			// const createResponse = await fetch(
+			// 	`${process.env.SERVER_URL}/user/signup`,
+			// 	{
+			// 		method: "POST",
+			// 		headers: {
+			// 			"Content-Type": "application/json",
+			// 		},
+			// 		credentials: "include",
+			// 		body: JSON.stringify({
+			// 			...userProfile,
+			// 			googleId: session.user.id, // Pass the Google ID for reference
+			// 		}),
+			// 	}
+			// );
 
 			// Now update the user with complete profile data
 			const updateResponse = await updateUser(session.user.id, userProfile);
@@ -447,7 +447,7 @@ export default function CompleteProfile() {
 															}}
 															type="tel"
 															placeholder="Enter your number"
-															className="flex-1 rounded-l-none h-12 bg-white text-white placeholder:text-black dark:placeholder:text-whitefocus:ring-[#31addb] focus:border-[#31addb]"
+															className="flex-1 rounded-l-none h-12 bg-white dark:text-white text-black placeholder:text-black dark:placeholder:text-white focus:ring-[#31addb] focus:border-[#31addb]"
 															disabled={isOtpVerified}
 														/>
 													</div>
@@ -554,7 +554,7 @@ export default function CompleteProfile() {
 												<Input
 													{...field}
 													placeholder="Street Address"
-													className="h-12 bg-white text-white placeholder:text-black dark:placeholder:text-white focus:ring-[#31addb] focus:border-[#31addb]"
+													className="h-12 bg-white text-black dark:text-white placeholder:text-black dark:placeholder:text-white focus:ring-[#31addb] focus:border-[#31addb]"
 												/>
 											</FormControl>
 											<FormMessage className="text-red-400" />
@@ -572,7 +572,7 @@ export default function CompleteProfile() {
 													<Input
 														{...field}
 														placeholder="City"
-														className="h-12 bg-white text-white placeholder:text-black dark:placeholder:text-white focus:ring-[#31addb] focus:border-[#31addb]"
+														className="h-12 bg-white text-black dark:text-white placeholder:text-black dark:placeholder:text-white focus:ring-[#31addb] focus:border-[#31addb]"
 													/>
 												</FormControl>
 												<FormMessage className="text-red-400" />
@@ -589,7 +589,7 @@ export default function CompleteProfile() {
 													<Input
 														{...field}
 														placeholder="State"
-														className="h-12 bg-white text-white placeholder:text-black dark:placeholder:text-white focus:ring-[#31addb] focus:border-[#31addb]"
+														className="h-12 bg-white text-black dark:text-white placeholder:text-black dark:placeholder:text-white focus:ring-[#31addb] focus:border-[#31addb]"
 													/>
 												</FormControl>
 												<FormMessage className="text-red-400" />
@@ -608,7 +608,7 @@ export default function CompleteProfile() {
 													<Input
 														{...field}
 														placeholder="Country"
-														className="h-12 bg-white text-white placeholder:text-black dark:placeholder:text-white focus:ring-[#31addb] focus:border-[#31addb]"
+														className="h-12 bg-white text-black dark:text-white placeholder:text-black dark:placeholder:text-white focus:ring-[#31addb] focus:border-[#31addb]"
 													/>
 												</FormControl>
 												<FormMessage className="text-red-400" />
@@ -625,7 +625,7 @@ export default function CompleteProfile() {
 													<Input
 														{...field}
 														placeholder="Pincode"
-														className="h-12 bg-white text-white placeholder:text-black dark:placeholder:text-white focus:ring-[#31addb] focus:border-[#31addb]"
+														className="h-12 bg-white text-black dark:text-white placeholder:text-black dark:placeholder:text-white focus:ring-[#31addb] focus:border-[#31addb]"
 													/>
 												</FormControl>
 												<FormMessage className="text-red-400" />
