@@ -225,6 +225,7 @@ export default function CompleteProfile() {
 			if (response.status === 200 && response.data) {
 				setUserData(response.data);
 				setFetchError(null);
+				console.log(`response = ${response.data}`);
 				return response.data;
 			}
 
@@ -254,43 +255,8 @@ export default function CompleteProfile() {
 		try {
 			setIsSubmitting(true);
 
-			// First fetch the user data by email
-			const userInfo = await fetchUserByEmailHandler(session.user.email);
-
-			if (!userInfo || !userInfo.id) {
-				toast.error("Failed to verify user account");
-				return;
-			}
-
-			const hasAddressData =
-				data.address && Object.values(data.address).some((value) => value);
-			const address =
-				hasAddressData ?
-					[
-						{
-							address: data.address?.address || "",
-							city: data.address?.city || "",
-							state: data.address?.state || "",
-							country: data.address?.country || "",
-							pincode: data.address?.pincode || "",
-						},
-					]
-				:	[];
-
-			// Structure the update payload according to UpdateUserPayload interface
-			const updatePayload = {
-				name: data.name,
-				phone: data.phoneNumber,
-				dob: new Date(data.dob),
-				gender: data.gender,
-				bloodGroup: data.bloodGroup,
-				role: data.role,
-				address: address,
-			};
-
-			console.log("Updating user profile with ID:", userInfo.id);
-			const updateResponse = await updateUser(userInfo.id, updatePayload);
-			console.log("Update response:", updateResponse);
+			// Direct pass the form data to updateUser
+			const updateResponse = await updateUser(data);
 
 			if (updateResponse.status === 200 || updateResponse.status === 201) {
 				if (updateResponse.data) {

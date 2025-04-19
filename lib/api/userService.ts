@@ -5,11 +5,28 @@ import { EUserRole, EUserStatus, EGender } from "@/types/auth.d.types";
 
 interface UpdateUserPayload {
 	name: string;
-	phone: string;
-	dob: Date;
-	gender: string;
+	phoneNumber: string; // Changed from phone to phoneNumber to match ProfileFormData
+	dob: string | Date; // Allow both string and Date
+	gender: EGender;
 	bloodGroup?: string;
-	role: string;
+	role: EUserRole;
+	address?: {
+		address?: string;
+		city?: string;
+		state?: string;
+		country?: string;
+		pincode?: string;
+	};
+}
+
+interface UpdateUserResponse {
+	id: string;
+	name: string;
+	phoneNumber: string;
+	dob: Date;
+	gender: EGender;
+	bloodGroup?: string;
+	role: EUserRole;
 	address?: Array<{
 		address?: string;
 		city?: string;
@@ -17,6 +34,7 @@ interface UpdateUserPayload {
 		country?: string;
 		pincode?: string;
 	}>;
+	// ... other IUser fields that the API returns
 }
 
 interface ApiResponse<T> {
@@ -41,13 +59,15 @@ export const createUser = async (
 			credentials: "include",
 			body: JSON.stringify(userData),
 		});
+		console.log("uder is being created");
 
 		const data = await res.json();
 
+		console.log(data);
 		return {
 			status: res.status,
-			message: data.message,
-			data: data.user,
+			message: data,
+			data: data.id,
 		};
 	} catch (error) {
 		console.error("Error creating user:", error);
@@ -152,6 +172,8 @@ export const fetchUserByEmail = async (
 				updatedAt: new Date(),
 			});
 
+			console.log(createUserResponse);
+
 			if (createUserResponse.status === 201 && createUserResponse.data) {
 				return {
 					status: 200,
@@ -210,9 +232,9 @@ export const fetchUserByEmail = async (
  * Update existing user
  */
 export const updateUser = async (
-	id: string,
-	updateData: UpdateUserPayload
+	data: ProfileFormData // Change input type to ProfileFormData
 ): Promise<ApiResponse<IUser>> => {
+	// Change return type to IUser
 	try {
 		if (!process.env.SERVER_URL) {
 			throw new Error("SERVER_URL environment variable is not defined");
@@ -220,15 +242,16 @@ export const updateUser = async (
 
 		const apiUrl = `${process.env.SERVER_URL}/user/updateUser`;
 
-		// Convert date to ISO string for API
-		const payload = {
-			id,
-			...updateData,
-			dob: updateData.dob.toISOString(),
+		// Transform ProfileFormData to match API expectations
+		const apiData = {
+			name: data.name,
+			phone: data.phoneNumber, // Match the field name
+			dob: new Date(data.dob).toISOString(),
+			gender: data.gender,
+			bloodGroup: data.bloodGroup,
+			role: data.role,
+			address: data.address ? [data.address] : [], // Convert to array format
 		};
-
-		console.log("Making request to:", apiUrl);
-		console.log("With payload:", payload);
 
 		const response = await fetch(apiUrl, {
 			method: "POST",
@@ -236,19 +259,19 @@ export const updateUser = async (
 				"Content-Type": "application/json",
 			},
 			credentials: "include",
-			body: JSON.stringify(payload),
+			body: JSON.stringify(apiData),
 		});
 
-		const data = await response.json();
-		console.log("Server response:", data);
+		const responseData = await response.json();
+		console.log("Server response:", responseData);
 
 		if (!response.ok) {
-			throw new Error(data.message || "Failed to update user");
+			throw new Error(responseData.message || "Failed to update user");
 		}
 
 		return {
 			status: response.status,
-			data: data.user,
+			data: responseData.user,
 			message: "Profile updated successfully",
 		};
 	} catch (error) {
