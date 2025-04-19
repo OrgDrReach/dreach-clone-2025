@@ -38,6 +38,7 @@ interface ExtendedUser {
 	image?: string | null;
 	phone?: string | null;
 	role?: EUserRole;
+	authProvider?: string;
 }
 
 interface ExtendedSession extends Omit<Session, "user"> {
@@ -218,7 +219,6 @@ export default function CompleteProfile() {
 		try {
 			setIsSubmitting(true);
 
-			// Only include address fields if at least one field is filled
 			const hasAddressData =
 				data.address && Object.values(data.address).some((value) => value);
 			const address =
@@ -234,7 +234,8 @@ export default function CompleteProfile() {
 					]
 				:	[];
 
-			const updateResponse = await updateUser(session.user.id, {
+			// Create the user profile object
+			const userProfile = {
 				name: data.name,
 				phone: data.phoneNumber,
 				dob: new Date(data.dob),
@@ -242,7 +243,29 @@ export default function CompleteProfile() {
 				bloodGroup: data.bloodGroup,
 				role: data.role,
 				address: address,
-			});
+				email: session.user.email || "",
+				authProvider: session.user.authProvider || "google",
+				image: session.user.image || "",
+			};
+
+			// First try to create the user
+			const createResponse = await fetch(
+				`${process.env.SERVER_URL}/user/signup`,
+				{
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					credentials: "include",
+					body: JSON.stringify({
+						...userProfile,
+						googleId: session.user.id, // Pass the Google ID for reference
+					}),
+				}
+			);
+
+			// Now update the user with complete profile data
+			const updateResponse = await updateUser(session.user.id, userProfile);
 
 			if (updateResponse.status === 200 || updateResponse.status === 201) {
 				if (updateResponse.data) {
