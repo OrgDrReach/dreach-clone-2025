@@ -1,7 +1,7 @@
 "use server";
 
 import { SignUpSchema, SignUpSchemaType, otpSchema } from "@/Zod/zod";
-import { EUserRole } from "@/types/auth.d.types";
+import { EUserRole, EUserStatus, EGender } from "@/types/auth.d.types";
 
 // Type for tracking OTP attempts
 type OTPAttempt = {
@@ -292,7 +292,17 @@ export const handleGoogleAuth = async (userData: {
 			headers: {
 				"Content-Type": "application/json",
 			},
-			body: JSON.stringify(userData),
+			body: JSON.stringify({
+				...userData,
+				role: EUserRole.PATIENT,
+				status: EUserStatus.ACTIVE,
+				phone: "",
+				dob: new Date(),
+				gender: EGender.OTHER,
+				address: [],
+				isVerified: false,
+				authProvider: "google",
+			}),
 		});
 
 		const data = await res.json();
@@ -312,6 +322,10 @@ export const handleGoogleAuth = async (userData: {
 						isVerified: data.user.isVerified,
 						profileImage: data.user.profileImage,
 						authProvider: "google",
+						phone: data.user.phone || "",
+						dob: data.user.dob || new Date(),
+						gender: data.user.gender || EGender.OTHER,
+						address: data.user.address || [],
 					}
 				:	undefined,
 		};

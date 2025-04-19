@@ -1,6 +1,7 @@
 "use server";
 
 import { IUser, IPatient } from "@/types/user.d.types";
+import { EUserRole, EUserStatus, EGender } from "@/types/auth.d.types";
 
 interface UpdateUserPayload {
 	name: string;
@@ -24,41 +25,6 @@ interface ApiResponse<T> {
 	error?: string;
 	data?: T;
 }
-
-/**
- * Fetch user data by ID
- */
-export const fetchUserById = async (
-	userId: string
-): Promise<ApiResponse<IUser>> => {
-	try {
-		const res = await fetch(`${process.env.SERVER_URL}/user/${userId}`, {
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			credentials: "include", // Include cookies for authentication
-		});
-
-		const data = await res.json();
-
-		return {
-			status: res.status,
-			message: data.message,
-			data: {
-				...data.user,
-				dob: new Date(data.dob),
-			},
-		};
-	} catch (error) {
-		console.error("Error fetching user:", error);
-		return {
-			status: 500,
-			message: "Internal server error",
-			error: error instanceof Error ? error.message : "Unknown error occurred",
-		};
-	}
-};
 
 /**
  * Create new user
@@ -94,10 +60,157 @@ export const createUser = async (
 };
 
 /**
+ * Fetch user data by ID
+ */
+export const fetchUserById = async (
+	userId: string
+): Promise<ApiResponse<IUser>> => {
+	try {
+		if (!userId) {
+			throw new Error("User ID is required");
+		}
+
+		console.log(
+			"Fetching user with URL:",
+			`${process.env.SERVER_URL}/user/fetchUserById/${userId}`
+		);
+
+		const res = await fetch(
+			`${process.env.SERVER_URL}/user/fetchUserById/${userId}`,
+			{
+				method: "GET",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				credentials: "include",
+			}
+		);
+
+		const data = await res.json();
+		console.log("Response data:", data);
+
+		if (!res.ok) {
+			throw new Error(data.message || "Failed to fetch user");
+		}
+
+		return {
+			status: res.status,
+			message: data.message,
+			data: data.user,
+		};
+	} catch (error) {
+		console.error("Error fetching user:", error);
+		return {
+			status: 500,
+			message: "Internal server error",
+			error: error instanceof Error ? error.message : "Unknown error occurred",
+		};
+	}
+};
+
+/**
+ * Fetch user by email
+ */
+export const fetchUserByEmail = async (
+	email: string
+): Promise<ApiResponse<IUser>> => {
+	try {
+		if (!email) {
+			throw new Error("Email is required");
+		}
+
+		console.log("Attempting to fetch user with email:", email);
+		const res = await fetch(
+			`${process.env.SERVER_URL}/user/fetchUserByEmail/?email=${encodeURIComponent(email)}`,
+			{
+				method: "GET",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				credentials: "include",
+			}
+		);
+
+		const data = await res.json();
+		console.log("Response from fetchUserByEmail:", data);
+
+		// If user not found, create a new user
+		if (res.status === 404 || (res.ok && !data.user)) {
+			console.log("User not found, creating new user");
+			const createUserResponse = await createUser({
+				email: email,
+				role: EUserRole.PATIENT,
+				status: EUserStatus.ACTIVE,
+				firstName: "",
+				lastName: "",
+				phone: "",
+				dob: new Date(),
+				gender: EGender.OTHER,
+				address: [],
+				isVerified: false,
+				createdAt: new Date(),
+				updatedAt: new Date(),
+			});
+
+			if (createUserResponse.status === 201 && createUserResponse.data) {
+				return {
+					status: 200,
+					message: "User created successfully",
+					data: createUserResponse.data,
+				};
+			}
+		}
+
+		// If we found the user, return their data
+		if (res.ok && data.user && data.user.email) {
+			return {
+				status: res.status,
+				message: "User found successfully",
+				data: {
+					...data.user,
+					// Ensure we have all required fields with fallbacks
+					id: data.user.id || "",
+					userId: data.user.userId || "",
+					email: data.user.email,
+					firstName: data.user.firstName || "",
+					lastName: data.user.lastName || "",
+					phone: data.user.phone || "",
+					dob: data.user.dob || new Date(),
+					gender: data.user.gender || EGender.OTHER,
+					address: data.user.address || [],
+					role: data.user.role || EUserRole.PATIENT,
+					status: data.user.status || EUserStatus.ACTIVE,
+					isVerified: data.user.isVerified || false,
+					createdAt: data.user.createdAt || new Date(),
+					updatedAt: data.user.updatedAt || new Date(),
+				},
+			};
+		}
+
+		// If we couldn't find or create the user, return an error
+		return {
+			status: 404,
+			message: "Failed to find or create user",
+			error: "User not found and could not be created",
+		};
+	} catch (error) {
+		console.error("Error fetching user by email:", error);
+		return {
+			status:
+				error instanceof Error && error.message === "User not found" ?
+					404
+				:	500,
+			message: error instanceof Error ? error.message : "Internal server error",
+			error: error instanceof Error ? error.message : "Unknown error occurred",
+		};
+	}
+};
+
+/**
  * Update existing user
  */
 export const updateUser = async (
-	userId: string,
+	id: string,
 	updateData: UpdateUserPayload
 ): Promise<ApiResponse<IUser>> => {
 	try {
@@ -109,7 +222,7 @@ export const updateUser = async (
 
 		// Convert date to ISO string for API
 		const payload = {
-			userId,
+			id,
 			...updateData,
 			dob: updateData.dob.toISOString(),
 		};

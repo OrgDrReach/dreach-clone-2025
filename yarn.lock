@@ -2313,6 +2313,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/nodemailer@npm:^6":
+  version: 6.4.17
+  resolution: "@types/nodemailer@npm:6.4.17"
+  dependencies:
+    "@types/node": "npm:*"
+  checksum: 10c0/689abb3005cf36cf89c2abe56f0aa4469a37e0814633a73fbeb35732e856f4b0d7ab32b6d91585038b6941f5b70db58ec2bd147ebe9f73e528eb6c99604f4e82
+  languageName: node
+  linkType: hard
+
 "@types/prop-types@npm:^15.7.14":
   version: 15.7.14
   resolution: "@types/prop-types@npm:15.7.14"
@@ -3388,6 +3397,7 @@ __metadata:
     "@types/jsonwebtoken": "npm:^9.0.9"
     "@types/lodash": "npm:^4.17.16"
     "@types/node": "npm:^22.14.1"
+    "@types/nodemailer": "npm:^6"
     "@types/prop-types": "npm:^15.7.14"
     "@types/react": "npm:^19.1.2"
     "@types/react-dom": "npm:^19.1.2"
@@ -3413,6 +3423,7 @@ __metadata:
     next: "npm:^15.3.1"
     next-auth: "npm:^4.24.11"
     next-themes: "npm:^0.4.6"
+    nodemailer: "npm:^6.10.1"
     prettier: "npm:^3.5.3"
     prop-types: "npm:^15.8.1"
     react: "npm:18.3.1"
@@ -5267,6 +5278,13 @@ __metadata:
   bin:
     next: dist/bin/next
   checksum: 10c0/a4cfd0af69fec3006ac9d3520f0d09ee265ee47a577d0cb444805680803ce17e9a3b575dc1dfe2a9939a77da3d5b0f3e28b316e2781289232a187967775534d0
+  languageName: node
+  linkType: hard
+
+"nodemailer@npm:^6.10.1":
+  version: 6.10.1
+  resolution: "nodemailer@npm:6.10.1"
+  checksum: 10c0/e81fde258ea4f4e5646e9e3eebe89294d007939999d2d1a8c96c5488fa00bf659e46cf76fccb2697e9aa6ef9807a1ed47ff2aef6ad30b795e3849b6997066d16
   languageName: node
   linkType: hard
 

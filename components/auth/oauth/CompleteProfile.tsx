@@ -28,7 +28,11 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { toast } from "sonner";
-import { updateUser } from "@/lib/api/userService";
+import {
+	updateUser,
+	fetchUserByEmail,
+	fetchUserById,
+} from "@/lib/api/userService";
 
 // Define a more complete Session type that includes our custom fields
 interface ExtendedUser {
@@ -96,6 +100,12 @@ type OtpResponse = {
 	message: string;
 };
 
+interface UserLookupResponse {
+	id: string;
+	userId: string;
+	email: string;
+}
+
 export default function CompleteProfile() {
 	const router = useRouter();
 	const { data: session, update } = useSession({
@@ -112,6 +122,8 @@ export default function CompleteProfile() {
 	const [showOtpField, setShowOtpField] = useState(false);
 	const [isOtpVerified, setIsOtpVerified] = useState(false);
 	const [isOtpSent, setIsOtpSent] = useState(false);
+	const [userData, setUserData] = useState<UserLookupResponse | null>(null);
+	const [fetchError, setFetchError] = useState<string | null>(null);
 
 	const form = useForm<ProfileFormData>({
 		resolver: zodResolver(profileSchema),
@@ -204,20 +216,51 @@ export default function CompleteProfile() {
 		}
 	};
 
+	const fetchUserByEmailHandler = async (email: string) => {
+		try {
+			console.log("Fetching user by email:", email);
+			const response = await fetchUserByEmail(email);
+			console.log("User fetch response:", response);
+
+			if (response.status === 200 && response.data) {
+				setUserData(response.data);
+				setFetchError(null);
+				return response.data;
+			}
+
+			throw new Error(response.message || "Failed to fetch user data");
+		} catch (error) {
+			const errorMessage =
+				error instanceof Error ? error.message : "Failed to fetch user data";
+			console.error("Error fetching user:", errorMessage);
+			setFetchError(errorMessage);
+			setUserData(null);
+			toast.error(errorMessage);
+			return null;
+		}
+	};
+
 	async function onSubmit(data: ProfileFormData) {
 		if (!isOtpVerified) {
 			toast.error("Please verify your phone number first");
 			return;
 		}
 
-		if (!session?.user?.id) {
-			toast.error("Please sign in to continue");
-			router.push("/auth/signin");
+		if (!session?.user?.email) {
+			toast.error("Email is required to continue");
 			return;
 		}
 
 		try {
 			setIsSubmitting(true);
+
+			// First fetch the user data by email
+			const userInfo = await fetchUserByEmailHandler(session.user.email);
+
+			if (!userInfo || !userInfo.id) {
+				toast.error("Failed to verify user account");
+				return;
+			}
 
 			const hasAddressData =
 				data.address && Object.values(data.address).some((value) => value);
@@ -234,8 +277,8 @@ export default function CompleteProfile() {
 					]
 				:	[];
 
-			// Create the user profile object
-			const userProfile = {
+			// Structure the update payload according to UpdateUserPayload interface
+			const updatePayload = {
 				name: data.name,
 				phone: data.phoneNumber,
 				dob: new Date(data.dob),
@@ -243,33 +286,15 @@ export default function CompleteProfile() {
 				bloodGroup: data.bloodGroup,
 				role: data.role,
 				address: address,
-				email: session.user.email || "",
-				authProvider: session.user.authProvider || "google",
-				image: session.user.image || "",
 			};
 
-			// First try to create the user
-			// const createResponse = await fetch(
-			// 	`${process.env.SERVER_URL}/user/signup`,
-			// 	{
-			// 		method: "POST",
-			// 		headers: {
-			// 			"Content-Type": "application/json",
-			// 		},
-			// 		credentials: "include",
-			// 		body: JSON.stringify({
-			// 			...userProfile,
-			// 			googleId: session.user.id, // Pass the Google ID for reference
-			// 		}),
-			// 	}
-			// );
-
-			// Now update the user with complete profile data
-			const updateResponse = await updateUser(session.user.id, userProfile);
+			console.log("Updating user profile with ID:", userInfo.id);
+			const updateResponse = await updateUser(userInfo.id, updatePayload);
+			console.log("Update response:", updateResponse);
 
 			if (updateResponse.status === 200 || updateResponse.status === 201) {
 				if (updateResponse.data) {
-					await update();
+					await update(); // Update the session with new user data
 					toast.success("Profile updated successfully");
 					router.push("/dashboard");
 				} else {
@@ -482,7 +507,7 @@ export default function CompleteProfile() {
 														placeholder="Enter 4-digit OTP"
 														maxLength={4}
 														disabled={isOtpVerified}
-														className="h-12 bg-white text-black dark:text-white placeholder:text-white focus:ring-[#31addb] focus:border-[#31addb]"
+														className="h-12 bg-white text-black dark:text-white placeholder:text-black dark:placeholder:text-white focus:ring-[#31addb] focus:border-[#31addb]"
 													/>
 												</FormControl>
 												<Button
