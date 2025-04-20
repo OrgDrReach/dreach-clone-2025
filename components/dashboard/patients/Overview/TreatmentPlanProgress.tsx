@@ -81,8 +81,8 @@ const TreatmentPlanProgress: React.FC<TreatmentPlanProgressProps> = ({
 			initial={{ opacity: 0, y: 20 }}
 			animate={{ opacity: 1, y: 0 }}
 			transition={{ duration: 0.5 }}>
-			<Card className="shadow-xl bg-white dark:bg-gray-800 border-t-4 border-blue-500">
-				<CardHeader className="bg-gradient-to-r from-blue-600 to-blue-400 text-white rounded-t-lg p-4 -mt-6">
+			<Card className="shadow-xl border-gray-500">
+				<CardHeader className="bg-gradient-to-r from-[#285b6d] to-[#31addb] text-white rounded-t-lg p-4 -mt-6">
 					<CardTitle className="text-2xl font-bold flex items-center gap-3">
 						<FaTasks className="w-7 h-7" />
 						Treatment Plan Progress

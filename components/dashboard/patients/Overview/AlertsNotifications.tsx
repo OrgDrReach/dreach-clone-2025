@@ -48,7 +48,7 @@ const AlertsNotifications: React.FC<AlertsNotificationsProps> = ({
 	};
 
 	return (
-		<Card className="shadow-lg hover:shadow-xl transition-all duration-300">
+		<Card className="shadow-lg hover:shadow-xl transition-all duration-300 border-gray-500">
 			<CardHeader className="bg-gradient-to-r from-[#387c98] to-[#23aee0] text-white rounded-t-lg p-4 -mt-6">
 				<CardTitle className="text-xl font-semibold flex items-center">
 					<FaBell className="w-6 h-6 mr-2" />

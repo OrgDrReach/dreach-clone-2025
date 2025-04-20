@@ -57,7 +57,7 @@ const HealthStatus: React.FC<HealthStatusProps> = ({ status }) => {
 	const StatusIcon = config.icon;
 
 	return (
-		<Card className="shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden">
+		<Card className="shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border-gray-500">
 			<CardHeader
 				className={`bg-gradient-to-r ${config.gradient} text-white p-4 -mt-6`}>
 				<CardTitle className="text-lg font-semibold flex items-center gap-2">
@@ -88,7 +88,7 @@ const HealthStatus: React.FC<HealthStatusProps> = ({ status }) => {
 					<div className="text-center space-y-3">
 						<Badge
 							variant="outline"
-							className={`${config.textColor} font-semibold px-3 py-1 rounded-full`}>
+							className={`${config.textColor} font-semibold px-3 py-1 rounded-full border-gray-400`}>
 							{status.charAt(0).toUpperCase() + status.slice(1)}
 						</Badge>
 						<p className={`text-sm ${config.textColor} font-medium`}>

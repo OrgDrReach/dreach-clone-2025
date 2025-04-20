@@ -30,7 +30,7 @@ const RecentNotes: React.FC<RecentNotesProps> = ({ notes }) => {
   };
 
   return (
-    <Card className="shadow-lg hover:shadow-xl transition-all duration-300">
+    <Card className="shadow-lg hover:shadow-xl transition-all duration-300 border-gray-500">
       <CardHeader className="bg-gradient-to-r from-[#285b6d] to-[#31addb] text-white rounded-t-lg p-4 -mt-6">
         <CardTitle className="text-xl font-semibold flex items-center">
           <FaClipboardList className="w-6 h-6 mr-2" />
