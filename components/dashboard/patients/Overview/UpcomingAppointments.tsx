@@ -27,7 +27,7 @@ const UpcomingAppointments: React.FC<UpcomingAppointmentsProps> = ({
   appointments,
 }) => {
   return (
-    <Card className="shadow-md hover:shadow-xl transition-all duration-300 h-full">
+    <Card className="shadow-md hover:shadow-xl transition-all duration-300 h-full border-gray-500">
       <CardHeader className="bg-gradient-to-r  from-[#285b6d] to-[#31addb] text-white rounded-t-lg p-4 -mt-6">
         <CardTitle className="text-xl font-semibold flex items-center">
           <FaCalendarAlt className="w-6 h-6 mr-2" />
@@ -38,16 +38,16 @@ const UpcomingAppointments: React.FC<UpcomingAppointmentsProps> = ({
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="font-semibold text-md text-indigo-800">
+              <TableHead className="font-semibold text-md text-indigo-600">
                 Date
               </TableHead>
-              <TableHead className="font-semibold text-md text-indigo-800">
+              <TableHead className="font-semibold text-md text-indigo-600">
                 Time
               </TableHead>
-              <TableHead className="font-semibold text-md text-indigo-800">
+              <TableHead className="font-semibold text-md text-indigo-600">
                 Doctor
               </TableHead>
-              <TableHead className="font-semibold text-md text-indigo-800">
+              <TableHead className="font-semibold text-md text-indigo-600">
                 Specialty
               </TableHead>
             </TableRow>
@@ -58,7 +58,7 @@ const UpcomingAppointments: React.FC<UpcomingAppointmentsProps> = ({
                 key={appointment.id}
                 className="hover:bg-primary-200 transition-colors duration-200"
               >
-                <TableCell className="font-medium text-blue-700">
+                <TableCell className="font-medium text-blue-800 dark:text-blue-300">
                   <div className="flex items-center">
                     <FaCalendarAlt className="w-4 h-4 mr-2 text-indigo-500" />
                     {appointment.date}
@@ -79,7 +79,7 @@ const UpcomingAppointments: React.FC<UpcomingAppointmentsProps> = ({
                 <TableCell>
                   <Badge
                     variant="outline"
-                    className="bg-primary-100 text-primary-800 border-primary-200"
+                    className="bg-primary-100 text-primary-600 border-primary-200"
                   >
                     {appointment.specialty}
                   </Badge>

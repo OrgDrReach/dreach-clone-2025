@@ -120,7 +120,7 @@ const LabResults: React.FC<LabResultsProps> = ({ results }) => {
 			initial={{ opacity: 0, y: 20 }}
 			animate={{ opacity: 1, y: 0 }}
 			transition={{ duration: 0.5 }}>
-			<Card className="shadow-lg hover:shadow-xl transition-all duration-300">
+			<Card className="shadow-lg hover:shadow-xl transition-all duration-300 border-gray-500">
 				<CardHeader className="bg-gradient-to-r from-[#285b6d] to-[#31addb] text-white rounded-t-lg p-4 -mt-6">
 					<div className="flex items-center justify-between">
 						<CardTitle className="text-xl font-semibold flex items-center">

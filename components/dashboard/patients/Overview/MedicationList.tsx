@@ -31,7 +31,7 @@ interface MedicationListProps {
 
 const MedicationList: React.FC<MedicationListProps> = ({ medications }) => {
 	return (
-		<Card className="shadow-lg hover:shadow-xl transition-all duration-300 ">
+		<Card className="shadow-lg hover:shadow-xl transition-all duration-300 border-gray-500">
 			<CardHeader className="bg-gradient-to-r  from-[#285b6d] to-[#31addb] text-white rounded-t-lg p-4 -mt-6">
 				<CardTitle className="text-xl font-semibold flex items-center">
 					<FaPills className="w-6 h-6 mr-2" />
@@ -42,16 +42,16 @@ const MedicationList: React.FC<MedicationListProps> = ({ medications }) => {
 				<Table>
 					<TableHeader>
 						<TableRow>
-							<TableHead className="font-semibold text-indigo-900">
+							<TableHead className="font-semibold text-indigo-600">
 								Medication
 							</TableHead>
-							<TableHead className="font-semibold text-indigo-900">
+							<TableHead className="font-semibold text-indigo-600">
 								Dosage
 							</TableHead>
-							<TableHead className="font-semibold text-indigo-900">
+							<TableHead className="font-semibold text-indigo-600">
 								Frequency
 							</TableHead>
-							<TableHead className="font-semibold text-indigo-900">
+							<TableHead className="font-semibold text-indigo-600">
 								Next Reminder
 							</TableHead>
 						</TableRow>
@@ -61,7 +61,7 @@ const MedicationList: React.FC<MedicationListProps> = ({ medications }) => {
 							<TableRow
 								key={medication.id}
 								className="hover:bg-[#d6f4ffc6] transition-colors duration-200">
-								<TableCell className="font-medium text-blue-900">
+								<TableCell className="font-medium text-blue-800 dark:text-blue-300">
 									{medication.name}
 								</TableCell>
 								<TableCell>
@@ -70,7 +70,7 @@ const MedicationList: React.FC<MedicationListProps> = ({ medications }) => {
 											<TooltipTrigger>
 												<Badge
 													variant="outline"
-													className="bg-green-100 text-green-800 border-green-200 cursor-help">
+													className="bg-green-100 text-green-600 border-green-200 cursor-help">
 													{medication.dosage}
 												</Badge>
 											</TooltipTrigger>
@@ -80,13 +80,13 @@ const MedicationList: React.FC<MedicationListProps> = ({ medications }) => {
 										</Tooltip>
 									</TooltipProvider>
 								</TableCell>
-								<TableCell className="text-gray-600">
+								<TableCell className="text-gray-600 dark:text-gray-300">
 									{medication.frequency}
 								</TableCell>
 								<TableCell>
 									<div className="flex items-center space-x-2">
 										<FaClock className="w-4 h-4 text-indigo-500" />
-										<span className="text-indigo-600">
+										<span className="text-blue-800 dark:text-blue-300">
 											{medication.nextReminder}
 										</span>
 									</div>
@@ -97,7 +97,7 @@ const MedicationList: React.FC<MedicationListProps> = ({ medications }) => {
 				</Table>
 			</CardContent>
 			<div className="px-6 py-4 bg-primary-200 rounded-b-lg">
-				<p className="text-sm text-primary-800 flex items-center">
+				<p className="text-sm text-primary-600 flex items-center">
 					<FaExclamationCircle className="w-4 h-4 mr-2 text-primary-500 flex-shrink-0" />
 					<span>
 						Always follow your doctor's instructions for medication use.
