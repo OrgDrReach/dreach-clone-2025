@@ -1,6 +1,6 @@
 "use client";
 import { createContext, useContext, useEffect, useState } from "react";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { EUserRole } from "@/types/auth.d.types";
@@ -8,7 +8,6 @@ import { IAuthUser as User } from "@/types/auth.d.types";
 
 interface AuthContextType {
 	user: User | null;
-	login: (credentials: { phone: string; password: string }) => Promise<void>;
 	logout: () => Promise<void>;
 	isAuthenticated: boolean;
 	isLoading: boolean;
@@ -31,7 +30,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
 	useEffect(() => {
 		if (session?.user) {
-			// Convert session user to our custom User type
 			const userFromSession: User = {
 				id: session.user.id,
 				email: session.user.email || "",
@@ -50,7 +48,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 					| "DoctorsAssistant"
 					| undefined,
 				isVerified: session.user.isVerified || false,
-				authProvider: session.user.authProvider,
+				authProvider: "google",
 				profileImage:
 					session.user.profileImage || session.user.image || undefined,
 				createdAt: new Date(),
@@ -61,27 +59,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 			setUser(null);
 		}
 	}, [session]);
-
-	const login = async (credentials: { phone: string; password: string }) => {
-		try {
-			const result = await signIn("credentials", {
-				...credentials,
-				redirect: false,
-			});
-
-			if (result?.error) {
-				throw new Error(result.error);
-			}
-
-			if (result?.ok) {
-				router.push("/dashboard");
-				toast.success("Login successful");
-			}
-		} catch (error: any) {
-			toast.error(error.message || "Failed to login");
-			throw error;
-		}
-	};
 
 	const logout = async () => {
 		try {
@@ -98,7 +75,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 		<AuthContext.Provider
 			value={{
 				user,
-				login,
 				logout,
 				isAuthenticated: !!user,
 				isLoading: status === "loading",
