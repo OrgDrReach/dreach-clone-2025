@@ -42,7 +42,7 @@ const MedicalHistories: React.FC<MedicalHistoriesProps> = ({ histories }) => {
   };
 
   return (
-    <Card className="w-full bg-gradient-to-br from-amber-50 to-orange-50 shadow-lg">
+    <Card className="w-full shadow-lg">
       <CardHeader className="bg-white bg-opacity-70 backdrop-blur-sm">
         <CardTitle className="text-2xl font-bold text-amber-700">
           Medical History
@@ -65,7 +65,7 @@ const MedicalHistories: React.FC<MedicalHistoriesProps> = ({ histories }) => {
                   <div className="space-y-2">
                     <p className="font-semibold">{event.description}</p>
                     {event.details && (
-                      <p className="text-sm text-gray-600">{event.details}</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-300">{event.details}</p>
                     )}
                   </div>
                 </AccordionContent>
