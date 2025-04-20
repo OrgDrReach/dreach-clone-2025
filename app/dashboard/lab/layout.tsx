@@ -8,9 +8,12 @@ import { cn } from "@/lib/utils";
 import type { Viewport } from "next";
 import React, { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { usePathname } from "next/navigation";
 
 const Layout: React.FC<RNChildProp> = ({ children }: RNChildProp) => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+
+  const pathname = usePathname();
 
   const toggleSidebar = useCallback(() => {
     setIsSidebarCollapsed((prev) => !prev);
@@ -54,7 +57,7 @@ const Layout: React.FC<RNChildProp> = ({ children }: RNChildProp) => {
             <div className="container mx-auto p-6">
               <AnimatePresence mode="wait">
                 <motion.div
-                  key={location.pathname}
+                  key={pathname}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
