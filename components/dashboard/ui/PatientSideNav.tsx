@@ -175,7 +175,7 @@ const PatientSideNav = ({
         <SideBarItem
           icon={<CalendarCheck2 size={20} />}
           text="Appointments"
-          href={`/dashboard/patient/${userId}/appointments`}
+          href={`/dashboard/patient/${userId}/appointment`}
           badge={2}
         />
         <SideBarItem
@@ -192,12 +192,12 @@ const PatientSideNav = ({
         <SideBarItem
           icon={<Cross size={20} />}
           text="Treatment Plans"
-          href={`/dashboard/patient/${userId}/treatment-plans`}
+          href={`/dashboard/patient/${userId}/treatment-plan`}
         />
         <SideBarItem
           icon={<Clock size={20} />}
           text="Health History"
-          href={`/dashboard/patient/${userId}/history`}
+          href={`/dashboard/patient/${userId}/health-history`}
         />
         <SideBarItem
           icon={<ReceiptIndianRupee size={20} />}
@@ -228,7 +228,7 @@ const PatientSideNav = ({
         <SideBarItem
           icon={<ApplicationIcon size={20} />}
           text="Apply as Doctor"
-          href={`/dashboard/patient/${userId}/apply-doctor`}
+          href={`/dashboard/patient/${userId}/apply-for-doctor`}
         />
       </div>
     </SideBar>
