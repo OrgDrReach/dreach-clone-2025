@@ -31,12 +31,12 @@ const HealthRiskAssessment: React.FC = () => {
   };
 
   return (
-    <Card className="bg-white rounded-lg shadow-md pt-4">
+    <Card className="bg-white dark:bg-white/5 rounded-lg shadow-md pt-4">
       <CardContent className="flex flex-col gap-6">
         {riskFactors.map((factor, index) => (
           <div key={index} className="flex flex-col gap-2">
             <div className="flex justify-between items-center">
-              <span className="text-sm font-medium text-gray-600">
+              <span className="text-sm font-medium text-gray-600 dark:text-gray-400">
                 {factor.condition}
               </span>
               <Badge
@@ -46,7 +46,7 @@ const HealthRiskAssessment: React.FC = () => {
               </Badge>
             </div>
             <Progress value={factor.risk} className="h-2" />
-            <span className="text-xs text-gray-500">{factor.risk}% Risk</span>
+            <span className="text-xs text-gray-500 dark:text-gray-300">{factor.risk}% Risk</span>
           </div>
         ))}
       </CardContent>

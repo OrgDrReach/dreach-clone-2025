@@ -38,15 +38,15 @@ const ComparativeAnalysis: React.FC = () => {
   ];
 
   return (
-    <Card className="bg-white rounded-lg shadow-md pt-4">
+    <Card className="bg-white dark:bg-white/5 rounded-lg shadow-md pt-4">
       <CardContent className="flex flex-col gap-6">
         {comparisons.map((comparison, index) => (
           <div key={index} className="flex flex-col gap-2">
             <div className="flex justify-between items-center">
-              <span className="text-sm font-medium text-gray-600">
+              <span className="text-sm font-medium text-gray-600 dark:text-gray-400">
                 {comparison.metric}
               </span>
-              <span className="text-sm font-semibold text-gray-800">
+              <span className="text-sm font-semibold text-gray-800 dark:text-gray-400">
                 {comparison.patientValue} vs {comparison.averageValue}{" "}
                 {comparison.unit}
               </span>
@@ -58,7 +58,7 @@ const ComparativeAnalysis: React.FC = () => {
                 }
                 className="flex-grow h-2"
               />
-              <span className="text-xs font-semibold text-gray-600">
+              <span className="text-xs font-semibold text-gray-600 dark:text-gray-300">
                 {(
                   (comparison.patientValue / comparison.averageValue) *
                   100
@@ -66,7 +66,7 @@ const ComparativeAnalysis: React.FC = () => {
                 %
               </span>
             </div>
-            <span className="text-xs text-gray-500">
+            <span className="text-xs text-gray-500 dark:text-gray-300">
               {comparison.patientValue < comparison.averageValue
                 ? "Lower than average"
                 : comparison.patientValue > comparison.averageValue

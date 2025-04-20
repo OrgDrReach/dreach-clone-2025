@@ -10,7 +10,7 @@ const MedicationChart = dynamic(() => import("./MedicationChart"), {
 
 const MedicationEffectiveness: React.FC = () => {
   return (
-    <div className="h-[400px] w-full bg-white rounded-lg p-4 shadow-md">
+    <div className="h-[400px] w-full bg-white dark:bg-white/5 rounded-lg p-4 shadow-md">
       <ChartWrapper>
         <MedicationChart />
       </ChartWrapper>
