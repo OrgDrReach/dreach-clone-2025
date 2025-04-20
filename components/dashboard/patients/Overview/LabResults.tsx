@@ -158,7 +158,7 @@ const LabResults: React.FC<LabResultsProps> = ({ results }) => {
 								</TableHeader>
 								<TableBody>
 									{results.map((result, index) => (
-										<TableRow key={index}>
+										<TableRow key={result.date}>
 											<TableCell>{result.date}</TableCell>
 											<TableCell>{result.bloodPressure}</TableCell>
 											<TableCell>{result.glucoseLevel}</TableCell>
