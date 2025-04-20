@@ -216,19 +216,23 @@ export default function CompleteProfile() {
 		}
 	};
 
-	const fetchUserByEmailHandler = async (email: string) => {
+	const fetchUserData = async (data: ProfileFormData) => {
 		try {
-			console.log("Fetching user by email:", email);
-			const response = await fetchUserByEmail(email);
-			console.log("User fetch response:", response);
+			// Get user response from fetchUserById
+			const userResponse = await fetchUserById(session?.user?.id || "");
 
-			if (response.status === 200 && response.data) {
-				setUserData(response.data);
+			if (userResponse.status === 200 && userResponse.data) {
+				// Set the fetched data
+				setUserData({
+					id: userResponse.data.id,
+					userId: userResponse.data.userId || "",
+					email: userResponse.data.email || "",
+				});
 				setFetchError(null);
-				return response.data;
+				return userResponse.data;
 			}
 
-			throw new Error(response.message || "Failed to fetch user data");
+			throw new Error(userResponse.message || "Failed to fetch user data");
 		} catch (error) {
 			const errorMessage =
 				error instanceof Error ? error.message : "Failed to fetch user data";
@@ -255,7 +259,7 @@ export default function CompleteProfile() {
 			setIsSubmitting(true);
 
 			// First, fetch or create the user using the email
-			const userResponse = await fetchUserByEmailHandler(session.user.email);
+			const userResponse = await fetchUserData(data);
 			if (!userResponse) {
 				throw new Error("Failed to fetch or create user");
 			}

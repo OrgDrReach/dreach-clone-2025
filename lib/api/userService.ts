@@ -64,7 +64,7 @@ export const createUser = async (
 			credentials: "include",
 			body: JSON.stringify(userData),
 		});
-		console.log("uder is being created");
+		console.log(`"user is being created", ${JSON.stringify(userData)}`);
 
 		const data = await res.json();
 
@@ -94,11 +94,6 @@ export const fetchUserById = async (
 		if (!userId) {
 			throw new Error("User ID is required");
 		}
-
-		console.log(
-			"Fetching user with URL:",
-			`${process.env.SERVER_URL}/user/fetchUserById/${userId}`
-		);
 
 		const res = await fetch(
 			`${process.env.SERVER_URL}/user/fetchUserById/${userId}`,
@@ -165,25 +160,43 @@ export const fetchUserByEmail = async (
 		);
 
 		const data = await res.json();
+		// Temporary console log to check the response
 		console.log("Response from fetch user by email:", data);
+		if (data && data.id) {
+			console.log("User created successfully with user id:", data.id);
+		}
+
+		// if user is found from fetch user by email displayind the id from the response
+		if (data && data.id || res.ok && res.status === 200) {
+			const updateUserResponse = await fetchUserById(data.id);
+			if (updateUserResponse.status === 200 && updateUserResponse.data) {
+				return {
+					status: 200,
+					message: "User found successfully",
+					data: updateUserResponse.data,
+				};
+			}
+		}
 
 		// If user not found, create a new user
 		if (res.status === 404 || (res.ok && !data.id)) {
 			console.log("User not found, creating new user");
-			const createUserResponse = await createUser({
-				email: email,
-				role: EUserRole.PATIENT,
-				status: EUserStatus.ACTIVE,
-				firstName: "",
-				lastName: "",
-				phone: "",
-				dob: new Date(),
-				gender: EGender.OTHER,
-				address: [],
-				isVerified: false,
-				createdAt: new Date(),
-				updatedAt: new Date(),
-			});
+			// const createUserResponse = await createUser({
+			// 	email: email,
+			// 	role: EUserRole.PATIENT,
+			// 	status: EUserStatus.ACTIVE,
+			// 	firstName: "",
+			// 	lastName: "",
+			// 	phone: "",
+			// 	dob: new Date(),
+			// 	gender: EGender.OTHER,
+			// 	address: [],
+			// 	isVerified: false,
+			// 	createdAt: new Date(),
+			// 	updatedAt: new Date(),
+			// });
+
+			const createUserResponse = await fetchUserById(data.id);
 
 			if (createUserResponse.status === 201 && createUserResponse.data) {
 				return {
