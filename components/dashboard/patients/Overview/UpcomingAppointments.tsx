@@ -27,8 +27,8 @@ const UpcomingAppointments: React.FC<UpcomingAppointmentsProps> = ({
   appointments,
 }) => {
   return (
-    <Card className="shadow-md hover:shadow-xl transition-all duration-300  to-primary-100 h-full">
-      <CardHeader className="bg-gradient-to-r  from-[#285b6d] to-[#31addb] text-white rounded-t-lg">
+    <Card className="shadow-md hover:shadow-xl transition-all duration-300 h-full">
+      <CardHeader className="bg-gradient-to-r  from-[#285b6d] to-[#31addb] text-white rounded-t-lg p-4 -mt-6">
         <CardTitle className="text-xl font-semibold flex items-center">
           <FaCalendarAlt className="w-6 h-6 mr-2" />
           Upcoming Appointments
