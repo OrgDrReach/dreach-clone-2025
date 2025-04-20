@@ -58,3 +58,25 @@ export interface IVerifyResponse {
 	message: string;
 	token?: string;
 }
+
+export interface ApiErrorResponse {
+	status: number;
+	message: string;
+	error?: string;
+}
+
+export interface ApiSuccessResponse<T> {
+	status: number;
+	message: string;
+	data: T;
+}
+
+export type ApiResponse<T> = ApiSuccessResponse<T> | ApiErrorResponse;
+
+export interface EmailLookupResponse {
+	id: string;
+	userId: string;
+	email: string;
+	role?: EUserRole;
+	status?: EUserStatus;
+}
