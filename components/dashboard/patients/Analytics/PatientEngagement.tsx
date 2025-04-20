@@ -15,12 +15,12 @@ const PatientEngagement: React.FC = () => {
   ];
 
   return (
-    <Card className="bg-white rounded-lg shadow-md pt-5">
+    <Card className="bg-white dark:bg-white/5 rounded-lg shadow-md pt-5">
       <CardContent className="flex flex-col gap-6">
         {metrics.map((metric, index) => (
           <div key={index} className="flex flex-col gap-2">
             <div className="flex justify-between items-center">
-              <span className="text-sm font-medium text-gray-600">
+              <span className="text-sm font-medium text-gray-600 dark:text-gray-400">
                 {metric.title}
               </span>
               <span className="text-sm font-semibold text-gray-800">

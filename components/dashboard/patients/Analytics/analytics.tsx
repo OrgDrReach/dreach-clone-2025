@@ -19,14 +19,14 @@ const Analytics: React.FC = () => {
 
   return (
     <div className="grid gap-8 p-8 max-w-7xl mx-auto">
-      <section className="bg-white rounded-lg shadow-md p-6">
-        <h2 className="text-2xl font-semibold mb-4 text-gray-800">
+      <section className="bg-gray-100 dark:bg-gray-900 border-gray-500 rounded-lg shadow-lg p-6">
+        <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-400">
           Health Score
         </h2>
         <HealthScore score={healthScore} />
       </section>
-      <section className="bg-white rounded-lg shadow-md p-6">
-        <h2 className="text-2xl font-semibold mb-4 text-gray-800">
+      <section className="bg-gray-100 dark:bg-gray-900 rounded-lg shadow-md p-6">
+        <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-400">
           Key Performance Indicators
         </h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -35,32 +35,32 @@ const Analytics: React.FC = () => {
           ))}
         </div>
       </section>
-      <section className="bg-white rounded-lg shadow-md p-6">
-        <h2 className="text-2xl font-semibold mb-4 text-gray-800">
+      <section className="bg-gray-100 dark:bg-gray-900 rounded-lg shadow-md p-6">
+        <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-400">
           Trend Analysis
         </h2>
         <TrendAnalysis />
       </section>
-      <section className="bg-white rounded-lg shadow-md p-6">
-        <h2 className="text-2xl font-semibold mb-4 text-gray-800">
+      <section className="bg-gray-100 dark:bg-gray-900 rounded-lg shadow-md p-6">
+        <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-400">
           Medication Effectiveness
         </h2>
         <MedicationEffectiveness />
       </section>
-      <section className="bg-white rounded-lg shadow-md p-6">
-        <h2 className="text-2xl font-semibold mb-4 text-gray-800">
+      <section className="bg-gray-100 dark:bg-gray-900 rounded-lg shadow-md p-6">
+        <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-400">
           Patient Engagement
         </h2>
         <PatientEngagement />
       </section>
-      <section className="bg-white rounded-lg shadow-md p-6">
-        <h2 className="text-2xl font-semibold mb-4 text-gray-800">
+      <section className="bg-gray-100 dark:bg-gray-900 rounded-lg shadow-md p-6">
+        <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-400">
           Health Risk Assessment
         </h2>
         <HealthRiskAssessment />
       </section>
-      <section className="bg-white rounded-lg shadow-md p-6">
-        <h2 className="text-2xl font-semibold mb-4 text-gray-800">
+      <section className="bg-gray-100 dark:bg-gray-900 rounded-lg shadow-md p-6">
+        <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-400">
           Comparative Analysis
         </h2>
         <ComparativeAnalysis />
