@@ -30,7 +30,7 @@ const MedicalImages: React.FC<MedicalImagesProps> = ({ images }) => {
   const [selectedImage, setSelectedImage] = useState<MedicalImage | null>(null);
 
   return (
-    <Card className="w-full bg-gradient-to-br from-purple-50 to-pink-50 shadow-lg">
+    <Card className="w-full shadow-lg">
       <CardHeader className="bg-white bg-opacity-70 backdrop-blur-sm">
         <CardTitle className="text-2xl font-bold text-purple-700">
           Medical Images

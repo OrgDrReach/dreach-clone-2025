@@ -31,7 +31,7 @@ interface MedicalReportsProps {
 
 const MedicalReports: React.FC<MedicalReportsProps> = ({ reports }) => {
   return (
-    <Card className="w-full bg-gradient-to-br from-indigo-50 to-blue-50 shadow-lg">
+    <Card className="w-full shadow-lg">
       <CardHeader className="bg-white bg-opacity-70 backdrop-blur-sm">
         <CardTitle className="text-2xl font-bold text-indigo-700 flex items-center">
           <FileText className="mr-2 h-6 w-6 text-indigo-500" />

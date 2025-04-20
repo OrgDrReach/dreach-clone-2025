@@ -54,7 +54,7 @@ const AllergyList: React.FC<AllergyListProps> = ({ allergies }) => {
   };
 
   return (
-    <Card className="w-full bg-gradient-to-br from-red-50 to-orange-50 shadow-lg">
+    <Card className="w-full shadow-lg">
       <CardHeader className="bg-white bg-opacity-70 backdrop-blur-sm">
         <CardTitle className="text-2xl font-bold text-red-700 flex items-center">
           <AlertTriangle className="mr-2 h-6 w-6 text-red-500" />

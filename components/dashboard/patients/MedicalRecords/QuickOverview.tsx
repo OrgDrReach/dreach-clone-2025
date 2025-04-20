@@ -68,9 +68,9 @@ const OverviewCard: React.FC<OverviewCardProps> = ({
   gradientFrom,
   gradientTo,
 }) => (
-  <Card className="overflow-hidden">
+  <Card className="overflow-hidden border-gray-500">
     <div
-      className={`p-4 text-white bg-gradient-to-r ${gradientFrom} ${gradientTo}`}
+      className={`p-4 text-white bg-gradient-to-r ${gradientFrom} ${gradientTo} -mt-6`}
     >
       <div className="flex items-center space-x-2">
         {icon}

@@ -28,7 +28,7 @@ interface ImagingResultsProps {
 
 const ImagingResults: React.FC<ImagingResultsProps> = ({ studies }) => {
   return (
-    <Card className="w-full bg-gradient-to-br from-teal-50 to-cyan-50 shadow-lg">
+    <Card className="w-full shadow-lg">
       <CardHeader className="bg-white bg-opacity-70 backdrop-blur-sm">
         <CardTitle className="text-2xl font-bold text-teal-700">
           Imaging Results

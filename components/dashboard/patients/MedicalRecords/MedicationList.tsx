@@ -42,7 +42,7 @@ const MedicationList: React.FC<MedicationListProps> = ({ medications }) => {
   };
 
   return (
-    <Card className="w-full bg-gradient-to-br from-pink-50 to-purple-50 shadow-lg">
+    <Card className="w-full shadow-lg">
       <CardHeader className="bg-white bg-opacity-70 backdrop-blur-sm">
         <CardTitle className="text-2xl font-bold text-purple-700">
           Current Medications
