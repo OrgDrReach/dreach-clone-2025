@@ -44,6 +44,11 @@ interface ApiResponse<T> {
 	data?: T;
 }
 
+// Define the ProfileFormData type to match the expected shape
+interface ProfileFormData extends Omit<UpdateUserPayload, "phoneNumber"> {
+	phoneNumber: string;
+}
+
 /**
  * Create new user
  */
@@ -136,7 +141,15 @@ export const fetchUserByEmail = async (
 ): Promise<ApiResponse<IUser>> => {
 	try {
 		if (!email) {
-			throw new Error("Email is required");
+			return {
+				status: 400,
+				message: "Email is required",
+				error: "Email is required",
+			};
+		}
+
+		if (!process.env.SERVER_URL) {
+			throw new Error("SERVER_URL environment variable is not defined");
 		}
 
 		console.log("Attempting to fetch user with email:", email);
@@ -152,10 +165,10 @@ export const fetchUserByEmail = async (
 		);
 
 		const data = await res.json();
-		console.log("Response from fetchUserByEmail:", data);
+		console.log("Response from fetch user by email:", data);
 
 		// If user not found, create a new user
-		if (res.status === 404 || (res.ok && !data.user)) {
+		if (res.status === 404 || (res.ok && !data.id)) {
 			console.log("User not found, creating new user");
 			const createUserResponse = await createUser({
 				email: email,
@@ -172,51 +185,52 @@ export const fetchUserByEmail = async (
 				updatedAt: new Date(),
 			});
 
-			console.log(createUserResponse);
-
 			if (createUserResponse.status === 201 && createUserResponse.data) {
 				return {
 					status: 200,
 					message: "User created successfully",
 					data: createUserResponse.data,
 				};
+			} else {
+				throw new Error(createUserResponse.message || "Failed to create user");
 			}
 		}
 
-		// If we found the user, return their data
-		if (res.ok && data.user && data.user.email) {
+		// If we found the user, validate and return their data
+		if (res.ok && data.user) {
+			if (!data.user.email) {
+				throw new Error("Invalid user data received from server");
+			}
+
+			const userData: IUser = {
+				id: data.user.id || "",
+				userId: data.user.userId || "",
+				email: data.user.email,
+				firstName: data.user.firstName || "",
+				lastName: data.user.lastName || "",
+				phone: data.user.phone || "",
+				dob: data.user.dob ? new Date(data.user.dob) : new Date(),
+				gender: data.user.gender || EGender.OTHER,
+				address: Array.isArray(data.user.address) ? data.user.address : [],
+				role: data.user.role || EUserRole.PATIENT,
+				status: data.user.status || EUserStatus.ACTIVE,
+				isVerified: Boolean(data.user.isVerified),
+				createdAt:
+					data.user.createdAt ? new Date(data.user.createdAt) : new Date(),
+				updatedAt:
+					data.user.updatedAt ? new Date(data.user.updatedAt) : new Date(),
+			};
+
 			return {
-				status: res.status,
+				status: 200,
 				message: "User found successfully",
-				data: {
-					...data.user,
-					// Ensure we have all required fields with fallbacks
-					id: data.user.id || "",
-					userId: data.user.userId || "",
-					email: data.user.email,
-					firstName: data.user.firstName || "",
-					lastName: data.user.lastName || "",
-					phone: data.user.phone || "",
-					dob: data.user.dob || new Date(),
-					gender: data.user.gender || EGender.OTHER,
-					address: data.user.address || [],
-					role: data.user.role || EUserRole.PATIENT,
-					status: data.user.status || EUserStatus.ACTIVE,
-					isVerified: data.user.isVerified || false,
-					createdAt: data.user.createdAt || new Date(),
-					updatedAt: data.user.updatedAt || new Date(),
-				},
+				data: userData,
 			};
 		}
 
-		// If we couldn't find or create the user, return an error
-		return {
-			status: 404,
-			message: "Failed to find or create user",
-			error: "User not found and could not be created",
-		};
+		throw new Error(data.message || "Failed to fetch or create user");
 	} catch (error) {
-		console.error("Error fetching user by email:", error);
+		console.error("Error in fetchUserByEmail:", error);
 		return {
 			status:
 				error instanceof Error && error.message === "User not found" ?
@@ -232,9 +246,8 @@ export const fetchUserByEmail = async (
  * Update existing user
  */
 export const updateUser = async (
-	data: ProfileFormData // Change input type to ProfileFormData
+	data: UpdateUserPayload
 ): Promise<ApiResponse<IUser>> => {
-	// Change return type to IUser
 	try {
 		if (!process.env.SERVER_URL) {
 			throw new Error("SERVER_URL environment variable is not defined");
@@ -242,15 +255,15 @@ export const updateUser = async (
 
 		const apiUrl = `${process.env.SERVER_URL}/user/updateUser`;
 
-		// Transform ProfileFormData to match API expectations
+		// Transform data to match API expectations while keeping consistent field names
 		const apiData = {
 			name: data.name,
-			phone: data.phoneNumber, // Match the field name
-			dob: new Date(data.dob).toISOString(),
+			phoneNumber: data.phoneNumber, // Keep consistent with interface
+			dob: data.dob instanceof Date ? data.dob.toISOString() : data.dob,
 			gender: data.gender,
 			bloodGroup: data.bloodGroup,
 			role: data.role,
-			address: data.address ? [data.address] : [], // Convert to array format
+			address: data.address ? [data.address] : [], // Convert to array format as expected by API
 		};
 
 		const response = await fetch(apiUrl, {

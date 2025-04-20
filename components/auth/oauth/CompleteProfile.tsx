@@ -225,7 +225,6 @@ export default function CompleteProfile() {
 			if (response.status === 200 && response.data) {
 				setUserData(response.data);
 				setFetchError(null);
-				console.log(`response = ${response.data}`);
 				return response.data;
 			}
 
@@ -255,8 +254,20 @@ export default function CompleteProfile() {
 		try {
 			setIsSubmitting(true);
 
-			// Direct pass the form data to updateUser
-			const updateResponse = await updateUser(data);
+			// First, fetch or create the user using the email
+			const userResponse = await fetchUserByEmailHandler(session.user.email);
+			if (!userResponse) {
+				throw new Error("Failed to fetch or create user");
+			}
+
+			// Update the form data with the user ID
+			const updateData = {
+				...data,
+				userId: userResponse.id,
+			};
+
+			// Update the user profile
+			const updateResponse = await updateUser(updateData);
 
 			if (updateResponse.status === 200 || updateResponse.status === 201) {
 				if (updateResponse.data) {
