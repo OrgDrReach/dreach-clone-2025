@@ -47,8 +47,8 @@ const History: React.FC = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <Card className="shadow-lg hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-teal-50 to-cyan-50">
-        <CardHeader className="bg-gradient-to-r from-teal-500 to-cyan-500 text-white">
+      <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 border-gray-500">
+        <CardHeader className="bg-gradient-to-r from-teal-500 to-cyan-500 text-white p-4 -mt-6">
           <CardTitle className="text-2xl font-bold flex items-center">
             <Calendar className="mr-2" /> Appointment History
           </CardTitle>
@@ -81,10 +81,10 @@ const History: React.FC = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: index * 0.1 }}
                 >
-                  <TableCell className="font-medium text-teal-700">
+                  <TableCell className="font-medium text-teal-700 dark:text-teal-300">
                     {appointment.dateTime}
                   </TableCell>
-                  <TableCell className="text-teal-600">
+                  <TableCell className="text-teal-600 dark:text-teal-300">
                     {appointment.providerName}
                   </TableCell>
                   <TableCell>
@@ -95,7 +95,7 @@ const History: React.FC = () => {
                       {appointment.providerSpecialty}
                     </Badge>
                   </TableCell>
-                  <TableCell className="text-teal-600">
+                  <TableCell className="text-teal-600 dark:text-teal-300">
                     {appointment.outcome}
                   </TableCell>
                 </motion.tr>

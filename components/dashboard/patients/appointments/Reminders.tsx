@@ -61,8 +61,8 @@ const Reminders: React.FC = () => {
   };
 
   return (
-    <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
-      <CardHeader className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white">
+    <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 border-gray-500">
+      <CardHeader className="bg-gradient-to-r from-cyan-500 to-blue-500 p-4 -mt-6">
         <CardTitle className="text-2xl font-bold">
           Set Appointment Reminder
         </CardTitle>

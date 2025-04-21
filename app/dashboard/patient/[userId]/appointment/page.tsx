@@ -120,7 +120,7 @@ const AppointmentsPage: React.FC = () => {
                       <DynamicUpcoming />
                     </Suspense>
                   </div>
-                  <div className="bg-white rounded-lg shadow-md">
+                  <div className="rounded-lg shadow-md">
                     <ProviderInfo
                       name="Dr. Jane Smith"
                       specialty="Cardiologist"
@@ -134,7 +134,7 @@ const AppointmentsPage: React.FC = () => {
                     />
                   </div>
                 </div>
-                <div className="bg-white rounded-lg shadow-md ">
+                <div className="rounded-lg shadow-md ">
                   <Suspense
                     fallback={<Skeleton className="h-[300px] w-full" />}
                   >
@@ -157,7 +157,7 @@ const AppointmentsPage: React.FC = () => {
           </Tabs>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div className="bg-white rounded-lg shadow-md ">
+            <div className="rounded-lg shadow-md ">
               <Suspense fallback={<Skeleton className="h-[300px] w-full" />}>
                 <DynamicReminders />
               </Suspense>

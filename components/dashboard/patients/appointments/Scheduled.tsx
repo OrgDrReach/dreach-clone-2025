@@ -39,8 +39,8 @@ const Scheduled: React.FC = () => {
   ];
 
   return (
-    <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
-      <CardHeader className="bg-gradient-to-r from-green-500 to-emerald-500 text-white">
+    <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 border-gray-500">
+      <CardHeader className="bg-gradient-to-r from-green-500 to-emerald-500 p-4 -mt-6 text-white">
         <CardTitle className="text-2xl font-bold">
           Scheduled Appointments
         </CardTitle>
@@ -48,7 +48,7 @@ const Scheduled: React.FC = () => {
       <CardContent className="mt-4 overflow-x-auto">
         <Table>
           <TableHeader>
-            <TableRow className="bg-gray-100">
+            <TableRow className="bg-gray-200 dark:bg-gray-700/80">
               <TableHead className="font-bold">Date & Time</TableHead>
               <TableHead className="font-bold">Provider</TableHead>
               <TableHead className="font-bold">Specialty</TableHead>
