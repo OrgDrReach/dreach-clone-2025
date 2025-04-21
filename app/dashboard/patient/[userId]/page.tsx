@@ -5,7 +5,7 @@ import { Overview } from "@/components/dashboard/patients/Overview";
 
 const PatientDashboard: React.FC = () => {
   return (
-    <main className="container mx-auto px-4 py-5">
+    <main className="-mx-12">
       <Overview />
     </main>
   );
