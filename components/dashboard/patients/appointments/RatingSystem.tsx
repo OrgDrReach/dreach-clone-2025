@@ -20,8 +20,8 @@ const RatingSystem: React.FC<RatingSystemProps> = ({ onSubmit }) => {
   };
 
   return (
-    <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
-      <CardHeader className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white">
+    <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 border-gray-500">
+      <CardHeader className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white p-4 -mt-6">
         <CardTitle className="text-2xl font-bold">Rate Your Provider</CardTitle>
       </CardHeader>
       <CardContent className="mt-4 space-y-4">
