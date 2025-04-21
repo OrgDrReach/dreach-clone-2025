@@ -18,7 +18,7 @@ const Analytics: React.FC = () => {
   const healthScore = 75;
 
   return (
-    <div className="grid gap-8 p-8 max-w-7xl mx-auto">
+    <div className="grid gap-8 -mx-12">
       <section className="bg-gray-100 dark:bg-gray-900 border-gray-500 rounded-lg shadow-lg p-6">
         <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-400">
           Health Score

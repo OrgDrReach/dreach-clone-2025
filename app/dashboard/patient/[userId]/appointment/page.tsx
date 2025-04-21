@@ -79,7 +79,7 @@ const AppointmentsPage: React.FC = () => {
 
   return (
     <motion.main
-      className="container mx-auto px-4 py-8 bg-gradient-to-br from-blue-50 to-indigo-50"
+      className="-mx-12 px-4 py-8 bg-white dark:bg-gray-950/80 rounded-xl border-gray-500"
       initial="initial"
       animate="in"
       exit="out"
@@ -96,14 +96,14 @@ const AppointmentsPage: React.FC = () => {
             onValueChange={setActiveTab}
             className="w-full"
           >
-            <TabsList className="flex mb-6 bg-indigo-100 p-1 rounded-lg shadow-md">
+            <TabsList className="flex mb-6 bg-indigo-100 dark:bg-[#125872]/50 p-1 rounded-lg shadow-md">
               {["upcoming", "scheduled", "history"].map((tab) => (
                 <TabsTrigger
                   key={tab}
                   value={tab}
                   className={cn(
                     "flex-1 px-4 py-2 text-sm font-medium rounded-md transition-all",
-                    "text-indigo-700 hover:bg-indigo-200",
+                    "text-indigo-700 hover:bg-indigo-200 dark:hover: hover:text-white dark:hover:text-black",
                     "data-[state=active]:bg-white data-[state=active]:text-indigo-800 data-[state=active]:shadow-sm",
                   )}
                 >
