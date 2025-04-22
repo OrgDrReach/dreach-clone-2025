@@ -71,7 +71,7 @@ const ProfilePage: React.FC = () => {
   ];
 
   return (
-    <main className="p-4 space-y-6 bg-gray-100 dark:bg-gray-900 min-h-screen">
+    <main className="p-4 space-y-6 bg-gray-100 dark:bg-gray-900 rounded-lg min-h-screen">
       <div className="flex justify-between items-center bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
         <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
           Patient Profile
