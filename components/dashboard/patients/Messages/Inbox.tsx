@@ -42,9 +42,9 @@ const Inbox: React.FC = () => {
   ];
 
   return (
-    <Card className="w-full bg-white shadow-lg rounded-lg overflow-hidden">
+    <Card className="w-full shadow-lg rounded-lg overflow-hidden">
       <CardContent className="p-0">
-        <div className="bg-indigo-600 text-white p-4">
+        <div className="bg-indigo-600 text-white p-4 -mt-6">
           <h2 className="text-2xl font-bold">Inbox</h2>
         </div>
         <ScrollArea className="h-[calc(100vh-12rem)]">
@@ -72,7 +72,7 @@ const Inbox: React.FC = () => {
                 <div className="flex-1">
                   <div className="flex justify-between items-start mb-1">
                     <div>
-                      <p className="font-semibold text-indigo-800">
+                      <p className="font-semibold text-indigo-800 dark:text-indigo-400">
                         {message.sender.name}
                       </p>
                       <p className="text-sm text-indigo-600">
@@ -83,7 +83,7 @@ const Inbox: React.FC = () => {
                       {new Date(message.sentAt).toLocaleString()}
                     </p>
                   </div>
-                  <p className="text-gray-700 line-clamp-2">{message.text}</p>
+                  <p className="text-gray-700 dark:text-gray-400 line-clamp-2">{message.text}</p>
                 </div>
               </div>
             </motion.div>

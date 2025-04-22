@@ -84,9 +84,9 @@ const PrivateMessages: React.FC = () => {
   };
 
   return (
-    <Card className="w-full bg-gradient-to-br from-purple-50 to-pink-50 shadow-lg">
+    <Card className="w-full bg-gradient-to-br from-purple-50 to-pink-50 dark:from-[#00598A] dark:to-gray-700 shadow-lg">
       <CardHeader className="bg-white bg-opacity-70 backdrop-blur-sm">
-        <CardTitle className="text-2xl font-bold text-purple-700">
+        <CardTitle className="text-2xl font-bold text-purple-700 dark:text-white">
           Private Messages
         </CardTitle>
       </CardHeader>

@@ -73,7 +73,7 @@ const MessagesPage: React.FC = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="flex bg-white dark:bg-white/1 overflow-hidden"
+      className="flex overflow-hidden bg-gray-50 dark:bg-gray-900 rounded-lg"
     >
       <nav className="w-64 bg-white dark:bg-gray-950 shadow-lg p-6 space-y-4 rounded-l-lg">
         <h1 className="text-2xl font-bold text-indigo-800 mb-8">Messages</h1>
