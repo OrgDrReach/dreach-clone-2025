@@ -19,7 +19,7 @@ import {
 
 const SupportPage: React.FC = () => {
   return (
-    <div className="container mx-auto p-4 space-y-6">
+    <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-900 p-6 space-y-6 rounded-xl">
       <div className="flex space-x-4 mb-6">
         <Input placeholder="Search for help..." className="flex-grow" />
         <Button>
