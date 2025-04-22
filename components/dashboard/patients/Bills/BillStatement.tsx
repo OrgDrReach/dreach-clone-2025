@@ -44,24 +44,24 @@ const BillStatement: React.FC<BillStatementProps> = ({ items }) => {
             {items.map((item, index) => (
               <TableRow key={index}>
                 <TableCell>{item.description}</TableCell>
-                <TableCell>${item.charges.toFixed(2)}</TableCell>
-                <TableCell>${item.payments.toFixed(2)}</TableCell>
+                <TableCell>₹ {item.charges.toFixed(2)}</TableCell>
+                <TableCell>₹ {item.payments.toFixed(2)}</TableCell>
               </TableRow>
             ))}
             <TableRow>
               <TableCell className="font-bold">Total</TableCell>
               <TableCell className="font-bold">
-                ${totalCharges.toFixed(2)}
+                ₹ {totalCharges.toFixed(2)}
               </TableCell>
               <TableCell className="font-bold">
-                ${totalPayments.toFixed(2)}
+                ₹ {totalPayments.toFixed(2)}
               </TableCell>
             </TableRow>
           </TableBody>
         </Table>
         <div className="mt-4 text-right">
           <p className="text-lg font-bold">
-            Balance Due: ${balanceDue.toFixed(2)}
+            Balance Due: ₹ {balanceDue.toFixed(2)}
           </p>
         </div>
       </CardContent>
