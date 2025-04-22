@@ -21,7 +21,8 @@ const KnowledgeBase: React.FC = () => {
             <Button
               key={index}
               variant="outline"
-              className="w-full justify-start text-black hover:text-black border-white bg-white/20 transition-all duration-300"
+              className="w-full justify-start text-black hover:text-black 
+               border-gray-300 dark:border-gray-600 bg-white/20 transition-all duration-300"
             >
               <a href={article.url} className="text-lg">
                 {article.title}

@@ -6,7 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 
 const SubmitQuestion: React.FC = () => {
   return (
-    <Card>
+    <Card className="border-gray-300 dark:border-gray-600">
       <CardHeader>
         <CardTitle>Submit a Question</CardTitle>
       </CardHeader>

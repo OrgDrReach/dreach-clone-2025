@@ -4,12 +4,12 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 
 const TermsOfService: React.FC = () => {
   return (
-    <Card>
+    <Card  className="border-gray-300 dark:border-gray-600">
       <CardHeader>
         <CardTitle>Terms of Service</CardTitle>
       </CardHeader>
       <CardContent>
-        <ScrollArea className="h-[200px] w-full rounded-md border p-4">
+        <ScrollArea className="h-[200px] w-full rounded-md border p-4 border-gray-300 dark:border-gray-600">
           <h3 className="text-lg font-semibold">1. Acceptance of Terms</h3>
           <p className="mb-4">
             By accessing and using this patient dashboard, you agree to be bound
