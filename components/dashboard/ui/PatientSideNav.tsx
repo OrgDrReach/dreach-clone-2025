@@ -207,7 +207,7 @@ const PatientSideNav = ({
         <SideBarItem
           icon={<BellRing size={20} />}
           text="Notifications"
-          href={`/dashboard/patient/${userId}/notifications`}
+          href={`/dashboard/patient/${userId}/alerts`}
           badge={5}
         />
         <SideBarItem
