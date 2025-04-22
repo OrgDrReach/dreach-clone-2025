@@ -8,8 +8,8 @@ interface StatCardProps {
 const StatCard: React.FC<StatCardProps> = ({ label, value }) => {
   return (
     <div className="flex flex-col items-center">
-      <span className="text-[#089dd4] text-3xl font-bold">{value}</span>
-      <span className="text-gray-500 font-semibold mt-2">{label}</span>
+      <span className="text-[#089dd4] dark:text-[#4dbbe4] text-3xl font-bold">{value}</span>
+      <span className="text-gray-500 dark:text-gray-300 font-semibold mt-2">{label}</span>
     </div>
   );
 };
@@ -24,8 +24,8 @@ const PatientStatistics: React.FC = () => {
 
   return (
     <div className=" flex items-center my-5 justify-center shadow-md">
-      <div className="bg-white rounded-lg shadow p-8 w-full ">
-        <h2 className="text-[#125872] text-2xl font-semibold mb-8">
+      <div className="bg-white dark:bg-slate-800 rounded-lg shadow p-8 w-full ">
+        <h2 className="text-[#125872] dark:text-[#4db7dd] text-2xl font-semibold mb-8">
           Patient Statistics
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
