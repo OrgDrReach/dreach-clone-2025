@@ -202,7 +202,7 @@ const PatientSideNav = ({
         <SideBarItem
           icon={<ReceiptIndianRupee size={20} />}
           text="Billing"
-          href={`/dashboard/patient/${userId}/billing`}
+          href={`/dashboard/patient/${userId}/bills`}
         />
         <SideBarItem
           icon={<BellRing size={20} />}
