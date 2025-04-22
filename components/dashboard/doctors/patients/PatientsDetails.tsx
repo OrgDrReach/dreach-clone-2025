@@ -19,7 +19,7 @@ const patientsData: Patient[][] = [
       gender: "Female",
       phone: "(555) 123-4567",
       lastVisit: "May 15, 2023",
-      profileImage: "https://via.placeholder.com/100",
+      profileImage: "https://randomuser.me/api/portraits/women/1.jpg",
       diseases: ["Asthma"],
     },
     {
@@ -28,7 +28,7 @@ const patientsData: Patient[][] = [
       gender: "Male",
       phone: "(555) 987-6543",
       lastVisit: "June 2, 2023",
-      profileImage: "https://via.placeholder.com/100",
+      profileImage: "https://randomuser.me/api/portraits/men/1.jpg",
       diseases: ["Asthma"],
     },
     {
@@ -37,7 +37,7 @@ const patientsData: Patient[][] = [
       gender: "Female",
       phone: "(555) 246-8135",
       lastVisit: "May 28, 2023",
-      profileImage: "https://via.placeholder.com/100",
+      profileImage: "https://randomuser.me/api/portraits/women/2.jpg",
       diseases: ["Asthma"],
     },
     {
@@ -46,7 +46,7 @@ const patientsData: Patient[][] = [
       gender: "Male",
       phone: "(555) 369-2580",
       lastVisit: "June 10, 2023",
-      profileImage: "https://via.placeholder.com/100",
+      profileImage: "https://randomuser.me/api/portraits/men/2.jpg",
       diseases: ["Asthma"],
     },
     {
@@ -55,7 +55,7 @@ const patientsData: Patient[][] = [
       gender: "Female",
       phone: "(555) 123-4567",
       lastVisit: "May 15, 2023",
-      profileImage: "https://via.placeholder.com/100",
+      profileImage: "https://randomuser.me/api/portraits/women/3.jpg",
       diseases: ["Asthma"],
     },
     {
@@ -64,7 +64,7 @@ const patientsData: Patient[][] = [
       gender: "Male",
       phone: "(555) 987-6543",
       lastVisit: "June 2, 2023",
-      profileImage: "https://via.placeholder.com/100",
+      profileImage: "https://randomuser.me/api/portraits/men/3.jpg",
       diseases: ["Asthma"],
     },
     {
@@ -73,7 +73,7 @@ const patientsData: Patient[][] = [
       gender: "Female",
       phone: "(555) 246-8135",
       lastVisit: "May 28, 2023",
-      profileImage: "https://via.placeholder.com/100",
+      profileImage: "https://randomuser.me/api/portraits/women/4.jpg",
       diseases: ["Asthma"],
     },
     {
@@ -82,7 +82,7 @@ const patientsData: Patient[][] = [
       gender: "Male",
       phone: "(555) 369-2580",
       lastVisit: "June 10, 2023",
-      profileImage: "https://via.placeholder.com/100",
+      profileImage: "https://randomuser.me/api/portraits/men/4.jpg",
       diseases: ["Asthma"],
     },
   ],
@@ -93,7 +93,7 @@ const patientsData: Patient[][] = [
       gender: "Male",
       phone: "(555) 987-6543",
       lastVisit: "June 2, 2023",
-      profileImage: "https://via.placeholder.com/100",
+      profileImage: "https://randomuser.me/api/portraits/men/1.jpg",
       diseases: ["Diabetes", "Hypertension"],
     },
     {
@@ -102,16 +102,16 @@ const patientsData: Patient[][] = [
       gender: "Female",
       phone: "(555) 123-4567",
       lastVisit: "May 15, 2023",
-      profileImage: "https://via.placeholder.com/100",
+      profileImage: "https://randomuser.me/api/portraits/women/1.jpg",
       diseases: ["Diabetes", "Hypertension"],
     },
     {
-      name: "Sarah wjcnjdwn",
+      name: "Sarah Watson",
       age: 35,
       gender: "Female",
       phone: "(555) 123-4567",
       lastVisit: "May 15, 2023",
-      profileImage: "https://via.placeholder.com/100",
+      profileImage: "https://randomuser.me/api/portraits/women/1.jpg",
       diseases: ["Diabetes", "Hypertension"],
     },
     {
@@ -120,7 +120,7 @@ const patientsData: Patient[][] = [
       gender: "Female",
       phone: "(555) 246-8135",
       lastVisit: "May 28, 2023",
-      profileImage: "https://via.placeholder.com/100",
+      profileImage: "https://randomuser.me/api/portraits/women/2.jpg",
       diseases: ["Diabetes", "Hypertension"],
     },
     {
@@ -129,7 +129,7 @@ const patientsData: Patient[][] = [
       gender: "Female",
       phone: "(555) 123-4567",
       lastVisit: "May 15, 2023",
-      profileImage: "https://via.placeholder.com/100",
+      profileImage: "https://randomuser.me/api/portraits/women/1.jpg",
       diseases: ["Diabetes", "Hypertension"],
     },
     {
@@ -138,7 +138,7 @@ const patientsData: Patient[][] = [
       gender: "Male",
       phone: "(555) 987-6543",
       lastVisit: "June 2, 2023",
-      profileImage: "https://via.placeholder.com/100",
+      profileImage: "https://randomuser.me/api/portraits/men/1.jpg",
       diseases: ["Diabetes", "Hypertension"],
     },
     {
@@ -147,7 +147,7 @@ const patientsData: Patient[][] = [
       gender: "Female",
       phone: "(555) 246-8135",
       lastVisit: "May 28, 2023",
-      profileImage: "https://via.placeholder.com/100",
+      profileImage: "https://randomuser.me/api/portraits/women/2.jpg",
       diseases: ["Diabetes", "Hypertension"],
     },
     {
@@ -156,7 +156,7 @@ const patientsData: Patient[][] = [
       gender: "Male",
       phone: "(555) 369-2580",
       lastVisit: "June 10, 2023",
-      profileImage: "https://via.placeholder.com/100",
+      profileImage: "https://randomuser.me/api/portraits/men/2.jpg",
       diseases: ["Diabetes", "Hypertension"],
     },
   ],
@@ -168,7 +168,7 @@ const patientsData: Patient[][] = [
       gender: "Female",
       phone: "(555) 444-5678",
       lastVisit: "July 3, 2023",
-      profileImage: "https://via.placeholder.com/100",
+      profileImage: "https://randomuser.me/api/portraits/women/3.jpg",
       diseases: ["Diabetes", "Hypertension"],
     },
     {
@@ -177,7 +177,7 @@ const patientsData: Patient[][] = [
       gender: "Male",
       phone: "(555) 987-1234",
       lastVisit: "August 5, 2023",
-      profileImage: "https://via.placeholder.com/100",
+      profileImage: "https://randomuser.me/api/portraits/men/3.jpg",
       diseases: ["Diabetes", "Hypertension"],
     },
     {
@@ -186,7 +186,7 @@ const patientsData: Patient[][] = [
       gender: "Female",
       phone: "(555) 234-5678",
       lastVisit: "July 20, 2023",
-      profileImage: "https://via.placeholder.com/100",
+      profileImage: "https://randomuser.me/api/portraits/women/4.jpg",
       diseases: ["Diabetes", "Hypertension"],
     },
     {
@@ -195,7 +195,7 @@ const patientsData: Patient[][] = [
       gender: "Male",
       phone: "(555) 456-7890",
       lastVisit: "August 10, 2023",
-      profileImage: "https://via.placeholder.com/100",
+      profileImage: "https://randomuser.me/api/portraits/men/4.jpg",
       diseases: ["Diabetes", "Hypertension"],
     },
     {
@@ -204,7 +204,7 @@ const patientsData: Patient[][] = [
       gender: "Female",
       phone: "(555) 123-4567",
       lastVisit: "May 15, 2023",
-      profileImage: "https://via.placeholder.com/100",
+      profileImage: "https://randomuser.me/api/portraits/women/1.jpg",
       diseases: ["Diabetes", "Hypertension"],
     },
     {
@@ -213,7 +213,7 @@ const patientsData: Patient[][] = [
       gender: "Male",
       phone: "(555) 987-6543",
       lastVisit: "June 2, 2023",
-      profileImage: "https://via.placeholder.com/100",
+      profileImage: "https://randomuser.me/api/portraits/men/1.jpg",
       diseases: ["Diabetes", "Hypertension"],
     },
     {
@@ -222,7 +222,7 @@ const patientsData: Patient[][] = [
       gender: "Female",
       phone: "(555) 246-8135",
       lastVisit: "May 28, 2023",
-      profileImage: "https://via.placeholder.com/100",
+      profileImage: "https://randomuser.me/api/portraits/women/2.jpg",
       diseases: ["Diabetes", "Hypertension"],
     },
     {
@@ -231,7 +231,7 @@ const patientsData: Patient[][] = [
       gender: "Male",
       phone: "(555) 369-2580",
       lastVisit: "June 10, 2023",
-      profileImage: "https://via.placeholder.com/100",
+      profileImage: "https://randomuser.me/api/portraits/men/2.jpg",
       diseases: ["Diabetes", "Hypertension"],
     },
   ],
@@ -241,17 +241,17 @@ const PatientCard: React.FC<{
   patient: Patient;
   onViewProfile: () => void;
 }> = ({ patient, onViewProfile }) => (
-  <div className="bg-white p-4 rounded-lg shadow-md flex flex-col items-center text-center">
+  <div className="bg-white dark:bg-slate-900 p-4 rounded-lg shadow-md flex flex-col items-center text-center">
     <img
       src={patient.profileImage}
       alt={patient.name}
       className="rounded-full border-[#3ebdec] border-2 mb-4"
     />
-    <h3 className="text-gray-700 font-semibold mb-2 text-lg">{patient.name}</h3>
-    <p className="text-gray-600 text-sm">
+    <h3 className="text-gray-700 dark:text-gray-300 font-semibold mb-2 text-lg">{patient.name}</h3>
+    <p className="text-gray-600 dark:text-gray-300 text-sm">
       <span className="font-semibold text-sky-500">Phone:</span> {patient.phone}
     </p>
-    <p className="text-gray-600 mt-1 text-sm">
+    <p className="text-gray-600 dark:text-gray-300 mt-1 text-sm">
       <span className="font-semibold text-sky-500">Last Visit:</span>{" "}
       {patient.lastVisit}
     </p>
@@ -277,7 +277,7 @@ const Pagination: React.FC<{
       {[...Array(totalPages)].map((_, i) => (
         <button
           key={i}
-          className={`mx-1 px-4 py-2 rounded ${page === i + 1 ? "bg-[#0db2ef] text-white" : "bg-white text-[#0db2ef] border border-[#0db2ef]"}`}
+          className={`mx-1 px-4 py-2 rounded ${page === i + 1 ? "bg-[#0db2ef] text-white" : "bg-white dark:bg-slate-900 text-[#0db2ef] border border-[#0db2ef]"}`}
           onClick={() => setPage(i + 1)}
         >
           {i + 1}
@@ -305,7 +305,7 @@ const PatientsList: React.FC = () => {
   return (
     <div className=" py-4">
       <div className="container mx-auto">
-        <h2 className="text-gray-700 text-2xl font-bold mb-6">Patients</h2>
+        <h2 className="text-gray-700 dark:text-[#0db2ef] text-2xl font-bold mb-6">Patients</h2>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {patientsData[page - 1]?.map((patient, index) => (
             <PatientCard
