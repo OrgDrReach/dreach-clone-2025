@@ -73,9 +73,9 @@ const MessagesPage: React.FC = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="flex h-[95vh] bg-gradient-to-br from-blue-50 to-indigo-100"
+      className="flex bg-white dark:bg-white/1 overflow-hidden"
     >
-      <nav className="w-64 bg-white shadow-lg p-6 space-y-4">
+      <nav className="w-64 bg-white dark:bg-gray-950 shadow-lg p-6 space-y-4 rounded-l-lg">
         <h1 className="text-2xl font-bold text-indigo-800 mb-8">Messages</h1>
         {[
           { name: "inbox", icon: Mail },
@@ -90,7 +90,7 @@ const MessagesPage: React.FC = () => {
             variant={activeComponent === name ? "default" : "ghost"}
             className={`w-full justify-start ${
               activeComponent === name
-                ? "bg-sky-800 text-white hover:bg-sky-700"
+                ? "bg-sky-800 text-white hover:bg-sky-700 dark:bg-gray-800"
                 : ""
             }`}
             onClick={() => setActiveComponent(name)}

@@ -42,9 +42,9 @@ const MedicationPlans: React.FC<MedicationPlansProps> = ({ plans }) => {
   };
 
   return (
-    <Card className="w-full bg-gradient-to-br from-teal-50 to-cyan-50 shadow-lg overflow-hidden">
+    <Card className="w-full bg-gradient-to-br from-teal-50 to-cyan-50 dark:from-[#00598A] dark:to-gray-700 shadow-lg overflow-hidden">
       <CardHeader className="bg-white bg-opacity-70 backdrop-blur-sm">
-        <CardTitle className="text-2xl font-bold text-teal-700 flex items-center">
+        <CardTitle className="text-2xl font-bold text-teal-700 dark:text-teal-500 flex items-center">
           <Pill className="mr-2 h-6 w-6" />
           Medication Plans
         </CardTitle>
