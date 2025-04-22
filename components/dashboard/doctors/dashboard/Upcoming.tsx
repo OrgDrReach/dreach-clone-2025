@@ -15,7 +15,7 @@ const AppointmentCard: React.FC<Appointment> = ({
     <div className="flex justify-between rounded-xl items-center p-4 border-b border-gray-200">
       <div>
         <h4 className="text-[#089dd4] font-semibold">{name}</h4>
-        <p className="text-gray-600">
+        <p className="text-gray-600 dark:text-gray-300">
           {time} - {description}
         </p>
       </div>
@@ -38,9 +38,9 @@ const UpcomingAppointments: React.FC = () => {
   ];
 
   return (
-    <div className=" bg-gray-100 flex items-center rounded-xl shadow-md justify-center">
-      <div className="bg-white rounded-lg shadow p-8 w-full ">
-        <h2 className=" text-[#125872] text-2xl font-semibold mb-6">
+    <div className=" bg-gray-100 dark:bg-gray-800 flex items-center rounded-xl shadow-md justify-center">
+      <div className=" rounded-lg shadow p-8 w-full ">
+        <h2 className=" text-[#125872] dark:text-[#4db7dd] text-2xl font-semibold mb-6">
           Upcoming Appointments
         </h2>
         <div>
