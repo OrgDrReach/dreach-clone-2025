@@ -14,7 +14,7 @@ const ConsentManagement: React.FC = () => {
 
   return (
     <Card className="overflow-hidden shadow-lg">
-      <CardHeader className="bg-gradient-to-r from-[#125872] to-[#0e465a] text-secondary-foreground p-6">
+      <CardHeader className="bg-gradient-to-r from-[#125872] to-[#0e465a] text-secondary-foreground p-6 -mt-6">
         <CardTitle className="text-2xl text-white font-bold">
           Consent Management
         </CardTitle>

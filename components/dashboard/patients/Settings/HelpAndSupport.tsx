@@ -6,7 +6,7 @@ import { HelpCircle, MessageCircle, FileQuestion } from "lucide-react";
 const HelpAndSupport: React.FC = () => {
   return (
     <Card className="overflow-hidden">
-      <CardHeader className="bg-[#125872] text-secondary-foreground">
+      <CardHeader className="bg-[#125872] text-secondary-foreground p-4 -mt-6">
         <CardTitle className="text-2xl text-white font-bold">
           Help and Support
         </CardTitle>

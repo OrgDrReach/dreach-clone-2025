@@ -12,7 +12,7 @@ import { Label } from "@/components/ui/label";
 const LanguageSettings: React.FC = () => {
   return (
     <Card className="overflow-hidden">
-      <CardHeader className="bg-[#125872] text-accent-foreground">
+      <CardHeader className="bg-[#125872] text-accent-foreground p-4 -mt-6">
         <CardTitle className="text-2xl text-white font-bold">
           Language Settings
         </CardTitle>
@@ -28,10 +28,9 @@ const LanguageSettings: React.FC = () => {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="en">English</SelectItem>
-              <SelectItem value="es">Español</SelectItem>
-              <SelectItem value="fr">Français</SelectItem>
-              <SelectItem value="de">Deutsch</SelectItem>
-              <SelectItem value="it">Italiano</SelectItem>
+              <SelectItem value="hi">Hindi</SelectItem>
+              <SelectItem value="or">Odia</SelectItem>
+              <SelectItem value="ban">Bangla</SelectItem>
             </SelectContent>
           </Select>
         </div>
