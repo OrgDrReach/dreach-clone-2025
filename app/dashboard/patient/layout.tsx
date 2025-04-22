@@ -60,7 +60,7 @@ const Layout: React.FC<RNChildProp> = ({ children }: RNChildProp) => {
 									animate={{ opacity: 1, y: 0 }}
 									exit={{ opacity: 0, y: -20 }}
 									// transition={{ duration: 0.2 }}
-								>
+									className={`container mx-auto`}>
 									{children}
 								</motion.div>
 							</AnimatePresence>
