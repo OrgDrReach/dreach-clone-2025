@@ -64,9 +64,9 @@ const DietaryPlans: React.FC<DietaryPlansProps> = ({ plans }) => {
   };
 
   return (
-    <Card className="w-full bg-gradient-to-br from-green-50 to-teal-50 shadow-lg overflow-hidden">
+    <Card className="w-full bg-gradient-to-br from-green-50 to-teal-50 dark:from-[#00598A] dark:to-gray-700  shadow-lg overflow-hidden">
       <CardHeader className="bg-white bg-opacity-70 backdrop-blur-sm">
-        <CardTitle className="text-2xl font-bold text-green-700 flex items-center">
+        <CardTitle className="text-2xl font-bold text-green-700 dark:text-green-400 flex items-center">
           <Utensils className="mr-2 h-6 w-6" />
           Dietary Plans
         </CardTitle>
@@ -127,7 +127,7 @@ const DietaryPlans: React.FC<DietaryPlansProps> = ({ plans }) => {
                             exit={{ opacity: 0, height: 0 }}
                             transition={{ duration: 0.3 }}
                           >
-                            <div className="p-4 bg-white bg-opacity-50 rounded-md">
+                            <div className="p-4 bg-white bg-gradient-to-r dark:from-[#00598A] dark:to-gray-700  bg-opacity-50 rounded-md">
                               <h4 className="font-semibold mb-2">Goals:</h4>
                               <ul className="list-disc list-inside mb-4">
                                 {plan.goals.map((goal, index) => (

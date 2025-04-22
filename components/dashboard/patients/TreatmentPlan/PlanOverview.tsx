@@ -49,16 +49,16 @@ const PlanOverview: React.FC<PlanOverviewProps> = ({
 
   const getProgressColor = (progress: number) => {
     if (progress >= 80) return "bg-green-500";
-    if (progress >= 50) return "bg-yellow-500";
+    if (progress >= 50) return "bg-yellow-500 dark:bg-yellow-600";
     return "bg-red-500";
   };
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <Card className="w-full bg-gradient-to-br from-green-50 to-green-50 shadow-lg overflow-hidden">
+      <Card className="w-full bg-gradient-to-br from-green-50 to-green-50 dark:from-[#00598A] dark:to-gray-700 shadow-lg overflow-hidden">
         <CardHeader className="bg-white bg-opacity-70 backdrop-blur-sm">
           <div className="flex justify-between items-center">
-            <CardTitle className="text-2xl font-bold text-green-700 flex items-center">
+            <CardTitle className="text-2xl font-bold text-green-700 dark:text-green-500 flex items-center">
               <Target className="mr-2 h-6 w-6" />
               Treatment Goals
             </CardTitle>
@@ -81,7 +81,7 @@ const PlanOverview: React.FC<PlanOverviewProps> = ({
                     setExpandedGoal(expandedGoal === goal.id ? null : goal.id)
                   }
                 >
-                  <span className="font-medium text-gray-700">
+                  <span className="font-medium text-gray-700 dark:text-gray-200">
                     {goal.description}
                   </span>
                   {expandedGoal === goal.id ? (
@@ -106,7 +106,7 @@ const PlanOverview: React.FC<PlanOverviewProps> = ({
                         value={goal.progress}
                         className={`h-2 ${getProgressColor(goal.progress)}`}
                       />
-                      <p className="text-sm text-gray-600 mt-1">
+                      <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
                         {goal.progress}% Complete
                       </p>
                     </motion.div>
@@ -119,9 +119,9 @@ const PlanOverview: React.FC<PlanOverviewProps> = ({
         </CardContent>
       </Card>
 
-      <Card className="w-full bg-gradient-to-br from-indigo-50 to-indigo-50 shadow-lg overflow-hidden">
+      <Card className="w-full bg-gradient-to-br from-indigo-50 to-indigo-50 dark:from-[#00598A] dark:to-gray-700 shadow-lg overflow-hidden">
         <CardHeader className="bg-white bg-opacity-70 backdrop-blur-sm">
-          <CardTitle className="text-2xl font-bold text-indigo-700 flex items-center">
+          <CardTitle className="text-2xl font-bold text-indigo-700 dark:text-indigo-200 flex items-center">
             <CheckCircle className="mr-2 h-6 w-6" />
             Expected Outcomes
           </CardTitle>
@@ -136,10 +136,10 @@ const PlanOverview: React.FC<PlanOverviewProps> = ({
                 transition={{ duration: 0.3, delay: index * 0.1 }}
                 className="mb-4 last:mb-0"
               >
-                <p className="font-medium text-gray-700 mb-1">
+                <p className="font-medium text-gray-700 dark:text-gray-200 mb-1">
                   {outcome.description}
                 </p>
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-gray-500 dark:text-gray-300">
                   Timeline: {outcome.timeline}
                 </p>
                 <Separator className="my-2" />
