@@ -8,7 +8,7 @@ import { Shield, Key, Lock } from "lucide-react";
 const SecuritySettings: React.FC = () => {
   return (
     <Card className="overflow-hidden">
-      <CardHeader className="bg-[#125872] text-secondary-foreground">
+      <CardHeader className="bg-[#125872] text-secondary-foreground p-4 -mt-6">
         <CardTitle className="text-2xl text-white font-bold flex items-center">
           <Shield className="mr-2" /> Security Settings
         </CardTitle>

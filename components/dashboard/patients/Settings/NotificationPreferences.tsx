@@ -13,7 +13,7 @@ import {
 const NotificationPreferences: React.FC = () => {
   return (
     <Card className="overflow-hidden">
-      <CardHeader className="bg-[#125872] text-primary-foreground">
+      <CardHeader className="bg-[#125872] text-primary-foreground p-4 -mt-6">
         <CardTitle className="text-2xl text-white font-bold">
           Notification Preferences
         </CardTitle>

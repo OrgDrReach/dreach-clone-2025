@@ -14,27 +14,12 @@ import { Moon, Sun, Bell, MapPin } from "lucide-react";
 const DeviceSettings: React.FC = () => {
   return (
     <Card className="overflow-hidden shadow-lg">
-      <CardHeader className="bg-gradient-to-r from-[#125872] to-[#0e465a] text-primary-foreground p-6">
+      <CardHeader className="bg-gradient-to-r from-[#125872] to-[#0e465a] text-primary-foreground p-6 -mt-6">
         <CardTitle className="text-2xl font-bold text-white">
           Device Settings
         </CardTitle>
       </CardHeader>
       <CardContent className="p-6 space-y-6">
-        <div className="space-y-2">
-          <Label htmlFor="theme" className="text-lg flex items-center">
-            <Sun className="mr-2 h-5 w-5" /> Theme
-          </Label>
-          <Select>
-            <SelectTrigger id="theme" className="w-full">
-              <SelectValue placeholder="Select theme" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="light">Light</SelectItem>
-              <SelectItem value="dark">Dark</SelectItem>
-              <SelectItem value="system">System</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
         {[
           { label: "Push Notifications", icon: Bell },
           { label: "Location Services", icon: MapPin },

@@ -5,7 +5,6 @@ import {
   AccountSettings,
   NotificationPreferences,
   LanguageSettings,
-  TimeZoneSettings,
   SecuritySettings,
   DataSharingPreferences,
   ConsentManagement,
@@ -15,7 +14,7 @@ import {
 
 const SettingsPage: React.FC = () => {
   return (
-    <div className="container mx-auto p-4 space-y-6">
+    <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-900 p-4 rounded-xl space-y-6">
       <Tabs defaultValue="account" className="w-full">
         <TabsList className="grid w-full bg-[#125872] text-white grid-cols-3 lg:grid-cols-5 mb-6">
           <TabsTrigger value="account">Account</TabsTrigger>
@@ -28,7 +27,6 @@ const SettingsPage: React.FC = () => {
         <TabsContent value="account" className="space-y-4">
           <AccountSettings />
           <LanguageSettings />
-          <TimeZoneSettings />
         </TabsContent>
 
         <TabsContent value="notifications">
@@ -49,12 +47,6 @@ const SettingsPage: React.FC = () => {
           <HelpAndSupport />
         </TabsContent>
       </Tabs>
-
-      <div className="mt-8 text-center">
-        <Button variant="destructive" size="lg">
-          Log Out
-        </Button>
-      </div>
     </div>
   );
 };
