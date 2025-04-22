@@ -52,7 +52,7 @@ const Layout: React.FC<RNChildProp> = ({ children }: RNChildProp) => {
 
 					{/* Main Content Area */}
 					<ScrollArea className="flex-1 h-[calc(100vh-4rem)] bg-[#497585]">
-						<div className="p-6">
+						<div className="container mx-auto p-6">
 							<AnimatePresence mode="wait">
 								<motion.div
 									key={pathname}
@@ -60,7 +60,7 @@ const Layout: React.FC<RNChildProp> = ({ children }: RNChildProp) => {
 									animate={{ opacity: 1, y: 0 }}
 									exit={{ opacity: 0, y: -20 }}
 									// transition={{ duration: 0.2 }}
-									className={`container mx-auto`}>
+									className={``}>
 									{children}
 								</motion.div>
 							</AnimatePresence>
