@@ -100,7 +100,7 @@ const MessagesPage: React.FC = () => {
           </Button>
         ))}
       </nav>
-      <main className="flex-1 p-8 overflow-auto">{renderComponent()}</main>
+      <main className="flex-1 p-2 overflow-auto">{renderComponent()}</main>
     </motion.div>
   );
 };
