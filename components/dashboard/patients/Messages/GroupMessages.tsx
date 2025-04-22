@@ -96,15 +96,15 @@ const GroupMessages: React.FC = () => {
   };
 
   return (
-    <Card className="w-full bg-gradient-to-br from-green-50 to-teal-50 shadow-lg">
+    <Card className="w-full bg-gradient-to-br from-green-50 to-teal-50 dark:from-[#00598A] dark:to-gray-700  shadow-lg">
       <CardHeader className="bg-white bg-opacity-70 backdrop-blur-sm">
-        <CardTitle className="text-2xl font-bold text-green-700">
+        <CardTitle className="text-2xl font-bold text-green-700 dark:text-green-400">
           Group Messages
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
-        <div className="space-y-2 bg-white bg-opacity-50 p-4 rounded-md">
-          <Label className="text-lg font-semibold text-green-700">
+        <div className="space-y-2 bg-white bg-gradient-to-br dark:from-slate-700 dark:to-slate-900 bg-opacity-50 p-4 rounded-md">
+          <Label className="text-lg font-semibold text-green-700 dark:text-green-400">
             Select Providers
           </Label>
           {providers.map((provider) => (
