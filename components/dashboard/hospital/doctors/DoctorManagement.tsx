@@ -11,24 +11,33 @@ import { QualificationVerification } from "./QualificationVerification";
 
 export const DoctorManagement: React.FC = () => {
 	return (
-		<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-			<div className="lg:col-span-2">
-				<DoctorsList />
+		<div className="space-y-6">
+			{/* Top row - Quick overview */}
+			<div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+				<div className="lg:col-span-2">
+					<DoctorsList />
+				</div>
+				<div>
+					<SpecialtyDistribution />
+				</div>
 			</div>
-			<div className="space-y-6">
+
+			{/* Second row - Schedules and Assignments */}
+			<div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 				<DoctorSchedules />
-				<SpecialtyDistribution />
-			</div>
-			<div className="lg:col-span-2">
-				<PerformanceMetrics />
-			</div>
-			<div>
-				<OnCallRotation />
-			</div>
-			<div>
 				<DepartmentAssignments />
 			</div>
-			<div className="lg:col-span-3">
+
+			{/* Third row - Performance and On-Call */}
+			<div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+				<div className="lg:col-span-2">
+					<PerformanceMetrics />
+				</div>
+				<OnCallRotation />
+			</div>
+
+			{/* Bottom row - Verification */}
+			<div className="grid grid-cols-1 gap-6">
 				<QualificationVerification />
 			</div>
 		</div>
