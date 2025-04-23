@@ -87,7 +87,8 @@ export const QualificationVerification: React.FC = () => {
 
 	const handleVerify = async (id: string, action: "verify" | "reject") => {
 		// Implement verification logic
-		console.log(`${action} qualification ${id}`);
+		// Replace with a proper logging framework or remove for production
+		// Example: logger.info(`${action} qualification ${id}`);
 		setIsDialogOpen(false);
 	};
 
