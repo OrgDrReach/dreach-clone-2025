@@ -3,14 +3,14 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import QuickOverview from "@/components/dashboard/patients/MedicalRecords/QuickOverview";
-import LabResults from "@/components/dashboard/patients/MedicalRecords/LabResults";
-import ImagingResults from "@/components/dashboard/patients/MedicalRecords/ImagingResults";
-import MedicalHistories from "@/components/dashboard/patients/MedicalRecords/MedicalHistories";
-import MedicationList from "@/components/dashboard/patients/MedicalRecords/MedicationList";
-import AllergyList from "@/components/dashboard/patients/MedicalRecords/AllergyList";
-import MedicalReports from "@/components/dashboard/patients/MedicalRecords/MedicalReports";
-import MedicalImages from "@/components/dashboard/patients/MedicalRecords/MedicalImages";
+import QuickOverview from "@/components/dashboard/patient/MedicalRecords/QuickOverview";
+import LabResults from "@/components/dashboard/patient/MedicalRecords/LabResults";
+import ImagingResults from "@/components/dashboard/patient/MedicalRecords/ImagingResults";
+import MedicalHistories from "@/components/dashboard/patient/MedicalRecords/MedicalHistories";
+import MedicationList from "@/components/dashboard/patient/MedicalRecords/MedicationList";
+import AllergyList from "@/components/dashboard/patient/MedicalRecords/AllergyList";
+import MedicalReports from "@/components/dashboard/patient/MedicalRecords/MedicalReports";
+import MedicalImages from "@/components/dashboard/patient/MedicalRecords/MedicalImages";
 
 // Update the Medication type
 type Medication = {

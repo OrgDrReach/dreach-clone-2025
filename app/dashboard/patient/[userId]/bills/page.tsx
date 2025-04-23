@@ -6,17 +6,17 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Bell } from "lucide-react";
-import QuickBillOverview from "@/components/dashboard/patients/Bills/QuickBillOverview";
-import BillStatement from "@/components/dashboard/patients/Bills/BillStatement";
-import PaymentHistory from "@/components/dashboard/patients/Bills/PaymentHistory";
-import PendingBills from "@/components/dashboard/patients/Bills/PendingBills";
-import PaymentOptions from "@/components/dashboard/patients/Bills/PaymentOptions";
-import BillStatus from "@/components/dashboard/patients/Bills/BillStatus";
-import PaymentScheduling from "@/components/dashboard/patients/Bills/PaymentScheduling";
-import InsuranceInformation from "@/components/dashboard/patients/Bills/InsuranceInformation";
-import RefundPolicy from "@/components/dashboard/patients/Bills/RefundPolicy";
-import ContactInformation from "@/components/dashboard/patients/Bills/ContactInformation";
-import PaymentNotification from "@/components/dashboard/patients/Bills/PaymentNotification";
+import QuickBillOverview from "@/components/dashboard/patient/Bills/QuickBillOverview";
+import BillStatement from "@/components/dashboard/patient/Bills/BillStatement";
+import PaymentHistory from "@/components/dashboard/patient/Bills/PaymentHistory";
+import PendingBills from "@/components/dashboard/patient/Bills/PendingBills";
+import PaymentOptions from "@/components/dashboard/patient/Bills/PaymentOptions";
+import BillStatus from "@/components/dashboard/patient/Bills/BillStatus";
+import PaymentScheduling from "@/components/dashboard/patient/Bills/PaymentScheduling";
+import InsuranceInformation from "@/components/dashboard/patient/Bills/InsuranceInformation";
+import RefundPolicy from "@/components/dashboard/patient/Bills/RefundPolicy";
+import ContactInformation from "@/components/dashboard/patient/Bills/ContactInformation";
+import PaymentNotification from "@/components/dashboard/patient/Bills/PaymentNotification";
 import { useParams } from "next/navigation";
 
 const BillsPage: React.FC = () => {

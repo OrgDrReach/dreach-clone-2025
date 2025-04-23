@@ -1,13 +1,13 @@
 "use client";
 
 import React, { useState } from "react";
-import PlanOverview from "@/components/dashboard/patients/TreatmentPlan/PlanOverview";
-import MedicationPlans from "@/components/dashboard/patients/TreatmentPlan/MedicationPlans";
-import TherapyPlans from "@/components/dashboard/patients/TreatmentPlan/TherapyPlans";
-import DietaryPlans from "@/components/dashboard/patients/TreatmentPlan/DietaryPlans";
-import ExercisePlans from "@/components/dashboard/patients/TreatmentPlan/ExercisePlans";
-import MentalHealthPlans from "@/components/dashboard/patients/TreatmentPlan/MentalHealthPlans";
-import ProgressTracking from "@/components/dashboard/patients/TreatmentPlan/ProgressTracking";
+import PlanOverview from "@/components/dashboard/patient/TreatmentPlan/PlanOverview";
+import MedicationPlans from "@/components/dashboard/patient/TreatmentPlan/MedicationPlans";
+import TherapyPlans from "@/components/dashboard/patient/TreatmentPlan/TherapyPlans";
+import DietaryPlans from "@/components/dashboard/patient/TreatmentPlan/DietaryPlans";
+import ExercisePlans from "@/components/dashboard/patient/TreatmentPlan/ExercisePlans";
+import MentalHealthPlans from "@/components/dashboard/patient/TreatmentPlan/MentalHealthPlans";
+import ProgressTracking from "@/components/dashboard/patient/TreatmentPlan/ProgressTracking";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
@@ -431,29 +431,43 @@ const TreatmentPlanPage: React.FC = () => {
 
 			<Tabs value={activeTab} onValueChange={setActiveTab} className="w-full ">
 				<TabsList className="grid grid-cols-3 lg:grid-cols-7 gap-2 mb-6 text-white bg-sky-400 dark:bg-sky-800">
-					<TabsTrigger value="overview" className={`text-white data-[state=active]:text-black`}>
+					<TabsTrigger
+						value="overview"
+						className={`text-white data-[state=active]:text-black`}>
 						Overview
 					</TabsTrigger>
-					<TabsTrigger value="progress" className={`text-white data-[state=active]:text-black`}>
+					<TabsTrigger
+						value="progress"
+						className={`text-white data-[state=active]:text-black`}>
 						Progress
 					</TabsTrigger>
-					<TabsTrigger value="medications" className={`text-white data-[state=active]:text-black`}>
+					<TabsTrigger
+						value="medications"
+						className={`text-white data-[state=active]:text-black`}>
 						<Pill className="mr-2" />
 						Medications
 					</TabsTrigger>
-					<TabsTrigger value="therapy" className={`text-white data-[state=active]:text-black`}>
+					<TabsTrigger
+						value="therapy"
+						className={`text-white data-[state=active]:text-black`}>
 						<Activity className="mr-2" />
 						Therapy
 					</TabsTrigger>
-					<TabsTrigger value="diet" className={`text-white data-[state=active]:text-black`}>
+					<TabsTrigger
+						value="diet"
+						className={`text-white data-[state=active]:text-black`}>
 						<Utensils className="mr-2" />
 						Diet
 					</TabsTrigger>
-					<TabsTrigger value="exercise" className={`text-white data-[state=active]:text-black`}>
+					<TabsTrigger
+						value="exercise"
+						className={`text-white data-[state=active]:text-black`}>
 						<Dumbbell className="mr-2" />
 						Exercise
 					</TabsTrigger>
-					<TabsTrigger value="mentalHealth" className={`text-white data-[state=active]:text-black`}>
+					<TabsTrigger
+						value="mentalHealth"
+						className={`text-white data-[state=active]:text-black`}>
 						<Brain className="mr-2" />
 						Mental Health
 					</TabsTrigger>

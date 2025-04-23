@@ -3,17 +3,17 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import QuickAlertOverview from "@/components/dashboard/patients/Alert/QuickAlertOverview";
-import NewNotifications from "@/components/dashboard/patients/Alert/NewNotifications";
-import ScheduledReminders from "@/components/dashboard/patients/Alert/ScheduledReminders";
-import PastNotifications from "@/components/dashboard/patients/Alert/PastNotifications";
-import Alerts from "@/components/dashboard/patients/Alert/Alerts";
-import NotificationPreferences from "@/components/dashboard/patients/Alert/NotificationPreferences";
-import NotificationHistory from "@/components/dashboard/patients/Alert/NotificationHistory";
-import AlertStatus from "@/components/dashboard/patients/Alert/AlertStatus";
-import CustomNotification from "@/components/dashboard/patients/Alert/CustomNotification";
-import NotificationArchive from "@/components/dashboard/patients/Alert/NotificationArchive";
-import AlertSettings from "@/components/dashboard/patients/Alert/AlertSettings";
+import QuickAlertOverview from "@/components/dashboard/patient/Alert/QuickAlertOverview";
+import NewNotifications from "@/components/dashboard/patient/Alert/NewNotifications";
+import ScheduledReminders from "@/components/dashboard/patient/Alert/ScheduledReminders";
+import PastNotifications from "@/components/dashboard/patient/Alert/PastNotifications";
+import Alerts from "@/components/dashboard/patient/Alert/Alerts";
+import NotificationPreferences from "@/components/dashboard/patient/Alert/NotificationPreferences";
+import NotificationHistory from "@/components/dashboard/patient/Alert/NotificationHistory";
+import AlertStatus from "@/components/dashboard/patient/Alert/AlertStatus";
+import CustomNotification from "@/components/dashboard/patient/Alert/CustomNotification";
+import NotificationArchive from "@/components/dashboard/patient/Alert/NotificationArchive";
+import AlertSettings from "@/components/dashboard/patient/Alert/AlertSettings";
 
 const AlertsPage: React.FC = () => {
 	const [activeTab, setActiveTab] = useState("new");

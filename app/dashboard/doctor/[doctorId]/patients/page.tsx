@@ -1,5 +1,5 @@
-import UpcomingAppointments from "@/components/dashboard/doctors/dashboard/Upcoming";
-import PatientsList from "@/components/dashboard/doctors/patients/PatientsDetails";
+import UpcomingAppointments from "@/components/dashboard/doctor/dashboard/Upcoming";
+import PatientsList from "@/components/dashboard/doctor/patients/PatientsDetails";
 import React from "react";
 
 const Patients: React.FC = () => {
