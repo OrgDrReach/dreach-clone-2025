@@ -77,11 +77,11 @@ const PrescriptionList = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="bg-white  rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
+              className="bg-white dark:bg-slate-800 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
             >
               <div className="p-4">
-                <h3 className="text-lg font-semibold text-[#125872] mb-2">{prescription.name}</h3>
-                <div className="space-y-2 text-sm text-gray-600">
+                <h3 className="text-lg font-semibold text-[#125872] dark:text-[#62c3e6] mb-2">{prescription.name}</h3>
+                <div className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
                   <p><span className="font-medium">Dosage:</span> {prescription.dosage}</p>
                   <p><span className="font-medium">Frequency:</span> {prescription.frequency}</p>
                   {prescription.disease && (
