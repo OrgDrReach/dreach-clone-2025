@@ -69,13 +69,13 @@ const SupportRequestForm = () => {
   };
 
   return (
-    <div className="bg-white shadow-md rounded-lg p-8 my-5 mx-auto">
-      <h2 className="text-2xl font-semibold text-[#125872] mb-6">
+    <div className="bg-[#ffffff] dark:bg-slate-800 shadow-md rounded-lg p-8 my-5 mx-auto">
+      <h2 className="text-2xl font-semibold text-[#125872] dark:text-[#4db7dd] mb-6">
         Submit a Support Request
       </h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block text-gray-700 mb-1" htmlFor="name">
+          <label className="block dark:text-gray-300 text-gray-800  mb-1" htmlFor="name">
             Name
           </label>
           <input
@@ -85,7 +85,7 @@ const SupportRequestForm = () => {
             value={formData.name}
             onChange={handleInputChange}
             className={`w-full px-3 py-2 border ${
-              errors.name ? "border-red-500" : "border-gray-300"
+              errors.name ? "border-red-500" : "border-gray-500"
             } rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600`}
             placeholder="Your Name"
           />
@@ -95,7 +95,7 @@ const SupportRequestForm = () => {
         </div>
 
         <div>
-          <label className="block text-gray-700 mb-1" htmlFor="email">
+          <label className="block dark:text-gray-300 text-gray-800  mb-1" htmlFor="email">
             Email
           </label>
           <input
@@ -105,7 +105,7 @@ const SupportRequestForm = () => {
             value={formData.email}
             onChange={handleInputChange}
             className={`w-full px-3 py-2 border ${
-              errors.email ? "border-red-500" : "border-gray-300"
+              errors.email ? "border-red-500" : "border-gray-500"
             } rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600`}
             placeholder="Your Email"
           />
@@ -115,7 +115,7 @@ const SupportRequestForm = () => {
         </div>
 
         <div>
-          <label className="block text-gray-700 mb-1" htmlFor="message">
+          <label className="block dark:text-gray-300 text-gray-800 mb-1" htmlFor="message">
             Message
           </label>
           <textarea
@@ -124,7 +124,7 @@ const SupportRequestForm = () => {
             value={formData.message}
             onChange={handleInputChange}
             className={`w-full px-3 py-2 border ${
-              errors.message ? "border-red-500" : "border-gray-300"
+              errors.message ? "border-red-500" : "border-gray-500"
             } rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600`}
             placeholder="Describe your issue or feedback"
             rows={4}
@@ -135,7 +135,7 @@ const SupportRequestForm = () => {
         </div>
 
         <div>
-          <label className="block text-gray-700 mb-1" htmlFor="attachment">
+          <label className="block dark:text-gray-300 text-gray-800  mb-1" htmlFor="attachment">
             Attachment
           </label>
           <input
@@ -143,7 +143,7 @@ const SupportRequestForm = () => {
             id="attachment"
             name="attachment"
             onChange={handleFileChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
+            className="w-full px-3 py-2 border border-gray-500 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
           />
         </div>
 

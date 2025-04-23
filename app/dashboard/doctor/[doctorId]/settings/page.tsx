@@ -1,5 +1,6 @@
 import React from "react";
 
+
 const ResetPassword = () => {
   return (
     <div className="bg-white shadow-md rounded-lg p-6 mb-8">

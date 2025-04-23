@@ -15,13 +15,13 @@ const statuses: Status[] = [
 
 const SupportStatus: React.FC = () => {
   return (
-    <div className="bg-white p-6 rounded-lg shadow-lg text-center">
-      <h2 className="text-2xl font-semibold text-[#125872] text-start mb-8">
+    <div className="bg-[#ffffff] dark:bg-slate-800 p-6 rounded-lg shadow-lg text-center">
+      <h2 className="text-2xl font-semibold text-[#125872] dark:text-[#4db7dd] text-start mb-8">
         Support Status
       </h2>
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {statuses.map((status, index) => (
-          <div key={index} className="p-4 border rounded-lg">
+          <div key={index} className="p-4 border-2 border-gray-300 dark:border-gray-600 rounded-lg">
             <h3 className="text-xl font-semibold mb-2">{status.label}</h3>
             <p className={`text-3xl font-bold ${status.color}`}>
               {status.value}
