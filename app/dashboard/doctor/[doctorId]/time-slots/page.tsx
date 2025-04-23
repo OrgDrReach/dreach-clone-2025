@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react';
 import TimeSlotHeader from '@/components/dashboard/doctors/time-slots/TimeSlotHeader';
 import TimeSlotCalendar from '@/components/dashboard/doctors/time-slots/TimeSlotCalendar';
