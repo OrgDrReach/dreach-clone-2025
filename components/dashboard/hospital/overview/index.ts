@@ -1,0 +1,9 @@
+export { default as QuickStats } from './QuickStats';
+export { default as OccupancyStatus } from './OccupancyStatus';
+export { default as DepartmentSummary } from './DepartmentSummary';
+export { default as EmergencyStatus } from './EmergencyStatus';
+export { default as RecentAdmissions } from './RecentAdmissions';
+export { default as UpcomingAppointments } from './UpcomingAppointments';
+export { default as StaffAvailability } from './StaffAvailability';
+export { default as BedManagement } from './BedManagement';
+export { default as HospitalOverview } from './HospitalOverview';
