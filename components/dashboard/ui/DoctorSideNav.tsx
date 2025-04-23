@@ -7,11 +7,9 @@ import Image from "next/image";
 import {
 	ChevronFirst,
 	ChevronLast,
-	Gauge,
 	Users,
 	CalendarCheck2,
 	Mail,
-	ClipboardList,
 	FileText,
 	Settings,
 	LifeBuoy,
@@ -23,12 +21,6 @@ import {
 	Stethoscope,
 } from "lucide-react";
 
-import {
-	Sheet,
-	SheetContent,
-	SheetHeader,
-	SheetTitle,
-} from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -190,7 +182,7 @@ const DoctorSideNav = ({
 					badge={3}
 				/>
 				<SideBarItem
-					icon={<ClipboardList size={20} />}
+					icon={<Stethoscope size={20} />}
 					text="Prescriptions"
 					href={`/dashboard/doctor/${doctorId}/prescriptions`}
 				/>
@@ -205,14 +197,9 @@ const DoctorSideNav = ({
 					href={`/dashboard/doctor/${doctorId}/time-slots`}
 				/>
 				<SideBarItem
-					icon={<Stethoscope size={20} />}
-					text="Specialties"
-					href={`/dashboard/doctor/${doctorId}/specialties`}
-				/>
-				<SideBarItem
 					icon={<BellRing size={20} />}
-					text="Notifications"
-					href={`/dashboard/doctor/${doctorId}/notifications`}
+					text="Alerts"
+					href={`/dashboard/doctor/${doctorId}/alerts`}
 					badge={8}
 				/>
 				<SideBarItem
