@@ -15,14 +15,17 @@ import {
 	PatientAdvocacy,
 	FeedbackForm,
 	TermsOfService,
-} from "@/components/dashboard/patients/Support";
+} from "@/components/dashboard/patient/Support";
 
 const SupportPage: React.FC = () => {
 	return (
 		<div className="bg-gradient-to-br from-violet-50 to-indigo-50 dark:from-gray-900 dark:to-gray-800 p-6 space-y-6 rounded-xl border-2 ">
 			<div className="flex space-x-4 mb-6">
-				<Input placeholder="Search for help..." className="flex-grow border-gray-300 dark:border-gray-600" />
-				<Button> 
+				<Input
+					placeholder="Search for help..."
+					className="flex-grow border-gray-300 dark:border-gray-600"
+				/>
+				<Button>
 					<Search className="mr-2 h-4 w-4" /> Search
 				</Button>
 			</div>

@@ -1,12 +1,12 @@
 import React from "react";
-import Analytics from "@/components/dashboard/patients/Analytics/analytics";
+import Analytics from "@/components/dashboard/patient/Analytics/analytics";
 
 const AnalyticsPage: React.FC = () => {
-  return (
-    <main className="">
-      <Analytics />
-    </main>
-  );
+	return (
+		<main className="">
+			<Analytics />
+		</main>
+	);
 };
 
 export default AnalyticsPage;

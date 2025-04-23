@@ -50,7 +50,7 @@ const Layout: React.FC<RNChildProp> = ({ children }: RNChildProp) => {
 					</div>
 
 					{/* Main Content Area */}
-					<ScrollArea className="flex-1 h-[calc(100vh-4rem)]">
+					<ScrollArea className="flex-1 h-[calc(100vh-4rem)] bg-[#125872]">
 						<div className="container mx-auto p-6">
 							<AnimatePresence mode="wait">
 								<motion.div
