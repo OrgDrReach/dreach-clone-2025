@@ -8,14 +8,14 @@ const FilterAppontments = () => {
       <div className="w-full sm:w-auto">
         <label
           htmlFor="dateFilter"
-          className="block text-sm font-medium text-gray-700"
+          className="block text-sm font-medium text-gray-700 dark:text-gray-200"
         >
           Filter by Date
         </label>
         <select
           id="dateFilter"
           name="dateFilter"
-          className="mt-1 block w-full sm:w-auto pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+          className="mt-1 block w-full sm:w-auto pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-800 shadow-lg sm:text-sm rounded-md"
         >
           <option>Today</option>
           <option>This Week</option>
@@ -27,14 +27,14 @@ const FilterAppontments = () => {
       <div className="w-full sm:w-auto mt-4 sm:mt-0">
         <label
           htmlFor="statusFilter"
-          className="block text-sm font-medium text-gray-700"
+          className="block text-sm font-medium text-gray-700 dark:text-gray-200"
         >
           Filter by Status
         </label>
         <select
           id="statusFilter"
           name="statusFilter"
-          className="mt-1 block w-full sm:w-auto pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+          className="mt-1 block w-full sm:w-auto pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-white dark:bg-gray-800 shadow-lg rounded-md"
         >
           <option>All</option>
           <option>Confirmed</option>
@@ -61,50 +61,50 @@ const NewAppontment = () => {
 const UpcomingAppointments = () => {
   return (
     <div className="mt-8">
-      <h4 className="text-gray-600 text-lg font-medium">
+      <h4 className="text-gray-600 dark:text-gray-200 text-lg font-medium">
         Upcoming Appointments
       </h4>
       <div className="mt-4">
-        <div className="bg-white shadow overflow-hidden sm:rounded-lg">
+        <div className="bg-white dark:bg-slate-700 shadow overflow-hidden sm:rounded-lg">
           <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
+            <thead className="">
               <tr>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  className="px-6 py-3 text-left text-xs font-medium text-gray-200 uppercase tracking-wider"
                 >
                   Date & Time
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  className="px-6 py-3 text-left text-xs font-medium text-gray-200 uppercase tracking-wider"
                 >
                   Patient
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  className="px-6 py-3 text-left text-xs font-medium text-gray-200 uppercase tracking-wider"
                 >
                   Type
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  className="px-6 py-3 text-left text-xs font-medium text-gray-200 uppercase tracking-wider"
                 >
                   Status
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  className="px-6 py-3 text-left text-xs font-medium text-gray-200 uppercase tracking-wider"
                 >
                   Actions
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody className="bg-white dark:bg-slate-700 divide-y divide-gray-200">
               <tr>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-900">
+                  <div className="text-sm text-gray-900 dark:text-gray-200">
                     June 1, 2023 10:00 AM
                   </div>
                 </td>
@@ -118,17 +118,17 @@ const UpcomingAppointments = () => {
                       />
                     </div>
                     <div className="ml-4">
-                      <div className="text-sm font-medium text-gray-900">
+                      <div className="text-sm font-medium text-gray-900 dark:text-gray-400">
                         Jane Cooper
                       </div>
-                      <div className="text-sm text-gray-500">
+                      <div className="text-sm text-gray-200">
                         jane.cooper@example.com
                       </div>
                     </div>
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-900">Follow-up</div>
+                  <div className="text-sm text-gray-900 dark:text-gray-200">Follow-up</div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
@@ -161,50 +161,50 @@ const UpcomingAppointments = () => {
 const ScheduledAppointments = () => {
   return (
     <div className="mt-8">
-      <h4 className="text-gray-600 text-lg font-medium">
+      <h4 className="text-gray-600 dark:text-gray-200 text-lg font-medium">
         Scheduled Appointments
       </h4>
       <div className="mt-4">
-        <div className="bg-white shadow overflow-hidden sm:rounded-lg">
+        <div className="bg-white dark:bg-slate-700 shadow overflow-hidden sm:rounded-lg">
           <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
+            <thead className="">
               <tr>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  className="px-6 py-3 text-left text-xs font-medium text-gray-200 uppercase tracking-wider"
                 >
                   Date & Time
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  className="px-6 py-3 text-left text-xs font-medium text-gray-200 uppercase tracking-wider"
                 >
                   Patient
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  className="px-6 py-3 text-left text-xs font-medium text-gray-200 uppercase tracking-wider"
                 >
                   Type
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  className="px-6 py-3 text-left text-xs font-medium text-gray-200 uppercase tracking-wider"
                 >
                   Status
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  className="px-6 py-3 text-left text-xs font-medium text-gray-200 uppercase tracking-wider"
                 >
                   Actions
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody className="bg-white dark:bg-slate-700 divide-y divide-gray-200">
               <tr>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-900">
+                  <div className="text-sm text-gray-900 dark:text-gray-200">
                     May 30, 2023 2:00 PM
                   </div>
                 </td>
@@ -218,17 +218,17 @@ const ScheduledAppointments = () => {
                       />
                     </div>
                     <div className="ml-4">
-                      <div className="text-sm font-medium text-gray-900">
+                      <div className="text-sm font-medium text-gray-900 dark:text-gray-400">
                         John Doe
                       </div>
-                      <div className="text-sm text-gray-500">
+                      <div className="text-sm text-gray-200">
                         john.doe@example.com
                       </div>
                     </div>
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-900">
+                  <div className="text-sm text-gray-900 dark:text-gray-200">
                     Initial Consultation
                   </div>
                 </td>
@@ -263,49 +263,49 @@ const ScheduledAppointments = () => {
 const RescheduledAppointments = () => {
   return (
     <div className="mt-8">
-      <h4 className="text-gray-600 text-lg font-medium">
+      <h4 className="text-gray-600 dark:text-gray-200 text-lg font-medium">
         Canceled/Rescheduled Appointments
       </h4>
       <div className="mt-4">
-        <div className="bg-white shadow overflow-hidden sm:rounded-lg">
+        <div className="bg-white dark:bg-slate-700 shadow overflow-hidden sm:rounded-lg">
           <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
+            <thead className="">
               <tr>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  className="px-6 py-3 text-left text-xs font-medium text-gray-200 uppercase tracking-wider"
                 >
                   Original Date & Time
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  className="px-6 py-3 text-left text-xs font-medium text-gray-200 uppercase tracking-wider"
                 >
                   Patient
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  className="px-6 py-3 text-left text-xs font-medium text-gray-200 uppercase tracking-wider"
                 >
                   Reason
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  className="px-6 py-3 text-left text-xs font-medium text-gray-200 uppercase tracking-wider"
                 >
                   Status
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  className="px-6 py-3 text-left text-xs font-medium text-gray-200 uppercase tracking-wider"
                 >
                   New Date & Time
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody className="bg-white dark:bg-slate-700 divide-y divide-gray-200">
               <tr>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-200">
                   May 29, 2023 11:00 AM
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
@@ -324,16 +324,16 @@ const RescheduledAppointments = () => {
                       />
                     </div>
                     <div className="ml-4">
-                      <div className="text-sm font-medium text-gray-900">
+                      <div className="text-sm font-medium text-gray-900 dark:text-gray-400">
                         Olivia Wilson
                       </div>
-                      <div className="text-sm text-gray-500">
+                      <div className="text-sm text-gray-200">
                         olivia.wilson@example.com
                       </div>
                     </div>
                   </div>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-300">
                   Personal emergency
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
@@ -341,7 +341,7 @@ const RescheduledAppointments = () => {
                     Rescheduled
                   </span>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-200">
                   June 2, 2023 1:00 PM
                 </td>
               </tr>
@@ -357,48 +357,48 @@ const RescheduledAppointments = () => {
 const PatientAppointmentHistory = () => {
   return (
     <div className="mt-8">
-      <h4 className="text-gray-600 text-lg font-medium">
+      <h4 className="text-gray-600 dark:text-gray-200 text-lg font-medium">
         Patient Appointment History
       </h4>
       <div className="mt-4">
-        <div className="bg-white shadow overflow-hidden sm:rounded-lg">
+        <div className="bg-white dark:bg-slate-700 shadow overflow-hidden sm:rounded-lg">
           <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
+            <thead className="">
               <tr>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  className="px-6 py-3 text-left text-xs font-medium text-gray-200 uppercase tracking-wider"
                 >
                   Patient
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  className="px-6 py-3 text-left text-xs font-medium text-gray-200 uppercase tracking-wider"
                 >
                   Date & Time
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  className="px-6 py-3 text-left text-xs font-medium text-gray-200 uppercase tracking-wider"
                 >
                   Type
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  className="px-6 py-3 text-left text-xs font-medium text-gray-200 uppercase tracking-wider"
                 >
                   Status
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  className="px-6 py-3 text-left text-xs font-medium text-gray-200 uppercase tracking-wider"
                 >
                   Actions
                 </th>
               </tr>
             </thead>
 
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody className="bg-white dark:bg-slate-700 divide-y divide-gray-200">
               <tr>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="flex items-center">
@@ -416,22 +416,22 @@ const PatientAppointmentHistory = () => {
                       />
                     </div>
                     <div className="ml-4">
-                      <div className="text-sm font-medium text-gray-900">
+                      <div className="text-sm font-medium text-gray-900 dark:text-gray-400">
                         Jane Cooper
                       </div>
-                      <div className="text-sm text-gray-500">
+                      <div className="text-sm text-gray-200">
                         jane.cooper@example.com
                       </div>
                     </div>
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-900">
+                  <div className="text-sm text-gray-900 dark:text-gray-300">
                     May 15, 2023 9:00 AM
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-900">Follow-up</div>
+                  <div className="text-sm text-gray-900 dark:text-gray-300">Follow-up</div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
@@ -455,9 +455,9 @@ const PatientAppointmentHistory = () => {
 
 function appointments() {
   return (
-    <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
+    <main className="flex-1 overflow-x-hidden overflow-y-auto rounded-lg bg-gradient-to-r from-cyan-500 to-blue-500 dark:from-gray-700 dark:to-gray-900">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <h3 className="text-gray-700 text-2xl sm:text-3xl font-medium">
+        <h3 className="text-gray-700 dark:text-gray-200 text-2xl sm:text-3xl font-bold">
           Appointments
         </h3>
 

@@ -1,21 +1,24 @@
 import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Plus, Search } from "lucide-react";
 import PrescriptionEditModal from "./PrescriptionModal";
 import PrescriptionDeleteConfirm from "./PrescriptionDelete";
 import PrescriptionCreateModal from "./CreatePrescription";
+import { Prescription } from "./type";
 
 const PrescriptionList = () => {
-  const [prescriptions, setPrescriptions] = useState([
+  const [prescriptions, setPrescriptions] = useState<Prescription[]>([
     {
       id: 1,
-      name: "soumya",
-      dosage: "10mg",
-      frequency: "Once daily",
-      disease: "Hypertension",
+      name: "Amoxicillin",
+      dosage: "500mg",
+      frequency: "Three times daily",
+      disease: "Bacterial Infection",
       labReportRequired: true,
     },
     {
       id: 2,
-      name: "yzzzz",
+      name: "Metformin",
       dosage: "500mg",
       frequency: "Twice daily",
       disease: "Diabetes",
@@ -23,7 +26,7 @@ const PrescriptionList = () => {
     },
     {
       id: 3,
-      name: "akdasdsa",
+      name: "Ibuprofen",
       dosage: "400mg",
       frequency: "As needed",
       disease: "Pain Relief",
@@ -31,122 +34,131 @@ const PrescriptionList = () => {
     },
   ]);
 
-  const [selectedPrescription, setSelectedPrescription] = useState<any>(null);
+  const [selectedPrescription, setSelectedPrescription] = useState<Prescription | null>(null);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
 
-  const handleEditClick = (prescription: any) => {
-    setSelectedPrescription(prescription);
-    setShowEditModal(true);
-  };
-
-  const handleDeleteClick = (prescription: any) => {
-    setSelectedPrescription(prescription);
-    setShowDeleteConfirm(true);
-  };
-
-  const handleCreateClick = () => {
-    setShowCreateModal(true);
-  };
-
-  const handleEditSave = (updatedPrescription: any) => {
-    setPrescriptions((prevPrescriptions) =>
-      prevPrescriptions.map((prescription) =>
-        prescription.id === updatedPrescription.id
-          ? updatedPrescription
-          : prescription,
-      ),
-    );
-    setShowEditModal(false);
-  };
-
-  const handleDeleteConfirm = () => {
-    setPrescriptions((prevPrescriptions) =>
-      prevPrescriptions.filter(
-        (prescription) => prescription.id !== selectedPrescription?.id,
-      ),
-    );
-    setShowDeleteConfirm(false);
-  };
-
-  const handleCreateSave = (newPrescription: any) => {
-    setPrescriptions((prevPrescriptions) => [
-      ...prevPrescriptions,
-      newPrescription,
-    ]);
-    setShowCreateModal(false);
-  };
+  const filteredPrescriptions = prescriptions.filter(prescription =>
+    prescription.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    prescription.disease?.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
-    <div className="p- mx-auto">
-      <h1 className="text-2xl font-bold text-[#125872] mb-4">
-        Prescription Management
-      </h1>
-      <button
-        className="mb-4 px-4 py-2 bg-[#125872] hover:bg-[#0e84a1] text-white rounded"
-        onClick={handleCreateClick}
-      >
-        Create New Prescription
-      </button>
-      <ul className="bg-white shadow-md p-3 rounded-lg">
-        {prescriptions.map((prescription) => (
-          <li key={prescription.id} className="p-4 border-b">
-            <div className="flex justify-between items-center">
-              <div>
-                <a
-                  href="#"
-                  className="text-[#125872] font-semibold"
-                  onClick={() => handleEditClick(prescription)}
-                >
-                  {prescription.name}
-                </a>
-                <div className="text-gray-500">
-                  {prescription.dosage}, {prescription.frequency}
+    <div className="space-y-6">
+      <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+        <div className="relative w-full sm:w-96">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+          <input
+            type="text"
+            placeholder="Search prescriptions..."
+            className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-200 focus:border-[#0083b2] focus:ring-2 focus:ring-[#0083b2] focus:ring-opacity-20 transition-all"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="flex items-center gap-2 px-4 py-2 bg-[#0083b2] text-white rounded-lg shadow-md hover:bg-[#006d94] transition-colors"
+          onClick={() => setShowCreateModal(true)}
+        >
+          <Plus size={20} />
+          <span>New Prescription</span>
+        </motion.button>
+      </div>
+
+      <AnimatePresence>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {filteredPrescriptions.map((prescription) => (
+            <motion.div
+              key={prescription.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="bg-white  rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
+            >
+              <div className="p-4">
+                <h3 className="text-lg font-semibold text-[#125872] mb-2">{prescription.name}</h3>
+                <div className="space-y-2 text-sm text-gray-600">
+                  <p><span className="font-medium">Dosage:</span> {prescription.dosage}</p>
+                  <p><span className="font-medium">Frequency:</span> {prescription.frequency}</p>
+                  {prescription.disease && (
+                    <p><span className="font-medium">Disease:</span> {prescription.disease}</p>
+                  )}
+                  <p>
+                    <span className="font-medium">Lab Report:</span>
+                    <span className={prescription.labReportRequired ? "text-orange-500" : "text-green-500"}>
+                      {prescription.labReportRequired ? " Required" : " Not Required"}
+                    </span>
+                  </p>
                 </div>
-                <div className="text-gray-500">
-                  <strong>Disease:</strong> {prescription.disease}
-                </div>
-                <div className="text-gray-500">
-                  <strong>Lab Report Required:</strong>{" "}
-                  {prescription.labReportRequired ? "Yes" : "No"}
+                <div className="mt-4 flex justify-end gap-2">
+                  <button
+                    onClick={() => {
+                      setSelectedPrescription(prescription);
+                      setShowEditModal(true);
+                    }}
+                    className="px-3 py-1 text-sm bg-[#0083b2] text-white rounded-md hover:bg-[#006d94] transition-colors"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => {
+                      setSelectedPrescription(prescription);
+                      setShowDeleteConfirm(true);
+                    }}
+                    className="px-3 py-1 text-sm bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors"
+                  >
+                    Delete
+                  </button>
                 </div>
               </div>
-              <div className="flex space-x-2">
-                <button
-                  className="px-3 py-1 bg-[#0083b2] text-white rounded"
-                  onClick={() => handleEditClick(prescription)}
-                >
-                  Edit
-                </button>
-                <button
-                  className="px-3 py-1 bg-orange-500 text-white rounded"
-                  onClick={() => handleDeleteClick(prescription)}
-                >
-                  Delete
-                </button>
-              </div>
-            </div>
-          </li>
-        ))}
-      </ul>
-      {showEditModal && (
+            </motion.div>
+          ))}
+        </div>
+      </AnimatePresence>
+
+      {showEditModal && selectedPrescription && (
         <PrescriptionEditModal
           prescription={selectedPrescription}
-          onSave={handleEditSave}
-          onClose={() => setShowEditModal(false)}
+          onSave={(updated) => {
+            setPrescriptions(prev => 
+              prev.map(p => p.id === updated.id ? updated : p)
+            );
+            setShowEditModal(false);
+          }}
+          onClose={() => {
+            setShowEditModal(false);
+            setSelectedPrescription(null);
+          }}
         />
       )}
-      {showDeleteConfirm && (
+      
+      {showDeleteConfirm && selectedPrescription && (
         <PrescriptionDeleteConfirm
           prescription={selectedPrescription}
-          onConfirm={handleDeleteConfirm}
-          onClose={() => setShowDeleteConfirm(false)}
+          onConfirm={() => {
+            setPrescriptions(prev => 
+              prev.filter(p => p.id !== selectedPrescription.id)
+            );
+            setShowDeleteConfirm(false);
+            setSelectedPrescription(null);
+          }}
+          onClose={() => {
+            setShowDeleteConfirm(false);
+            setSelectedPrescription(null);
+          }}
         />
       )}
+      
       {showCreateModal && (
         <PrescriptionCreateModal
-          onSave={handleCreateSave}
+          onSave={(newPrescription) => {
+            setPrescriptions(prev => [...prev, newPrescription]);
+            setShowCreateModal(false);
+          }}
           onClose={() => setShowCreateModal(false)}
         />
       )}
