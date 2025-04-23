@@ -26,8 +26,8 @@ ChartJS.register(
 
 const TotalPatients = () => {
   return (
-    <div className="w-full px-6 sm:w-1/2 xl:w-1/3">
-      <div className="flex items-center px-5 py-6 shadow-sm rounded-md bg-white">
+    <div className="w-full px-6 sm:w-1/2 xl:w-1/3 rounded-lg overflow-hidden">
+      <div className="flex items-center px-5 py-6 shadow-lg hover:shadow-xl transition-shadow rounded-lg bg-white dark:bg-slate-900">
         <div className="p-3 rounded-full bg-indigo-600 bg-opacity-75">
           <svg
             className="h-8 w-8 text-white"
@@ -62,8 +62,8 @@ const TotalPatients = () => {
           </svg>
         </div>
         <div className="mx-5">
-          <h4 className="text-2xl font-semibold text-gray-700">8,282</h4>
-          <div className="text-gray-500">Total Patients</div>
+          <h4 className="text-2xl font-semibold text-gray-700 dark:text-gray-400">8,282</h4>
+          <div className="text-gray-500 dark:text-gray-300">Total Patients</div>
         </div>
       </div>
     </div>
@@ -73,7 +73,7 @@ const TotalPatients = () => {
 const TodaysAppointment = () => {
   return (
     <div className="w-full mt-6 px-6 sm:w-1/2 xl:w-1/3 sm:mt-0">
-      <div className="flex items-center px-5 py-6 shadow-sm rounded-md bg-white">
+      <div className="flex items-center px-5 py-6 shadow-lg hover:shadow-xl transition-shadow rounded-lg bg-white dark:bg-slate-900">
         <div className="p-3 rounded-full bg-orange-600 bg-opacity-75">
           <svg
             className="h-8 w-8 text-white"
@@ -96,8 +96,8 @@ const TodaysAppointment = () => {
           </svg>
         </div>
         <div className="mx-5">
-          <h4 className="text-2xl font-semibold text-gray-700">200</h4>
-          <div className="text-gray-500">Today's Appointments</div>
+          <h4 className="text-2xl font-semibold text-gray-700 dark:text-gray-400">200</h4>
+          <div className="text-gray-500 dark:text-gray-300">Today's Appointments</div>
         </div>
       </div>
     </div>
@@ -107,7 +107,7 @@ const TodaysAppointment = () => {
 const PrescriptionIssued = () => {
   return (
     <div className="w-full mt-6 px-6 sm:w-1/2 xl:w-1/3 xl:mt-0">
-      <div className="flex items-center px-5 py-6 shadow-sm rounded-md bg-white">
+      <div className="flex items-center px-5 py-6 shadow-lg hover:shadow-xl transition-shadow rounded-lg bg-white dark:bg-slate-900">
         <div className="p-3 rounded-full bg-pink-600 bg-opacity-75">
           <svg
             className="h-8 w-8 text-white"
@@ -130,8 +130,8 @@ const PrescriptionIssued = () => {
           </svg>
         </div>
         <div className="mx-5">
-          <h4 className="text-2xl font-semibold text-gray-700">215</h4>
-          <div className="text-gray-500">Prescriptions Issued</div>
+          <h4 className="text-2xl font-semibold text-gray-700 dark:text-gray-400">215</h4>
+          <div className="text-gray-500 dark:text-gray-300">Prescriptions Issued</div>
         </div>
       </div>
     </div>
@@ -152,6 +152,36 @@ const PatientDemographics = () => {
     ],
   };
 
+  // Common options for dark mode compatibility
+  const chartOptions = {
+    responsive: true,
+    scales: {
+      x: {
+        grid: {
+          color: "rgba(255, 255, 255, 0.1)", // Light grid lines in dark mode
+        },
+        ticks: {
+          color: "rgba(255, 255, 255, 0.8)", // White text in dark mode
+        },
+      },
+      y: {
+        grid: {
+          color: "rgba(255, 255, 255, 0.1)", // Light grid lines in dark mode
+        },
+        ticks: {
+          color: "rgba(255, 255, 255, 0.8)", // White text in dark mode
+        },
+      },
+    },
+    plugins: {
+      legend: {
+        labels: {
+          color: "rgba(255, 255, 255, 0.8)", // White text for legend in dark mode
+        },
+      },
+    },
+  };
+
   const genderData = {
     labels: ["Male", "Female", "Other"],
     datasets: [
@@ -164,6 +194,18 @@ const PatientDemographics = () => {
         ],
       },
     ],
+  };
+
+  // Options for pie/doughnut charts
+  const pieOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        labels: {
+          color: "rgba(255, 255, 255, 0.8)", // White text for legend in dark mode
+        },
+      },
+    },
   };
 
   const ethnicityData = {
@@ -191,13 +233,13 @@ const PatientDemographics = () => {
             </h2>
             <div className="flex">
               <div className="w-1/3 p-4">
-                <Bar data={ageData} options={{ responsive: true }} />
+                <Bar data={ageData} options={chartOptions} />
               </div>
               <div className="w-1/3 p-4">
-                <Pie data={genderData} options={{ responsive: true }} />
+                <Pie data={genderData} options={pieOptions} />
               </div>
               <div className="w-1/3 p-4">
-                <Doughnut data={ethnicityData} options={{ responsive: true }} />
+                <Doughnut data={ethnicityData} options={pieOptions} />
               </div>
             </div>
           </div>
@@ -242,6 +284,49 @@ const AppointmentManagement = () => {
       },
     ],
   };
+
+  // Common options for dark mode compatibility
+  const chartOptions = {
+    responsive: true,
+    scales: {
+      x: {
+        grid: {
+          color: "rgba(255, 255, 255, 0.1)", // Light grid lines in dark mode
+        },
+        ticks: {
+          color: "rgba(255, 255, 255, 0.8)", // White text in dark mode
+        },
+      },
+      y: {
+        grid: {
+          color: "rgba(255, 255, 255, 0.1)", // Light grid lines in dark mode
+        },
+        ticks: {
+          color: "rgba(255, 255, 255, 0.8)", // White text in dark mode
+        },
+      },
+    },
+    plugins: {
+      legend: {
+        labels: {
+          color: "rgba(255, 255, 255, 0.8)", // White text for legend in dark mode
+        },
+      },
+    },
+  };
+
+  // Options for pie/doughnut charts
+  const pieOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        labels: {
+          color: "rgba(255, 255, 255, 0.8)", // White text for legend in dark mode
+        },
+      },
+    },
+  };
+
   return (
     <div className="mt-8">
       <div className="flex flex-col mt-8">
@@ -252,10 +337,10 @@ const AppointmentManagement = () => {
             </h2>
             <div className="flex">
               <div className="w-1/2 p-4">
-                <Bar data={scheduleData} options={{ responsive: true }} />
+                <Bar data={scheduleData} options={chartOptions} />
               </div>
               <div className="w-1/2 p-4">
-                <Pie data={sourcesData} options={{ responsive: true }} />
+                <Pie data={sourcesData} options={pieOptions} />
               </div>
             </div>
           </div>
@@ -487,9 +572,9 @@ const FilterAndSort = () => {
 
 const Analytics = () => {
   return (
-    <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
+    <main className="flex-1 overflow-x-hidden overflow-y-auto rounded-lg bg-gray-200 dark:bg-gray-800">
       <div className="container mx-auto px-6 py-8">
-        <h3 className="text-gray-700 text-3xl font-medium">Analytics</h3>
+        <h3 className="text-gray-700 dark:text-gray-200 text-3xl font-medium">Analytics</h3>
 
         <div className="mt-4">
           <div className="flex flex-wrap -mx-6">
