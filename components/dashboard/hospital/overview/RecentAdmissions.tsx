@@ -22,7 +22,7 @@ const RecentAdmissions: React.FC = () => {
       admissionDate: '2025-04-23',
       department: 'Cardiology',
       doctor: 'Dr. Robert Smith',
-      avatar: '/avatars/emma.jpg',
+      avatar: 'https://randomuser.me/api/portraits/women/1.jpg',
     },
     {
       id: 'ADM002',
@@ -31,6 +31,7 @@ const RecentAdmissions: React.FC = () => {
       admissionDate: '2025-04-23',
       department: 'Neurology',
       doctor: 'Dr. Sarah Johnson',
+      avatar: 'https://randomuser.me/api/portraits/men/1.jpg',
     },
     {
       id: 'ADM003',
@@ -39,7 +40,7 @@ const RecentAdmissions: React.FC = () => {
       admissionDate: '2025-04-22',
       department: 'Orthopedics',
       doctor: 'Dr. Michael Chen',
-      avatar: '/avatars/linda.jpg',
+      avatar: 'https://randomuser.me/api/portraits/women/2.jpg',
     },
   ];
 

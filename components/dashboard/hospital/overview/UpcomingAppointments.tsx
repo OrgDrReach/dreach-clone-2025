@@ -27,7 +27,7 @@ const UpcomingAppointments: React.FC = () => {
       doctor: 'Dr. Robert Smith',
       type: 'follow-up',
       status: 'confirmed',
-      avatar: '/avatars/david.jpg',
+      avatar: 'https://randomuser.me/api/portraits/men/1.jpg',
     },
     {
       id: 'APT002',
@@ -38,6 +38,7 @@ const UpcomingAppointments: React.FC = () => {
       doctor: 'Dr. Sarah Johnson',
       type: 'consultation',
       status: 'scheduled',
+      avatar: 'https://randomuser.me/api/portraits/women/2.jpg',
     },
     {
       id: 'APT003',
@@ -48,7 +49,7 @@ const UpcomingAppointments: React.FC = () => {
       doctor: 'Dr. Michael Chen',
       type: 'check-up',
       status: 'confirmed',
-      avatar: '/avatars/alex.jpg',
+      avatar: 'https://randomuser.me/api/portraits/men/3.jpg',
     },
   ];
 
