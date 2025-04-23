@@ -1,3 +1,4 @@
+
 "use client";
 import { FC } from "react";
 import { Line } from "react-chartjs-2";

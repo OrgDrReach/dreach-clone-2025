@@ -44,20 +44,20 @@ const AlertIcon = ({ type }: { type: "emergency" | "appointment" | "lab" }) => {
 
 const RecentAlerts = () => {
   return (
-    <div className="flex flex-col gap-4 bg-white shadow-md rounded-lg p-6">
-      <h2 className="text-2xl font-semibold text-gray-800">Recent Alerts</h2>
+    <div className="flex flex-col gap-4 bg-[#ffffff] dark:bg-slate-800 shadow-md rounded-lg p-6">
+      <h2 className="text-[#125872] dark:text-[#4db7dd] text-2xl font-semibold mb-8">Recent Alerts</h2>
       <ul className="space-y-2">
         {alerts.map((alert) => (
           <li
             key={alert.id}
-            className="flex items-start gap-3 p-3 hover:bg-gray-50 rounded-md"
+            className="flex items-start gap-3 p-3 rounded-md"
           >
-            <div className="mt-1">
+            <div className="mt-1 dark:text-gray-300 text-gray-800">
               <AlertIcon type={alert.type} />
             </div>
             <div>
-              <p className="text-gray-800 font-medium">{alert.message}</p>
-              <p className="text-gray-500 text-sm">{alert.time}</p>
+              <p className="dark:text-gray-300 text-gray-800 font-medium">{alert.message}</p>
+              <p className="dark:text-gray-400 text-gray-500 text-sm">{alert.time}</p>
             </div>
           </li>
         ))}
@@ -65,7 +65,7 @@ const RecentAlerts = () => {
       <div className="mt-4">
         <a
           href="/alerts"
-          className="text-[#125872] hover:text-[#125872] font-medium transition-colors duration-200"
+          className="text-[#125872] dark:text-[#4db7dd] hover:text-[#125872] font-medium transition-colors duration-200"
         >
           View all alerts
         </a>

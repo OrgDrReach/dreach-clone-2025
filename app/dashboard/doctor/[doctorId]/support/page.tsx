@@ -6,7 +6,7 @@ import React from "react";
 
 const Support: React.FC = () => {
 	return (
-		<main className="bg-[#c1efffbe]  p-8">
+		<main className="bg-[#c1efffbe]  bg-gradient-to-br from-indigo-500 to-purple-600 dark:from-slate-600 dark:to-slate-900 p-8">
 			<SupportStatus />
 			<SupportRequestForm />
 			<KnowledgeBase />

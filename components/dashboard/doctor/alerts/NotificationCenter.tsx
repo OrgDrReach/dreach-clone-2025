@@ -19,9 +19,9 @@ const NotificationPreferences = () => {
   };
 
   return (
-    <div className="bg-white mt-5 shadow-md rounded-lg p-6">
+    <div className="bg-[#ffffff] dark:bg-slate-800 mt-5 shadow-md rounded-lg p-6">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-2xl font-semibold text-gray-800">
+        <h2 className="text-[#125872] dark:text-[#4db7dd] text-2xl font-semibold mb-8">
           Notification Preferences
         </h2>
         <button
@@ -33,7 +33,7 @@ const NotificationPreferences = () => {
       </div>
       <ul className="space-y-2">
         <li className="flex items-center justify-between">
-          <span className="text-gray-700">Email Notifications</span>
+          <span className="dark:text-gray-300 text-gray-800">Email Notifications</span>
           <input
             type="checkbox"
             checked={preferences.email}
@@ -43,7 +43,7 @@ const NotificationPreferences = () => {
         </li>
 
         <li className="flex items-center justify-between">
-          <span className="text-gray-700">SMS Notifications</span>
+          <span className="dark:text-gray-300 text-gray-800">SMS Notifications</span>
           <input
             type="checkbox"
             checked={preferences.sms}
@@ -53,7 +53,7 @@ const NotificationPreferences = () => {
         </li>
 
         <li className="flex items-center justify-between">
-          <span className="text-gray-700">Push Notifications</span>
+          <span className="dark:text-gray-300 text-gray-800">Push Notifications</span>
           <input
             type="checkbox"
             checked={preferences.push}
