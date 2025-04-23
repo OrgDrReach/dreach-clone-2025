@@ -1,0 +1,9 @@
+export { default as PatientManagement } from "./PatientManagement";
+export { default as PatientList } from "./PatientList";
+export { default as PatientDetails } from "./PatientDetails";
+export { default as PatientRegistration } from "./PatientRegistration";
+export { default as AdmissionHistory } from "./AdmissionHistory";
+export { default as MedicalRecords } from "./MedicalRecords";
+export { default as TreatmentPlans } from "./TreatmentPlans";
+export { default as DischargeManagement } from "./DischargeManagement";
+export { default as PatientTracking } from "./PatientTracking";

@@ -1,0 +1,9 @@
+export { default as HospitalAnalytics } from "./HospitalAnalytics";
+export { default as PatientStatistics } from "./PatientStatistics";
+export { default as RevenueAnalytics } from "./RevenueAnalytics";
+export { default as DepartmentPerformance } from "./DepartmentPerformance";
+export { default as AdmissionTrends } from "./AdmissionTrends";
+export { default as TreatmentSuccessRates } from "./TreatmentSuccessRates";
+export { default as ResourceUtilization } from "./ResourceUtilization";
+export { default as QualityMetrics } from "./QualityMetrics";
+export { default as PatientSatisfactionScore } from "./PatientSatisfactionScore";
