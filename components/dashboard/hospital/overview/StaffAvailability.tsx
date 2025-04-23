@@ -24,7 +24,7 @@ const StaffAvailability: React.FC = () => {
       department: 'Cardiology',
       status: 'busy',
       shift: 'morning',
-      avatar: '/avatars/robert.jpg',
+      avatar: 'https://randomuser.me/api/portraits/men/1.jpg',
       nextAvailable: '14:30',
     },
     {
@@ -34,7 +34,7 @@ const StaffAvailability: React.FC = () => {
       department: 'Neurology',
       status: 'available',
       shift: 'morning',
-      avatar: '/avatars/sarah.jpg',
+      avatar: 'https://randomuser.me/api/portraits/women/2.jpg',
     },
     {
       id: 'STF003',
@@ -44,6 +44,7 @@ const StaffAvailability: React.FC = () => {
       status: 'off-duty',
       shift: 'night',
       nextAvailable: '20:00',
+      avatar: 'https://randomuser.me/api/portraits/men/3.jpg',
     },
   ];
 
