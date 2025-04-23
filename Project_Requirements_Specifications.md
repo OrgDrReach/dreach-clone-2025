@@ -1,6 +1,6 @@
 # Dr. Reach - Project Requirements Specifications
 
-Version 1.1 | April 13, 2025
+Version 1.3 | April 23, 2025
 
 ## 1. Introduction
 
@@ -26,87 +26,96 @@ The system encompasses appointment scheduling, patient management, doctor profil
 ### 2.1 Technology Stack
 
 - Frontend: Next.js with TypeScript
-- UI Framework: TailwindCSS
+- UI Framework: TailwindCSS with Shadcn/ui components
 - State Management: Zustand
 - Form Management: React Hook Form with Zod validation
 - Animations: Framer Motion
-- Authentication: NextAuth.js
+- Authentication: NextAuth.js with Google OAuth
 - Data Fetching: Server Actions
+- API Integration: Axios with custom interceptors
+- Session Management: JWT with secure token refresh
 
 ### 2.2 Key Components
 
-- Next.js App Router for routing
+- Next.js App Router for routing and server components
 - Server-side rendering for improved performance
-- TypeScript for type safety
+- TypeScript strict mode with comprehensive type system
 - Responsive design with mobile-first approach
-- Dark mode support
-- Real-time notifications
-- Secure payment processing
+- Dark mode support with Tailwind CSS
+- Real-time notifications using server-side events
+- Secure payment processing with encryption
+- Image optimization and CDN integration
+- Progressive Web App capabilities
 
 ## 3. Functional Requirements
 
 ### 3.1 User Authentication & Management
 
+#### 3.1.1 Authentication Methods
+
+- Social Authentication:
+  - Google OAuth integration
+  - JWT-based session management
+  - Secure token refresh mechanism
+- Phone Authentication:
+  - Mobile number verification with OTP
+  - Rate limiting for OTP attempts
+  - Blocked user handling
+
+#### 3.1.2 User Registration
+
 - Multi-role user registration:
-  - Patient Registration
+  - Patient Registration (default role)
   - Provider Registration:
-    - Doctor Portal
+    - Doctor Portal (medical verification)
     - Hospital Administrator Portal
     - Laboratory Service Portal
     - Pharmaceutical Service Portal
-    - Ambulance Service Portal
+    - Nursing Staff Portal
+    - Doctor's Assistant Portal
 - Role-based Access Control (RBAC)
-- Mobile number verification with OTP
-- Email verification
-- Two-factor authentication
-- Social media integration (Google)
-- Session management with NextAuth.js
-- Password recovery system
-- Provider verification system with documentation
+- Profile completion workflow
+- Document verification system
 
-### 3.2 Provider Verification System
+#### 3.1.3 Session Management
 
-#### 3.2.1 Doctor Verification
+- JWT-based authentication
+- Secure token storage
+- Token refresh mechanism
+- Session timeout handling
+- Multiple device support
+- Secure logout process
 
-- Medical registration number validation
-- Degree certificates verification
-- Specialization certificates
-- Clinic/Hospital affiliation proof
-- Identity verification
-- Professional experience documentation
+### 3.2 Provider Management
 
-#### 3.2.2 Hospital Verification
+#### 3.2.1 Provider Types
 
-- Hospital registration documentation
-- License verification
-- Accreditation certificates
-- Facility inspection reports
-- Staff credentials verification
-- Equipment certification
-
-#### 3.2.3 Laboratory Verification
-
-- Lab registration/license
-- Equipment certification
-- Staff qualification documents
-- Quality control certificates
-- Safety compliance documentation
-
-#### 3.2.4 Pharmaceutical Verification
-
-- Pharmacy license
-- Drug handling certificates
-- Storage facility documentation
-- Staff qualification proof
-- Inventory management system
-
-#### 3.2.5 Ambulance Service Verification
-
-- Vehicle registration
-- Emergency service license
-- Staff certification (EMT, Paramedic)
-- Equipment certification
-- Insurance documentation
+- Doctors:
+  - Specialization management
+  - Qualification verification
+  - Availability scheduling
+  - Consultation modes (Video/In-person/Home)
+- Hospitals:
+  - Department management
+  - Staff management
+  - Facility details
+  - Service listings
+- Laboratories:
+  - Test catalog management
+  - Sample collection options
+  - Report delivery system
+- Pharmaceuticals:
+  - Inventory management
+  - Prescription verification
+  - Delivery options
+- Nursing Services:
+  - Skill categorization
+  - Availability management
+  - Service areas
+- Doctor's Assistants:
+  - Role assignment
+  - Task management
+  - Schedule coordination
 
 ### 3.3 Patient Portal
 
@@ -118,6 +127,7 @@ The system encompasses appointment scheduling, patient management, doctor profil
 - Appointment history
 - Prescription records
 - Medical reports storage
+- Health metrics and preferences
 
 #### 3.3.2 Appointment Booking
 
@@ -249,68 +259,101 @@ The system encompasses appointment scheduling, patient management, doctor profil
 
 #### 6.1.1 Provider Data
 
-- Registration information
-- Verification documents
-- Service records
-- Availability schedules
-- Patient feedback
-- Transaction history
-- Compliance records
+- Provider profile information
+  - Contact details and operating hours
+  - Service listings and availability
+  - Verification status and documents
+  - Staff credentials and roles
+  - Department/facility management
+  - Rating and reviews system
 
 #### 6.1.2 Patient Data
 
-- Personal information
-- Medical records
-- Appointment history
-- Prescriptions
-- Test results
-- Payment records
+- User authentication information
+- Personal health records (PHR)
+- Appointment history and status
+- Medical history and conditions
 - Insurance information
+- Emergency contacts
+- Health metrics and preferences
 
 ### 6.2 Data Security
 
-- Data encryption
-- Access controls
-- Audit trails
-- Backup procedures
-- Retention policies
-- Privacy compliance
+#### 6.2.1 Authentication & Authorization
 
-## 7. System Monitoring
+- JWT-based authentication
+- Role-based access control (RBAC)
+- Multi-factor authentication
+- Session management
+- Token refresh mechanism
+- API security measures
 
-### 7.1 Performance Monitoring
+#### 6.2.2 Data Protection
 
-- Server health checks
-- API response times
-- Database performance
-- User experience metrics
-- Error tracking
+- End-to-end encryption
+- Secure data transmission (HTTPS)
+- Protected health information (PHI) handling
+- HIPAA compliance measures
+- Data backup and recovery
+- Audit logging system
 
-### 7.2 Business Metrics
+## 7. Compliance Requirements
 
-- User engagement
-- Appointment statistics
-- Revenue tracking
-- Customer satisfaction
-- Service utilization
+### 7.1 Healthcare Standards
 
-## 8. Deployment Requirements
+- HIPAA compliance implementation
+- HL7 integration standards
+- Electronic health records (EHR) standards
+- Medical data protection regulations
+- Healthcare privacy guidelines
+- Clinical documentation standards
 
-### 8.1 Infrastructure
+### 7.2 Technical Standards
 
-- Cloud hosting
-- Database clusters
-- CDN configuration
-- SSL certificates
-- Backup systems
+- Web Content Accessibility Guidelines (WCAG)
+- OpenID Connect and OAuth 2.0
+- REST API best practices
+- SSL/TLS encryption
+- Mobile responsiveness standards
+- Progressive Web App standards
 
-### 8.2 Development Workflow
+### 7.3 Security Standards
 
-- Version control
-- CI/CD pipeline
-- Testing environments
-- Code review process
-- Documentation updates
+- OWASP security guidelines
+- Authentication standards
+- Data encryption requirements
+- Secure communication protocols
+- Access control policies
+- Security audit requirements
+
+## 8. Monitoring & Analytics
+
+### 8.1 System Monitoring
+
+- Server health monitoring
+- API performance tracking
+- Database performance metrics
+- Error tracking and logging
+- Security event monitoring
+- Resource utilization tracking
+
+### 8.2 Business Analytics
+
+- User engagement metrics
+- Appointment analytics
+- Provider performance tracking
+- Patient satisfaction metrics
+- Service utilization reports
+- Revenue analytics dashboard
+
+### 8.3 Compliance Monitoring
+
+- Access log auditing
+- Security compliance checks
+- Data protection verification
+- Policy enforcement tracking
+- Incident response monitoring
+- Regulatory compliance reporting
 
 ## 9. Future Enhancements
 
@@ -366,5 +409,322 @@ The system encompasses appointment scheduling, patient management, doctor profil
 - Training materials
 - FAQ documentation
 - User guides
+
+## 12. Appointment System Architecture
+
+### 12.1 Booking Workflow
+
+#### 12.1.1 Appointment Types
+
+- Video Consultations
+  - Real-time video streaming
+  - Chat functionality
+  - Document sharing
+  - Prescription generation
+- In-Person Visits
+  - Clinic/Hospital selection
+  - Queue management
+  - Wait time estimation
+- Home Visits
+  - Location validation
+  - Travel time calculation
+  - Service area verification
+
+#### 12.1.2 Scheduling System
+
+- Real-time availability tracking
+- Conflict resolution
+- Buffer time management
+- Emergency slot allocation
+- Recurring appointment handling
+- Waitlist management
+
+### 12.2 Provider Availability
+
+#### 12.2.1 Schedule Management
+
+- Working hours configuration
+- Break time allocation
+- Leave management
+- Emergency availability
+- Department-wise scheduling
+- Staff rotation planning
+
+#### 12.2.2 Service Configuration
+
+- Consultation duration setup
+- Service type definitions
+- Fee structure management
+- Cancellation policies
+- Booking restrictions
+- Location preferences
+
+### 12.3 Workflow Automation
+
+#### 12.3.1 Notifications
+
+- Booking confirmations
+- Appointment reminders
+- Schedule changes
+- Payment notifications
+- Follow-up reminders
+- Prescription alerts
+
+#### 12.3.2 Integration Points
+
+- Calendar synchronization
+- Payment processing
+- Medical records update
+- Insurance verification
+- Laboratory coordination
+- Pharmacy integration
+
+## 13. Service Delivery Framework
+
+### 13.1 Consultation Modes
+
+#### 13.1.1 Telemedicine
+
+- Video platform integration
+- Audio backup system
+- Screen sharing capability
+- Remote vitals monitoring
+- Digital prescription system
+- Virtual waiting room
+
+#### 13.1.2 Physical Consultations
+
+- Facility management
+- Equipment tracking
+- Patient flow optimization
+- Resource allocation
+- Emergency handling
+- Sanitization protocols
+
+### 13.2 Quality Assurance
+
+#### 13.2.1 Service Standards
+
+- Consultation protocols
+- Documentation requirements
+- Treatment guidelines
+- Follow-up procedures
+- Patient feedback system
+- Quality metrics tracking
+
+#### 13.2.2 Performance Monitoring
+
+- Service delivery metrics
+- Patient satisfaction scores
+- Provider ratings
+- Response time tracking
+- Complaint resolution
+- Outcome measurements
+
+## 14. Provider Verification Framework
+
+### 14.1 Documentation Requirements
+
+#### 14.1.1 Core Documents
+
+- Government-issued ID
+- Professional licenses
+- Educational certificates
+- Specialization proof
+- Work experience letters
+- Professional references
+
+#### 14.1.2 Provider-Specific Requirements
+
+##### Doctors
+
+- Medical registration number
+- Specialty board certifications
+- Clinical practice license
+- Hospital affiliations proof
+- CME certifications
+- Malpractice insurance
+
+##### Hospitals
+
+- Facility registration
+- Accreditation certificates
+- Infrastructure compliance
+- Safety certifications
+- Staff credentials
+- Equipment certifications
+
+##### Laboratories
+
+- NABL accreditation
+- Equipment calibration
+- Staff qualifications
+- Quality certifications
+- Safety protocols
+- Testing licenses
+
+##### Pharmaceuticals
+
+- Drug license
+- GST registration
+- Storage compliance
+- Staff certifications
+- Quality management
+- Inventory systems
+
+### 14.2 Verification Process
+
+#### 14.2.1 Document Submission
+
+- Secure upload system
+- Document classification
+- Version control
+- Expiry tracking
+- Auto-validation checks
+- Digital signature support
+
+#### 14.2.2 Verification Workflow
+
+- Initial screening
+- Document authenticity
+- Background verification
+- Professional references
+- Physical verification
+- Compliance checks
+
+#### 14.2.3 Approval System
+
+- Multi-level review
+- Automated checks
+- Manual verification
+- Conditional approval
+- Periodic renewal
+- Status tracking
+
+### 14.3 Compliance Management
+
+#### 14.3.1 Document Lifecycle
+
+- Validity monitoring
+- Renewal reminders
+- Update requirements
+- Archive management
+- Audit trail
+- Version history
+
+#### 14.3.2 Regulatory Adherence
+
+- Healthcare regulations
+- Data protection laws
+- Professional standards
+- Industry guidelines
+- Local requirements
+- International standards
+
+## 15. Interface Requirements
+
+### 15.1 User Interface Standards
+
+#### 15.1.1 Design System
+
+- Shadcn/ui component library
+- Tailwind CSS styling
+- Dark mode support
+- Responsive breakpoints
+- Typography system
+- Color palette
+- Icon system
+
+#### 15.1.2 Accessibility Requirements
+
+- WCAG 2.1 Level AA compliance
+- Screen reader compatibility
+- Keyboard navigation support
+- Color contrast ratios
+- Focus management
+- ARIA attributes
+- Alt text for images
+
+### 15.2 Mobile Responsiveness
+
+#### 15.2.1 Viewport Requirements
+
+- Mobile-first approach
+- Flexible layouts
+- Touch-friendly interfaces
+- Gesture support
+- Offline capabilities
+- Performance optimization
+
+#### 15.2.2 Progressive Enhancement
+
+- Core functionality support
+- Enhanced features detection
+- Fallback mechanisms
+- Cross-browser compatibility
+- Device adaptability
+- Connection resilience
+
+### 15.3 Animation Standards
+
+#### 15.3.1 Motion Design
+
+- Framer Motion integration
+- Transition patterns
+- Loading states
+- Micro-interactions
+- Page transitions
+- Gesture feedback
+
+#### 15.3.2 Performance Guidelines
+
+- Animation throttling
+- Hardware acceleration
+- Reduced motion support
+- Frame rate optimization
+- Memory management
+- Battery considerations
+
+## 16. Development Standards
+
+### 16.1 Code Quality
+
+#### 16.1.1 TypeScript Standards
+
+- Strict type checking
+- Interface definitions
+- Type safety
+- Error boundaries
+- Code splitting
+- Performance optimization
+
+#### 16.1.2 Testing Requirements
+
+- Unit testing
+- Integration testing
+- E2E testing
+- Performance testing
+- Accessibility testing
+- Security testing
+
+### 16.2 Documentation
+
+#### 16.2.1 Code Documentation
+
+- JSDoc comments
+- Type definitions
+- API documentation
+- Component documentation
+- Usage examples
+- Change logs
+
+#### 16.2.2 Technical Documentation
+
+- Architecture overview
+- Setup guides
+- Deployment procedures
+- Security protocols
+- Maintenance guides
+- Troubleshooting guides
 
 This document serves as the primary reference for development teams, stakeholders, and project managers involved in the Dr. Reach platform. Regular updates will be made to reflect changes in requirements and technological advancements.
