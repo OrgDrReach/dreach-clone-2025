@@ -75,15 +75,15 @@ const PrescriptionCreateModal: React.FC<PrescriptionCreateModalProps> = ({
       <motion.div
         initial={{ scale: 0.95 }}
         animate={{ scale: 1 }}
-        className="bg-white rounded-lg shadow-xl w-full max-w-xl mx-4"
+        className="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-xl mx-4"
       >
         <div className="flex justify-between items-center p-4 border-b">
-          <h2 className="text-xl font-semibold text-[#125872]">
+          <h2 className="text-xl font-semibold text-[#125872] dark:text-[#5cbcdf]">
             Create New Prescription
           </h2>
           <button
             onClick={onClose}
-            className="p-1 hover:bg-gray-100 rounded-full transition-colors"
+            className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors"
           >
             <X size={20} />
           </button>
@@ -92,7 +92,7 @@ const PrescriptionCreateModal: React.FC<PrescriptionCreateModalProps> = ({
         <form onSubmit={handleSubmit} className="p-4 space-y-4">
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 Medication Name *
               </label>
               <input
@@ -113,7 +113,7 @@ const PrescriptionCreateModal: React.FC<PrescriptionCreateModalProps> = ({
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 Dosage *
               </label>
               <input
@@ -134,7 +134,7 @@ const PrescriptionCreateModal: React.FC<PrescriptionCreateModalProps> = ({
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 Frequency *
               </label>
               <input
@@ -155,7 +155,7 @@ const PrescriptionCreateModal: React.FC<PrescriptionCreateModalProps> = ({
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 Disease
               </label>
               <input
@@ -168,7 +168,7 @@ const PrescriptionCreateModal: React.FC<PrescriptionCreateModalProps> = ({
             </div>
 
             <div>
-              <label className="flex items-center text-sm font-medium text-gray-700 gap-2">
+              <label className="flex items-center text-sm font-medium text-gray-700 dark:text-gray-300 gap-2">
                 <input
                   type="checkbox"
                   name="labReportRequired"
