@@ -12,6 +12,7 @@
 - [Supporting Types](#supporting-types)
 - [Status and Role Enums](#status-and-role-enums)
 - [Relationships and Workflows](#relationships-and-workflows)
+- [Form Schemas](#form-schemas)
 
 ## Core Type System Architecture
 
@@ -50,8 +51,8 @@ interface IBaseProvider {
 ```typescript
 interface IDoctor {
  id: string;
- platform_id?: string;
- userId?: string;
+ platform_id?: string; // Platform registration ID for certification
+ userId?: string; // User ID
  firstName: string;
  lastName: string;
  specialization: string[];
@@ -65,6 +66,58 @@ interface IDoctor {
  status: EDoctorStatus;
  consultMode: EDoctorConsultMode[];
  consultationFee?: number;
+ languages: string[];
+ expertise?: string[];
+ education: {
+  degree: string;
+  institution: string;
+  year: number;
+ }[];
+ ratings?: {
+  average: number;
+  total: number;
+ };
+}
+
+interface IClinicInfo {
+ id: string;
+ name: string;
+ address: IAddress[];
+ role: EClinicRole;
+ startDate: Date;
+ endDate?: Date;
+ contact: IContactInfo[];
+}
+
+interface IAvailability {
+ day: EDayOfWeek[];
+ slots: {
+  startTime: string;
+  endTime: string;
+  isBooked: boolean;
+ }[];
+ clinicId: string;
+}
+```
+
+### Featured Doctor (`IFeaturedDoctor`)
+
+```typescript
+interface IFeaturedDoctor extends IDoctor {
+ nextAvailable: string;
+ availableSlots: number;
+ consultationFee: number; // Required for featured doctors
+ isBookmarked?: boolean;
+ address: IAddress[];
+ contact: IContactInfo[];
+ featured: boolean;
+ rating: number;
+ totalRatings?: number;
+ nextAvailableSlot?: {
+  date: string;
+  time: string;
+ };
+ languages?: string[];
 }
 ```
 
@@ -134,6 +187,77 @@ interface Ambulance {
  status: EAmbulanceStatus;
  availability: boolean;
 }
+```
+
+### Clinic Staff Types
+
+```typescript
+interface IClinicStaff {
+ id: string;
+ clinicId: string;
+ role: EClinicRole;
+ permissions: EClinicPermissions[];
+ joinDate: Date;
+ contact: IContactInfo;
+ availability: {
+  regularHours: IOperatingHours;
+  onCall: boolean;
+ };
+}
+
+interface IReceptionist extends IClinicStaff {
+ managedDoctors: string[]; // Array of doctor IDs
+ appointmentManagement: {
+  canSchedule: boolean;
+  canReschedule: boolean;
+  canCancel: boolean;
+  canConfirm: boolean;
+ };
+}
+
+interface IAssistantDoctor extends IClinicStaff {
+ degree: string[];
+ specialization: string[];
+ registrationNumber: string;
+ supervisingDoctor: string; // Primary doctor's ID
+ canPrescribe: boolean;
+ consultationRights: {
+  independent: boolean;
+  supervisedOnly: boolean;
+ };
+}
+
+interface INurse extends IClinicStaff {
+ certification: string[];
+ specializations?: string[];
+ dutyType: "FULL_TIME" | "PART_TIME" | "ON_CALL";
+}
+
+interface IAppointmentManager {
+ clinicId: string;
+ staffId: string;
+ role: EClinicRole;
+ permissions: EClinicPermissions[];
+ actions: {
+  lastModified: Date;
+  modifiedBy: string;
+  actionType: "SCHEDULE" | "RESCHEDULE" | "CANCEL" | "CONFIRM";
+  appointmentId: string;
+ }[];
+}
+```
+
+### Provider Type Union
+
+The `Provider` type combines all provider types with the base provider interface:
+
+```typescript
+type Provider =
+ | (IBaseProvider & IDoctor)
+ | (IBaseProvider & Hospital)
+ | (IBaseProvider & Lab)
+ | (IBaseProvider & Pharmaceutical)
+ | (IBaseProvider & IClinicStaff);
 ```
 
 ## User Management System
@@ -396,6 +520,51 @@ enum EUserRole {
 }
 ```
 
+### Doctor Status and Consultation Modes
+
+```typescript
+enum EDoctorStatus {
+ ONLINE = "Online",
+ OFFLINE = "Offline",
+ BUSY = "Busy",
+ ON_LEAVE = "OnLeave",
+ SUSPENDED = "Suspended",
+}
+
+enum EDoctorConsultMode {
+ VIDEO = "Video",
+ IN_PERSON = "InPerson",
+ HOME_VISIT = "HomeVisit",
+ CLINIC = "Clinic",
+ HYBRID = "Hybrid",
+}
+
+enum EDayOfWeek {
+ SUNDAY = "SUNDAY",
+ MONDAY = "MONDAY",
+ TUESDAY = "TUESDAY",
+ WEDNESDAY = "WEDNESDAY",
+ THURSDAY = "THURSDAY",
+ FRIDAY = "FRIDAY",
+ SATURDAY = "SATURDAY",
+}
+
+enum EClinicRole {
+ OWNER = "Owner",
+ ADMIN = "Admin",
+ DOCTOR = "Doctor",
+ STAFF = "Staff",
+}
+
+enum EClinicPermissions {
+ MANAGE_STAFF = "ManageStaff",
+ MANAGE_APPOINTMENTS = "ManageAppointments",
+ MANAGE_PATIENTS = "ManagePatients",
+ MANAGE_BILLING = "ManageBilling",
+ VIEW_REPORTS = "ViewReports",
+}
+```
+
 ### Status Enums
 
 - `EDoctorStatus`: Online, Offline, Suspended, etc.
@@ -477,3 +646,22 @@ All type definitions include TypeScript features:
 - Proper type inheritance
 - Enum-based status tracking
 - Generic type support where needed
+
+## Form Schemas
+
+```typescript
+// Doctor Management Forms
+const addDoctorSchema = z.object({
+ name: z.string().min(3, "Name must be at least 3 characters"),
+ email: z.string().email("Invalid email address"),
+ registrationNumber: z.string().min(3, "Registration number is required"),
+ specialization: z
+  .array(z.string())
+  .min(1, "At least one specialization is required"),
+ experience: z.number().min(0, "Experience must be a positive number"),
+ phone: z.string().min(10, "Phone number must be at least 10 digits"),
+ degree: z.array(z.string()).min(1, "At least one degree is required"),
+});
+
+type AddDoctorForm = z.infer<typeof addDoctorSchema>;
+```
