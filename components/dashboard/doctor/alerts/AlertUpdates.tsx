@@ -23,7 +23,7 @@ const AlertUpdates: React.FC = () => {
 
   return (
     <div className="w-full flex justify-center">
-      <div className="from-[#285b6d] to-[#31addb] text-white flex flex-wrap  justify-center md:justify-between w-full">
+      <div className="bg-gradient-to-r from-[#285b6d] to-[#31addb] text-white flex flex-wrap justify-center md:justify-between w-full">
         {data.map((item, index) => (
           <Card key={index} title={item.title} value={item.value} />
         ))}
