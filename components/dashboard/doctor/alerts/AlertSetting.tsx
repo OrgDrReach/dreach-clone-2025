@@ -16,16 +16,16 @@ const AlertSettings = () => {
   };
 
   return (
-    <div className="flex flex-col my-5 gap-6 bg-white shadow-md rounded-lg p-8">
-      <h2 className="text-2xl font-bold text-[#125872]">Alert Settings</h2>
+    <div className="flex flex-col my-5 gap-6  bg-[#ffffff] dark:bg-slate-800 shadow-md rounded-lg p-8">
+      <h2 className="text-[#125872] dark:text-[#4db7dd] text-2xl font-semibold mb-8">Alert Settings</h2>
       <div className="flex flex-col md:flex-row gap-4">
         <div className="flex-1">
-          <label className="block text-gray-700 font-semibold mb-4">
+          <label className="block text-gray-500 dark:text-gray-300 font-semibold mb-4">
             Alert Type
           </label>
           <select
             title="select"
-            className="w-full border border-gray-300 rounded-md p-2 text-gray-700"
+            className="w-full border dark:border-gray-400 border-gray-400 rounded-md p-2 dark:text-gray-300 text-gray-600"
             value={alertType}
             onChange={(e) => setAlertType(e.target.value)}
           >
@@ -35,12 +35,12 @@ const AlertSettings = () => {
           </select>
         </div>
         <div className="flex-1">
-          <label className="block text-gray-700 font-semibold mb-4">
+          <label className="block text-gray-500 dark:text-gray-300 font-semibold mb-4">
             Alert Frequency
           </label>
           <select
             title="select"
-            className="w-full border border-gray-300 rounded-md p-2 text-gray-700"
+            className="w-full border dark:border-gray-400 border-gray-400 rounded-md p-2 dark:text-gray-300 text-gray-600"
             value={alertFrequency}
             onChange={(e) => setAlertFrequency(e.target.value)}
           >
@@ -59,7 +59,7 @@ const AlertSettings = () => {
         </button>
         <button
           onClick={handleReset}
-          className="border border-[#125872] text-[#125872] hover:bg-blue-50 font-bold py-2 px-4 rounded-md transition-colors duration-200"
+          className="border border-[#125879]  hover:bg-[#328fb0] text-gray font-bold py-2 px-4 rounded-md shadow-md transition-colors"
         >
           Reset to Default
         </button>
