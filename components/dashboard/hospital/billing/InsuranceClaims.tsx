@@ -16,7 +16,7 @@ import {
 export const InsuranceClaims = () => {
 	return (
 		<div className="space-y-4">
-			<Card>
+			<Card className="border-2 border-gray-600">
 				<CardHeader>
 					<div className="flex justify-between items-center">
 						<CardTitle>Insurance Claims</CardTitle>
@@ -54,7 +54,7 @@ export const InsuranceClaims = () => {
 										</Badge>
 									</TableCell>
 									<TableCell>
-										<Button variant="outline" size="sm">
+										<Button variant="outline" size="sm" className="border-2 border-gray-600">
 											View Details
 										</Button>
 									</TableCell>

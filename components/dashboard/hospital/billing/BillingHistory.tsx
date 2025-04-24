@@ -17,13 +17,13 @@ import {
 export const BillingHistory = () => {
 	return (
 		<div className="space-y-4">
-			<Card>
+			<Card className="border-2 border-gray-600">
 				<CardHeader>
 					<div className="flex justify-between items-center">
 						<CardTitle>Billing History</CardTitle>
 						<div className="flex gap-2">
-							<Input type="date" className="w-40" />
-							<Button variant="outline">Export</Button>
+							<Input type="date" className="w-40 border-2 border-gray-600" />
+							<Button variant="outline" className="border-2 border-gray-600">Export</Button>
 						</div>
 					</div>
 				</CardHeader>
@@ -58,7 +58,7 @@ export const BillingHistory = () => {
 										</Badge>
 									</TableCell>
 									<TableCell>
-										<Button variant="outline" size="sm">
+										<Button variant="outline" size="sm" className="border-2 border-gray-600">
 											View
 										</Button>
 									</TableCell>
