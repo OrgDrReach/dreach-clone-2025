@@ -22,7 +22,6 @@ import {
 	Cog,
 	LifeBuoy,
 	BellRing,
-	Clipboard,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -218,11 +217,6 @@ const HospitalSideNav = ({
 					icon={<FileText size={20} />}
 					text="Reports"
 					href={`/dashboard/hospital/${hospitalId}/reports`}
-				/>
-				<SideBarItem
-					icon={<Clipboard size={20} />}
-					text="Insurance"
-					href={`/dashboard/hospital/${hospitalId}/insurance`}
 				/>
 				<SideBarItem
 					icon={<Building2 size={20} />}
