@@ -23,14 +23,14 @@ import {
 export const InvoiceGeneration = () => {
 	return (
 		<div className="space-y-4">
-			<Card>
+			<Card className="border-2 border-gray-600">
 				<CardHeader>
 					<CardTitle>Generate New Invoice</CardTitle>
 				</CardHeader>
 				<CardContent>
 					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
 						<Select>
-							<SelectTrigger>
+							<SelectTrigger className="border-2 border-gray-600">
 								<SelectValue placeholder="Select Patient" />
 							</SelectTrigger>
 							<SelectContent>
@@ -38,11 +38,11 @@ export const InvoiceGeneration = () => {
 								<SelectItem value="patient2">Jane Smith</SelectItem>
 							</SelectContent>
 						</Select>
-						<Input type="date" placeholder="Invoice Date" />
-						<Input type="text" placeholder="Invoice Number" />
+						<Input className = "border-2 border-gray-600"  type="date" placeholder="Invoice Date" />
+						<Input className = "border-2 border-gray-600" type="text" placeholder="Invoice Number" />
 					</div>
 					<div className="mt-4">
-						<Table>
+						<Table className="border-2 border-gray-600">
 							<TableHeader>
 								<TableRow>
 									<TableHead>Service</TableHead>
@@ -61,7 +61,7 @@ export const InvoiceGeneration = () => {
 							</TableBody>
 						</Table>
 						<div className="mt-4 flex justify-end space-x-2">
-							<Button variant="outline">Add Item</Button>
+							<Button variant="outline" className="border-2 border-gray-600">Add Item</Button>
 							<Button>Generate Invoice</Button>
 						</div>
 					</div>
