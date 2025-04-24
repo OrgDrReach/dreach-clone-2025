@@ -37,7 +37,7 @@ export const PaymentProcessing = () => {
 							</SelectTrigger>
 							<SelectContent>
 								<SelectItem value="cash">Cash</SelectItem>
-								<SelectItem value="card">Card</SelectItem>
+						p		<SelectItem value="card">Card</SelectItem>
 								<SelectItem value="upi">UPI</SelectItem>
 							</SelectContent>
 						</Select>
