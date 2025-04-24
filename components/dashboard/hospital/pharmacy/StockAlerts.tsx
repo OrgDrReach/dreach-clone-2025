@@ -37,7 +37,7 @@ export const StockAlerts: React.FC = () => {
 	};
 
 	return (
-		<Card>
+		<Card className = "border-2 border-gray-600">
 			<CardHeader>
 				<CardTitle className="flex items-center gap-2">
 					<AlertCircle className="h-5 w-5" />
@@ -52,13 +52,13 @@ export const StockAlerts: React.FC = () => {
 							<Badge variant="outline">{alert.status}</Badge>
 						</AlertTitle>
 						<AlertDescription className="mt-2">
-							<div className="flex items-center justify-between">
+							<div className="flex items-center text-gray-800 justify-between">
 								<div>
 									<p>Current Stock: {alert.currentStock}</p>
 									<p>Minimum Threshold: {alert.minThreshold}</p>
 									<p>Recommended Reorder: {alert.reorderQuantity}</p>
 								</div>
-								<Button className="flex items-center gap-2">
+								<Button className="flex items-center gap-2 border-2 border-gray-400">
 									<ShoppingCart className="h-4 w-4" />
 									Create Order
 								</Button>

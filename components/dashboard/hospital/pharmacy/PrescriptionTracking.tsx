@@ -51,12 +51,12 @@ export const PrescriptionTracking: React.FC = () => {
 	};
 
 	return (
-		<Card>
+		<Card className= "border-2 border-gray-600">
 			<CardHeader>
 				<CardTitle>Prescription Tracking</CardTitle>
 			</CardHeader>
 			<CardContent>
-				<Table>
+				<Table className = "border-2 border-gray-500">
 					<TableHeader>
 						<TableRow>
 							<TableHead>ID</TableHead>

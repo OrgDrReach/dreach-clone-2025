@@ -53,8 +53,8 @@ export const InventoryManagement: React.FC = () => {
 	};
 
 	return (
-		<Card>
-			<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
+		<Card className = "border-2 border-gray-600">
+			<CardHeader className="flex flex-row items-center  justify-between b space-y-0 pb-4">
 				<CardTitle className="text-2xl font-bold">
 					Inventory Management
 				</CardTitle>
@@ -64,12 +64,12 @@ export const InventoryManagement: React.FC = () => {
 			</CardHeader>
 			<CardContent>
 				<div className="flex justify-between items-center mb-4">
-					<div className="relative w-80">
-						<Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+					<div className="relative  border-2 border-gray-600 round-lg">
+						<Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 " />
 						<Input placeholder="Search medications..." className="pl-10" />
 					</div>
 				</div>
-				<div className="rounded-md border">
+				<div className="rounded-md border-2 border-gray-600">
 					<Table>
 						<TableHeader>
 							<TableRow>
@@ -85,7 +85,7 @@ export const InventoryManagement: React.FC = () => {
 						<TableBody>
 							{medications.map((med) => (
 								<TableRow key={med.id}>
-									<TableCell className="font-medium">{med.name}</TableCell>
+									<TableCell className="font-medium ">{med.name}</TableCell>
 									<TableCell>{med.genericName}</TableCell>
 									<TableCell>{med.category}</TableCell>
 									<TableCell>{`${med.quantity} ${med.unit}`}</TableCell>
@@ -96,7 +96,7 @@ export const InventoryManagement: React.FC = () => {
 										</Badge>
 									</TableCell>
 									<TableCell>
-										<Button variant="outline" size="sm">
+										<Button variant="outline" size="sm" className="rounded-lg border-2 border-gray-500">
 											Edit
 										</Button>
 									</TableCell>

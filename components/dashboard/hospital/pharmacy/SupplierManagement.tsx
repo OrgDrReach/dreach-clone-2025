@@ -54,7 +54,7 @@ export const SupplierManagement: React.FC = () => {
 	};
 
 	return (
-		<Card>
+		<Card className="border-2 border-gray-500">
 			<CardHeader>
 				<CardTitle className="flex items-center justify-between">
 					<span>Supplier Management</span>
@@ -62,7 +62,7 @@ export const SupplierManagement: React.FC = () => {
 				</CardTitle>
 			</CardHeader>
 			<CardContent>
-				<div className="rounded-md border">
+				<div className="rounded-md  border-2 border-gray-500">
 					<Table>
 						<TableHeader>
 							<TableRow>
@@ -113,10 +113,10 @@ export const SupplierManagement: React.FC = () => {
 									<TableCell>{supplier.lastOrder}</TableCell>
 									<TableCell>
 										<div className="flex gap-2">
-											<Button variant="outline" size="sm">
+											<Button variant="outline" size="sm" className="border-2 border-gray-500">
 												View
 											</Button>
-											<Button variant="outline" size="sm">
+											<Button variant="outline" size="sm" className="border-2 border-gray-500">
 												Order
 											</Button>
 										</div>

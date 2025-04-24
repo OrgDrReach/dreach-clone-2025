@@ -1,51 +1,19 @@
 "use client";
 
 import React from "react";
-import {
-	Chart as ChartJS,
-	CategoryScale,
-	LinearScale,
-	PointElement,
-	LineElement,
-	Title,
-	Tooltip,
-	Legend,
-} from "chart.js";
 import { Line } from "react-chartjs-2";
-
-ChartJS.register(
-	CategoryScale,
-	LinearScale,
-	PointElement,
-	LineElement,
-	Title,
-	Tooltip,
-	Legend
-);
+import { ChartOptions } from "chart.js";
 
 interface LineChartProps {
-	data: {
-		labels: string[];
-		datasets: Array<{
-			label: string;
-			data: number[];
-			borderColor?: string;
-			backgroundColor?: string;
-		}>;
-	};
-	height?: number;
+	chartData: any; // You can replace 'any' with your CustomChartData type
+	chartOptions: ChartOptions<"line">;
+	chartHeight: number;
 }
 
-export const LineChart: React.FC<LineChartProps> = ({ data, height }) => {
-	const options = {
-		responsive: true,
-		maintainAspectRatio: false,
-		plugins: {
-			legend: {
-				position: "top" as const,
-			},
-		},
-	};
-
-	return <Line options={options} data={data} height={height} />;
+export const LineChart: React.FC<LineChartProps> = ({
+	chartData,
+	chartOptions,
+	chartHeight,
+}) => {
+	return <Line data={chartData} options={chartOptions} height={chartHeight} />;
 };

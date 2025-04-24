@@ -22,7 +22,7 @@ const PharmacyManagement: React.FC = () => {
 			<Card>
 				<CardContent className="p-6">
 					<Tabs defaultValue="inventory" className="w-full">
-						<TabsList className="grid grid-cols-4 lg:grid-cols-7 gap-4">
+						<TabsList className="grid grid-cols-4 lg:grid-cols-7 gap-4 text-white bg-sky-400 dark:bg-sky-800">
 							<TabsTrigger value="inventory">Inventory</TabsTrigger>
 							<TabsTrigger value="prescriptions">Prescriptions</TabsTrigger>
 							<TabsTrigger value="alerts">Stock Alerts</TabsTrigger>

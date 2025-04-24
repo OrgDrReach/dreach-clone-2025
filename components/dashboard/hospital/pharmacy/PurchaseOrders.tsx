@@ -61,13 +61,13 @@ export const PurchaseOrders: React.FC = () => {
 	};
 
 	return (
-		<Card>
+		<Card className="border-2 border-gray-500">
 			<CardHeader>
 				<CardTitle className="flex items-center justify-between">
 					<span>Purchase Orders</span>
 					<div className="flex items-center gap-4">
 						<Select defaultValue="all">
-							<SelectTrigger className="w-[180px]">
+							<SelectTrigger className="w-[180px] border-2 border-gray-500">
 								<SelectValue placeholder="Filter by status" />
 							</SelectTrigger>
 							<SelectContent>
@@ -83,7 +83,7 @@ export const PurchaseOrders: React.FC = () => {
 				</CardTitle>
 			</CardHeader>
 			<CardContent>
-				<Table>
+				<Table className="border-2 border-gray-500">
 					<TableHeader>
 						<TableRow>
 							<TableHead>Order ID</TableHead>
@@ -118,10 +118,10 @@ export const PurchaseOrders: React.FC = () => {
 								<TableCell>{order.expectedDelivery || "N/A"}</TableCell>
 								<TableCell>
 									<div className="flex gap-2">
-										<Button variant="outline" size="sm">
+										<Button variant="outline" size="sm" className="border-2 border-gray-400">
 											View
 										</Button>
-										<Button variant="outline" size="sm">
+										<Button variant="outline" size="sm" className="border-2 border-gray-400">
 											Update
 										</Button>
 									</div>
