@@ -41,17 +41,17 @@ export const AmbulanceTracking: React.FC = () => {
 	};
 
 	return (
-		<Card>
+		<Card className="border-2 border-gray-600">
 			<CardHeader className="flex flex-row items-center justify-between">
 				<CardTitle>Ambulance Tracking</CardTitle>
-				<Button variant="outline" size="sm">
+				<Button variant="outline" size="sm" className="border-2 border-gray-600">
 					Dispatch Unit
 				</Button>
 			</CardHeader>
 			<CardContent>
 				<div className="grid gap-4 md:grid-cols-2">
 					{ambulances.map((unit) => (
-						<Card key={unit.id} className="p-4">
+						<Card key={unit.id} className="p-4 border-2 border-gray-600">
 							<div className="space-y-4">
 								<div className="flex items-center justify-between">
 									<div className="flex items-center space-x-2">
@@ -91,10 +91,10 @@ export const AmbulanceTracking: React.FC = () => {
 								</div>
 
 								<div className="flex justify-end space-x-2">
-									<Button variant="outline" size="sm">
+									<Button variant="outline" size="sm" className="border-2 border-gray-600">
 										Track
 									</Button>
-									<Button variant="outline" size="sm">
+									<Button variant="outline" size="sm" className="border-2 border-gray-600">
 										Contact
 									</Button>
 								</div>

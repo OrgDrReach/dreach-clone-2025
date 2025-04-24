@@ -45,12 +45,12 @@ export const StaffAssignment: React.FC = () => {
 	};
 
 	return (
-		<Card>
+		<Card className="border-2 border-gray-500">
 			<CardHeader>
 				<CardTitle>Staff Assignment</CardTitle>
 			</CardHeader>
 			<CardContent>
-				<Table>
+				<Table className="border-2 border-gray-500">
 					<TableHeader>
 						<TableRow>
 							<TableHead>Name</TableHead>
@@ -74,7 +74,7 @@ export const StaffAssignment: React.FC = () => {
 								<TableCell>{staff.assignedArea || "Unassigned"}</TableCell>
 								<TableCell>{staff.shift}</TableCell>
 								<TableCell>
-									<Button variant="outline" size="sm">
+									<Button variant="outline" size="sm" className="border-2 border-gray-500">
 										Reassign
 									</Button>
 								</TableCell>

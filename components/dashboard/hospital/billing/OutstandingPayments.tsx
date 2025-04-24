@@ -18,7 +18,7 @@ export const OutstandingPayments = () => {
 	return (
 		<div className="space-y-4">
 			<div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-				<Card>
+				<Card className="border-2 border-gray-600">
 					<CardContent className="p-6">
 						<div className="flex items-center gap-4">
 							<IndianRupee className="h-8 w-8 text-red-500" />
@@ -31,7 +31,7 @@ export const OutstandingPayments = () => {
 				</Card>
 			</div>
 
-			<Card>
+			<Card className="border-2 border-gray-600">
 				<CardHeader>
 					<CardTitle>Outstanding Payments</CardTitle>
 				</CardHeader>

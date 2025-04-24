@@ -26,7 +26,7 @@ export const EmergencyDashboard: React.FC = () => {
 	return (
 		<div className="grid gap-6">
 			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-				<Card>
+				<Card className="border-2 border-gray-500">
 					<CardHeader className="flex flex-row items-center justify-between pb-2">
 						<CardTitle className="text-sm font-medium">
 							Total Patients
@@ -45,7 +45,7 @@ export const EmergencyDashboard: React.FC = () => {
 					</CardContent>
 				</Card>
 
-				<Card>
+				<Card className="border-2 border-gray-500">
 					<CardHeader className="flex flex-row items-center justify-between pb-2">
 						<CardTitle className="text-sm font-medium">
 							Available Beds
@@ -60,7 +60,7 @@ export const EmergencyDashboard: React.FC = () => {
 					</CardContent>
 				</Card>
 
-				<Card>
+				<Card className="border-2 border-gray-500">
 					<CardHeader className="flex flex-row items-center justify-between pb-2">
 						<CardTitle className="text-sm font-medium">Staff On Duty</CardTitle>
 						<Users className="h-4 w-4 text-green-500" />

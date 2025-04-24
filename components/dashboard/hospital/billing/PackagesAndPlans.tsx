@@ -47,7 +47,7 @@ export const PackagesAndPlans = () => {
 
 			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
 				{packages.map((pkg, index) => (
-					<Card key={index}>
+					<Card key={index} className="border-2 border-gray-600">
 						<CardHeader>
 							<div className="flex justify-between items-start">
 								<CardTitle className="text-lg">{pkg.name}</CardTitle>
@@ -79,7 +79,7 @@ export const PackagesAndPlans = () => {
 									</ul>
 								</div>
 								<div className="flex space-x-2">
-									<Button className="flex-1" variant="outline">
+									<Button className="flex-1 border-2 border-gray-600" variant="outline" >
 										Edit
 									</Button>
 									<Button className="flex-1">

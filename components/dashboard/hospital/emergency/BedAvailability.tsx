@@ -35,7 +35,7 @@ export const BedAvailability: React.FC = () => {
 	};
 
 	return (
-		<Card>
+		<Card className="border-2 border-gray-500">
 			<CardHeader>
 				<CardTitle>Emergency Bed Availability</CardTitle>
 			</CardHeader>
@@ -58,7 +58,7 @@ export const BedAvailability: React.FC = () => {
 								value={(bed.occupied / bed.total) * 100}
 								className="h-2"
 							/>
-							<div className="flex justify-between text-sm text-muted-foreground">
+							<div className="flex justify-between text-sm text-gray-5 text-muted-foreground">
 								<span>{bed.occupied} Occupied</span>
 								<span>{bed.total} Total</span>
 							</div>

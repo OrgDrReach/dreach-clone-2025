@@ -16,14 +16,14 @@ import {
 export const PaymentProcessing = () => {
 	return (
 		<div className="space-y-4">
-			<Card>
+			<Card className="border-2 border-gray-600">
 				<CardHeader>
 					<CardTitle>Process Payment</CardTitle>
 				</CardHeader>
 				<CardContent>
-					<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+					<div className="grid grid-cols-1 md:grid-cols-2  gap-4">
 						<Select>
-							<SelectTrigger>
+							<SelectTrigger className="border-2 border-gray-600">
 								<SelectValue placeholder="Select Invoice" />
 							</SelectTrigger>
 							<SelectContent>
@@ -32,7 +32,7 @@ export const PaymentProcessing = () => {
 							</SelectContent>
 						</Select>
 						<Select>
-							<SelectTrigger>
+							<SelectTrigger className="border-2 border-gray-600">
 								<SelectValue placeholder="Payment Method" />
 							</SelectTrigger>
 							<SelectContent>
@@ -41,8 +41,8 @@ export const PaymentProcessing = () => {
 								<SelectItem value="upi">UPI</SelectItem>
 							</SelectContent>
 						</Select>
-						<Input type="number" placeholder="Amount" />
-						<Input type="text" placeholder="Transaction Reference" />
+						<Input className="border-2 border-gray-600" type="number" placeholder="Amount" />
+						<Input className="border-2 border-gray-600" type="text" placeholder="Transaction Reference" />
 					</div>
 					<div className="mt-4 flex justify-between items-center">
 						<div>
@@ -54,7 +54,7 @@ export const PaymentProcessing = () => {
 				</CardContent>
 			</Card>
 
-			<Card>
+			<Card className="border-2 border-gray-600">
 				<CardHeader>
 					<CardTitle>Recent Transactions</CardTitle>
 				</CardHeader>
@@ -63,7 +63,7 @@ export const PaymentProcessing = () => {
 						{[1, 2, 3].map((i) => (
 							<div
 								key={i}
-								className="flex justify-between items-center p-4 border rounded-lg">
+								className="flex justify-between items-center p-4 border-2 border-gray-600 rounded-lg">
 								<div>
 									<p className="font-medium">Payment #{i}</p>
 									<p className="text-sm text-gray-500">

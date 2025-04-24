@@ -40,17 +40,17 @@ export const EmergencyProtocols: React.FC = () => {
 	};
 
 	return (
-		<Card>
+		<Card className="border-2 border-gray-600">
 			<CardHeader className="flex flex-row items-center justify-between">
 				<CardTitle>Emergency Protocols</CardTitle>
-				<Button variant="outline" size="sm">
+				<Button variant="outline" size="sm" className="border-2 border-gray-600">
 					Add Protocol
 				</Button>
 			</CardHeader>
 			<CardContent>
 				<div className="grid gap-4">
 					{protocols.map((protocol) => (
-						<Card key={protocol.id} className="p-4">
+						<Card key={protocol.id} className="p-4 border-2 border-gray-600">
 							<div className="space-y-4">
 								<div className="flex items-center justify-between">
 									<div className="flex items-center space-x-2">
@@ -80,10 +80,10 @@ export const EmergencyProtocols: React.FC = () => {
 								</div>
 
 								<div className="flex justify-end space-x-2">
-									<Button variant="outline" size="sm">
+									<Button variant="outline" size="sm" className="border-2 border-gray-600">
 										View Details
 									</Button>
-									<Button variant="outline" size="sm">
+									<Button variant="outline" size="sm" className="border-2 border-gray-600">
 										Update
 									</Button>
 								</div>

@@ -43,12 +43,12 @@ export const PatientTriage: React.FC = () => {
 	};
 
 	return (
-		<Card>
+		<Card className="border-2 border-gray-500">
 			<CardHeader>
 				<CardTitle>Patient Triage</CardTitle>
 			</CardHeader>
 			<CardContent>
-				<Table>
+				<Table className="border-2 border-gray-500">
 					<TableHeader>
 						<TableRow>
 							<TableHead>Patient</TableHead>
@@ -72,7 +72,7 @@ export const PatientTriage: React.FC = () => {
 								<TableCell>{patient.waitTime} mins</TableCell>
 								<TableCell>{patient.assignedTo || "Unassigned"}</TableCell>
 								<TableCell>
-									<Button variant="outline" size="sm">
+									<Button variant="outline" size="sm" className="border-2 border-gray-500">
 										Update
 									</Button>
 								</TableCell>
