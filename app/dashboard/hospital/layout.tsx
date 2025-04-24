@@ -25,7 +25,7 @@ const Layout: React.FC<RNChildProp> = ({ children }: RNChildProp) => {
 				<motion.aside
 					initial={false}
 					animate={{
-						width: isSidebarCollapsed ? 80 : 256,
+						width: isSidebarCollapsed ? 64 : 256,
 						transition: { duration: 0.3 },
 					}}
 					className="shrink-0 border-r border-[#ffffff1a]">
@@ -58,7 +58,8 @@ const Layout: React.FC<RNChildProp> = ({ children }: RNChildProp) => {
 									initial={{ opacity: 0, y: 20 }}
 									animate={{ opacity: 1, y: 0 }}
 									exit={{ opacity: 0, y: -20 }}
-									transition={{ duration: 0.2 }}>
+									// transition={{ duration: 0.2 }}
+								>
 									{children}
 								</motion.div>
 							</AnimatePresence>
