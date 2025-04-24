@@ -18,11 +18,13 @@ export default function FacilitiesPage({ params }: FacilitiesPageProps) {
 			transition={{ duration: 0.5 }}
 			className="container mx-auto p-6 space-y-6">
 			<div className="flex items-center justify-between mb-8">
-				<h1 className="text-3xl font-bold">Facility Management</h1>
-				<p className="text-muted-foreground">
-					Monitor and manage your hospital facilities, equipment, and
-					infrastructure.
-				</p>
+				<div className={`flex flex-col space-y-2`}>
+					<h1 className="text-3xl font-bold">Facility Management</h1>
+					<p className="text-muted-foreground">
+						Monitor and manage your hospital facilities, equipment, and
+						infrastructure.
+					</p>
+				</div>
 				<div className="flex items-center space-x-2 text-sm text-gray-500">
 					<span>Dashboard</span>
 					<span>•</span>
