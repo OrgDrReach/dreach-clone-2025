@@ -1,11 +1,15 @@
-import React from 'react';
+"use client";
 
-const page: React.FC = () => {
-  return (
-    <main>
-      <div>page</div>
-    </main>
-  );
+import React from "react";
+import { BillingManagement } from "@/components/dashboard/hospital/billing";
+
+const BillingPage: React.FC = () => {
+	return (
+		<main className="p-6">
+			<h1 className="text-3xl font-bold mb-6">Billing Management</h1>
+			<BillingManagement />
+		</main>
+	);
 };
 
-export default page;
+export default BillingPage;
