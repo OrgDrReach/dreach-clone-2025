@@ -3,8 +3,7 @@ import { useDoctorState } from "@/lib/stores/doctorStore";
 
 // Example usage in a component
 const ExampleComponent = async () => {
-  const { doctors, loading, error, fetchDoctors, bookAppointment } =
-    useDoctorState();
+    const { doctors, loading, error, fetchDoctors, bookAppointment } = useDoctorState();
 
   try {
     // Fetch doctors by specialty

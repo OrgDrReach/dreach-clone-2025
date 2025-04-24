@@ -50,8 +50,7 @@ const DoctorSearchModal: React.FC<DoctorSearchModalProps> = ({
   isOpen,
   onClose,
 }) => {
-  const { fetchDoctors, searchDoctors, filteredDoctors, loading, error } =
-    useDoctorState();
+    const { fetchDoctors, searchDoctors, filteredDoctors, loading, error } = useDoctorState();
   const [isSearching, setIsSearching] = useState(false);
 
   const {
