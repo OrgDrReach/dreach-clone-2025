@@ -37,14 +37,14 @@ export const EmergencyContacts: React.FC = () => {
 	};
 
 	return (
-		<Card>
+		<Card className="border-2 border-gray-500">
 			<CardHeader>
 				<CardTitle>Emergency Contacts</CardTitle>
 			</CardHeader>
-			<CardContent>
+			<CardContent >
 				<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
 					{contacts.map((contact) => (
-						<Card key={contact.id} className="p-4">
+						<Card key={contact.id} className="p-4 border-2 border-gray-600 round-lg">
 							<div className="space-y-2">
 								<div className="flex items-center space-x-2">
 									<Building className="h-4 w-4" />
@@ -60,7 +60,7 @@ export const EmergencyContacts: React.FC = () => {
 									<span className="text-sm">{contact.email}</span>
 								</div>
 								<div className="flex justify-between items-center pt-2">
-									<Button variant="outline" size="sm">
+									<Button variant="outline" size="sm" className="border-2 border-gray-600 round-lg">
 										Contact
 									</Button>
 									<div
