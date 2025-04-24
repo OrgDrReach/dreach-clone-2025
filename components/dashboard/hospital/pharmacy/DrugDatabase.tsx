@@ -41,7 +41,7 @@ export const DrugDatabase: React.FC = () => {
 	];
 
 	return (
-		<Card>
+		<Card className= "border-2 border-gray-600">
 			<CardHeader>
 				<CardTitle className="flex items-center justify-between">
 					<span>Drug Database</span>
@@ -52,16 +52,16 @@ export const DrugDatabase: React.FC = () => {
 			</CardHeader>
 			<CardContent>
 				<div className="flex items-center justify-between mb-6">
-					<div className="relative w-80">
+					<div className="relative border-2 border-gray-500 w-80">
 						<Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
 						<Input placeholder="Search drugs..." className="pl-10" />
 					</div>
-					<Button variant="outline" className="flex items-center gap-2">
+					<Button variant="outline" className="flex items-center border-2 border-gray-500 gap-2">
 						<Filter className="h-4 w-4" /> Filter
 					</Button>
 				</div>
 				<div className="rounded-md border">
-					<Table>
+					<Table className = "border-2 border-gray-500">
 						<TableHeader>
 							<TableRow>
 								<TableHead>Name</TableHead>
@@ -85,7 +85,7 @@ export const DrugDatabase: React.FC = () => {
 									<TableCell>{drug.strength}</TableCell>
 									<TableCell>${drug.price.toFixed(2)}</TableCell>
 									<TableCell>
-										<Button variant="outline" size="sm">
+										<Button variant="outline" size="sm" className = "border-2 border-gray-500">
 											View Details
 										</Button>
 									</TableCell>

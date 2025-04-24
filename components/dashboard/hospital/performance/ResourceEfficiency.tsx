@@ -5,6 +5,7 @@ import { DoughnutChart } from "@/components/ui/charts";
 const ResourceEfficiency: React.FC = () => {
 	const data = {
 		labels: ["Optimal", "Under-utilized", "Over-utilized"],
+
 		datasets: [
 			{
 				data: [65, 20, 15],

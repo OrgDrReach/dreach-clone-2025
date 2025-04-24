@@ -65,7 +65,7 @@ export const ExpiryTracking: React.FC = () => {
 	};
 
 	return (
-		<Card>
+		<Card className="border-2 border-gray-500">
 			<CardHeader>
 				<CardTitle className="flex items-center gap-2">
 					<AlertCircle className="h-5 w-5 text-yellow-500" />
@@ -107,7 +107,7 @@ export const ExpiryTracking: React.FC = () => {
 						</Card>
 					</div>
 
-					<Table>
+					<Table className="border-2 border-gray-500">
 						<TableHeader>
 							<TableRow>
 								<TableHead>Medicine</TableHead>
@@ -137,7 +137,7 @@ export const ExpiryTracking: React.FC = () => {
 										</Badge>
 									</TableCell>
 									<TableCell>
-										<Button variant="outline" size="sm">
+										<Button variant="outline" size="sm" className="border-2 border-gray-500">
 											Take Action
 										</Button>
 									</TableCell>
