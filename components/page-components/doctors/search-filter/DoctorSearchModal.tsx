@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-import { useDoctorStore } from "@/lib/stores/doctorStore";
+import { useDoctorState } from "@/lib/stores/doctorStore";
 import {
   EProviderType,
   IBaseProvider,
@@ -51,7 +51,7 @@ const DoctorSearchModal: React.FC<DoctorSearchModalProps> = ({
   onClose,
 }) => {
   const { fetchDoctors, searchDoctors, filteredDoctors, loading, error } =
-    useDoctorStore();
+    useDoctorState();
   const [isSearching, setIsSearching] = useState(false);
 
   const {
