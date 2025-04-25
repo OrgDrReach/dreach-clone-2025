@@ -3,13 +3,7 @@
 import React from "react";
 import { NotificationCenter } from "@/components/dashboard/hospital/notifications/NotificationCenter";
 
-interface NotificationsPageProps {
-	params: {
-		hospitalId: string;
-	};
-}
-
-const NotificationsPage: React.FC<NotificationsPageProps> = ({ params }) => {
+const NotificationsPage: React.FC = () => {
 	return (
 		<main className="container mx-auto p-6 space-y-6">
 			<div className="flex items-center justify-between mb-8">
