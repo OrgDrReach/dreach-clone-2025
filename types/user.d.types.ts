@@ -69,8 +69,8 @@ export interface IPatientPreferences {
 export interface IUser {
 	id: string;
 	userId: string;
-	firstName: string;
-	lastName: string;
+	name: string;
+
 	email: string;
 	phone: string;
 	dob: Date;

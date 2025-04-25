@@ -18,9 +18,9 @@ export enum EUserStatus {
 }
 
 export enum EGender {
-	MALE = "Male",
-	FEMALE = "Female",
-	OTHER = "Other",
+	MALE = "MALE",
+	FEMALE = "FEMALE",
+	OTHER = "OTHER",
 }
 
 export interface IAuthUser {
