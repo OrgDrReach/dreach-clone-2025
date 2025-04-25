@@ -1,0 +1,69 @@
+"use client";
+
+import React from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import {
+	Table,
+	TableBody,
+	TableCell,
+	TableHead,
+	TableHeader,
+	TableRow,
+} from "@/components/ui/table";
+
+export const RefundManagement = () => {
+	return (
+		<div className="space-y-4">
+			<Card className="border-2 border-gray-600">
+				<CardHeader>
+					<div className="flex justify-between items-center">
+						<CardTitle>Refund Requests</CardTitle>
+						<Button variant="outline" className="border-2 border-gray-600">Process Refund</Button>
+					</div>
+				</CardHeader>
+				<CardContent>
+					<Table>
+						<TableHeader>
+							<TableRow>
+								<TableHead>Refund ID</TableHead>
+								<TableHead>Patient</TableHead>
+								<TableHead>Original Payment</TableHead>
+								<TableHead>Refund Amount</TableHead>
+								<TableHead>Status</TableHead>
+								<TableHead>Actions</TableHead>
+							</TableRow>
+						</TableHeader>
+						<TableBody>
+							{[1, 2, 3].map((i) => (
+								<TableRow key={i}>
+									<TableCell>REF-00{i}</TableCell>
+									<TableCell>Patient {i}</TableCell>
+									<TableCell>₹{i * 2000}</TableCell>
+									<TableCell>₹{i * 1000}</TableCell>
+									<TableCell>
+										<Badge
+											variant="outline"
+											className={
+												i === 1 ?
+													"bg-green-100 text-green-800"
+												:	"bg-yellow-100 text-yellow-800"
+											}>
+											{i === 1 ? "Processed" : "Pending"}
+										</Badge>
+									</TableCell>
+									<TableCell>
+										<Button variant="outline" size="sm" className="border-2 border-gray-600">
+											View Details
+										</Button>
+									</TableCell>
+								</TableRow>
+							))}
+						</TableBody>
+					</Table>
+				</CardContent>
+			</Card>
+		</div>
+	);
+};

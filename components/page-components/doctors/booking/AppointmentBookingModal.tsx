@@ -13,7 +13,7 @@ import {
 	FaNotesMedical,
 } from "react-icons/fa";
 
-import { useDoctorStore } from "@/lib/stores/doctorStore";
+import { useDoctorState } from "@/lib/stores/doctorStore";
 import { Provider, EProviderType } from "@/types/provider.d.types";
 import { IDoctor, EDoctorConsultMode } from "@/types/doctor.d.types";
 import {
@@ -94,7 +94,7 @@ interface AppointmentBookingModalProps {
 export const AppointmentBookingModal: React.FC<
 	AppointmentBookingModalProps
 > = ({ isOpen, onClose, selectedDoctor: initialDoctor }) => {
-	const { bookAppointment } = useDoctorStore();
+	const { bookAppointment } = useDoctorState();
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [selectedDoctor, setSelectedDoctor] = useState<
 		(Provider & IDoctor) | null

@@ -1,10 +1,9 @@
 import { EAppointmentMode } from "@/types/appointment.d.types";
-import { useDoctorStore } from "@/lib/stores/doctorStore";
+import { useDoctorState } from "@/lib/stores/doctorStore";
 
 // Example usage in a component
 const ExampleComponent = async () => {
-  const { doctors, loading, error, fetchDoctors, bookAppointment } =
-    useDoctorStore();
+    const { doctors, loading, error, fetchDoctors, bookAppointment } = useDoctorState();
 
   try {
     // Fetch doctors by specialty

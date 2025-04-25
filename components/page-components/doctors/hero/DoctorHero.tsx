@@ -7,7 +7,7 @@ import Image from "next/image";
 import { FaSearch, FaCalendar, FaUserMd, FaHospital } from "react-icons/fa";
 import DoctorSearchModal from "@/components/page-components/doctors/search-filter/DoctorSearchModal";
 import AppointmentBookingModal from "@/components/page-components/doctors/booking/AppointmentBookingModal";
-import { useDoctorStore } from "@/lib/stores/doctorStore";
+import { useDoctorState } from "@/lib/stores/doctorStore";
 import { Provider } from "@/types/provider.d.types";
 import { IDoctor } from "@/types/doctor.d.types";
 
@@ -28,7 +28,7 @@ interface HeroImage {
 
 const DoctorHero: React.FC = () => {
   const router = useRouter();
-  const { doctors, loading } = useDoctorStore();
+  const { doctors, loading } = useDoctorState();
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
   const [isAppointmentModalOpen, setIsAppointmentModalOpen] = useState(false);
   const [selectedDoctor, setSelectedDoctor] = useState<
