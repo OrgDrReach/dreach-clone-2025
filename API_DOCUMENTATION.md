@@ -141,41 +141,182 @@ All API endpoints except `/auth/login` and `/auth/signup` require authentication
 
 ### User Management
 
-```typescript
-POST   /user/signup                     # Create new user account
+````typescript
+POST   /user/signup                     # Create new user with email
 POST   /user/updateUser                 # Update user profile with optional profile image
 POST   /user/applyForServiceProvider    # Apply to become a service provider
 GET    /user/doctors                    # Get list of approved doctors
 GET    /user/getApprovedServiceProviders # Get all approved service providers
 GET    /user/findServiceProvidersByHomeVisit # Get providers offering home visits
+GET    /user/findServiceProvidersList   # Get list of all service providers
 GET    /user/findDoctorbyVideoConsultation  # Get doctors offering video consultations
 GET    /user/getServiceProvider/:username   # Get specific provider details
 GET    /user/getAppointments/:userId       # Get user's appointments
 POST   /user/addReview                     # Add review for a service provider
 GET    /user/getPopularDoctors            # Get list of popular doctors
+GET    /user/fetchUserById/:userId        # Get user details by ID
+GET    /user/fetchUserByEmail            # Get user details by email
+GET    /user/fetchUserIdByEmail          # Get user ID by email
+
+Request Body Examples:
+- signup:
+```json
+{
+    "email": string
+}
+````
+
+- updateUser:
+
+```json
+{
+    "profileImage": File,
+    "address": string,
+    ...other user details
+}
 ```
 
-### Service Provider Endpoints
+- applyForServiceProvider:
+
+```json
+{
+    ...serviceProviderDetails
+}
+```
+
+- addReview:
+
+```json
+{
+    "serviceProviderId": string,
+    "userId": string,
+    "comment": string,
+    "serviceProviderType": ProviderType,
+    "score": number
+}
+```
+
+### Service Provider Management
+
+#### Provider Endpoints Details
+
+1. **Update Service Provider**
 
 ```typescript
-POST   /provider/updateServiceProvider     # Update provider profile
-POST   /provider/updateSchedule            # Update availability schedule
-POST   /provider/uploadProviderProfile     # Upload provider profile image
-POST   /provider/checkProviderAvailability # Check provider's availability
-POST   /provider/bookAppointment          # Book an appointment
-POST   /provider/integratedBookAppointment # Book integrated care appointment
-POST   /provider/actionOnPatients         # Approve/reject/cancel patient appointments
-POST   /provider/addMedicalRecord         # Add medical record for patient
-POST   /provider/addDocument              # Add provider documents
-POST   /provider/removeDocument           # Remove provider documents
-GET    /provider/getProviderById/:providerId # Get provider details
-GET    /provider/getSchedule/:userId      # Get provider's schedule
-GET    /provider/getServiceProvider       # Get provider details with availability
-GET    /provider/getScheduleByHomeCare    # Get home care schedule
-GET    /provider/getPatients/:providerId  # Get provider's patients
-GET    /provider/getPatientMedicalByProvider # Get patient's medical records
-GET    /provider/getPatientsMedicalBySelf   # Get self medical records
-GET    /provider/getPatientsInfo          # Get patient information
+POST /provider/updateServiceProvider
+Body: {
+    userId: string,
+    providerId: string,
+    serviceProvider: UpdateServiceProviderDetailsDto
+}
+```
+
+2. **Schedule Management**
+
+```typescript
+POST /provider/schedule
+Body: UpdateScheduleDto {
+    // Schedule details
+}
+
+GET /provider/getSchedule/:userId
+Response: Provider's availability schedule
+```
+
+3. **Appointment Management**
+
+```typescript
+POST /provider/appointment
+Body: BookAppointmentDto {
+    // Appointment details
+}
+
+POST /provider/checkProviderAvailability
+Body: {
+    providerId: string,
+    date: string,
+    slot: string,
+    service: Service
+}
+
+POST /provider/integreatedCheckProviderAvailability
+Body: {
+    homeVisitNursingId: string,
+    h_apptDate: string,
+    h_slotTime: string,
+    videoDoctorId: string,
+    v_apptDate: string,
+    v_slotTime: string
+}
+
+POST /provider/integratedBookAppointment
+Body: integratedBookAppointmentDTO
+```
+
+4. **Patient Management**
+
+```typescript
+POST /provider/actionOnPatients
+Body: {
+    serviceProviderId: string,
+    userId: string,
+    action: 'APPROVED' | 'REJECTED' | 'CANCELLED',
+    apptId: string
+}
+
+GET /provider/getPatients/:providerId
+Response: List of provider's patients
+```
+
+5. **Medical Records**
+
+```typescript
+POST /provider/addMedicalRecord
+Body: FormData {
+    file: File,
+    patientId: string,
+    providerId: string,
+    description: string,
+    diagnosis: string,
+    prescription: string
+}
+
+GET /provider/getPatientMedicalByProvider
+Query Parameters:
+    pid: string,
+    providerId?: string
+
+GET /provider/getPatientsMedicalBySelf
+Query Parameters:
+    userId: string
+```
+
+6. **Document Management**
+
+```typescript
+POST /provider/addDocument
+Body: FormData {
+    document: File,
+    providerId: string
+}
+
+POST /provider/removeDocument
+Body: {
+    providerId: string
+}
+```
+
+7. **Profile Management**
+
+```typescript
+POST /provider/uploadProviderProfile
+Body: FormData {
+    profileImage: File,
+    userId: string
+}
+
+GET /provider/getProviderById/:providerId
+Response: Provider profile details
 ```
 
 ### Admin Endpoints

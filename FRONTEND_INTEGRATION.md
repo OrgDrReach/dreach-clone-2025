@@ -4,248 +4,74 @@ This guide explains how to integrate the Dr. Reach frontend application with the
 
 ## Project Structure
 
-Create the following directory structure in your frontend project:
+Create the following directory structure in your Next.js frontend project:
 
 ```directory
-src/
-├── api/                    # API integration layer
-│   ├── config/            # API configuration
-│   │   ├── axios.ts       # Axios instance configuration
-│   │   └── endpoints.ts   # API endpoint constants
-│   ├── services/          # API service modules
-│   │   ├── auth.ts       # Authentication service
-│   │   ├── user.ts       # User management service
-│   │   ├── provider.ts   # Healthcare provider service
-│   │   ├── admin.ts      # Admin service
-│   │   └── appointment.ts # Appointment service
-│   └── types/            # TypeScript interfaces for API data
-│       ├── auth.ts       # Authentication types
-│       ├── user.ts       # User related types
-│       ├── provider.ts   # Provider related types
-│       └── common.ts     # Shared types
-├── components/            # React components
-│   ├── auth/             # Authentication components
-│   ├── user/             # User related components
-│   ├── provider/         # Provider related components
-│   ├── admin/            # Admin dashboard components
-│   ├── common/           # Shared/reusable components
-│   └── layout/           # Layout components
-├── hooks/                # Custom React hooks
-│   ├── api/             # API related hooks
-│   ├── auth/            # Authentication hooks
-│   └── common/          # Shared hooks
-├── context/             # React context providers
-│   ├── AuthContext.tsx  # Authentication context
-│   └── UserContext.tsx  # User data context
-├── utils/               # Utility functions
-│   ├── auth.ts         # Authentication utilities
-│   ├── date.ts         # Date formatting utilities
-│   ├── validation.ts   # Form validation utilities
-│   └── format.ts       # Data formatting utilities
-└── config/             # App configuration
-    ├── routes.ts       # Route definitions
-    └── constants.ts    # App constants
+app/                     # Next.js app directory (replaces pages/)
+├── (auth)/             # Authentication routes group
+│   ├── login/
+│   │   └── page.tsx    # Login page
+│   ├── register/
+│   │   └── page.tsx    # Register page
+│   └── layout.tsx      # Auth layout
+├── (dashboard)/        # Dashboard routes group
+│   ├── provider/       # Provider dashboard routes
+│   ├── patient/        # Patient dashboard
+│   └── admin/          # Admin dashboard
+├── api/                # Route handlers (API endpoints)
+├── layout.tsx          # Root layout
+└── page.tsx            # Home page
 
+lib/                    # Shared utilities & business logic
+├── api/                # API integration layer
+│   ├── config/        # API configuration
+│   │   ├── axios.ts   # Axios instance & interceptors
+│   │   └── env.ts     # Environment variables
+│   ├── services/      # API service modules
+│   │   ├── auth.ts    # Authentication service
+│   │   ├── user.ts    # User service
+│   │   └── provider.ts # Provider service
+│   └── types/         # TypeScript interfaces
+│       ├── auth.ts    # Auth types
+│       └── common.ts  # Shared types
+├── hooks/             # Custom React hooks
+│   ├── api/          # API-related hooks
+│   └── auth/         # Auth hooks
+└── utils/            # Utility functions
+
+components/            # React components
+├── auth/             # Authentication components
+├── dashboard/        # Dashboard components
+├── forms/           # Form components
+├── providers/       # Context providers
+└── ui/             # UI components
 ```
 
-## File Naming and Module Organization
+## Environment Setup
 
-### Component Files
-
-```directory
-components/
-├── auth/
-│   ├── LoginForm/
-│   │   ├── index.tsx         # Main component
-│   │   ├── LoginForm.tsx     # Component implementation
-│   │   ├── LoginForm.test.tsx # Tests
-│   │   ├── LoginForm.module.css # Styles
-│   │   └── types.ts          # Component types
-│   └── SignupForm/
-│       └── ... (same structure)
-├── user/
-│   └── UserProfile/
-│       └── ... (same structure)
-└── provider/
-    └── ProviderDashboard/
-        └── ... (same structure)
-```
-
-### Service Files
-
-```directory
-api/services/
-├── auth/
-│   ├── index.ts              # Service exports
-│   ├── auth.service.ts       # Service implementation
-│   ├── auth.types.ts         # Service types
-│   └── auth.test.ts          # Service tests
-└── user/
-    └── ... (same structure)
-```
-
-### Hook Files
-
-```directory
-hooks/
-├── api/
-│   ├── useAuth/
-│   │   ├── index.ts          # Hook export
-│   │   ├── useAuth.ts        # Hook implementation
-│   │   └── useAuth.test.ts   # Hook tests
-│   └── useUser/
-│       └── ... (same structure)
-└── common/
-    └── ... (same structure)
-```
-
-### Module Import Order
-
-Maintain consistent import ordering in all files:
-
-```typescript
-// 1. External dependencies
-import React from 'react';
-import { useQuery } from 'react-query';
-
-// 2. Internal modules/components
-import { useAuth } from '@/hooks/auth';
-import { Button } from '@/components/common';
-
-// 3. Types
-import type { User } from '@/types';
-
-// 4. Styles
-import styles from './ComponentName.module.css';
-```
-
-### File Export Patterns
-
-Use consistent export patterns:
-
-```typescript
-// For components (named exports for testing, default export for usage)
-export { ComponentName };
-export default ComponentName;
-
-// For hooks (always named exports)
-export { useCustomHook };
-
-// For services (object with methods)
-export const serviceName = {
-  methodOne,
-  methodTwo,
-};
-
-// For types (named exports)
-export type { TypeName };
-export interface InterfaceName {}
-```
-
-### Module Resolution
-
-Add to your `tsconfig.json`:
-
-```json
-{
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"],
-      "@components/*": ["src/components/*"],
-      "@hooks/*": ["src/hooks/*"],
-      "@api/*": ["src/api/*"],
-      "@utils/*": ["src/utils/*"],
-      "@context/*": ["src/context/*"],
-      "@config/*": ["src/config/*"]
-    }
-  }
-}
-```
-
-### State Management Organization
-
-```directory
-src/store/
-├── auth/
-│   ├── actions.ts
-│   ├── reducers.ts
-│   ├── selectors.ts
-│   └── types.ts
-└── user/
-    └── ... (same structure)
-```
-
-### Component Structure Guidelines
-
-1. **Common Components:**
-
-   - Keep in `components/common`
-   - Must be highly reusable
-   - Should accept children and custom styling
-   - Example structure:
-
-   ```typescript
-   // Button/index.tsx
-   interface ButtonProps {
-     variant?: 'primary' | 'secondary';
-     size?: 'sm' | 'md' | 'lg';
-     children: React.ReactNode;
-     className?: string;
-   }
-   ```
-
-2. **Page Components:**
-
-   - Keep in `pages` directory
-   - Follow Next.js routing conventions
-   - Handle data fetching and layout
-   - Example structure:
-
-   ```typescript
-   // pages/provider/[id].tsx
-   export const getServerSideProps: GetServerSideProps = async (context) => {
-     // Handle data fetching
-   };
-   ```
-
-3. **Feature Components:**
-   - Group related components in feature folders
-   - Include all related files (tests, styles, types)
-   - Example structure:
-
-   ```directory
-   features/
-   └── appointments/
-       ├── components/
-       ├── hooks/
-       ├── services/
-       └── types/
-   ```
-
-## Prerequisites
-
-1. Backend server running (default: <http://localhost:4000>)
-2. Frontend application (Next.js) repository: <https://github.com/OrgDrReach/dreach-clone-2025.git>
-
-## Configuration Steps
-
-### 1. Environment Setup
-
-Create a `.env.local` file in your frontend project root with:
+1. Create `.env.local` in project root:
 
 ```env
+# Backend API URL
 NEXT_PUBLIC_API_URL=http://localhost:4000
-NEXT_PUBLIC_APP_ENV=development
+
+# Environment
+NEXT_PUBLIC_ENV=development
 ```
 
-### 2. API Configuration Setup
+## API Integration
 
-Create the following files:
+1. First install required dependencies:
+
+```bash
+npm install axios @tanstack/react-query jwt-decode date-fns
+```
+
+2. Set up Axios instance (`lib/api/config/axios.ts`):
 
 ```typescript
-// src/api/config/axios.ts
 import axios from 'axios';
+import { cookies } from 'next/headers';
 
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -254,38 +80,40 @@ const api = axios.create({
   },
 });
 
-// Add request interceptor for authentication
+// Request interceptor with cookie auth
 api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('token');
+  const token = cookies().get('token')?.value;
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
   return config;
 });
 
-// Add response interceptor for error handling
+// Response interceptor for error handling & token refresh
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
     if (error.response?.status === 401) {
-      // Handle token refresh or logout
-      const refreshToken = localStorage.getItem('refreshToken');
+      // Handle token refresh
+      const refreshToken = cookies().get('refreshToken')?.value;
       if (refreshToken) {
         try {
           const response = await api.post('/auth/refresh', null, {
             headers: { Authorization: `Bearer ${refreshToken}` },
           });
-          localStorage.setItem('token', response.data.accessToken);
-          localStorage.setItem('refreshToken', response.data.refreshToken);
 
-          // Retry the original request
+          // Update cookies with new tokens
+          cookies().set('token', response.data.accessToken);
+          cookies().set('refreshToken', response.data.refreshToken);
+
+          // Retry failed request
           const config = error.config;
           config.headers.Authorization = `Bearer ${response.data.accessToken}`;
           return api(config);
         } catch (refreshError) {
-          // Refresh token is invalid, logout user
-          localStorage.clear();
-          window.location.href = '/login';
+          // Clear cookies and redirect to login
+          cookies().delete('token');
+          cookies().delete('refreshToken');
         }
       }
     }
@@ -296,14 +124,56 @@ api.interceptors.response.use(
 export default api;
 ```
 
-### 3. API Services Implementation
-
-Example service implementation:
+3. Set up React Query Provider (`app/providers.tsx`):
 
 ```typescript
-// src/api/services/auth.ts
+'use client';
+
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { useState } from 'react';
+
+export function Providers({ children }: { children: React.ReactNode }) {
+  const [queryClient] = useState(() => new QueryClient());
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      {children}
+      <ReactQueryDevtools />
+    </QueryClientProvider>
+  );
+}
+```
+
+4. Update root layout (`app/layout.tsx`):
+
+```typescript
+import { Providers } from './providers';
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="en">
+      <body>
+        <Providers>
+          {children}
+        </Providers>
+      </body>
+    </html>
+  );
+}
+```
+
+5. Implement API services (`lib/api/services/`):
+
+Example auth service (`lib/api/services/auth.ts`):
+
+```typescript
 import api from '../config/axios';
-import { LoginRequest, SignupRequest, AuthResponse } from '../types/auth';
+import { LoginRequest, AuthResponse } from '../types/auth';
 
 export const authService = {
   async login(data: LoginRequest): Promise<AuthResponse> {
@@ -311,201 +181,236 @@ export const authService = {
     return response.data;
   },
 
-  async signup(data: SignupRequest): Promise<AuthResponse> {
-    const response = await api.post('/auth/signup', data);
+  async register(data: RegisterRequest): Promise<AuthResponse> {
+    const response = await api.post('/auth/register', data);
     return response.data;
   },
 
-  async refreshToken(): Promise<AuthResponse> {
-    const response = await api.post('/auth/refresh');
+  async logout() {
+    const response = await api.post('/auth/logout');
     return response.data;
   },
-
-  logout() {
-    localStorage.clear();
-  },
 };
 ```
 
-### 4. Type Definitions
+6. Create custom hooks for API calls (`lib/hooks/api/`):
 
-Create TypeScript interfaces for API data:
+Example appointment hook (`lib/hooks/api/use-appointment.ts`):
 
 ```typescript
-// src/api/types/auth.ts
-export interface LoginRequest {
-  email: string;
-  password: string;
-}
+'use client';
 
-export interface SignupRequest extends LoginRequest {
-  name: string;
-}
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { providerService } from '@/lib/api/services/provider';
 
-export interface AuthResponse {
-  user: User;
-  backendToken: {
-    accessToken: string;
-    refreshToken: string;
-    expiresIn: number;
-  };
-}
+export function useBookAppointment() {
+  const queryClient = useQueryClient();
 
-// src/api/types/user.ts
-export interface User {
-  id: string;
-  email: string;
-  name: string;
-  role: string;
-  // Add other user properties
+  return useMutation({
+    mutationFn: providerService.bookAppointment,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['appointments'] });
+    },
+  });
 }
 ```
 
-### 5. Context Setup
+7. Create server-side API handlers (`app/api/`):
 
-Implement authentication context:
-
-```typescript
-// src/context/AuthContext.tsx
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { User } from '../api/types/user';
-
-interface AuthContextType {
-  user: User | null;
-  login: (tokens: any) => void;
-  logout: () => void;
-  isAuthenticated: boolean;
-}
-
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
-
-export const AuthProvider: React.FC = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null);
-
-  // Add authentication logic here
-
-  return (
-    <AuthContext.Provider value={{ user, login, logout, isAuthenticated: !!user }}>
-      {children}
-    </AuthContext.Provider>
-  );
-};
-```
-
-### 6. Custom Hooks
-
-Create hooks for API integration:
+Example appointment handler (`app/api/appointments/route.ts`):
 
 ```typescript
-// src/hooks/api/useAuth.ts
-import { useState } from 'react';
-import { authService } from '../api/services/auth';
-import { useAuth } from '../context/AuthContext';
+import { NextResponse } from 'next/server';
+import { z } from 'zod';
+import { api } from '@/lib/api/config/axios';
 
-export const useAuth = () => {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const { login: setAuth } = useAuth();
+// Validation schema
+const appointmentSchema = z.object({
+  providerId: z.string(),
+  date: z.string(),
+  time: z.string(),
+  service: z.string(),
+});
 
-  const login = async (email: string, password: string) => {
-    try {
-      setLoading(true);
-      setError(null);
-      const response = await authService.login({ email, password });
-      setAuth(response);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
+export async function POST(request: Request) {
+  try {
+    const body = await request.json();
+    const validated = appointmentSchema.parse(body);
 
-  // Add other auth-related functions
+    const response = await api.post('/provider/appointment', validated);
 
-  return { login, loading, error };
-};
-```
-
-## Development Guidelines
-
-1. Always use TypeScript interfaces for API responses
-2. Implement proper loading and error states
-3. Use environment variables for configuration
-4. Handle token expiration and refresh
-5. Implement proper form validation before API calls
-6. Use proper error boundaries in React components
-
-## Testing API Integration
-
-1. Use tools like Jest and React Testing Library
-2. Mock API calls in tests
-3. Test error scenarios and loading states
-4. Validate form submissions
-
-## Security Best Practices
-
-1. Never store sensitive data in localStorage
-2. Always validate data on both client and server
-3. Implement proper CSRF protection
-4. Use HTTPS in production
-5. Sanitize all user inputs
-6. Implement rate limiting on the frontend
-
-## Production Deployment
-
-1. Update environment variables for production
-2. Enable production mode in Next.js
-3. Configure proper CORS for production domain
-4. Enable error logging and monitoring
-5. Configure proper caching strategies
-
-## Dependencies
-
-Add these to your package.json:
-
-```json
-{
-  "dependencies": {
-    "axios": "^1.6.0",
-    "react-query": "^3.39.0",
-    "jwt-decode": "^4.0.0",
-    "date-fns": "^2.30.0",
-    "yup": "^1.3.0",
-    "react-hook-form": "^7.48.0"
-  },
-  "devDependencies": {
-    "@types/node": "^20.0.0",
-    "@types/react": "^18.2.0",
-    "@typescript-eslint/eslint-plugin": "^6.0.0",
-    "@typescript-eslint/parser": "^6.0.0",
-    "eslint": "^8.0.0",
-    "typescript": "^5.0.0"
+    return NextResponse.json(response.data);
+  } catch (error) {
+    return NextResponse.json(
+      { error: 'Invalid appointment data' },
+      { status: 400 },
+    );
   }
 }
 ```
 
-## Getting Started
+8. Example page component using the API (`app/(dashboard)/provider/appointments/page.tsx`):
 
-1. Install dependencies:
+```typescript
+'use client';
 
-   ```bash
-   npm install
-   ```
+import { useBookAppointment } from '@/lib/hooks/api/use-appointment';
 
-2. Set up environment variables
+export default function AppointmentsPage() {
+  const { mutate: bookAppointment, isPending } = useBookAppointment();
 
-3. Start the development server:
+  const handleSubmit = async (data: AppointmentFormData) => {
+    try {
+      await bookAppointment(data);
+      // Show success message
+    } catch (error) {
+      // Handle error
+    }
+  };
 
-   ```bash
-   npm run dev
-   ```
+  return (
+    <div>
+      <h1>Book Appointment</h1>
+      <AppointmentForm onSubmit={handleSubmit} isLoading={isPending} />
+    </div>
+  );
+}
+```
 
-4. Begin implementing components and services following the structure above
+## Important Notes
+
+1. All components that use React hooks must be marked with 'use client' directive
+
+2. Server components (default in app/ directory) should:
+
+   - Make direct API calls using fetch or axios
+   - Not use React hooks or browser APIs
+   - Handle data fetching and pass data to client components
+
+3. Client components should:
+
+   - Be marked with 'use client'
+   - Handle user interactions and state
+   - Use React hooks and browser APIs
+
+4. API Routes should:
+
+   - Validate incoming requests
+   - Forward requests to your backend
+   - Handle errors appropriately
+   - Be used for sensitive operations requiring server-side logic
+
+5. Authentication:
+
+   - Use cookies instead of localStorage for token storage
+   - Implement middleware for protected routes
+   - Handle token refresh on the server side
+
+6. Error Handling:
+
+   - Implement error boundaries for client components
+   - Use try/catch for async operations
+   - Show appropriate error messages to users
+
+7. Performance:
+   - Use React Suspense for loading states
+   - Implement proper caching with React Query
+   - Use Next.js Image component for images
+   - Enable page caching where appropriate
+
+## Testing
+
+1. Install testing dependencies:
+
+```bash
+npm install -D jest @testing-library/react @testing-library/jest-dom
+```
+
+2. Create test setup (`tests/setup.ts`):
+
+```typescript
+import '@testing-library/jest-dom';
+import { server } from './mocks/server';
+
+beforeAll(() => server.listen());
+afterEach(() => server.resetHandlers());
+afterAll(() => server.close());
+```
+
+3. Example component test:
+
+```typescript
+import { render, screen } from '@testing-library/react';
+import { AppointmentForm } from './AppointmentForm';
+
+describe('AppointmentForm', () => {
+  it('submits appointment data', async () => {
+    const onSubmit = jest.fn();
+    render(<AppointmentForm onSubmit={onSubmit} />);
+
+    // Add test implementation
+  });
+});
+```
+
+## Deployment
+
+1. Update environment variables for production
+
+2. Build the application:
+
+```bash
+npm run build
+```
+
+3. Deploy to your hosting platform (Vercel recommended for Next.js)
+
+4. Configure proper CORS settings in your backend for the production domain
 
 Remember to:
 
-- Keep the code modular and reusable
-- Follow TypeScript best practices
+- Keep components small and focused
+- Use TypeScript for better type safety
 - Implement proper error handling
-- Add proper documentation
-- Follow the established folder structure
+- Follow Next.js best practices
+- Use server components where possible
+- Handle loading and error states appropriately
+
+## Developer Notes
+
+The integration guide has been updated to reflect the modern Next.js app directory structure and best practices. The main differences from the previous guide are:
+
+1. Changed the directory structure from src to app/ and lib/
+2. Updated authentication to use cookies instead of localStorage for better security
+3. Added server-side API handlers for sensitive operations
+4. Separated client and server components
+5. Added React Query setup with proper TypeScript types
+
+You can now follow this guide to integrate your backend with a Next.js frontend. Start by creating the directory structure and following the step-by-step API integration process.
+
+A few key additional points to keep in mind:
+
+1. For real-time features (like chat or notifications), you'll need to set up WebSocket connections in a client component.
+
+2. For file uploads (like profile pictures), use the FormData API and make sure to handle multipart/form-data properly.
+
+3. For protected routes, create a middleware file (middleware.ts) in your project root:
+
+```typescript
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+
+export function middleware(request: NextRequest) {
+  const token = request.cookies.get('token');
+
+  if (!token && request.nextUrl.pathname.startsWith('/(dashboard)')) {
+    return NextResponse.redirect(new URL('/login', request.url));
+  }
+
+  return NextResponse.next();
+}
+
+export const config = {
+  matcher: ['/(dashboard)/:path*'],
+};
+```
