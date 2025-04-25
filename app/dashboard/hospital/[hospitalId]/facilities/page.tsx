@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import { FacilityManagement } from "@/components/dashboard/hospital/facilities";
 import { motion } from "framer-motion";
@@ -8,9 +6,13 @@ interface FacilitiesPageProps {
 	params: {
 		hospitalId: string;
 	};
+	searchParams?: { [key: string]: string | string[] | undefined };
 }
 
-export default function FacilitiesPage({ params }: FacilitiesPageProps) {
+export default async function FacilitiesPage({
+	params,
+	searchParams,
+}: FacilitiesPageProps) {
 	return (
 		<motion.main
 			initial={{ opacity: 0 }}
