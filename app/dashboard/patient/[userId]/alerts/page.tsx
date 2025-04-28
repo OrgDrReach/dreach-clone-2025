@@ -101,7 +101,7 @@ const AlertsPage: React.FC = () => {
 			/>
 
 			<Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-				<TabsList className="grid grid-cols-2 md:grid-cols-5 lg:grid-cols-10 gap-2 mb-6">
+				<TabsList className="grid grid-cols-2 text-black bg-[#2a515f] md:grid-cols-5 lg:grid-cols-10 gap-2 mb-6">
 					<TabsTrigger value="new">New</TabsTrigger>
 					<TabsTrigger value="scheduled">Scheduled</TabsTrigger>
 					<TabsTrigger value="past">Past</TabsTrigger>
