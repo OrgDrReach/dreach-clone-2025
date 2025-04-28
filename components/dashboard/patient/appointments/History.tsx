@@ -76,7 +76,7 @@ const History: React.FC = () => {
               {pastAppointments.map((appointment, index) => (
                 <motion.tr
                   key={appointment.id}
-                  className="hover:bg-teal-50 transition-colors duration-200"
+                  className="dark:hover:bg-[#2a2f31c6]  hover:bg-[#d6f4ffc6] transition-colors duration-200"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: index * 0.1 }}
@@ -90,7 +90,7 @@ const History: React.FC = () => {
                   <TableCell>
                     <Badge
                       variant="outline"
-                      className="bg-cyan-100 text-cyan-800 border-cyan-200"
+                      className="bg-cyan-800 text-cyan-800 border-cyan-200"
                     >
                       {appointment.providerSpecialty}
                     </Badge>

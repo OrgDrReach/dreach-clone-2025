@@ -43,7 +43,7 @@ const Layout: React.FC<RNChildProp> = ({ children }: RNChildProp) => {
 						width: "100%",
 						transition: { duration: 0.3 },
 					}}
-					className="flex-1 flex flex-col min-w-0">
+					className="flex-1 flex flex-col min-w-0 w-lg">
 					{/* Header */}
 					<div className="sticky top-0 z-10 bg-[#125872] border-b border-[#ffffff1a]">
 						<Header />

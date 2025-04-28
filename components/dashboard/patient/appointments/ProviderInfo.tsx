@@ -27,7 +27,7 @@ const ProviderInfo: React.FC<ProviderInfoProps> = ({
       transition={{ duration: 0.5 }}
     >
       <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 border-gray-500">
-        <CardHeader className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-6 -mt-6">
+        <CardHeader className="bg-gradient-to-r from-blue-600 to-purple-600  p-6 -mt-6">
           <div className="flex items-center space-x-4">
             <Avatar className="h-24 w-24 border-4 border-white shadow-md">
               <AvatarImage src={imageUrl} alt={name} />
@@ -42,7 +42,7 @@ const ProviderInfo: React.FC<ProviderInfoProps> = ({
               <CardTitle className="text-3xl font-bold">{name}</CardTitle>
               <Badge
                 variant="secondary"
-                className="mt-2 bg-white text-purple-700 px-3 py-1 text-sm"
+                className="mt-2  text-purple-700 px-3 py-1 text-sm"
               >
                 {specialty}
               </Badge>
@@ -70,7 +70,7 @@ const ProviderInfo: React.FC<ProviderInfoProps> = ({
                 >
                   <Badge
                     variant="outline"
-                    className="mr-3 bg-blue-50 text-blue-700 border-blue-200 w-8 h-8 rounded-full flex items-center justify-center"
+                    className="mr-3 bg-blue-300 text-blue-700 border-blue-200 w-8 h-8 rounded-full flex items-center justify-center"
                   >
                     {index + 1}
                   </Badge>

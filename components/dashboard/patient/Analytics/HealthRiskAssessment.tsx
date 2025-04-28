@@ -20,15 +20,16 @@ const HealthRiskAssessment: React.FC = () => {
   const getStatusColor = (status: string): string => {
     switch (status) {
       case "Low":
-        return "bg-emerald-500 text-white";
+        return "bg-green-800 text-white"; // Dark green background with white text
       case "Moderate":
-        return "bg-amber-500 text-white";
+        return "bg-yellow-200 text-yellow-900"; // Light yellow background with dark text
       case "High":
-        return "bg-red-500 text-white";
+        return "bg-red-600 text-white"; // Red background with white text
       default:
         return "";
     }
   };
+  
 
   return (
     <Card className="bg-white dark:bg-white/5 rounded-lg shadow-md pt-4">

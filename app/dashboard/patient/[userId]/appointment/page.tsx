@@ -79,7 +79,7 @@ const AppointmentsPage: React.FC = () => {
 
 	return (
 		<motion.main
-			className="-mx-12 px-4 py-8 bg-white dark:bg-gray-950/80 rounded-xl border-gray-500"
+			className=" px-4 py-8 bg-white dark:bg-gray-950/80 rounded-xl border-gray-500"
 			initial="initial"
 			animate="in"
 			exit="out"
