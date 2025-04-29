@@ -436,11 +436,11 @@ const TreatmentPlanPage: React.FC = () => {
 						className={`text-white data-[state=active]:text-black`}>
 						Overview
 					</TabsTrigger>
-					<TabsTrigger
+					{/* <TabsTrigger
 						value="progress"
 						className={`text-white data-[state=active]:text-black`}>
 						Progress
-					</TabsTrigger>
+					</TabsTrigger> */}
 					<TabsTrigger
 						value="medications"
 						className={`text-white data-[state=active]:text-black`}>
