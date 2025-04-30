@@ -1,172 +1,114 @@
 "use client";
 
-import React, { Suspense, useState, useEffect } from "react";
-import dynamic from "next/dynamic";
+import React, { useState } from "react";
 import {
-	Status,
-	ProviderInfo,
+  Status,
+  ProviderInfo,
+  Reminders,
+  Upcoming,
+  Scheduled,
+  Booking,
+  History,
+  RatingSystem,
 } from "@/components/dashboard/patient/appointments";
-import { Card, CardContent } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
+
 import { motion } from "framer-motion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 
-// Dynamically import client components with loading fallbacks
-const DynamicReminders = dynamic(
-	() => import("@/components/dashboard/patient/appointments/Reminders"),
-	{
-		loading: () => <Skeleton className="h-[300px] w-full" />,
-		ssr: false,
-	}
-);
-const DynamicUpcoming = dynamic(
-	() => import("@/components/dashboard/patient/appointments/Upcoming"),
-	{
-		loading: () => <Skeleton className="h-[300px] w-full" />,
-		ssr: false,
-	}
-);
-const DynamicScheduled = dynamic(
-	() => import("@/components/dashboard/patient/appointments/Scheduled"),
-	{
-		loading: () => <Skeleton className="h-[300px] w-full" />,
-		ssr: false,
-	}
-);
-const DynamicBooking = dynamic(
-	() => import("@/components/dashboard/patient/appointments/Booking"),
-	{
-		loading: () => <Skeleton className="h-[300px] w-full" />,
-		ssr: false,
-	}
-);
-const DynamicHistory = dynamic(
-	() => import("@/components/dashboard/patient/appointments/History"),
-	{
-		loading: () => <Skeleton className="h-[300px] w-full" />,
-		ssr: false,
-	}
-);
-const DynamicRatingSystem = dynamic(
-	() => import("@/components/dashboard/patient/appointments/RatingSystem"),
-	{
-		loading: () => <Skeleton className="h-[300px] w-full" />,
-		ssr: false,
-	}
-);
-
 const AppointmentsPage: React.FC = () => {
-	const [activeTab, setActiveTab] = useState("upcoming");
-	const [isLoading, setIsLoading] = useState(true);
+  const [activeTab, setActiveTab] = useState("upcoming");
 
-	useEffect(() => {
-		// Simulate loading delay
-		const timer = setTimeout(() => setIsLoading(false), 1000);
-		return () => clearTimeout(timer);
-	}, []);
+  const handleRatingSubmit = (rating: number, feedback: string) => {
+    console.log(`Rating: ${rating}, Feedback: ${feedback}`);
+    // Send to backend if needed
+  };
 
-	const handleRatingSubmit = (rating: number, feedback: string) => {
-		console.log(`Rating: ${rating}, Feedback: ${feedback}`);
-		// Here you would typically send this data to your backend
-	};
+  const pageVariants = {
+    initial: { opacity: 0, y: 20 },
+    in: { opacity: 1, y: 0 },
+    out: { opacity: 0, y: -20 },
+  };
 
-	const pageVariants = {
-		initial: { opacity: 0, y: 20 },
-		in: { opacity: 1, y: 0 },
-		out: { opacity: 0, y: -20 },
-	};
+  return (
+    <motion.main
+      className="px-4 py-8 bg-white dark:bg-gray-950/80 rounded-xl border-gray-500"
+      initial="initial"
+      animate="in"
+      exit="out"
+      variants={pageVariants}
+      transition={{ duration: 0.5 }}
+    >
+      <div className="space-y-8">
+        <h1 className="text-3xl font-bold text-indigo-800">Appointments</h1>
 
-	return (
-		<motion.main
-			className="-mx-12 px-4 py-8 bg-white dark:bg-gray-950/80 rounded-xl border-gray-500"
-			initial="initial"
-			animate="in"
-			exit="out"
-			variants={pageVariants}
-			transition={{ duration: 0.5 }}>
-			{isLoading ?
-				<Skeleton className="h-[600px] w-full" />
-			:	<div className="space-y-8">
-					<h1 className="text-3xl font-bold text-indigo-800">Appointments</h1>
-					<Tabs
-						defaultValue={activeTab}
-						onValueChange={setActiveTab}
-						className="w-full">
-						<TabsList className="flex mb-6 bg-indigo-100 dark:bg-[#125872]/50 p-1 rounded-lg shadow-md">
-							{["upcoming", "scheduled", "history"].map((tab) => (
-								<TabsTrigger
-									key={tab}
-									value={tab}
-									className={cn(
-										"flex-1 px-4 py-2 text-sm font-medium rounded-md transition-all",
-										"text-indigo-700 hover:bg-indigo-200 dark:hover: hover:text-white dark:hover:text-black",
-										"data-[state=active]:bg-white data-[state=active]:text-indigo-800 data-[state=active]:shadow-sm"
-									)}>
-									{tab.charAt(0).toUpperCase() + tab.slice(1)}
-								</TabsTrigger>
-							))}
-						</TabsList>
+        <Tabs
+          value={activeTab} // controlled Tabs
+          onValueChange={setActiveTab}
+          className="w-full"
+        >
+          <TabsList className="flex mb-6 bg-indigo-100 dark:bg-[#125872]/50 p-1 rounded-lg shadow-md">
+            {["upcoming", "scheduled", "history"].map((tab) => (
+              <TabsTrigger
+                key={tab}
+                value={tab}
+                className={cn(
+                  "flex-1 px-4 py-2 text-sm font-medium rounded-md transition-all",
+                  "text-indigo-700 hover:bg-indigo-200 hover:text-white dark:hover:text-black",
+                  "data-[state=active]:bg-white data-[state=active]:text-indigo-800 data-[state=active]:shadow-sm"
+                )}
+              >
+                {tab.charAt(0).toUpperCase() + tab.slice(1)}
+              </TabsTrigger>
+            ))}
+          </TabsList>
 
-						<TabsContent value="upcoming">
-							<div className="space-y-6">
-								<div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-									<div className="lg:col-span-2  rounded-lg  ">
-										<Suspense fallback={<Skeleton className=" w-full" />}>
-											<DynamicUpcoming />
-										</Suspense>
-									</div>
-									<div className="rounded-lg shadow-md">
-										<ProviderInfo
-											name="Dr. Jane Smith"
-											specialty="Cardiologist"
-											bio="Dr. Jane Smith is a board-certified cardiologist with over 15 years of experience in treating heart conditions."
-											credentials={[
-												"MD from Harvard Medical School",
-												"Board Certified in Cardiovascular Disease",
-												"Fellow of the American College of Cardiology",
-											]}
-											imageUrl="https://placehold.co/100x100"
-										/>
-									</div>
-								</div>
-								<div className="rounded-lg shadow-md ">
-									<Suspense
-										fallback={<Skeleton className="h-[300px] w-full" />}>
-										<DynamicBooking />
-									</Suspense>
-								</div>
-							</div>
-						</TabsContent>
+          <TabsContent value="upcoming">
+            <div className="space-y-6">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div className="lg:col-span-2 rounded-lg">
+                  <Upcoming />
+                </div>
+                <div className="rounded-lg shadow-md">
+                  <ProviderInfo
+                    name="Dr. Jane Smith"
+                    specialty="Cardiologist"
+                    bio="Dr. Jane Smith is a board-certified cardiologist with over 15 years of experience in treating heart conditions."
+                    credentials={[
+                      "MD from Harvard Medical School",
+                      "Board Certified in Cardiovascular Disease",
+                      "Fellow of the American College of Cardiology",
+                    ]}
+                    imageUrl="https://placehold.co/100x100"
+                  />
+                </div>
+              </div>
+              {/* <div className="rounded-lg shadow-md">
+                <Booking />
+              </div> */}
+            </div>
+          </TabsContent>
 
-						<TabsContent value="scheduled">
-							<Suspense fallback={<Skeleton className="h-[300px] w-full" />}>
-								<DynamicScheduled />
-							</Suspense>
-						</TabsContent>
-						<TabsContent value="history">
-							<Suspense fallback={<Skeleton className="h-[300px] w-full" />}>
-								<DynamicHistory />
-							</Suspense>
-						</TabsContent>
-					</Tabs>
+          <TabsContent value="scheduled">
+            <Scheduled />
+          </TabsContent>
 
-					<div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-						<div className="rounded-lg shadow-md ">
-							<Suspense fallback={<Skeleton className="h-[300px] w-full" />}>
-								<DynamicReminders />
-							</Suspense>
-						</div>
-						<div className="h-[300px] rounded-lg ">
-							<Suspense fallback={<Skeleton className=" w-full h-[300px]" />}>
-								<DynamicRatingSystem onSubmit={handleRatingSubmit} />
-							</Suspense>
-						</div>
-					</div>
-				</div>
-			}
-		</motion.main>
-	);
+          <TabsContent value="history">
+            <History />
+          </TabsContent>
+        </Tabs>
+
+        {/* <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="rounded-lg shadow-md">
+            <Reminders />
+          </div>
+          <div className="h-[300px] rounded-lg">
+            <RatingSystem onSubmit={handleRatingSubmit} />
+          </div>
+        </div> */}
+      </div>
+    </motion.main>
+  );
 };
 
 export default AppointmentsPage;

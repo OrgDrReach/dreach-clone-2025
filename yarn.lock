@@ -2338,6 +2338,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tanstack/query-core@npm:5.74.7":
+  version: 5.74.7
+  resolution: "@tanstack/query-core@npm:5.74.7"
+  checksum: 10c0/192ac5238b74d17d62c55e072bdf534b7e309b432b9bc9a41eeb2eb84adfe29adf7b5edb8bf1371d995225db69c6a4092673b03bb206b4212ce55847170d6e74
+  languageName: node
+  linkType: hard
+
+"@tanstack/react-query@npm:^5.74.7":
+  version: 5.74.7
+  resolution: "@tanstack/react-query@npm:5.74.7"
+  dependencies:
+    "@tanstack/query-core": "npm:5.74.7"
+  peerDependencies:
+    react: ^18 || ^19
+  checksum: 10c0/83455915126fcb8ab467d0071f1802c9b6f5d73c7a257be2f80cb76d3c616f3e38d4a61e22dc4c3bc81060c153988200244a5d4b68e365aacd205645ad4a3a09
+  languageName: node
+  linkType: hard
+
 "@tybys/wasm-util@npm:^0.9.0":
   version: 0.9.0
   resolution: "@tybys/wasm-util@npm:0.9.0"
@@ -3575,6 +3593,7 @@ __metadata:
     "@radix-ui/react-tooltip": "npm:^1.2.4"
     "@reduxjs/toolkit": "npm:^2.7.0"
     "@tailwindcss/postcss": "npm:^4.1.4"
+    "@tanstack/react-query": "npm:^5.74.7"
     "@types/jquery": "npm:^3.5.32"
     "@types/jsonwebtoken": "npm:^9.0.9"
     "@types/lodash": "npm:^4.17.16"

@@ -59,7 +59,7 @@ const Scheduled: React.FC = () => {
             {scheduledAppointments.map((appointment) => (
               <TableRow
                 key={appointment.id}
-                className="hover:bg-gray-50 transition-colors duration-200"
+                className="dark:hover:bg-[#2a2f31c6]  hover:bg-[#d6f4ffc6] transition-colors duration-200"
               >
                 <TableCell>{appointment.dateTime}</TableCell>
                 <TableCell>{appointment.providerName}</TableCell>

@@ -61,7 +61,7 @@ const SideBar = ({ children, onToggle, isCollapsed }: SideBarProps) => {
             alt="logo"
             className={cn(
               "overflow-hidden transition-all",
-              isCollapsed ? "w-0" : "w-32",
+              isCollapsed ? "w-0" : "w-32"
             )}
           />
           <Button
@@ -88,7 +88,7 @@ const SideBar = ({ children, onToggle, isCollapsed }: SideBarProps) => {
             <div
               className={cn(
                 "flex flex-col overflow-hidden transition-all",
-                !isCollapsed ? "w-52 opacity-100" : "w-0 opacity-0",
+                !isCollapsed ? "w-52 opacity-100" : "w-0 opacity-0"
               )}
             >
               <span className="text-sm font-medium text-white">John Doe</span>
@@ -123,7 +123,7 @@ const SideBarItem = ({ icon, text, href, badge }: SideBarItemProps) => {
               className={cn(
                 "w-full justify-start gap-3 p-3 h-auto text-[#ffffffb3] hover:text-white hover:bg-[#ffffff1a]",
                 !expanded && "justify-center",
-                isActive && "bg-[#ffffff1a] text-white",
+                isActive && "bg-[#ffffff1a] text-white"
               )}
             >
               {icon}
@@ -167,23 +167,23 @@ const PatientSideNav = ({
           text="Overview"
           href={`/dashboard/patient/${userId}`}
         />
-        <SideBarItem
+        {/* <SideBarItem
           icon={<BarChart3 size={20} />}
           text="Analytics"
           href={`/dashboard/patient/${userId}/analytics`}
-        />
+        /> */}
         <SideBarItem
           icon={<CalendarCheck2 size={20} />}
           text="Appointments"
           href={`/dashboard/patient/${userId}/appointment`}
           badge={2}
         />
-        <SideBarItem
+        {/* <SideBarItem
           icon={<Mail size={20} />}
           text="Messages"
           href={`/dashboard/patient/${userId}/messages`}
           badge={3}
-        />
+        /> */}
         <SideBarItem
           icon={<LibraryBig size={20} />}
           text="Medical Records"
@@ -199,17 +199,17 @@ const PatientSideNav = ({
           text="Health History"
           href={`/dashboard/patient/${userId}/health-history`}
         />
-        <SideBarItem
+        {/* <SideBarItem
           icon={<ReceiptIndianRupee size={20} />}
           text="Billing"
           href={`/dashboard/patient/${userId}/bills`}
-        />
-        <SideBarItem
+        /> */}
+        {/* <SideBarItem
           icon={<BellRing size={20} />}
           text="Notifications"
           href={`/dashboard/patient/${userId}/alerts`}
           badge={5}
-        />
+        /> */}
         <SideBarItem
           icon={<User size={20} />}
           text="Profile"
@@ -220,11 +220,11 @@ const PatientSideNav = ({
           text="Support"
           href={`/dashboard/patient/${userId}/support`}
         />
-        <SideBarItem
+        {/* <SideBarItem
           icon={<Settings size={20} />}
           text="Settings"
           href={`/dashboard/patient/${userId}/settings`}
-        />
+        /> */}
         <SideBarItem
           icon={<ApplicationIcon size={20} />}
           text="Apply as Doctor"

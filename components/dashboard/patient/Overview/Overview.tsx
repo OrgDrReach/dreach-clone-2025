@@ -130,10 +130,10 @@ const Overview: React.FC = () => {
   return (
     <div className="space-y-6">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-1">
+        {/* <div className="lg:col-span-1">
           <HealthStatus status="good" />
-        </div>
-        <div className="lg:col-span-2">
+        </div> */}
+        <div className="lg:col-span-3">
           <UpcomingAppointments appointments={appointments} />
         </div>
       </div>
@@ -141,10 +141,10 @@ const Overview: React.FC = () => {
         <MedicationList medications={medications} />
         <RecentNotes notes={recentNotes} />
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      {/* <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <LabResults results={labResults} />
         <TreatmentPlanProgress goals={treatmentGoals} />
-      </div>
+      </div> */}
       <div className="grid grid-cols-1 gap-6">
         <AlertsNotifications alerts={alerts} />
       </div>
