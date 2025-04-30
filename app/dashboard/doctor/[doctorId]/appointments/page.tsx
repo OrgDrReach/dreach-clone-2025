@@ -128,7 +128,9 @@ const UpcomingAppointments = () => {
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-900 dark:text-gray-200">Follow-up</div>
+                  <div className="text-sm text-gray-900 dark:text-gray-200">
+                    Follow-up
+                  </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
@@ -141,7 +143,7 @@ const UpcomingAppointments = () => {
                     href="#"
                     className="text-indigo-600 hover:text-indigo-900 mr-3"
                   >
-                    Edit
+                    Reschedule
                   </Link>
                   {/* PROVIDE LINK ADDRESS */}
                   <Link href="#" className="text-red-600 hover:text-red-900">
@@ -243,7 +245,7 @@ const ScheduledAppointments = () => {
                     href="#"
                     className="text-indigo-600 hover:text-indigo-900 mr-3"
                   >
-                    Edit
+                    Reschedule
                   </Link>
                   {/* PROVIDE LINK ADDRESS */}
                   <Link href="#" className="text-red-600 hover:text-red-900">
@@ -431,7 +433,9 @@ const PatientAppointmentHistory = () => {
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-900 dark:text-gray-300">Follow-up</div>
+                  <div className="text-sm text-gray-900 dark:text-gray-300">
+                    Follow-up
+                  </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
