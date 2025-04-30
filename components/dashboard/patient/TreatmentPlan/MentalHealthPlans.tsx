@@ -36,26 +36,26 @@ const MentalHealthPlans: React.FC<MentalHealthPlansProps> = ({ plans }) => {
   const getStatusColor = (status: MentalHealthPlan["status"]) => {
     switch (status) {
       case "Active":
-        return "bg-green-300 text-green-800";
+        return "bg-green-500 text-green-800";
       case "Completed":
-        return "bg-blue-300 text-blue-800";
+        return "bg-blue-500 text-blue-800";
       case "Upcoming":
-        return "bg-yellow-300 text-yellow-800";
+        return "bg-yellow-500 text-yellow-800";
       default:
-        return "bg-gray-100 text-gray-800";
+        return "bg-gray-500 text-gray-800";
     }
   };
 
   const getTypeColor = (type: MentalHealthPlan["type"]) => {
     switch (type) {
       case "Therapy":
-        return "bg-purple-100 text-purple-800";
+        return "bg-purple-300 text-purple-800";
       case "Counseling":
-        return "bg-indigo-100 text-indigo-800";
+        return "bg-indigo-500 text-indigo-800";
       case "Stress Management":
-        return "bg-pink-300 text-pink-800";
+        return "bg-pink-500 text-pink-800";
       case "Mindfulness":
-        return "bg-teal-100 text-teal-800";
+        return "bg-teal-500 text-teal-800";
     }
   };
 
