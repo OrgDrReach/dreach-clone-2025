@@ -50,9 +50,9 @@ const StaffAvailability: React.FC = () => {
 
   const getStatusColor = (status: StaffMember['status']) => {
     const colors = {
-      available: 'bg-green-100 text-green-800',
+      available: 'bg-green-400 text-green-800',
       busy: 'bg-yellow-100 text-yellow-800',
-      'off-duty': 'bg-gray-100 text-gray-800',
+      'off-duty': 'bg-gray-300 text-gray-800 dark:text-gray-800',
       'on-leave': 'bg-red-100 text-red-800',
     };
     return colors[status];
@@ -77,7 +77,7 @@ const StaffAvailability: React.FC = () => {
           {staffMembers.map((staff) => (
             <div
               key={staff.id}
-              className="flex items-center space-x-4 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+              className="flex items-center space-x-4 p-3 shadow-md hover:shadow-lg bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
             >
               <Avatar>
                 <AvatarImage src={staff.avatar} />
