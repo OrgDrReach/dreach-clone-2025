@@ -1,28 +1,35 @@
 "use client";
 
-import React from 'react';
+import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Activity } from 'lucide-react';
-import { Condition } from '@/types/health-history';
+import { Activity } from "lucide-react";
+import { Condition } from "@/types/health-history";
 
 interface PastConditionsProps {
   conditions: Condition[];
 }
 
 const PastConditions: React.FC<PastConditionsProps> = ({ conditions }) => {
-  const getStatusColor = (status: Condition['status']) => {
+  const getStatusColor = (status: Condition["status"]) => {
     switch (status) {
-      case 'active':
-        return 'bg-red-100 text-red-800';
-      case 'resolved':
-        return 'bg-green-100 text-green-800';
-      case 'managed':
-        return 'bg-blue-100 text-blue-800';
+      case "active":
+        return "bg-red-400 text-red-800";
+      case "resolved":
+        return "bg-green-400 text-green-800";
+      case "managed":
+        return "bg-blue-400 text-blue-800";
       default:
-        return 'bg-gray-100 text-gray-800';
+        return "bg-gray-100 text-gray-800";
     }
   };
 
@@ -48,8 +55,12 @@ const PastConditions: React.FC<PastConditionsProps> = ({ conditions }) => {
             <TableBody>
               {conditions.map((condition) => (
                 <TableRow key={condition.id}>
-                  <TableCell className="font-medium">{condition.name}</TableCell>
-                  <TableCell>{condition.diagnosedDate.toLocaleDateString()}</TableCell>
+                  <TableCell className="font-medium">
+                    {condition.name}
+                  </TableCell>
+                  <TableCell>
+                    {condition.diagnosedDate.toLocaleDateString()}
+                  </TableCell>
                   <TableCell>
                     <Badge className={getStatusColor(condition.status)}>
                       {condition.status}

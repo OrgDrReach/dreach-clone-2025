@@ -30,26 +30,26 @@ const AllergyList: React.FC<AllergyListProps> = ({ allergies }) => {
   const getSeverityColor = (severity: Allergy["severity"]) => {
     switch (severity) {
       case "Mild":
-        return "bg-yellow-100 text-yellow-800";
+        return "bg-yellow-300 text-yellow-800";
       case "Moderate":
-        return "bg-orange-100 text-orange-800";
+        return "bg-orange-300 text-orange-800";
       case "Severe":
-        return "bg-red-100 text-red-800";
+        return "bg-red-300 text-red-800";
       default:
-        return "bg-gray-100 text-gray-800";
+        return "bg-gray-300 text-gray-800";
     }
   };
 
   const getTypeColor = (type: Allergy["type"]) => {
     switch (type) {
       case "Food":
-        return "bg-green-100 text-green-800";
+        return "bg-green-400 text-green-800";
       case "Medication":
-        return "bg-blue-100 text-blue-800";
+        return "bg-blue-400 text-blue-800";
       case "Environmental":
-        return "bg-purple-100 text-purple-800";
+        return "bg-purple-400 text-purple-800";
       case "Other":
-        return "bg-gray-100 text-gray-800";
+        return "bg-gray-400 text-gray-800";
     }
   };
 

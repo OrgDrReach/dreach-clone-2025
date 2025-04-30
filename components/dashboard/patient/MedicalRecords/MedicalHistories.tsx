@@ -25,7 +25,7 @@ interface MedicalHistoriesProps {
 
 const MedicalHistories: React.FC<MedicalHistoriesProps> = ({ histories }) => {
   const sortedHistories = [...histories].sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   );
 
   const getEventTypeColor = (type: MedicalEvent["type"]) => {
@@ -33,7 +33,7 @@ const MedicalHistories: React.FC<MedicalHistoriesProps> = ({ histories }) => {
       case "Illness":
         return "bg-red-100 text-red-800";
       case "Treatment":
-        return "bg-blue-100 text-blue-800";
+        return "bg-blue-400 text-blue-800";
       case "Surgery":
         return "bg-purple-100 text-purple-800";
       default:
@@ -65,7 +65,9 @@ const MedicalHistories: React.FC<MedicalHistoriesProps> = ({ histories }) => {
                   <div className="space-y-2">
                     <p className="font-semibold">{event.description}</p>
                     {event.details && (
-                      <p className="text-sm text-gray-600 dark:text-gray-300">{event.details}</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-300">
+                        {event.details}
+                      </p>
                     )}
                   </div>
                 </AccordionContent>
