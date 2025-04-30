@@ -12,7 +12,7 @@ const AppointmentCard: React.FC<Appointment> = ({
   description,
 }) => {
   return (
-    <div className="flex justify-between rounded-xl items-center p-4 border-b border-gray-200">
+    <div className="flex justify-between rounded-xl items-center p-4 border-1 dark:border-gray-600 border-gray-500">
       <div>
         <h4 className="text-[#089dd4] font-semibold">{name}</h4>
         <p className="text-gray-600 dark:text-gray-300">
