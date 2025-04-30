@@ -69,8 +69,9 @@ export interface IPatientPreferences {
 export interface IUser {
 	id: string;
 	userId: string;
+	firstName: string;
+	lastName: string;
 	name: string;
-
 	email: string;
 	phone: string;
 	dob: Date;
@@ -78,7 +79,9 @@ export interface IUser {
 	address: IAddress[];
 	role: EUserRole;
 	status: EUserStatus;
-	profileImage?: string;
+	profileImage?: string | null;
+	profilePic?: string | null;
+	authProvider?: "google";
 	createdAt: Date;
 	updatedAt: Date;
 

@@ -1,6 +1,5 @@
 "use client";
 
-import { mapBloodGroup } from "@/utils/bloodGroupUtils";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
@@ -32,12 +31,11 @@ import { toast } from "sonner";
 import {
 	updateUser,
 	fetchUserByEmail,
-	fetchUserById,
-} from "@/lib/api/userService";
+} from "@/lib/api/services/user";
 
 // Define a more complete Session type that includes our custom fields
 interface ExtendedUser {
-	userId: string;
+	id: string;
 	email?: string | null;
 	name?: string | null;
 	image?: string | null;
@@ -52,7 +50,7 @@ interface ExtendedSession extends Omit<Session, "user"> {
 
 interface ProfileFormData {
 	name: string;
-	phone: string;
+	phoneNumber: string;
 	dob: string;
 	gender: EGender;
 	bloodGroup?: "A+" | "A-" | "B+" | "B-" | "O+" | "O-" | "AB+" | "AB-";
@@ -69,7 +67,7 @@ interface ProfileFormData {
 
 const profileSchema = z.object({
 	name: z.string().min(2, "Name must be at least 2 characters"),
-	phone: z
+	phoneNumber: z
 		.string()
 		.min(10, "Phone number must be at least 10 digits")
 		.max(15)
@@ -130,7 +128,7 @@ export default function CompleteProfile() {
 		resolver: zodResolver(profileSchema),
 		defaultValues: {
 			name: session?.user?.name || "",
-			phone: session?.user?.phone || "",
+			phoneNumber: session?.user?.phone || "",
 			dob: "",
 			gender: EGender.MALE,
 			bloodGroup: undefined,
@@ -148,9 +146,9 @@ export default function CompleteProfile() {
 	});
 
 	const sendOtp = async () => {
-		const phone = form.getValues("phone");
+		const phoneNumber = form.getValues("phoneNumber");
 
-		const phoneValidation = await form.trigger("phone");
+		const phoneValidation = await form.trigger("phoneNumber");
 		if (!phoneValidation) {
 			return;
 		}
@@ -160,7 +158,7 @@ export default function CompleteProfile() {
 			const response = await fetch("/api/auth/send-otp", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({ phone }),
+				body: JSON.stringify({ phoneNumber }),
 			});
 
 			const data: OtpResponse = await response.json();
@@ -194,7 +192,7 @@ export default function CompleteProfile() {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify({
-					phone: form.getValues("phone"),
+					phoneNumber: form.getValues("phoneNumber"),
 					otp,
 				}),
 			});
@@ -260,12 +258,11 @@ export default function CompleteProfile() {
 			if (!userResponse) {
 				throw new Error("Failed to fetch or create user");
 			}
-			const mappedBloodGroup = mapBloodGroup(data.bloodGroup);
+
 			// Update the form data with the user ID
 			const updateData = {
 				...data,
-				userId: userResponse.userId,
-				bloodGroup: mappedBloodGroup,
+				userId: userResponse.id,
 			};
 
 			// Update the user profile
@@ -424,7 +421,7 @@ export default function CompleteProfile() {
 
 							<FormField
 								control={form.control}
-								name="phone"
+								name="phoneNumber"
 								render={({ field }) => (
 									<FormItem className="w-full">
 										<FormLabel className="text-white">Phone Number</FormLabel>
@@ -646,7 +643,7 @@ export default function CompleteProfile() {
 									isSubmitting ||
 									!isOtpVerified ||
 									!form.getValues("name") ||
-									!form.getValues("phone") ||
+									!form.getValues("phoneNumber") ||
 									!form.getValues("dob") ||
 									!form.getValues("gender") ||
 									!form.getValues("role")
