@@ -65,7 +65,7 @@ const AlertsNotifications: React.FC<AlertsNotificationsProps> = ({
               <div className="flex items-center justify-between mb-2">
                 <Badge
                   variant="outline"
-                  className={`${getAlertColor(alert.type)} flex items-center`}
+                  className={`${getAlertColor(alert.type)} flex items-center `}
                 >
                   {getAlertIcon(alert.type)}
                   <span className="ml-2 capitalize">{alert.type}</span>

@@ -9,7 +9,7 @@ const Support: React.FC = () => {
 		<main className="bg-[#c1efffbe]  bg-gradient-to-br from-indigo-500 to-purple-600 dark:from-slate-600 dark:to-slate-900 p-8">
 			<SupportStatus />
 			<SupportRequestForm />
-			<KnowledgeBase />
+			{/* <KnowledgeBase /> */}
 			<ContactUs />
 		</main>
 	);

@@ -60,7 +60,7 @@ const MedicationList: React.FC<MedicationListProps> = ({ medications }) => {
 						{medications.map((medication) => (
 							<TableRow
 								key={medication.id}
-								className="hover:bg-[#d6f4ffc6] transition-colors duration-200">
+								className="shadow-lg hover:shadow-xl transition-shadow duration-300">
 								<TableCell className="font-medium text-blue-800 dark:text-blue-300">
 									{medication.name}
 								</TableCell>
