@@ -14,7 +14,7 @@ const PlanStatus: React.FC<PlanStatusProps> = ({ status }) => {
       case "In Progress":
         return {
           icon: <Clock className="w-4 h-4 mr-1" />,
-          color: "bg-blue-100 text-blue-800",
+          color: "bg-blue-400 text-blue-800",
         };
       case "Completed":
         return {

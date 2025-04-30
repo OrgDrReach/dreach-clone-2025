@@ -31,11 +31,11 @@ const MedicationList: React.FC<MedicationListProps> = ({ medications }) => {
   const getStatusColor = (status: Medication["status"]) => {
     switch (status) {
       case "Active":
-        return "bg-green-100 text-green-800";
+        return "bg-green-400 text-green-800";
       case "Discontinued":
-        return "bg-red-100 text-red-800";
+        return "bg-red-400 text-red-800";
       case "As Needed":
-        return "bg-blue-100 text-blue-800";
+        return "bg-blue-400 text-blue-800";
       default:
         return "bg-gray-100 text-gray-800";
     }

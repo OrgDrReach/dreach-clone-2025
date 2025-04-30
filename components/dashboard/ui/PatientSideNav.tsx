@@ -220,16 +220,16 @@ const PatientSideNav = ({
           text="Support"
           href={`/dashboard/patient/${userId}/support`}
         />
-        {/* <SideBarItem
+        <SideBarItem
           icon={<Settings size={20} />}
           text="Settings"
           href={`/dashboard/patient/${userId}/settings`}
-        /> */}
-        <SideBarItem
+        />
+        {/* <SideBarItem
           icon={<ApplicationIcon size={20} />}
           text="Apply as Doctor"
           href={`/dashboard/patient/${userId}/apply-for-doctor`}
-        />
+        /> */}
       </div>
     </SideBar>
   );

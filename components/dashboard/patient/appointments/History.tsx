@@ -90,7 +90,7 @@ const History: React.FC = () => {
                   <TableCell>
                     <Badge
                       variant="outline"
-                      className="bg-cyan-800 text-cyan-800 border-cyan-200"
+                      className="bg-cyan-400 dark:bg-cyan-800 text-cyan-800 border-cyan-200"
                     >
                       {appointment.providerSpecialty}
                     </Badge>

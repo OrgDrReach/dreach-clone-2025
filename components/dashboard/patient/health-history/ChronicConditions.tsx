@@ -1,30 +1,39 @@
 "use client";
 
-import React from 'react';
+import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { HeartPulse } from 'lucide-react';
-import { ChronicCondition } from '@/types/health-history';
+import { HeartPulse } from "lucide-react";
+import { ChronicCondition } from "@/types/health-history";
 
 interface ChronicConditionsProps {
   conditions: ChronicCondition[];
 }
 
-const ChronicConditions: React.FC<ChronicConditionsProps> = ({ conditions }) => {
-  const getStatusColor = (status: ChronicCondition['status']) => {
+const ChronicConditions: React.FC<ChronicConditionsProps> = ({
+  conditions,
+}) => {
+  const getStatusColor = (status: ChronicCondition["status"]) => {
     switch (status) {
-      case 'controlled':
-        return 'bg-green-100 text-green-800';
-      case 'improving':
-        return 'bg-blue-100 text-blue-800';
-      case 'worsening':
-        return 'bg-red-100 text-red-800';
-      case 'uncontrolled':
-        return 'bg-yellow-100 text-yellow-800';
+      case "controlled":
+        return "bg-green-400 text-green-800";
+      case "improving":
+        return "bg-blue-400 text-blue-800";
+      case "worsening":
+        return "bg-red-400 text-red-800";
+      case "uncontrolled":
+        return "bg-yellow-400 text-yellow-800";
       default:
-        return 'bg-gray-100 text-gray-800';
+        return "bg-gray-100 text-gray-800";
     }
   };
 
@@ -51,7 +60,9 @@ const ChronicConditions: React.FC<ChronicConditionsProps> = ({ conditions }) => 
             <TableBody>
               {conditions.map((condition) => (
                 <TableRow key={condition.id}>
-                  <TableCell className="font-medium">{condition.name}</TableCell>
+                  <TableCell className="font-medium">
+                    {condition.name}
+                  </TableCell>
                   <TableCell>
                     <Badge className={getStatusColor(condition.status)}>
                       {condition.status}
@@ -66,11 +77,13 @@ const ChronicConditions: React.FC<ChronicConditionsProps> = ({ conditions }) => 
                       ))}
                     </div>
                   </TableCell>
-                  <TableCell>{condition.lastAssessment.toLocaleDateString()}</TableCell>
                   <TableCell>
-                    {condition.nextReview ? 
-                      condition.nextReview.toLocaleDateString() : 
-                      'Not Scheduled'}
+                    {condition.lastAssessment.toLocaleDateString()}
+                  </TableCell>
+                  <TableCell>
+                    {condition.nextReview
+                      ? condition.nextReview.toLocaleDateString()
+                      : "Not Scheduled"}
                   </TableCell>
                 </TableRow>
               ))}
