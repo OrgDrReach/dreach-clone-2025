@@ -10,7 +10,7 @@ const DoctorsPage: React.FC = () => {
 			initial={{ opacity: 0 }}
 			animate={{ opacity: 1 }}
 			transition={{ duration: 0.5 }}
-			className="max-w-[1920px] mx-auto p-4 lg:p-6 min-h-screen">
+			className="max-w-[1920px] mx-auto p-4 lg:p-6 min-h-screen rounded-lg bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800">
 			<header className="mb-8">
 				<div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
 					<h1 className="text-2xl sm:text-3xl font-bold">Doctor Management</h1>
