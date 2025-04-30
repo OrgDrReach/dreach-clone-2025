@@ -9,7 +9,7 @@ interface ProfilePictureProps {
   isEditing: boolean;
 }
 
-export const ProfilePicture: React.FC<ProfilePictureProps> = ({
+const ProfilePicture: React.FC<ProfilePictureProps> = ({
   defaultImage = "/default-avatar.png",
   onImageChange,
   isEditing,
@@ -57,3 +57,5 @@ export const ProfilePicture: React.FC<ProfilePictureProps> = ({
     </div>
   );
 };
+
+export default ProfilePicture;
