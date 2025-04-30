@@ -90,9 +90,8 @@ export const fetchUserByEmail = async (
 			};
 		}
 
-		const response = await api.get("/user/fetchUserByEmail", {
-			params: { email },
-		});
+		const response = await api.get(`/user/fetchUserByEmail?email=${email}`);
+		
 
 		const data = response.data;
 		console.log("Response from fetch user by email:", data);
