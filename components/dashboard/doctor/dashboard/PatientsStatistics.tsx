@@ -23,7 +23,7 @@ const PatientStatistics: React.FC = () => {
   ];
 
   return (
-    <div className=" flex items-center my-5 justify-center shadow-md">
+    <div className=" flex items-center justify-center shadow-md">
       <div className="bg-white dark:bg-slate-800 rounded-lg shadow p-8 w-full ">
         <h2 className="text-[#125872] dark:text-[#4db7dd] text-2xl font-semibold mb-8">
           Patient Statistics

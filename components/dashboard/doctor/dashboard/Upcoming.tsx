@@ -43,7 +43,7 @@ const UpcomingAppointments: React.FC = () => {
         <h2 className=" text-[#125872] dark:text-[#4db7dd] text-2xl font-semibold mb-6">
           Upcoming Appointments
         </h2>
-        <div>
+        <div className="space-y-4">
           {appointments.map((appointment, index) => (
             <AppointmentCard
               key={index}
