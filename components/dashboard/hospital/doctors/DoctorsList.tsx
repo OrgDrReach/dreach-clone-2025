@@ -226,22 +226,22 @@ export const DoctorsList: React.FC = () => {
 	const getStatusColor = (status: EDoctorStatus) => {
 		switch (status) {
 			case EDoctorStatus.ONLINE:
-				return "bg-green-500 dark:bg-green-600";
+				return "bg-green-500 dark:bg-green-600 dark:text-gray-50";
 			case EDoctorStatus.BUSY:
-				return "bg-yellow-500 dark:bg-yellow-600";
+				return "bg-yellow-500 dark:bg-yellow-600 dark:text-gray-50";
 			case EDoctorStatus.OFFLINE:
-				return "bg-gray-500 dark:bg-gray-600";
+				return "bg-gray-500 dark:bg-gray-600 dark:text-gray-50";
 			case EDoctorStatus.ON_LEAVE:
-				return "bg-red-500 dark:bg-red-600";
+				return "bg-red-500 dark:bg-red-600 dark:text-gray-50";
 			case EDoctorStatus.SUSPENDED:
-				return "bg-red-700 dark:bg-red-800";
+				return "bg-red-700 dark:bg-red-800 dark:text-gray-50";
 			default:
-				return "bg-gray-500 dark:bg-gray-600";
+				return "bg-gray-500 dark:bg-gray-600 dark:text-gray-50";
 		}
 	};
 
 	return (
-		<Card className="dark:bg-gray-800">
+		<Card className="">
 			<CardHeader className="flex flex-row items-center justify-between">
 				<div>
 					<CardTitle className="text-2xl font-bold dark:text-white">
@@ -706,7 +706,7 @@ export const DoctorsList: React.FC = () => {
 											<TableCell>
 												<Badge
 													variant={
-														doctorData.isVerified ? "default" : "destructive"
+														doctorData.isVerified ? "success" : "destructive"
 													}
 													className="text-xs">
 													{doctorData.isVerified ? "Verified" : "Pending"}

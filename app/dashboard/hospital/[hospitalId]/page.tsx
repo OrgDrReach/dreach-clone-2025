@@ -19,7 +19,7 @@ const HospitalDashboardPage: React.FC = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="container mx-auto p-6 space-y-6"
+      className="container mx-auto p-6 space-y-6 rounded-lg bg-gradient-to-br from-gray-100 to-white dark:from-gray-900 dark:to-gray-800"
     >
       <div className="flex flex-col space-y-8">
         {/* Header Section */}

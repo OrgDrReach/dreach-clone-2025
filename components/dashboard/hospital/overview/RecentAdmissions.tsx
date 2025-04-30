@@ -54,7 +54,7 @@ const RecentAdmissions: React.FC = () => {
           {admissions.map((admission) => (
             <div
               key={admission.id}
-              className="flex items-center space-x-4 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+              className="flex items-center space-x-4 p-3 shadow-md hover:shadow-lg bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
             >
               <Avatar>
                 <AvatarImage src={admission.avatar} />

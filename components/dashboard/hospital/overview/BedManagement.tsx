@@ -75,7 +75,7 @@ const BedManagement: React.FC = () => {
 
   const getBadgeColor = (status: BedType['status']) => {
     const colors = {
-      normal: 'bg-green-100 text-green-800',
+      normal: 'bg-green-400 text-green-800',
       warning: 'bg-yellow-100 text-yellow-800',
       critical: 'bg-red-100 text-red-800',
     };

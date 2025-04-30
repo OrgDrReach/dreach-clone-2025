@@ -75,7 +75,7 @@ const EmergencyStatus: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
-              className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg"
+              className="flex items-center justify-between p-3 bg-gray-100 shadow-md hover:shadow-lg dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors rounded-lg"
             >
               <div className="space-y-1">
                 <div className="flex items-center space-x-2">
