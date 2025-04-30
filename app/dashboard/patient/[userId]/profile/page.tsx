@@ -1,108 +1,132 @@
 "use client";
 import React, { useState } from "react";
-import {
-	PersonalInformation,
-	MedicalHistory,
-	HealthGoals,
-	InsuranceInformation,
-	ContactPreferences,
-	ProfilePicture,
-	Bio,
-	LanguagePreferences,
-	SecuritySettings,
-	AppointmentHistory,
-} from "@/components/dashboard/patient/profile";
+import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Edit2, Save } from "lucide-react";
+import { PatientProfileCard } from "@/components/dashboard/patient/profile/PatientProfileCard";
+import { toast } from "sonner";
 
 const ProfilePage: React.FC = () => {
-	const [isEditing, setIsEditing] = useState(false);
+  const initialProfileData = {
+    profilePicture: "/default-avatar.png",
+    firstName: "",
+    lastName: "",
+    email: "",
+    phoneNumbers: ["+91 "],
+    dateOfBirth: "",
+    bloodGroup: "",
+    currentAddress: {
+      street: "",
+      city: "",
+      state: "",
+      zipCode: "",
+      country: "India",
+    },
+    permanentAddress: {
+      street: "",
+      city: "",
+      state: "",
+      zipCode: "",
+      country: "India",
+    },
+    emergencyContact: {
+      name: "",
+      relationship: "",
+      phoneNumber: "+91 ",
+      email: "",
+    },
+    familyMembers: [
+      {
+        name: "",
+        relationship: "",
+        phoneNumber: "+91 ",
+      },
+    ],
+  };
 
-	// Mock data - in a real application, this would come from your backend
-	const personalInfo = {
-		name: "John Doe",
-		dateOfBirth: "1990-01-01",
-		phoneNumber: "+1 234 567 8900",
-		email: "john.doe@example.com",
-		emergencyContact: {
-			name: "Jane Doe",
-			relationship: "Spouse",
-			phoneNumber: "+1 987 654 3210",
-		},
-	};
+  const [formData, setFormData] = useState(initialProfileData);
+  const [isEditing, setIsEditing] = useState(true);
+  const [isFirstTime, setIsFirstTime] = useState(true);
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
 
-	const medicalHistory = {
-		conditions: ["Asthma", "Hypertension"],
-		medications: ["Albuterol", "Lisinopril"],
-		allergies: ["Peanuts", "Penicillin"],
-	};
+  const handleFormChange = (updatedData: typeof initialProfileData) => {
+    setFormData(updatedData);
+  };
 
-	const insuranceInfo = {
-		insuranceName: "HealthCare Inc.",
-		insuranceId: "HC123456789",
-		policyDetails: "Full coverage",
-	};
+  const handleImageChange = (file: File) => {
+    setSelectedImage(file);
+  };
 
-	const appointmentHistory = [
-		{
-			id: 1,
-			date: "2023-06-15",
-			time: "10:00 AM",
-			doctor: "Dr. Smith",
-			department: "Cardiology",
-			status: "completed" as const,
-		},
-		{
-			id: 2,
-			date: "2023-07-01",
-			time: "2:30 PM",
-			doctor: "Dr. Johnson",
-			department: "Pulmonology",
-			status: "upcoming" as const,
-		},
-		{
-			id: 3,
-			date: "2023-05-20",
-			time: "11:15 AM",
-			doctor: "Dr. Brown",
-			department: "General Practice",
-			status: "cancelled" as const,
-		},
-	];
+  const onSubmit = async () => {
+    if (!selectedImage && !formData.profilePicture) {
+      toast.error("Please upload a profile picture");
+      return;
+    }
 
-	return (
-		<main className="p-4 space-y-6 bg-gray-100 dark:bg-gray-900 rounded-lg min-h-screen">
-			<div className="flex justify-between items-center bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
-				<h1 className="text-3xl font-bold text-gray-800 dark:text-white">
-					Patient Profile
-				</h1>
-				<Button
-					onClick={() => setIsEditing(!isEditing)}
-					className={`${isEditing ? "bg-green-500 hover:bg-green-600" : "bg-blue-500 hover:bg-blue-600"} text-white`}>
-					{isEditing ?
-						<>
-							<Save className="mr-2 h-4 w-4" /> Save Changes
-						</>
-					:	<>
-							<Edit2 className="mr-2 h-4 w-4" /> Edit Profile
-						</>
-					}
-				</Button>
-			</div>
-			<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-				<ProfilePicture />
-				<PersonalInformation {...personalInfo} />
-				<MedicalHistory {...medicalHistory} />
-				<HealthGoals />
-				<InsuranceInformation {...insuranceInfo} />
-				<ContactPreferences />
-				<Bio />
-				<LanguagePreferences />
-				<SecuritySettings />
-				<AppointmentHistory appointments={appointmentHistory} />
-			</div>
-		</main>
-	);
+    try {
+      // Here you would typically upload the image and form data to your backend
+      console.log("Form data:", formData);
+      console.log("Selected image:", selectedImage);
+
+      setIsEditing(false);
+      setIsFirstTime(false);
+      toast.success("Profile updated successfully");
+    } catch (error) {
+      toast.error("Failed to update profile");
+      console.error(error);
+    }
+  };
+
+  const placeholders = {
+    firstName: "Enter your first name",
+    lastName: "Enter your last name",
+    email: "Enter your email address",
+    phoneNumber: "Enter your phone number",
+    dateOfBirth: "Select your date of birth",
+    bloodGroup: "Select blood group",
+    address: {
+      street: "Enter street address",
+      city: "Enter city",
+      state: "Enter state",
+      zipCode: "Enter PIN code",
+      country: "Enter country",
+    },
+    emergencyContact: {
+      name: "Enter emergency contact name",
+      relationship: "Enter relationship",
+      phoneNumber: "Enter emergency contact number",
+      email: "Enter emergency contact email",
+    },
+    familyMember: {
+      name: "Enter family member name",
+      relationship: "Enter relationship",
+      phoneNumber: "Enter family member number",
+    },
+  };
+
+  return (
+    <main className="p-4 space-y-6 bg-gray-100 dark:bg-gray-900 rounded-lg min-h-screen">
+      <div className="flex justify-between items-center bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
+        <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
+          {isFirstTime ? "Complete Your Profile" : "Patient Profile"}
+        </h1>
+        <Button
+          onClick={onSubmit}
+          className="bg-green-500 hover:bg-green-600 text-white"
+        >
+          <Save className="mr-2 h-4 w-4" />
+          {isFirstTime ? "Save Profile" : "Save Changes"}
+        </Button>
+      </div>
+      <PatientProfileCard
+        data={formData}
+        placeholders={placeholders}
+        isEditing={isEditing || isFirstTime}
+        onImageChange={handleImageChange}
+        onChange={handleFormChange}
+      />
+    </main>
+  );
 };
 
 export default ProfilePage;
