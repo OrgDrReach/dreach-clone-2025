@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
-import { ProfilePicture } from "./ProfilePicture";
+import ProfilePicture from "./ProfilePicture";
 import {
   Select,
   SelectContent,
