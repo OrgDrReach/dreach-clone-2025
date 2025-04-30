@@ -36,13 +36,13 @@ const ExercisePlans: React.FC<ExercisePlansProps> = ({ plans }) => {
   const getStatusColor = (status: ExercisePlan["status"]) => {
     switch (status) {
       case "Active":
-        return "bg-green-300 text-green-800";
+        return "bg-green-500 text-green-800";
       case "Completed":
-        return "bg-blue-300 text-blue-800";
+        return "bg-blue-500 text-blue-800";
       case "Upcoming":
-        return "bg-yellow-300 text-yellow-800";
+        return "bg-yellow-500 text-yellow-800";
       default:
-        return "bg-gray-100 text-gray-800";
+        return "bg-gray-500 text-gray-800";
     }
   };
 
