@@ -1,7 +1,5 @@
 import axios from "axios";
-import api from "@/lib/api/config/axios";
 import { IUser } from "@/types/user.d.types";
-import { EUserRole, EUserStatus, EGender } from "@/types/auth.d.types";
 
 interface LoginResponse {
 	id: string;
