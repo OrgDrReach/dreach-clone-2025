@@ -1,7 +1,7 @@
 import axios from "axios";
-import api from "@/lib/api/config/axios";
 import { IUser } from "@/types/user.d.types";
 import { EUserRole, EUserStatus, EGender } from "@/types/auth.d.types";
+import { createUser } from "./auth";
 
 // Add custom error handling utility
 const handleApiError = (
@@ -61,7 +61,17 @@ export const fetchUserById = async (
 			throw new Error("User ID is required");
 		}
 
-		const response = await api.get(`/user/fetchUserById/${userId}`);
+		const response = await axios.get(
+			`${process.env.SERVER_URL}/user/fetchUserById/${userId}`,
+			{
+				headers: {
+					"Content-Type": "application/json",
+				},
+				withCredentials: true,
+			}
+		);
+
+		console.log("Response data:", response.data);
 
 		return {
 			status: response.status,
@@ -69,7 +79,7 @@ export const fetchUserById = async (
 			data: response.data.user,
 		};
 	} catch (error) {
-		return handleApiError(error, "Failed to fetch user");
+		return handleApiError(error, "Error fetching user");
 	}
 };
 
@@ -90,8 +100,21 @@ export const fetchUserByEmail = async (
 			};
 		}
 
-		const response = await api.get(`/user/fetchUserByEmail?email=${email}`);
-		
+		if (!process.env.SERVER_URL) {
+			throw new Error("SERVER_URL environment variable is not defined");
+		}
+
+		console.log("Attempting to fetch user with email:", email);
+		const response = await axios.get(
+			`${process.env.SERVER_URL}/user/fetchUserByEmail`,
+			{
+				params: { email },
+				headers: {
+					"Content-Type": "application/json",
+				},
+				withCredentials: true,
+			}
+		);
 
 		const data = response.data;
 		console.log("Response from fetch user by email:", data);
@@ -123,7 +146,6 @@ export const fetchUserByEmail = async (
 				firstName: data.user.firstName || "",
 				lastName: data.user.lastName || "",
 				name: `${data.user.firstName} ${data.user.lastName}`,
-				profilePic: data.user.profilePic || "",
 				phone: data.user.phone || "",
 				dob: data.user.dob ? new Date(data.user.dob) : new Date(),
 				gender: data.user.gender || EGender.OTHER,
@@ -146,7 +168,23 @@ export const fetchUserByEmail = async (
 
 		throw new Error(data.message || "Failed to fetch user");
 	} catch (error) {
-		return handleApiError(error, "Failed to fetch user by email");
+		console.error("Error in fetchUserByEmail:", error);
+
+		if (axios.isAxiosError(error) && error.response?.status === 404) {
+			try {
+				const createUserResponse = await createUser({ email });
+				if (createUserResponse.status === 201 && createUserResponse.data) {
+					return {
+						status: 200,
+						message: "User created successfully",
+						data: createUserResponse.data,
+					};
+				}
+			} catch (createError) {
+				return handleApiError(createError, "Error creating user");
+			}
+		}
+		return handleApiError(error, "Error fetching user by email");
 	}
 };
 
@@ -159,6 +197,13 @@ export const updateUser = async (
 	data: UpdateUserPayload
 ): Promise<ApiResponse<IUser>> => {
 	try {
+		if (!process.env.SERVER_URL) {
+			throw new Error("SERVER_URL environment variable is not defined");
+		}
+
+		const apiUrl = `${process.env.SERVER_URL}/user/updateUser`;
+
+		// Transform data to match API expectations while keeping consistent field names
 		const apiData = {
 			name: data.name,
 			phoneNumber: data.phoneNumber,
@@ -166,10 +211,17 @@ export const updateUser = async (
 			gender: data.gender,
 			bloodGroup: data.bloodGroup,
 			role: data.role,
-			address: data.address ? [data.address] : [],
+			address: data.address ? [data.address] : [], // Convert to array format as expected by API
 		};
 
-		const response = await api.post("/user/updateUser", apiData);
+		const response = await axios.post(apiUrl, apiData, {
+			headers: {
+				"Content-Type": "application/json",
+			},
+			withCredentials: true,
+		});
+
+		console.log("Server response:", response.data);
 
 		return {
 			status: response.status,
@@ -177,7 +229,7 @@ export const updateUser = async (
 			message: "Profile updated successfully",
 		};
 	} catch (error) {
-		return handleApiError(error, "Failed to update user");
+		return handleApiError(error, "Error updating user");
 	}
 };
 
@@ -190,13 +242,25 @@ export const deleteUser = async (
 	userId: string
 ): Promise<ApiResponse<void>> => {
 	try {
-		const response = await api.delete(`/user/${userId}`);
+		if (!process.env.SERVER_URL) {
+			throw new Error("SERVER_URL environment variable is not defined");
+		}
+
+		const response = await axios.delete(
+			`${process.env.SERVER_URL}/user/${userId}`,
+			{
+				headers: {
+					"Content-Type": "application/json",
+				},
+				withCredentials: true,
+			}
+		);
 
 		return {
 			status: response.status,
 			message: response.data.message,
 		};
 	} catch (error) {
-		return handleApiError(error, "Failed to delete user");
+		return handleApiError(error, "Error deleting user");
 	}
 };
