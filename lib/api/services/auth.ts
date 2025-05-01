@@ -29,11 +29,16 @@ interface ErrorResponse {
 }
 
 // Create a utility function for consistent error handling
-const handleApiError = (error: unknown): ErrorResponse => {
+const handleApiError = (
+	error: unknown,
+	defaultMessage: string
+): ApiResponse<any> => {
+	console.error(`API Error: ${defaultMessage}`, error);
+
 	if (axios.isAxiosError(error)) {
 		return {
 			status: error.response?.status || 500,
-			message: error.response?.data?.message || "Request failed",
+			message: error.response?.data?.message || defaultMessage,
 			error: error.message,
 		};
 	}
@@ -54,25 +59,27 @@ export const createUser = async (
 	userData: Partial<IUser>
 ): Promise<ApiResponse<IUser>> => {
 	try {
-		const dataToSend = {
-			...userData,
-			profilePic: userData.profilePic,
-			isVerified: true,
-			role: EUserRole.PATIENT,
-		};
+		const response = await axios.post(
+			`${process.env.SERVER_URL}/user/signup`,
+			userData,
+			{
+				headers: {
+					"Content-Type": "application/json",
+				},
+				withCredentials: true,
+			}
+		);
 
-		const response = await api.post("/user/signup", dataToSend);
-
-		console.log(`User is being created: ${JSON.stringify(dataToSend)}`);
+		console.log(`User is being created: ${JSON.stringify(userData)}`);
+		console.log(response.data);
 
 		return {
 			status: response.status,
-			message: "User created successfully",
-			data: response.data,
+			message: response.data,
+			data: response.data.id,
 		};
 	} catch (error) {
-		console.error("Error creating user:", error);
-		return handleApiError(error);
+		return handleApiError(error, "Error creating user");
 	}
 };
 
@@ -91,34 +98,43 @@ export const loginUser = async (credentials: {
 			authProvider: "google",
 		};
 
-		const response = await api.post("/user/login", loginData);
+		const response = await axios.post(
+			`${process.env.SERVER_URL}/user/login`,
+			loginData,
+			{
+				headers: {
+					"Content-Type": "application/json",
+				},
+				withCredentials: true,
+			}
+		);
 
 		console.log(`User login attempt with Google: ${JSON.stringify(loginData)}`);
 
 		const data = response.data;
 
 		// Transform and validate user data
-		if (data.user) {
-			return {
-				status: response.status,
-				message: "Login successful",
-				data: {
-					id: data.user.id,
-					email: data.user.email,
-					phone: data.user.phone || "",
-					name: data.user.name,
-					role: data.user.role || EUserRole.PATIENT,
-					isVerified: Boolean(data.user.isVerified),
-					providerType: data.user.providerType,
-					address: Array.isArray(data.user.address) ? data.user.address : [],
-					profilePic: data.user.profileImage || "",
-				},
-			};
-		}
 
-		throw new Error(data.message || "Invalid login response");
+		return {
+			status: response.status,
+			message: "Login successful",
+			data:
+				data.user ?
+					{
+						id: data.user.id,
+						email: data.user.email,
+						phone: data.user.phone || "",
+						name: data.user.name,
+						role: data.user.role,
+						isVerified: data.user.isVerified,
+						providerType: data.user.providerType,
+						address: data.user.address || [],
+						profilePic: data.user.profilePic || "",
+					}
+				:	undefined,
+		};
 	} catch (error) {
 		console.error("Login error:", error);
-		return handleApiError(error);
+		return handleApiError(error, "Login error:");
 	}
 };
