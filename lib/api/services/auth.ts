@@ -22,12 +22,6 @@ interface ApiResponse<T> {
 	error?: string;
 }
 
-interface ErrorResponse {
-	status: number;
-	message: string;
-	error: string;
-}
-
 // Create a utility function for consistent error handling
 const handleApiError = (
 	error: unknown,
