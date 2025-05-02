@@ -67,11 +67,11 @@ export const OnCallRotation: React.FC = () => {
 	const getStatusColor = (status: OnCallDoctor["status"]) => {
 		const colors = {
 			active:
-				"bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300",
+				"bg-green-400 text-green-800 dark:bg-green-900 dark:text-green-300",
 			standby:
 				"bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300",
 			"off-duty":
-				"bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300",
+				"bg-gray-400 text-gray-800 dark:bg-gray-900 dark:text-gray-300",
 		};
 		return colors[status];
 	};
