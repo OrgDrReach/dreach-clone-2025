@@ -48,7 +48,7 @@ const Header = () => {
             />
           </div>
 
-          <nav className="flex items-center gap-2">
+          {/* <nav className="flex items-center gap-2">
             <Button
               variant="ghost"
               size="sm"
@@ -77,7 +77,7 @@ const Header = () => {
             >
               Notifications
             </Button>
-          </nav>
+          </nav> */}
         </div>
 
         <div className="flex items-center gap-4">
