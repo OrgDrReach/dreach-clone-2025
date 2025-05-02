@@ -42,6 +42,37 @@ export const QualificationVerification: React.FC = () => {
 
 	// Mock data - Replace with actual API call
 	const qualifications: Qualification[] = [
+		
+		{
+			id: "1",
+			type: "degree",
+			title: "Doctor of Medicine (MD)",
+			institution: "Harvard Medical School",
+			year: 2018,
+			documentUrl: "/path/to/document.pdf",
+			status: "pending",
+		},
+		{
+			id: "2",
+			type: "specialization",
+			title: "Cardiology Fellowship",
+			institution: "Mayo Clinic",
+			year: 2020,
+			documentUrl: "/path/to/document.pdf",
+			status: "verified",
+			verificationDate: "2023-12-01",
+			verifiedBy: "Admin",
+		},
+		{
+			id: "3",
+			type: "certification",
+			title: "Advanced Cardiac Life Support",
+			institution: "American Heart Association",
+			year: 2022,
+			documentUrl: "/path/to/document.pdf",
+			status: "rejected",
+			comments: "Document expired",
+		},
 		{
 			id: "1",
 			type: "degree",
@@ -79,7 +110,7 @@ export const QualificationVerification: React.FC = () => {
 			pending:
 				"bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300",
 			verified:
-				"bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300",
+				"bg-green-400 text-green-800 dark:bg-green-900 dark:text-green-300",
 			rejected: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300",
 		};
 		return styles[status];
@@ -98,7 +129,7 @@ export const QualificationVerification: React.FC = () => {
 				<CardTitle>Qualification Verification</CardTitle>
 			</CardHeader>
 			<CardContent>
-				<ScrollArea className="h-[400px]">
+				<ScrollArea className="h-[280px]">
 					<Table>
 						<TableHeader>
 							<TableRow className="bg-slate-50 dark:bg-slate-800">
