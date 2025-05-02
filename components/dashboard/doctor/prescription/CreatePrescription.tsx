@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { X, Plus, AlertCircle } from "lucide-react";
-import { Prescription } from "./type";
+import { IPrescription } from "@/types/doctor.d.types";
 
 interface PrescriptionCreateModalProps {
-  onSave: (data: Prescription) => void;
+  onSave: (data: IPrescription) => void;
   onClose: () => void;
 }
 
@@ -40,7 +40,7 @@ const PrescriptionCreateModal: React.FC<PrescriptionCreateModalProps> = ({
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (validateForm()) {
-      const newPrescription: Prescription = {
+      const newPrescription: IPrescription = {
         ...formState,
         id: Date.now(),
       };

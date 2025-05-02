@@ -1,19 +1,69 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Search, Plus } from "lucide-react";
 import { PrescriptionHistoryPanel } from "./panels/PrescriptionHistoryPanel";
 import { PatientPrescriptionsPanel } from "./panels/PatientPrescriptionsPanel";
-import { motion, AnimatePresence } from "framer-motion";
+import { CreatePrescriptionModal } from "./modals/CreatePrescriptionModal";
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { IPatient } from "@/types/user.d.types";
-import { IPrescription } from "@/types/doctor.d.types";
+import { IPrescription } from "./panels/PatientPrescriptionsPanel";
+import { IPatientList } from "@/types/user.d.types";
 
 const PrescriptionDashboard: React.FC = () => {
-  const [selectedPatient, setSelectedPatient] = useState<IPatient | null>(null);
+  const [selectedPatient, setSelectedPatient] = useState<IPatientList | null>(
+    null
+  );
   const [historySearchTerm, setHistorySearchTerm] = useState("");
   const [patientSearchTerm, setPatientSearchTerm] = useState("");
   const [showCreateModal, setShowCreateModal] = useState(false);
+  // Store prescriptions with patient ID as key
+  const [prescriptionsMap, setPrescriptionsMap] = useState<
+    Record<string, IPrescription[]>
+  >({});
+
+  // Update selected patient handler
+  const handlePatientSelect = (patient: IPatientList) => {
+    setSelectedPatient(patient);
+    // Initialize empty array for new patient if needed
+    if (!prescriptionsMap[patient.id]) {
+      setPrescriptionsMap((prev) => ({
+        ...prev,
+        [patient.id]: [],
+      }));
+    }
+  };
+
+  // Add prescription handler
+  const handleAddPrescription = (
+    newPrescription: Omit<IPrescription, "id">
+  ) => {
+    if (!selectedPatient) return;
+
+    const prescription: IPrescription = {
+      ...newPrescription,
+      id: Date.now(),
+      status: "Draft",
+    };
+
+    setPrescriptionsMap((prev) => ({
+      ...prev,
+      [selectedPatient.id]: [...(prev[selectedPatient.id] || []), prescription],
+    }));
+
+    setShowCreateModal(false);
+  };
+
+  // Update prescriptions handler
+  const handleUpdatePrescriptions = (
+    patientId: string,
+    updatedPrescriptions: IPrescription[]
+  ) => {
+    setPrescriptionsMap((prev) => ({
+      ...prev,
+      [patientId]: updatedPrescriptions,
+    }));
+  };
 
   return (
     <div className="flex gap-6 h-[calc(100vh-12rem)]">
@@ -31,7 +81,7 @@ const PrescriptionDashboard: React.FC = () => {
           />
           <Input
             type="text"
-            placeholder="Search prescriptions..."
+            placeholder="Search patients..."
             value={historySearchTerm}
             onChange={(e) => setHistorySearchTerm(e.target.value)}
             className="pl-10 w-full"
@@ -39,7 +89,7 @@ const PrescriptionDashboard: React.FC = () => {
         </div>
         <PrescriptionHistoryPanel
           searchTerm={historySearchTerm}
-          onSelectPatient={setSelectedPatient}
+          onSelectPatient={handlePatientSelect}
           selectedPatient={selectedPatient}
         />
       </div>
@@ -69,7 +119,7 @@ const PrescriptionDashboard: React.FC = () => {
           />
           <Input
             type="text"
-            placeholder="Search patient prescriptions..."
+            placeholder="Search prescriptions..."
             value={patientSearchTerm}
             onChange={(e) => setPatientSearchTerm(e.target.value)}
             className="pl-10 w-full"
@@ -79,9 +129,31 @@ const PrescriptionDashboard: React.FC = () => {
         <PatientPrescriptionsPanel
           patient={selectedPatient}
           searchTerm={patientSearchTerm}
+          prescriptions={
+            selectedPatient ? prescriptionsMap[selectedPatient.id] || [] : []
+          }
+          setPrescriptions={(updatedPrescriptions) => {
+            if (selectedPatient) {
+              handleUpdatePrescriptions(
+                selectedPatient.id,
+                typeof updatedPrescriptions === "function"
+                  ? updatedPrescriptions(
+                      prescriptionsMap[selectedPatient.id] || []
+                    )
+                  : updatedPrescriptions
+              );
+            }
+          }}
           onAddPrescription={() => setShowCreateModal(true)}
         />
       </div>
+
+      <CreatePrescriptionModal
+        isOpen={showCreateModal}
+        onClose={() => setShowCreateModal(false)}
+        onSave={handleAddPrescription}
+        patient={selectedPatient}
+      />
     </div>
   );
 };
