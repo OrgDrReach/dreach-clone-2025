@@ -2,7 +2,7 @@
  * This file is definition types for the doctor data.
  * It provides data about doctors.
  * It is tailored to the specific needs of the project.
- */
+*/
 
 import {
 	IAddress,
@@ -10,6 +10,7 @@ import {
 	IBaseStaffMember,
 	IOperatingHours,
 } from "./provider.d.types";
+import { IUser } from './user.d.types';
 
 export interface IDoctor {
 	id: string; // Unique ID
@@ -181,3 +182,15 @@ export interface IAppointmentManager {
 		appointmentId: string;
 	}[];
 }
+
+export type IPrescription = {
+  id: number;
+	name: string;
+  patientName: IUser.name;
+  dosage: string;
+  frequency: string;
+  disease?: string;
+	date?: string;
+	notes: string;
+  labReportRequired?: boolean;
+};

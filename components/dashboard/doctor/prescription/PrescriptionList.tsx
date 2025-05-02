@@ -4,10 +4,10 @@ import { Plus, Search, FileText, CalendarDays, User2, Stethoscope } from "lucide
 import PrescriptionEditModal from "./PrescriptionModal";
 import PrescriptionDeleteConfirm from "./PrescriptionDelete";
 import PrescriptionCreateModal from "./CreatePrescription";
-import { Prescription } from "./type";
+import { IPrescription } from "@/types/doctor.d.types";
 
 const PrescriptionList = () => {
-  const [prescriptions, setPrescriptions] = useState<Prescription[]>([
+  const [prescriptions, setPrescriptions] = useState<IPrescription[]>([
     {
       id: 1,
       name: "Amoxicillin",
@@ -15,7 +15,7 @@ const PrescriptionList = () => {
       frequency: "Three times daily",
       disease: "Bacterial Infection",
       labReportRequired: true,
-      patient: "John Doe",
+      patientName: "John Doe",
       date: "2025-04-30",
       notes: "Take after food. Avoid alcohol.",
     },
@@ -26,13 +26,13 @@ const PrescriptionList = () => {
       frequency: "Twice daily",
       disease: "Diabetes",
       labReportRequired: false,
-      patient: "Jane Smith",
+      patientName: "Jane Smith",
       date: "2025-04-28",
       notes: "Monitor blood sugar levels regularly.",
     },
   ]);
 
-  const [selectedPrescription, setSelectedPrescription] = useState<Prescription | null>(null);
+  const [selectedPrescription, setSelectedPrescription] = useState<IPrescription | null>(null);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
@@ -41,7 +41,7 @@ const PrescriptionList = () => {
   const filteredPrescriptions = prescriptions.filter(p =>
     p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     p.disease.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    p.patient.toLowerCase().includes(searchTerm.toLowerCase())
+    p.patientName.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -89,7 +89,7 @@ const PrescriptionList = () => {
               <div className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
                 <p className="flex items-center gap-2">
                   <User2 size={16} />
-                  <span><strong>Patient:</strong> {prescription.patient}</span>
+                  <span><strong>Patient:</strong> {prescription.patientName}</span>
                 </p>
                 <p className="flex items-center gap-2">
                   <CalendarDays size={16} />
