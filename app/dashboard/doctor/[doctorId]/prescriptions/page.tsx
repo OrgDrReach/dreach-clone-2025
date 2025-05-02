@@ -13,7 +13,7 @@ const Prescriptions: NextPage = () => {
 			initial={{ opacity: 0 }}
 			animate={{ opacity: 1 }}
 			transition={{ duration: 0.5 }}
-			className="min-h-screen bg-gradient-to-b from-[#e6f7ff] to-[#c5efff] dark:from-slate-600 dark:to-slate-900 rounded-lg p-6">
+			className="min-h-screen bg-gradient-to-b from-[#e6f7ff] to-[#c5efff] dark:from-slate-800 dark:to-slate-900 rounded-lg p-6">
 			<div className="max-w-7xl mx-auto">
 				<div className="mb-8">
 					<h1 className="text-3xl font-bold text-[#125872] dark:text-[#33a6cf] mb-2">
