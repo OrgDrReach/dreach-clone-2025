@@ -28,8 +28,6 @@ export interface IAuthUser {
 	email: string;
 	phone: string;
 	name: string;
-	firstName?: string;
-	lastName?: string;
 	role: EUserRole;
 	userType: "Patient" | "Provider";
 	providerType?: "Doctor" | "Hospital" | "Lab" | "Nursing" | "DoctorsAssistant";
