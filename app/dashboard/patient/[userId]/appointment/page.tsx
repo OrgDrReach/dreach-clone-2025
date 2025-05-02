@@ -1,13 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Status,
   ProviderInfo,
   Reminders,
   Upcoming,
   Scheduled,
-  Booking,
   History,
   RatingSystem,
 } from "@/components/dashboard/patient/appointments";
@@ -18,6 +17,11 @@ import { cn } from "@/lib/utils";
 
 const AppointmentsPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState("upcoming");
+  const [isClient, setIsClient] = useState(false); // For client-side rendering
+
+  useEffect(() => {
+    setIsClient(true); // Only run after the component is mounted on the client
+  }, []);
 
   const handleRatingSubmit = (rating: number, feedback: string) => {
     console.log(`Rating: ${rating}, Feedback: ${feedback}`);
@@ -29,6 +33,11 @@ const AppointmentsPage: React.FC = () => {
     in: { opacity: 1, y: 0 },
     out: { opacity: 0, y: -20 },
   };
+
+  // Wait until the client-side is ready before rendering
+  if (!isClient) {
+    return null; // Or a loading spinner if necessary
+  }
 
   return (
     <motion.main
@@ -83,9 +92,6 @@ const AppointmentsPage: React.FC = () => {
                   />
                 </div>
               </div>
-              {/* <div className="rounded-lg shadow-md">
-                <Booking />
-              </div> */}
             </div>
           </TabsContent>
 
@@ -98,14 +104,6 @@ const AppointmentsPage: React.FC = () => {
           </TabsContent>
         </Tabs>
 
-        {/* <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="rounded-lg shadow-md">
-            <Reminders />
-          </div>
-          <div className="h-[300px] rounded-lg">
-            <RatingSystem onSubmit={handleRatingSubmit} />
-          </div>
-        </div> */}
       </div>
     </motion.main>
   );
