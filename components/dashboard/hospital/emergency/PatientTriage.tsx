@@ -35,52 +35,63 @@ export const PatientTriage: React.FC = () => {
 
 	const getSeverityColor = (severity: TriagePatient["severity"]) => {
 		const colors = {
-			Critical: "bg-red-100 text-red-800",
-			Serious: "bg-yellow-100 text-yellow-800",
-			Stable: "bg-green-100 text-green-800",
+			Critical: "bg-red-500 text-white",
+			Serious: "bg-yellow-500 text-white",
+			Stable: "bg-green-500 text-white",
 		};
 		return colors[severity];
 	};
 
 	return (
-		<Card className="border-2 border-gray-500">
-			<CardHeader>
-				<CardTitle>Patient Triage</CardTitle>
-			</CardHeader>
-			<CardContent>
-				<Table className="border-2 border-gray-500">
-					<TableHeader>
-						<TableRow>
-							<TableHead>Patient</TableHead>
-							<TableHead>Condition</TableHead>
-							<TableHead>Severity</TableHead>
-							<TableHead>Wait Time</TableHead>
-							<TableHead>Assigned To</TableHead>
-							<TableHead>Actions</TableHead>
-						</TableRow>
-					</TableHeader>
-					<TableBody>
-						{patients.map((patient) => (
-							<TableRow key={patient.id}>
-								<TableCell>{patient.name}</TableCell>
-								<TableCell>{patient.condition}</TableCell>
-								<TableCell>
-									<Badge className={getSeverityColor(patient.severity)}>
-										{patient.severity}
-									</Badge>
-								</TableCell>
-								<TableCell>{patient.waitTime} mins</TableCell>
-								<TableCell>{patient.assignedTo || "Unassigned"}</TableCell>
-								<TableCell>
-									<Button variant="outline" size="sm" className="border-2 border-gray-500">
-										Update
-									</Button>
-								</TableCell>
+		<div className="p-8">
+			<Card className="overflow-hidden border-0 shadow-xl rounded-xl bg-white dark:bg-gray-800">
+				<CardHeader className="py-4">
+					<CardTitle className="text-xl font-semibold">Patient Triage</CardTitle>
+				</CardHeader>
+				<CardContent className="px-4 py-6">
+					<Table className="w-full table-auto border-collapse">
+						<TableHeader>
+							<TableRow className="bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white rounded-lg">
+								<TableHead className="py-2 px-4 text-left">Patient</TableHead>
+								<TableHead className="py-2 px-4 text-left">Condition</TableHead>
+								<TableHead className="py-2 px-4 text-left">Severity</TableHead>
+								<TableHead className="py-2 px-4 text-left">Wait Time</TableHead>
+								<TableHead className="py-2 px-4 text-left">Assigned To</TableHead>
+								<TableHead className="py-2 px-4 text-left">Actions</TableHead>
 							</TableRow>
-						))}
-					</TableBody>
-				</Table>
-			</CardContent>
-		</Card>
+						</TableHeader>
+						<TableBody>
+							{patients.map((patient) => (
+								<TableRow
+									key={patient.id}
+									className="border-b border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
+								>
+									<TableCell className="py-2 px-4 text-gray-700 dark:text-white">{patient.name}</TableCell>
+									<TableCell className="py-2 px-4 text-gray-700 dark:text-white">{patient.condition}</TableCell>
+									<TableCell>
+										<Badge className={`${getSeverityColor(patient.severity)} py-1 px-3 rounded-full`}>
+											{patient.severity}
+										</Badge>
+									</TableCell>
+									<TableCell className="py-2 px-4 text-gray-700 dark:text-white">{patient.waitTime} mins</TableCell>
+									<TableCell className="py-2 px-4 text-gray-700 dark:text-white">
+										{patient.assignedTo || "Unassigned"}
+									</TableCell>
+									<TableCell className="py-2 px-4">
+										<Button
+											variant="outline"
+											size="sm"
+											className="border-2 border-gray-500 text-gray-700 hover:bg-gray-200 dark:text-white dark:hover:bg-gray-600 rounded-lg transition-colors"
+										>
+											Update
+										</Button>
+									</TableCell>
+								</TableRow>
+							))}
+						</TableBody>
+					</Table>
+				</CardContent>
+			</Card>
+		</div>
 	);
 };
