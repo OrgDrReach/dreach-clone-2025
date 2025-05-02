@@ -11,33 +11,39 @@ import { QualificationVerification } from "./QualificationVerification";
 
 export const DoctorManagement: React.FC = () => {
 	return (
-		<div className="space-y-6">
-			{/* Top row - Quick overview */}
-			<div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-				<div className="lg:col-span-2">
-					<DoctorsList />
+		<div className="w-full max-w-screen-xl mx-auto p-4 sm:p-6 lg:p-8 space-y-8">
+			{/* Row 1 - Doctors List */}
+			<div className="w-full">
+				<DoctorsList />
+			</div>
+
+			{/* Row 2 - Doctor Schedules */}
+			<div className="w-full">
+				<DoctorSchedules />
+			</div>
+
+			{/* Row 3 - Performance Metrics & Specialty Distribution */}
+			<div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
+				<div className="w-full h-full">
+					<PerformanceMetrics />
 				</div>
-				<div>
+				<div className="w-full h-full">
 					<SpecialtyDistribution />
 				</div>
 			</div>
 
-			{/* Second row - Schedules and Assignments */}
-			<div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-				<DoctorSchedules />
+			{/* Row 4 - Department Assignments */}
+			<div className="w-full">
 				<DepartmentAssignments />
 			</div>
 
-			{/* Third row - Performance and On-Call */}
-			<div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-				<div className="lg:col-span-2">
-					<PerformanceMetrics />
-				</div>
+			{/* Row 5 - On Call Rotation */}
+			<div className="w-full">
 				<OnCallRotation />
 			</div>
 
-			{/* Bottom row - Verification */}
-			<div className="grid grid-cols-1 gap-6">
+			{/* Row 6 - Qualification Verification */}
+			<div className="w-full">
 				<QualificationVerification />
 			</div>
 		</div>
