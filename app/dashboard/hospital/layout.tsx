@@ -2,13 +2,13 @@
 
 import { ubuntu } from "@/@types/font/Font";
 import { RNChildProp } from "@/@types/interface/Interface";
-import { Header, HospitalSideNav } from "@/components/dashboard/ui";
+import { HospitalSideNav } from "@/components/dashboard/ui";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import React, { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
-
+import Header from "@/components/dashboard/ui/HospitalHeader";
 const Layout: React.FC<RNChildProp> = ({ children }: RNChildProp) => {
 	const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
