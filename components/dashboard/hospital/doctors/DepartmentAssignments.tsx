@@ -64,17 +64,86 @@ export const DepartmentAssignments: React.FC = () => {
 			role: "Specialist",
 			schedule: "Mon-Fri, 8:00-16:00",
 			status: "on-leave",
+		},	{
+			doctorId: "D1",
+			doctorName: "Dr. Sarah Johnson",
+			department: EHospitalSpecialization.CARDIOLOGY,
+			role: "Head of Department",
+			schedule: "Mon-Fri, 9:00-17:00",
+			status: "active",
+		},
+		{
+			doctorId: "D2",
+			doctorName: "Dr. Michael Chen",
+			department: EHospitalSpecialization.NEUROLOGY,
+			role: "Senior Specialist",
+			schedule: "Tue-Sat, 10:00-18:00",
+			status: "active",
+		},
+		{
+			doctorId: "D3",
+			doctorName: "Dr. Emily Wilson",
+			department: EHospitalSpecialization.PEDIATRICS,
+			role: "Specialist",
+			schedule: "Mon-Fri, 8:00-16:00",
+			status: "on-leave",
+		},	{
+			doctorId: "D1",
+			doctorName: "Dr. Sarah Johnson",
+			department: EHospitalSpecialization.CARDIOLOGY,
+			role: "Head of Department",
+			schedule: "Mon-Fri, 9:00-17:00",
+			status: "active",
+		},
+		{
+			doctorId: "D2",
+			doctorName: "Dr. Michael Chen",
+			department: EHospitalSpecialization.NEUROLOGY,
+			role: "Senior Specialist",
+			schedule: "Tue-Sat, 10:00-18:00",
+			status: "active",
+		},
+		{
+			doctorId: "D3",
+			doctorName: "Dr. Emily Wilson",
+			department: EHospitalSpecialization.PEDIATRICS,
+			role: "Specialist",
+			schedule: "Mon-Fri, 8:00-16:00",
+			status: "on-leave",
+		},	{
+			doctorId: "D1",
+			doctorName: "Dr. Sarah Johnson",
+			department: EHospitalSpecialization.CARDIOLOGY,
+			role: "Head of Department",
+			schedule: "Mon-Fri, 9:00-17:00",
+			status: "active",
+		},
+		{
+			doctorId: "D2",
+			doctorName: "Dr. Michael Chen",
+			department: EHospitalSpecialization.NEUROLOGY,
+			role: "Senior Specialist",
+			schedule: "Tue-Sat, 10:00-18:00",
+			status: "active",
+		},
+		{
+			doctorId: "D3",
+			doctorName: "Dr. Emily Wilson",
+			department: EHospitalSpecialization.PEDIATRICS,
+			role: "Specialist",
+			schedule: "Mon-Fri, 8:00-16:00",
+			status: "on-leave",
 		},
 	];
 
 	const getStatusColor = (status: DepartmentAssignment["status"]) => {
 		const colors = {
 			active:
-				"bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300",
+				"bg-green-400 text-green-800 dark:bg-green-900 dark:text-green-300",
 			"on-leave":
-				"bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300",
+				"bg-yellow-200 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300",
 			unavailable:
-				"bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300",
+				"bg-gray-200 text-gray-800 dark:bg-gray-900 dark:text-gray-300",
 		};
 		return colors[status];
 	};
@@ -118,7 +187,7 @@ export const DepartmentAssignments: React.FC = () => {
 				</div>
 			</CardHeader>
 			<CardContent>
-				<ScrollArea className="h-[400px] w-full">
+				<ScrollArea className="h-[280px] w-full">
 					<Table>
 						<TableHeader>
 							<TableRow className="bg-slate-50 dark:bg-slate-800">
