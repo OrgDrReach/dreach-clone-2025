@@ -3,13 +3,13 @@
 // Conditional Layout for dashboards using session
 import { ubuntu } from "@/@types/font/Font";
 import { RNChildProp } from "@/@types/interface/Interface";
-import { AdminSideNav, Header } from "@/components/dashboard/ui";
+import { AdminSideNav } from "@/components/dashboard/ui";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import React, { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
-
+import Header from "@/components/dashboard/ui/AdminHeader";
 const Layout: React.FC<RNChildProp> = ({ children }: RNChildProp) => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
