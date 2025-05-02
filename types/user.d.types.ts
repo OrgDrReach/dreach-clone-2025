@@ -116,6 +116,10 @@ export interface IUser {
 }
 
 export interface IPatient extends IUser {
+	id: string;
+	name: string;
+	status: "Active" | "Inactive" | "Pending";
+	lastVisit: string;
 	medicalHistory: IMedicalHistory;
 	emergencyContacts: IEmergencyContact[];
 	insurance?: IInsurance[];
