@@ -20,6 +20,12 @@ interface ApiResponse<T> {
 	error?: string;
 }
 
+interface ErrorResponse {
+	status: number;
+	message: string;
+	error: string;
+}
+
 // Create a utility function for consistent error handling
 const handleApiError = (
 	error: unknown,
@@ -28,13 +34,23 @@ const handleApiError = (
 	console.error(`API Error: ${defaultMessage}`, error);
 
 	if (axios.isAxiosError(error)) {
+		// Check if the error has a response
+		if (error.response) {
+			return {
+				status: error.response.status,
+				message: error.response.data?.message || defaultMessage,
+				error: error.message,
+			};
+		}
+		// Handle network errors or timeouts
 		return {
-			status: error.response?.status || 500,
-			message: error.response?.data?.message || defaultMessage,
+			status: 503,
+			message: "Service unavailable",
 			error: error.message,
 		};
 	}
 
+	// For non-Axios errors
 	return {
 		status: 500,
 		message: "Internal server error",
@@ -51,27 +67,31 @@ export const createUser = async (
 	userData: Partial<IUser>
 ): Promise<ApiResponse<IUser>> => {
 	try {
-		const response = await axios.post(
-			`${process.env.SERVER_URL}/user/signup`,
-			userData,
-			{
-				headers: {
-					"Content-Type": "application/json",
-				},
-				withCredentials: true,
-			}
-		);
+		const res = await fetch(`${process.env.SERVER_URL}/user/signup`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			credentials: "include",
+			body: JSON.stringify(userData),
+		});
+		console.log(`"user is being created", ${JSON.stringify(userData)}`);
 
-		console.log(`User is being created: ${JSON.stringify(userData)}`);
-		console.log(response.data);
+		const data = await res.json();
 
+		console.log(data);
 		return {
-			status: response.status,
-			message: response.data,
-			data: response.data.id,
+			status: res.status,
+			message: data,
+			data: data.userId,
 		};
 	} catch (error) {
-		return handleApiError(error, "Error creating user");
+		console.error("Error creating user:", error);
+		return {
+			status: 500,
+			message: "Internal server error",
+			error: error instanceof Error ? error.message : "Unknown error occurred",
+		};
 	}
 };
 

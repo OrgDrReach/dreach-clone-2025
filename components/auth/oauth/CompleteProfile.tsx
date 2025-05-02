@@ -28,10 +28,7 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { toast } from "sonner";
-import {
-	updateUser,
-	fetchUserByEmail,
-} from "@/lib/api/services/user";
+import { updateUser, fetchUserByEmail } from "@/lib/api/services/user";
 
 // Define a more complete Session type that includes our custom fields
 interface ExtendedUser {
@@ -253,24 +250,28 @@ export default function CompleteProfile() {
 		try {
 			setIsSubmitting(true);
 
-			// First, fetch or create the user using the email
-			const userResponse = await fetchUserByEmailHandler(session.user.email);
-			if (!userResponse) {
-				throw new Error("Failed to fetch or create user");
+			const userResponse = await fetchUserByEmail(session.user.email);
+			if (!userResponse.data) {
+				throw new Error(userResponse.message || "Failed to fetch user data");
 			}
 
-			// Update the form data with the user ID
+			// Split full name into first and last name
+			const nameParts = data.name.split(" ");
+			const firstName = nameParts[0];
+			const lastName = nameParts.slice(1).join(" ") || firstName;
+
 			const updateData = {
 				...data,
-				userId: userResponse.id,
+				userId: userResponse.data.userId,
+				firstName,
+				lastName,
 			};
 
-			// Update the user profile
 			const updateResponse = await updateUser(updateData);
 
 			if (updateResponse.status === 200 || updateResponse.status === 201) {
 				if (updateResponse.data) {
-					await update(); // Update the session with new user data
+					await update();
 					toast.success("Profile updated successfully");
 					router.push("/dashboard");
 				} else {
