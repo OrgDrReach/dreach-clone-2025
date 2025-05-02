@@ -2,7 +2,8 @@
 
 import { ubuntu } from "@/@types/font/Font";
 import { RNChildProp } from "@/@types/interface/Interface";
-import { DoctorSideNav, Header } from "@/components/dashboard/ui";
+import { DoctorSideNav } from "@/components/dashboard/ui";
+import Header from "@/components/dashboard/ui/DoctorHeader";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import type { Viewport } from "next";
