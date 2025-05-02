@@ -44,6 +44,51 @@ export const DepartmentList: React.FC = () => {
       staffCount: 20,
       patientCount: 32,
       status: "active",
+    }, {
+      id: "1",
+      name: EHospitalSpecialization.CARDIOLOGY,
+      head: "Dr. Sarah Johnson",
+      staffCount: 25,
+      patientCount: 45,
+      status: "active",
+    },
+    {
+      id: "2",
+      name: EHospitalSpecialization.NEUROLOGY,
+      head: "Dr. Michael Chen",
+      staffCount: 20,
+      patientCount: 32,
+      status: "active",
+    }, {
+      id: "1",
+      name: EHospitalSpecialization.CARDIOLOGY,
+      head: "Dr. Sarah Johnson",
+      staffCount: 25,
+      patientCount: 45,
+      status: "active",
+    },
+    {
+      id: "2",
+      name: EHospitalSpecialization.NEUROLOGY,
+      head: "Dr. Michael Chen",
+      staffCount: 20,
+      patientCount: 32,
+      status: "active",
+    }, {
+      id: "1",
+      name: EHospitalSpecialization.CARDIOLOGY,
+      head: "Dr. Sarah Johnson",
+      staffCount: 25,
+      patientCount: 45,
+      status: "active",
+    },
+    {
+      id: "2",
+      name: EHospitalSpecialization.NEUROLOGY,
+      head: "Dr. Michael Chen",
+      staffCount: 20,
+      patientCount: 32,
+      status: "active",
     },
     // Add more departments as needed
   ];
@@ -58,7 +103,7 @@ export const DepartmentList: React.FC = () => {
   };
 
   return (
-    <Card>
+    <Card className="h-[421px] overflow-y-auto">
       <CardHeader>
         <div className="flex justify-between items-center">
           <div>
