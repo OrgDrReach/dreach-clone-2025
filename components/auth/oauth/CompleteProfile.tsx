@@ -119,6 +119,7 @@ export default function CompleteProfile() {
 	};
 
 	const [isSubmitting, setIsSubmitting] = useState(false);
+	const [file, setFile] = useState<File | null>(null); // Added state for profile picture
 	const [showOtpField, setShowOtpField] = useState(false);
 	const [isOtpVerified, setIsOtpVerified] = useState(false);
 	const [isOtpSent, setIsOtpSent] = useState(false);
@@ -145,6 +146,13 @@ export default function CompleteProfile() {
 		},
 		mode: "onChange",
 	});
+
+	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+            setFile(e.target.files[0]); // Set the selected file
+        }
+    };
+
 
 	const sendOtp = async () => {
 		const phone = form.getValues("phone");
@@ -265,10 +273,11 @@ export default function CompleteProfile() {
 				...data,
 				userId: userResponse.userId,
 				bloodGroup: mappedBloodGroup,
+			
 			};
 
 			// Update the user profile
-			const updateResponse = await updateUser(updateData);
+			const updateResponse = await updateUser(updateData, file || undefined);
 
 			if (updateResponse.status === 200 || updateResponse.status === 201) {
 				if (updateResponse.data) {
@@ -310,6 +319,17 @@ export default function CompleteProfile() {
 						<form
 							onSubmit={form.handleSubmit(onSubmit)}
 							className="space-y-6 w-full max-w-[500px] mx-auto">
+								{/* Profile Picture Upload */}
+								<div>
+                                <FormLabel className="text-white">Profile Picture</FormLabel>
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={handleFileChange} // Added file input handler
+                                    className="block w-full text-white bg-gray-800 border border-gray-600 rounded-md"
+                                />
+                            </div>
+
 							<FormField
 								control={form.control}
 								name="name"

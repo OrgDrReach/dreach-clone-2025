@@ -183,62 +183,61 @@ export const fetchUserByEmail = async (
   }
 };
 
-/**
- * Update existing user
- */
+
+// Update existing user
 export const updateUser = async (
-	data: UpdateUserPayload
-  ): Promise<ApiResponse<IUser>> => {
-	try {
-	  if (!process.env.SERVER_URL) {
-		throw new Error("SERVER_URL environment variable is not defined");
-	  }
-  
-	  const apiUrl = `${process.env.SERVER_URL}/user/updateUser`;
-  
-	  // Transform data to match API expectations
-	  const apiData = {
-		name: data.name,
-		phone: data.phone, // Ensure this matches the backend field
-		dob: data.dob instanceof Date ? data.dob.toISOString() : data.dob,
-		gender: data.gender,
-		bloodGroup: data.bloodGroup,
-		address: data.address ? { ...data.address } : undefined, // Ensure address matches the backend structure
-		userId: data.userId,
-	  };
-  
-	  console.log("Payload sent to update user:", apiData);
-  
-	  const response = await fetch(apiUrl, {
-		method: "POST",
-		headers: {
-		  "Content-Type": "application/json",
-		},
-		credentials: "include",
-		body: JSON.stringify(apiData),
-	  });
-  
-	  const responseData = await response.json();
-	  console.log("Server response:", responseData);
-  
-	  if (!response.ok) {
-		throw new Error(responseData.message || "Failed to update user");
-	  }
-  
-	  return {
-		status: response.status,
-		data: responseData.user,
-		message: "Profile updated successfully",
-	  };
-	} catch (error) {
-	  console.error("Error updating user:", error);
-	  return {
-		status: 500,
-		error:
-		  error instanceof Error ? error.message : "Failed to update profile",
-	  };
-	}
-  };
+    data: UpdateUserPayload,
+    file?: File // Optional file parameter for profile picture
+): Promise<ApiResponse<IUser>> => {
+    try {
+        if (!process.env.SERVER_URL) {
+            throw new Error("SERVER_URL environment variable is not defined");
+        }
+
+        const apiUrl = `${process.env.SERVER_URL}/user/updateUser`;
+
+        // Create a FormData object to handle both file and user data
+        const formData = new FormData();
+        formData.append("name", data.name);
+        formData.append("phone", data.phone);
+        formData.append("dob", data.dob instanceof Date ? data.dob.toISOString() : data.dob);
+        formData.append("gender", data.gender);
+        if (data.bloodGroup) formData.append("bloodGroup", data.bloodGroup);
+        if (data.address) {
+            formData.append("address", JSON.stringify(data.address)); // Serialize address object
+        }
+        formData.append("userId", data.userId);
+        if (file) {
+            formData.append("profilePic", file); // Append the file if provided
+        }
+
+        console.log("Payload sent to update user:", formData);
+
+        const response = await fetch(apiUrl, {
+            method: "POST",
+            body: formData, // Send FormData directly
+        });
+
+        const responseData = await response.json();
+        console.log("Server response:", responseData);
+
+        if (!response.ok) {
+            throw new Error(responseData.message || "Failed to update user");
+        }
+
+        return {
+            status: response.status,
+            data: responseData.user,
+            message: "Profile updated successfully",
+        };
+    } catch (error) {
+        console.error("Error updating user:", error);
+        return {
+            status: 500,
+            error: error instanceof Error ? error.message : "Failed to update profile",
+        };
+    }
+};
 
 /**
  * Fetch patient profile with medical history
@@ -274,6 +273,8 @@ export const fetchPatientProfile = async (
 		};
 	}
 };
+
+
 
 /**
  * Delete user account
