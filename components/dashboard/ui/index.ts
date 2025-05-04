@@ -9,3 +9,4 @@ export { default as AdminHeader } from "./AdminHeader";
 export { default as DoctorHeader } from "./DoctorHeader";
 export { default as PatientsHeader } from "./PatientsHeader";
 export { default as HospitalHeader } from "./HospitalHeader";
+export { Header } from "./Header";
