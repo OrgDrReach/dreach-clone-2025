@@ -71,12 +71,12 @@ const InstantAppointment: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center border-gray-200 dark:border-gray-700 border-4 text-[#125872] rounded-xl bg-gray-100 dark:bg-gray-900 p-5 pt-8 m-6 mt-8 sm:m-12 sm:mx-20 xl:mx-56 lg:-mt-28 sm:py-8 sm:pt-12 2xlg:mx-48">
+    <div className="flex flex-col items-center justify-center border-gray-200 dark:border-gray-700 border-4 text-[#125872] rounded-xl bg-gray-100 dark:bg-gray-900 p-5 pt-8 m-6 mt-8 sm:m-12 sm:mx-20 xl:mx-32 lg:-mt-28 sm:py-8 sm:pt-12 2xlg:mx-48">
       <h1 className="text-xl lg:text-3xl font-bold text-center text-[#125872] dark:text-white mb-8">
         Book an Appointment
       </h1>
       <div className="flex flex-col lg:flex-row justify-center items-center gap-4">
-        <div className="relative w-64 lg:w-48 xl:w-64 2xl:w-72">
+        <div className="relative w-fit 2xl:w-72">
           <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-500 dark:text-white" />
           <Input
             type="email"

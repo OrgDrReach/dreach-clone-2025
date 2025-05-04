@@ -14,7 +14,7 @@ const LearnMore: React.FC = () => {
         <button
           className={`bg-blue-500 border-medium border-blue-800 text-white font-bold px-6 py-3 mt-4 rounded-full transition-colors duration-300`}
         >
-          Sign Up Today
+          <a href="/auth/register">Sign Up Today</a>
         </button>
       </div>
     </main>
