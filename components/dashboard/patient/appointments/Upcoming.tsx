@@ -121,7 +121,7 @@ const Upcoming: React.FC = () => {
           </Badge>
         </div>
       </CardHeader>
-      <CardContent className="mt-6 p-14">
+      <CardContent className="mt-6 p-19.5">
         {appointments.length > 3 ? (
           <div className="appointment-slider">
             <Slider {...sliderSettings} className={`text-white`}>
