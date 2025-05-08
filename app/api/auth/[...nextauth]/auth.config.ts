@@ -1,10 +1,14 @@
 import { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import { Session } from "next-auth";
 import { EUserRole } from "@/types/auth.d.types";
-import { User } from "next-auth";
+import { createUser } from "@/lib/api/services/auth";
+import { User as NextAuthUser } from "next-auth";
 
-interface ExtendedSessionUser {
+if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
+	throw new Error("Missing Google OAuth credentials");
+}
+
+interface ExtendedUser extends NextAuthUser {
 	id: string;
 	email: string;
 	name: string;
@@ -14,26 +18,10 @@ interface ExtendedSessionUser {
 	lastName?: string;
 	role?: EUserRole;
 	isVerified?: boolean;
-	providerRole?: string;
-	address?: any[];
-	profileImage?: string;
-	authProvider?: "google";
-}
-
-interface ExtendedUser extends User {
-	phone?: string;
-	firstName?: string;
-	lastName?: string;
-	role?: EUserRole;
-	isVerified?: boolean;
 	providerType?: string;
 	address?: any[];
-	profileImage?: string;
+	profilePic?: string;
 	authProvider?: "google";
-}
-
-if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
-	throw new Error("Missing Google OAuth credentials");
 }
 
 export const authOptions: NextAuthOptions = {
@@ -59,18 +47,17 @@ export const authOptions: NextAuthOptions = {
 					role: EUserRole.PATIENT,
 					isVerified: true,
 					phone: "",
-					authProvider: "google" as const,
+					authProvider: "google",
 				};
 			},
 		}),
 	],
 	pages: {
-		signIn: "/auth/login",
 		error: "/auth/error",
 		newUser: "/auth/complete-profile",
 	},
 	callbacks: {
-		async jwt({ token, user, account }) {
+		async jwt({ token, user }) {
 			if (user) {
 				const extendedUser = user as ExtendedUser;
 				token.id = extendedUser.id;
@@ -83,42 +70,63 @@ export const authOptions: NextAuthOptions = {
 				token.isVerified = extendedUser.isVerified;
 				token.providerRole = extendedUser.providerType;
 				token.address = extendedUser.address;
-				token.profileImage = extendedUser.profileImage;
+				token.profilePic = extendedUser.image || null;
 				token.authProvider = extendedUser.authProvider;
 
 				try {
-					const res = await fetch(`${process.env.SERVER_URL}/user/signup`, {
-						method: "POST",
-						headers: {
-							"Content-Type": "application/json",
-						},
-						body: JSON.stringify({
-							email: extendedUser.email,
-							firstName: extendedUser.firstName,
-							lastName: extendedUser.lastName,
-							image: extendedUser.image,
-						}),
+					const response = await createUser({
+						email: extendedUser.email ?? undefined,
+						firstName: extendedUser.firstName,
+						lastName: extendedUser.lastName,
+						name: `${extendedUser.firstName} ${extendedUser.lastName}`,
+						profilePic: extendedUser.image,
+						role: EUserRole.PATIENT,
+						isVerified: true,
+						authProvider: "google",
 					});
 
-					if (!res.ok) {
-						throw new Error("Google authentication failed");
+					if (response.status !== 200 && response.status !== 201) {
+						console.error("Google auth error:", response.message);
+					} else {
+						token.signupData = response.data;
 					}
-
-					const data = await res.json();
-					token.signupData = data;
-				} catch (error) {
-					console.error("Error during Google auth:", error);
+				} catch (err) {
+					console.error("Error during Google auth:", err);
 				}
 			}
 			return token;
 		},
+
+		async signIn({ user, account }) {
+			if (account?.provider === "google") {
+				const res = await fetch(`${process.env.SERVER_URL}/user/login`, {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					credentials: "include",
+					body: JSON.stringify({
+						email: user.email,
+					}),
+				});
+				const data = await res.json();
+				console.log("THE DATA IS", data);
+				if (data.isVerified) {
+					user.isVerified = data.isVerified;
+				}
+				return data.status === 200 || data.status === 201;
+			}
+
+			return true;
+		},
+
 		async session({ session, token }) {
-			if (session.user) {
-				const user = {
+			if (session.user && token) {
+				session.user = {
 					id: token.id as string,
 					email: token.email as string,
 					name: token.name as string,
-					image: token.image as string,
+					image: token.profilePic as string,
 					phone: token.phone as string,
 					firstName: token.firstName as string,
 					lastName: token.lastName as string,
@@ -126,11 +134,9 @@ export const authOptions: NextAuthOptions = {
 					isVerified: token.isVerified as boolean,
 					providerRole: token.providerRole as string,
 					address: token.address,
-					profileImage: token.profileImage as string,
+					//   profilePic: token.profilePic as string,
 					authProvider: token.authProvider as "google",
-				} satisfies ExtendedSessionUser;
-
-				session.user = user;
+				};
 			}
 			return session;
 		},

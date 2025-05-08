@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Img from "@/public/websiteImages/registerpageImage.webp";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { FcGoogle } from "react-icons/fc";
 import { useRouter } from "next/navigation";
 
@@ -12,6 +12,19 @@ const Login = () => {
 	const router = useRouter();
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState("");
+	const { data, status } = useSession();
+
+
+	if(status === "loading") {
+		return <div className="flex justify-center items-center h-screen">Loading...</div>;
+	}
+	if(data?.user.isVerified){
+		router.push("/dashboard");
+		// return null;
+	}else if(data?.user.isVerified === false){
+		router.push("/auth/complete-profile");
+		// return null;
+	}
 
 	const handleGoogleSignIn = async () => {
 		try {
