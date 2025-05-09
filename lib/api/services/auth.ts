@@ -110,25 +110,23 @@ export const loginUser = async (credentials: {
 			authProvider: "google",
 		};
 
-		const response = await axios.post(
-			`${process.env.SERVER_URL}/user/login`,
-			loginData,
-			{
-				headers: {
-					"Content-Type": "application/json",
-				},
-				withCredentials: true,
-			}
-		);
+		const res = await fetch(`${process.env.SERVER_URL}/user/login`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			credentials: "include",
+			body: JSON.stringify(loginData),
+		})
 
 		console.log(`User login attempt with Google: ${JSON.stringify(loginData)}`);
 
-		const data = response.data;
+		const data = await res.json();
 
 		// Transform and validate user data
 
 		return {
-			status: response.status,
+			status: res.status,
 			message: "Login successful",
 			data:
 				data.user ?
