@@ -183,6 +183,20 @@ export const fetchUserByEmail = async (
   }
 };
 
+// Fetch user ID by email
+export const fetchUserIdByEmail = async (email: string): Promise<string | null> => {
+		try {
+				const response = await fetchUserByEmail(email);
+				if (response.status === 200 && response.data) {
+						return response.data.userId;
+				}
+				throw new Error(response.message || "Failed to fetch user ID");
+		} catch (error) {
+				const errorMessage = error instanceof Error ? error.message : "Failed to fetch user ID";
+				console.error("Error fetching user ID:", errorMessage);
+				return null;
+		}
+};
 
 // Update existing user
 export const updateUser = async (
