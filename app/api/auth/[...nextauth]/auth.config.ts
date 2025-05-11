@@ -10,6 +10,8 @@ if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
 
 interface ExtendedUser extends NextAuthUser {
 	id: string;
+	userId: string; // Add userId field that server generates
+	username: string; // Add username field that server generates
 	email: string;
 	name: string;
 	image?: string;
@@ -19,9 +21,17 @@ interface ExtendedUser extends NextAuthUser {
 	role?: EUserRole;
 	isVerified?: boolean;
 	providerType?: string;
-	address?: any[];
+	address?: any;
 	profilePic?: string;
 	authProvider?: "google";
+	serviceProvider?: {
+		id: string;
+		providerType?: string;
+		specialization?: string[];
+		experience?: number;
+		description?: string;
+		fee?: number;
+	};
 }
 
 export const authOptions: NextAuthOptions = {
@@ -53,28 +63,17 @@ export const authOptions: NextAuthOptions = {
 		}),
 	],
 	pages: {
-		error: "/auth/error",
 		newUser: "/auth/complete-profile",
+		error: "/auth/error",
 	},
 	callbacks: {
 		async jwt({ token, user }) {
 			if (user) {
 				const extendedUser = user as ExtendedUser;
-				token.id = extendedUser.id;
-				token.email = extendedUser.email;
-				token.name = extendedUser.name;
-				token.phone = extendedUser.phone;
-				token.firstName = extendedUser.firstName;
-				token.lastName = extendedUser.lastName;
-				token.role = extendedUser.role;
-				token.isVerified = extendedUser.isVerified;
-				token.providerRole = extendedUser.providerType;
-				token.address = extendedUser.address;
-				token.profilePic = extendedUser.image || null;
-				token.authProvider = extendedUser.authProvider;
 
 				try {
-					const response = await createUser({
+					// First create the user
+					const createUserResponse = await createUser({
 						email: extendedUser.email ?? undefined,
 						firstName: extendedUser.firstName,
 						lastName: extendedUser.lastName,
@@ -85,13 +84,51 @@ export const authOptions: NextAuthOptions = {
 						authProvider: "google",
 					});
 
-					if (response.status !== 200 && response.status !== 201) {
-						console.error("Google auth error:", response.message);
-					} else {
-						token.signupData = response.data;
+					if (
+						createUserResponse.status !== 200 &&
+						createUserResponse.status !== 201
+					) {
+						console.error("User creation error:", createUserResponse.message);
+						return token;
+					}
+
+					// Then login to get full user data
+					const loginResponse = await fetch(
+						`${process.env.SERVER_URL}/api/user/signup`,
+						{
+							method: "POST",
+							headers: {
+								"Content-Type": "application/json",
+							},
+							body: JSON.stringify({
+								email: extendedUser.email,
+							}),
+						}
+					);
+
+					const userData = await loginResponse.json();
+
+					// Map server response to token
+					token.id = userData.id;
+					token.userId = userData.userId;
+					token.username = userData.username;
+					token.email = userData.email;
+					token.name =
+						userData.name ||
+						`${extendedUser.firstName} ${extendedUser.lastName}`;
+					token.phone = userData.phone;
+					token.role = userData.role;
+					token.isVerified = userData.isVerified;
+					token.providerType = userData.serviceProvider?.providerType;
+					token.address = userData.address;
+					token.profilePic = userData.profilePic || extendedUser.image;
+					token.authProvider = "google";
+
+					if (userData.serviceProvider) {
+						token.serviceProvider = userData.serviceProvider;
 					}
 				} catch (err) {
-					console.error("Error during Google auth:", err);
+					console.error("Error during authentication:", err);
 				}
 			}
 			return token;
@@ -99,24 +136,40 @@ export const authOptions: NextAuthOptions = {
 
 		async signIn({ user, account }) {
 			if (account?.provider === "google") {
-				const res = await fetch(`${process.env.SERVER_URL}/user/signup`, {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					credentials: "include",
-					body: JSON.stringify({
-						email: user.email,
-					}),
-				});
-				const data = await res.json();
-				console.log("THE DATA IS", data);
-				if (data.isVerified) {
-					user.isVerified = data.isVerified;
-				}
-				return data.status === 200 || data.status === 201;
-			}
+				try {
+					const res = await fetch(`${process.env.SERVER_URL}/api/user/login`, {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						body: JSON.stringify({
+							email: user.email,
+						}),
+					});
 
+					const data = await res.json();
+
+					if (!data) {
+						return false;
+					}
+
+					const extendedUser = user as ExtendedUser;
+
+					// Update user object with server data
+					extendedUser.id = data.id;
+					extendedUser.userId = data.userId;
+					extendedUser.username = data.username;
+					extendedUser.isVerified = data.isVerified;
+					extendedUser.role = data.role;
+					extendedUser.profilePic = data.profilePic;
+					extendedUser.serviceProvider = data.serviceProvider;
+
+					return true;
+				} catch (error) {
+					console.error("Sign in error:", error);
+					return false;
+				}
+			}
 			return true;
 		},
 
