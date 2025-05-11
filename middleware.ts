@@ -38,5 +38,13 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-	matcher: ["/dashboard/:path*", "/auth/complete-profile"],
+	matcher: [
+		"/dashboard/:path*",
+		"/auth/complete-profile",
+		"/dashboard/patient/:userId/:path*",
+		"/dashboard/doctor/:userId/:path*",
+		"/dashboard/hospital/:userId/:path*",
+		"/dashboard/lab/:userId/:path*",
+		"/dashboard/pharmaceutical/:userId/:path*",
+	],
 };

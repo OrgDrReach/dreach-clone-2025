@@ -102,6 +102,33 @@ interface UserLookupResponse {
 	email: string;
 }
 
+const getRoleDashboardPath = async (role: string, email: string) => {
+	try {
+		const userResponse = await fetchUserByEmail(email);
+		if (!userResponse?.data?.userId) {
+			throw new Error("User ID not found");
+		}
+
+		const userId = userResponse.data.userId;
+
+		switch (role) {
+			case "PATIENT":
+				return `/dashboard/patient/${userId}`;
+			case "DOCTOR":
+				return `/dashboard/doctor/${userId}`;
+			case "HOSPITAL":
+				return `/dashboard/hospital/${userId}`;
+			case "LAB":
+				return `/dashboard/lab/${userId}`;
+			default:
+				return "/dashboard";
+		}
+	} catch (error) {
+		console.error("Error getting dashboard path:", error);
+		return "/dashboard";
+	}
+};
+
 export default function CompleteProfile() {
 	const router = useRouter();
 	const { data: session, update } = useSession({
@@ -121,6 +148,7 @@ export default function CompleteProfile() {
 	const [isOtpSent, setIsOtpSent] = useState(false);
 	const [userData, setUserData] = useState<UserLookupResponse | null>(null);
 	const [fetchError, setFetchError] = useState<string | null>(null);
+	const [isRedirecting, setIsRedirecting] = useState(false);
 
 	const form = useForm<ProfileFormData>({
 		resolver: zodResolver(profileSchema),
@@ -276,16 +304,20 @@ export default function CompleteProfile() {
 
 			if (updateResponse.status === 200 || updateResponse.status === 201) {
 				if (updateResponse.data) {
-					await update(); // Update the session with new user data
-					toast.success("Profile updated successfully");
-					console.log("Redirecting to dashboard..."); // Add logging
-					router.push("/dashboard");
-					// Add force navigation if regular push doesn't work
-					setTimeout(() => {
-						window.location.href = "/dashboard";
-					}, 1000);
-				} else {
-					throw new Error("No data received from server");
+					setIsRedirecting(true);
+					try {
+						await update();
+						toast.success("Profile updated successfully");
+						const dashboardPath = await getRoleDashboardPath(
+							updateResponse.data.role,
+							session.user.email || ""
+						);
+						router.push(dashboardPath);
+					} catch (error) {
+						setIsRedirecting(false);
+						console.error("Redirect error:", error);
+						toast.error("Error during redirect");
+					}
 				}
 			} else {
 				throw new Error(
