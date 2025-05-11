@@ -28,11 +28,7 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { toast } from "sonner";
-import {
-	updateUser,
-	fetchUserByEmail,
-	
-} from "@/lib/api/services/user";
+import { updateUser, fetchUserByEmail } from "@/lib/api/services/user";
 
 // Define a more complete Session type that includes our custom fields
 interface ExtendedUser {
@@ -148,11 +144,10 @@ export default function CompleteProfile() {
 	});
 
 	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files) {
-            setFile(e.target.files[0]); // Set the selected file
-        }
-    };
-
+		if (e.target.files) {
+			setFile(e.target.files[0]); // Set the selected file
+		}
+	};
 
 	const sendOtp = async () => {
 		const phone = form.getValues("phone");
@@ -267,23 +262,28 @@ export default function CompleteProfile() {
 			if (!userResponse) {
 				throw new Error("Failed to fetch or create user");
 			}
+
 			const mappedBloodGroup = mapBloodGroup(data.bloodGroup);
-			// Update the form data with the user ID
 			const updateData = {
 				...data,
 				userId: userResponse.userId,
 				bloodGroup: mappedBloodGroup,
-			
 			};
 
 			// Update the user profile
 			const updateResponse = await updateUser(updateData, file || undefined);
+			console.log("Update response:", updateResponse); // Add logging
 
 			if (updateResponse.status === 200 || updateResponse.status === 201) {
 				if (updateResponse.data) {
 					await update(); // Update the session with new user data
 					toast.success("Profile updated successfully");
+					console.log("Redirecting to dashboard..."); // Add logging
 					router.push("/dashboard");
+					// Add force navigation if regular push doesn't work
+					setTimeout(() => {
+						window.location.href = "/dashboard";
+					}, 1000);
 				} else {
 					throw new Error("No data received from server");
 				}
@@ -319,16 +319,16 @@ export default function CompleteProfile() {
 						<form
 							onSubmit={form.handleSubmit(onSubmit)}
 							className="space-y-6 w-full max-w-[500px] mx-auto">
-								{/* Profile Picture Upload */}
-								<div>
-                                <FormLabel className="text-white">Profile Picture</FormLabel>
-                                <input
-                                    type="file"
-                                    accept="image/*"
-                                    onChange={handleFileChange} // Added file input handler
-                                    className="block w-full text-white bg-gray-800 border border-gray-600 rounded-md"
-                                />
-                            </div>
+							{/* Profile Picture Upload */}
+							<div>
+								<FormLabel className="text-white">Profile Picture</FormLabel>
+								<input
+									type="file"
+									accept="image/*"
+									onChange={handleFileChange} // Added file input handler
+									className="block w-full text-white bg-gray-800 border border-gray-600 rounded-md"
+								/>
+							</div>
 
 							<FormField
 								control={form.control}
