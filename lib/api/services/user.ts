@@ -50,11 +50,26 @@ export const createUser = async (
 		const data = await res.json();
 
 		console.log(data);
-		return {
-			status: res.status,
-			message: data,
-			data: data.userId,
-		};
+
+
+
+
+		 let user: IUser | undefined = data.user;
+        if (!user && data.userId) {
+            const userRes = await fetch(`${process.env.SERVER_URL}/user/fetchUserById/${data.userId}`, {
+                method: "GET",
+                headers: { "Content-Type": "application/json" },
+                credentials: "include",
+            });
+            const userData = await userRes.json();
+            user = userData.user;
+        }
+
+        return {
+            status: res.status,
+            message: data.message || "User created",
+            data: user,
+        };
 	} catch (error) {
 		console.error("Error creating user:", error);
 		return {
@@ -77,7 +92,7 @@ export const fetchUserById = async (
 		}
 
 		const res = await fetch(
-			`${process.env.SERVER_URL}/api/user/fetchUserById/${userId}`,
+			`${process.env.SERVER_URL}/user/fetchUserById/${userId}`,
 			{
 				method: "GET",
 				headers: {
@@ -128,7 +143,7 @@ export const fetchUserByEmail = async (
 
     console.log("Attempting to fetch user with email:", email);
     const res = await fetch(
-      `${process.env.SERVER_URL}/api/user/fetchUserByEmail/?email=${encodeURIComponent(email)}`,
+      `${process.env.SERVER_URL}/user/fetchUserByEmail/?email=${encodeURIComponent(email)}`,
       {
         method: "GET",
         headers: {
@@ -142,17 +157,16 @@ export const fetchUserByEmail = async (
     console.log("Response status:", res.status);
     console.log("Response data:", data);
 
-    // Handle user found
-    if (res.ok && data?.userId) {
-      console.log("User found with ID:", data.userId);
+    // User found
+    if (res.ok && data?.user) {
       return {
         status: 200,
         message: "User found successfully",
-        data,
+        data: data.user,
       };
     }
 
-    // Handle user not found
+    // User not found, create new user and fetch full user object
     if (res.status === 404) {
       console.log("User not found, creating new user");
       const createUserResponse = await createUser({
@@ -171,7 +185,6 @@ export const fetchUserByEmail = async (
       throw new Error(createUserResponse.message || "Failed to create user");
     }
 
-    // Handle unexpected response
     throw new Error(data.message || "Unexpected error occurred");
   } catch (error) {
     console.error("Error in fetchUserByEmail:", error);
@@ -208,7 +221,7 @@ export const updateUser = async (
             throw new Error("SERVER_URL environment variable is not defined");
         }
 
-        const apiUrl = `${process.env.SERVER_URL}/api/user/updateUser`;
+        const apiUrl = `${process.env.SERVER_URL}/user/updateUser`;
 
         // Create a FormData object to handle both file and user data
         const formData = new FormData();
@@ -261,7 +274,7 @@ export const fetchPatientProfile = async (
 ): Promise<ApiResponse<IPatient>> => {
 	try {
 		const res = await fetch(
-			`${process.env.SERVER_URL}/api/user/patient/${userId}`,
+			`${process.env.SERVER_URL}/user/patient/${userId}`,
 			{
 				method: "GET",
 				headers: {
@@ -297,7 +310,7 @@ export const deleteUser = async (
 	userId: string
 ): Promise<ApiResponse<void>> => {
 	try {
-		const res = await fetch(`${process.env.SERVER_URL}/api/user/${userId}`, {
+		const res = await fetch(`${process.env.SERVER_URL}/user/${userId}`, {
 			method: "DELETE",
 			headers: {
 				"Content-Type": "application/json",

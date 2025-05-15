@@ -67,7 +67,7 @@ export const createUser = async (
 	userData: Partial<IUser>
 ): Promise<ApiResponse<IUser>> => {
 	try {
-		const res = await fetch(`${process.env.SERVER_URL}/api/user/signup`, {
+		const res = await fetch(`${process.env.SERVER_URL}/user/signup`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -110,7 +110,7 @@ export const loginUser = async (credentials: {
 			authProvider: "google",
 		};
 
-		const res = await fetch(`${process.env.SERVER_URL}/api/user/login`, {
+		const res = await fetch(`${process.env.SERVER_URL}/user/login`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
