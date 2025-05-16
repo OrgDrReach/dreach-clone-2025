@@ -3566,9 +3566,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dreach-latest-2025@workspace:.":
+"dreach-clone-2025@workspace:.":
   version: 0.0.0-use.local
-  resolution: "dreach-latest-2025@workspace:."
+  resolution: "dreach-clone-2025@workspace:."
   dependencies:
     "@auth/core": "npm:0.34.2"
     "@eslint/eslintrc": "npm:^3.3.1"
