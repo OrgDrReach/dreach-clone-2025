@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { X } from "lucide-react";
-import { Prescription } from "./type";
+import { IPrescription } from "@/types/doctor.d.types";
 
 interface PrescriptionEditModalProps {
-  prescription: Prescription;
-  onSave: (prescription: Prescription) => void;
+  prescription: IPrescription;
+  onSave: (prescription: IPrescription) => void;
   onClose: () => void;
 }
 

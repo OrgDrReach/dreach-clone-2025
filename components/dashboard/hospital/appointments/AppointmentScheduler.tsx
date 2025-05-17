@@ -36,7 +36,7 @@ export const AppointmentScheduler: React.FC = () => {
         <CardTitle className="text-3xl font-bold text-center">Schedule Appointment</CardTitle>
       </CardHeader>
       <CardContent className="space-y-8 w-full">
-        <Alert variant="info" className="dark:bg-gray-700 dark:text-gray-300 w-full flex">
+        <Alert variant="default" className="dark:bg-gray-700 dark:text-gray-300 w-full flex">
           <Info className="h-5 w-5 mr-2 inline" />
           <span className="font-semibold">Note:</span> Make sure the doctor's schedule is available before scheduling.
         </Alert>
