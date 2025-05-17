@@ -11,6 +11,7 @@ import {
   IOperatingHours,
 } from "./provider.d.types";
 import { IUser } from "./user.d.types";
+import { EPrescriptionStatus } from '@/types/doctor.d.types';
 
 export interface IDoctor {
   id: string; // Unique ID
@@ -183,11 +184,20 @@ export interface IAppointmentManager {
   }[];
 }
 
+export enum EPrescriptionStatus {
+  ACTIVE = "Active",
+  INACTIVE = "Inactive",
+  PENDING = "Pending",
+  SENT = "Sent",
+  DRAFT = "Draft"
+}
+
 export type IPrescription = {
   id: number;
   name: string;
   patientName: IUser.name;
-  status?: "Active" | "Inactive" | "Pending";
+  patientId: IUser.userId;
+  status?: EPrescriptionStatus;
   dosage: string;
   frequency: string;
   disease?: string;
