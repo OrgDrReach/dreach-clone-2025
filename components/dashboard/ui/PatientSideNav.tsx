@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useContext, createContext } from "react";
+import { useState, useContext, createContext, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useParams, usePathname } from "next/navigation";
 import Link from "next/link";
@@ -33,6 +33,7 @@ import {
 	TooltipProvider,
 } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
+import { fetchUserById } from "@/lib/api/services/user"; // Adjust the import based on your project structure
 
 const SideBarContext = createContext({ expanded: true } as any);
 
@@ -43,20 +44,38 @@ interface SideBarProps {
 }
 
 const SideBar = ({ children, onToggle, isCollapsed }: SideBarProps) => {
+	const { userId } = useParams(); // Get userId from URL parameters
 	const { data: session } = useSession();
-	// Enhanced console logging
-	console.log("[SideBar] Authentication Status:", {
-		isAuthenticated: !!session,
-		timestamp: new Date().toISOString(),
-	});
 
-	console.log("[SideBar] Session Details:", {
-		session,
-		user: session?.user,
-		profileImage: session?.user?.profileImage,
-		name: session?.user?.name,
-		email: session?.user?.email,
-	});
+	// Fetch user data from server using fetchUserById service
+	useEffect(() => {
+		const userData = async () => {
+			if (userId) {
+				try {
+					const response = await fetchUserById(`${userId}`);
+
+					// Log server response data
+					console.log("[SideBar] Server Response:", response.data);
+
+					// Log any errors
+					if (response.status !== 200) {
+						console.error(
+							"[SideBar] Error fetching user data:",
+							response.message
+						);
+					}
+				} catch (error) {
+					console.error("[SideBar] API Error:", {
+						error: error instanceof Error ? error.message : "Unknown error",
+						timestamp: new Date().toISOString(),
+					});
+				}
+			}
+		};
+
+		userData();
+	}, [userId]); // Changed dependency from session?.user?.id to userId
+
 	return (
 		<div className="h-screen">
 			<nav className="h-full relative flex flex-col bg-[#125872] border-r shadow-sm">
@@ -66,6 +85,7 @@ const SideBar = ({ children, onToggle, isCollapsed }: SideBarProps) => {
 						height={1000}
 						width={1000}
 						alt="logo"
+						priority={true}
 						className={cn(
 							"overflow-hidden transition-all",
 							isCollapsed ? "w-0" : "w-32"
